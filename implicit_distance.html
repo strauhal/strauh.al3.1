@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>strauh.al/implicit_distance</title>
+    <style>
+
+        .app-wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            /*padding: 1rem;*/
+            box-sizing: border-box; /* Include padding in height calculation */
+        }
+
+        .video {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+        }
+
+        iframe {
+            width: 80vw;
+            height: 80vh;
+            margin-left: 10vw;
+        }
+
+        body {
+          background-color: #00f;
+          font-family: times new roman;
+        }
+
+        .video {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+        }
+
+        iframe {
+          width: 80vw;
+          height: 80vh;
+          margin-left: 10vw;
+        }
+
+        p {
+          color: #fff;
+          font-weight: 100;
+          font-size: 14pt;
+          margin-left: 15vw;
+          margin-right: 25vw;
+        }
+
+        h1 {
+          font-size: 24pt;
+          color: #fff;
+          font-weight: 100;
+          margin-left: 0vw;
+        }
+
+        h2 {
+          font-size: 24pt;
+          color: #fff;
+          font-weight: 100;
+          margin-left: 5vw;
+        }
+
+        h3 {
+          font-size: 24pt;
+          color: #fff;
+          font-weight: 100;
+          margin-left: 15vw;
+        }
+
+        a:hover {
+          background-color: #fff;
+        }
+
+        a:visited {
+          color: #fff;
+        }
+
+        a:link {
+          color: #fff;
+        }
+
+        .interactive-button {
+            display: inline-block;
+            color: #fff;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-family: 'times new roman', serif;
+            text-decoration: none;
+            padding: 0.25rem 0.5rem;
+            font-weight: 100;
+            font-size: 14pt;
+        }
+        .interactive-button:hover {
+            background-color: #fff;
+            color: #fff; /* Text color matches background on hover */
+            text-decoration: underline;
+        }
+        .interactive-button:disabled {
+            color: #aaa;
+            cursor: not-allowed;
+            background-color: transparent;
+            text-decoration: none;
+        }
+        .interactive-button:disabled:hover {
+            background-color: transparent;
+            color: #aaa;
+            text-decoration: none;
+        }
+
+
+        @keyframes changeColor {
+            0% { background-color: #00f; }
+            50% { background-color: #20f; }
+            100% { background-color: #00f; }
+        }
+
+        /* --- App-Specific Styles --- */
+        
+        #playhead {
+            position: absolute;
+            top: 0;
+            /* Adjusted left to account for stem controls width */
+            left: var(--stem-controls-width, 0px); 
+            width: 2px;
+            height: 100%;
+            background-color: #fff; /* White playhead */
+            pointer-events: none;
+            will-change: transform;
+        }
+        
+        #controls {
+            display: flex;
+            justify-content: left;
+            margin-bottom: 1rem;
+            flex-shrink: 0; /* Prevent controls from shrinking */
+        }
+        
+        .control-button {
+            padding: 0.25rem 0.75rem;
+            margin: 0 0.5rem;
+            line-height: 1;
+        }
+        
+        #waveform-container {
+            flex-grow: 1; /* This will now correctly fill remaining space */
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            min-height: 0; /* Crucial for flex-grow to work properly in a column */
+        }
+        
+        #waveform-container > .stem-row + .stem-row {
+            /*margin-top: 0.25rem;*/
+        }
+
+        .stem-row {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            flex-grow: 1;
+            min-height: 0; /* Crucial for nested flex to work */
+        }
+        
+        .stem-waveform {
+            width: 100%;
+            height: 100%;
+            background-color: transparent; /* No background behind waveform */
+        }
+        .stem-waveform.muted-display {
+            /* Removed opacity: 0.3, waveforms stay white */
+        }
+
+        .stem-controls {
+            display: flex;
+            flex-direction: column;
+            margin-right: 0.5rem;
+            /* Added explicit width for consistent playhead alignment */
+            width: 55px; /* Adjust based on button padding/margin */ 
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+        .stem-controls > .stem-control-button + .stem-control-button {
+            /*margin-top: 0.25rem;*/
+        }
+
+        .stem-control-button {
+            padding: 0.125rem 0.25rem;
+            text-align: center;
+            width: 100%; /* Fill parent stem-controls width */
+            text-transform: lowercase; /* Make text lowercase */
+        }
+        
+        .mute-button.active {
+            text-decoration: underline;
+        }
+        .solo-button.active {
+            text-decoration: underline;
+        }
+        
+        #loading-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 100, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+        }
+        
+        #loading-overlay > p {
+            font-size: 1.25rem;
+            /*margin-top: 1rem;*/
+            color: #fff;
+            font-weight: 100;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        
+        .spinner {
+            border-radius: 50%;
+            height: 4rem;
+            width: 4rem;
+            border-top: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+            border-left: 2px solid transparent;
+            border-right: 2px solid transparent;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 900px) {
+            .app-wrapper {
+
+            }
+
+            img {
+                width: 50vw;
+            }
+
+            p {
+                font-size: 5vw;
+                margin-right: 0;
+            }
+
+            h1 {
+                font-size: 24pt;
+                color: #fff;
+                font-weight: 100;
+                margin-left: 0vw;
+              }
+
+            h2 {
+                font-size: 5vw;
+            }
+
+            h3 {
+                font-size: 5vw;
+            }
+            
+            .control-button {
+                font-size: 1rem;
+                padding: 0.25rem 0.5rem;
+                margin: 0 0.25rem;
+            }
+            .stem-controls {
+                width: 45px; /* Adjust for smaller mobile buttons */
+            }
+            .stem-control-button {
+                font-size: 0.8rem;
+                padding: 0.1rem 0.15rem;
+            }
+        }
+    </style>
+
+    <script src="script.js" defer></script>
+
+</head>
+<body class="">
+
+  <h1><a href="https://strauh.al">strauh.al</a>/implicit_distance</h1>
+
+  <br>
+
+  <p>this is a composition i made in 2023 called "implicit distance."  i arrived at this distinct sonic aesthetic by overlaying sketches i made on a synthesizer and i manipulated them through different warping algorithms.  when an audio clip is stretched to its limit, the warping algorithm fills in the space by interpolating between each audio sample.  similarly, the visuals accompanying this piece were created with styleGAN, a neural network interpolating through a dataset of images from my life. -> https://www.youtube.com/watch?v=so9tbVi-ypM</p> <p>i hope you enjoy listening to this piece as much as i enjoyed creating it.<br>  </p>
+
+    <!-- New wrapper div -->
+    <div class="app-wrapper">
+
+        <div id="loading-overlay">
+            <div class="spinner"></div>
+            <p>Loading audio stems...</p>
+        </div>
+
+        
+
+        <div id="controls">
+            <button id="playButton" class="interactive-button control-button" disabled>play</button>
+            <button id="pauseButton" class="interactive-button control-button" disabled>pause</button>
+            <button id="stopButton" class="interactive-button control-button" disabled>stop</button>
+        </div>
+
+        <div id="waveform-container">
+            <div id="playhead"></div>
+        </div>
+
+    </div> <!-- End of app-wrapper -->
+
+    <script type="module">
+        window.addEventListener('DOMContentLoaded', () => {
+
+            // --- 1. SET UP CONSTANTS AND ELEMENTS ---
+            const DURATION_SECONDS = 5 * 60 + 28; 
+
+            const playButton = document.getElementById('playButton');
+            const pauseButton = document.getElementById('pauseButton');
+            const stopButton = document.getElementById('stopButton');
+            const waveformContainer = document.getElementById('waveform-container');
+            const playhead = document.getElementById('playhead');
+            const loadingOverlay = document.getElementById('loading-overlay');
+            const globalControlButtons = document.querySelectorAll('.control-button');
+
+            // --- 2. AUDIO DATA & STATE ---
+            const audioURLs = [
+                'https://raw.githubusercontent.com/strauhal/strauh.al/main/implicitdistance/1.mp3',
+                'https://raw.githubusercontent.com/strauhal/strauh.al/main/implicitdistance/2.mp3',
+                'https://raw.githubusercontent.com/strauhal/strauh.al/main/implicitdistance/3.mp3',
+                'https://raw.githubusercontent.com/strauhal/strauh.al/main/implicitdistance/4.mp3',
+                'https://raw.githubusercontent.com/strauhal/strauh.al/main/implicitdistance/5.mp3'
+            ];
+
+            const audioElements = [];
+            const stemControlElements = []; // { muteButton, soloButton, waveformCanvas }
+            let loadedCount = 0;
+            const totalToLoad = audioURLs.length;
+            let currentSoloTrack = null;
+
+            // --- 3. WEB AUDIO API SETUP ---
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            let decodedAudioBuffers = [];
+
+            // --- 4. DYNAMIC UI CREATION ---
+            audioURLs.forEach((url, index) => {
+                const stemRow = document.createElement('div');
+                stemRow.className = 'stem-row';
+                waveformContainer.appendChild(stemRow);
+
+                const controlsDiv = document.createElement('div');
+                controlsDiv.className = 'stem-controls';
+                stemRow.appendChild(controlsDiv);
+
+                const muteButton = document.createElement('button');
+                muteButton.textContent = 'mute'; // Changed to lowercase
+                muteButton.className = 'interactive-button stem-control-button mute-button';
+                muteButton.disabled = true;
+                controlsDiv.appendChild(muteButton);
+
+                const soloButton = document.createElement('button');
+                soloButton.textContent = 'solo'; // Changed to lowercase
+                soloButton.className = 'interactive-button stem-control-button solo-button';
+                soloButton.disabled = true;
+                controlsDiv.appendChild(soloButton);
+
+                const canvas = document.createElement('canvas');
+                canvas.className = 'stem-waveform';
+                stemRow.appendChild(canvas);
+
+                stemControlElements.push({ muteButton, soloButton, waveformCanvas: canvas, controlsDiv: controlsDiv }); // Store controlsDiv to get its width
+
+                const audio = new Audio();
+                audio.src = url;
+                audio.preload = 'auto';
+                audioElements.push(audio);
+            });
+
+            // Set CSS variable for playhead positioning based on the first controlsDiv
+            const firstControlsDiv = stemControlElements[0]?.controlsDiv;
+            if (firstControlsDiv) {
+                // Ensure layout is rendered before getting width
+                requestAnimationFrame(() => {
+                    document.documentElement.style.setProperty('--stem-controls-width', `${firstControlsDiv.offsetWidth}px`);
+                });
+            }
+
+            // --- 5. REAL WAVEFORM DRAWING ---
+            
+            /**
+             * Draws the decoded audio data onto a canvas.
+             * @param {HTMLCanvasElement} canvas - The canvas to draw on.
+             * @param {Float32Array} pcmData - The raw PCM data from channel 0.
+             */
+            function drawRealWaveform(canvas, pcmData) {
+                // ALWAYS set canvas bitmap size to its current CSS-defined size
+                // This is the fix for resizing.
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+                
+                // Add a guard clause in case the canvas is hidden or has no dimensions
+                if (!canvas.width || !canvas.height) {
+                    console.warn("Canvas has no dimensions, skipping draw.");
+                    return; 
+                }
+
+                const ctx = canvas.getContext('2d');
+                const width = canvas.width;
+                const height = canvas.height;
+                
+                ctx.clearRect(0, 0, width, height);
+                ctx.strokeStyle = '#ffffff'; // Pure white waveform
+                ctx.lineWidth = 1;
+
+                const samplesPerPixel = Math.floor(pcmData.length / width);
+                
+                ctx.beginPath();
+
+                for (let x = 0; x < width; x++) {
+                    const startIndex = x * samplesPerPixel;
+                    const endIndex = Math.min(startIndex + samplesPerPixel, pcmData.length);
+                    
+                    let minVal = 1.0;
+                    let maxVal = -1.0;
+                    
+                    for (let i = startIndex; i < endIndex; i++) {
+                        const sample = pcmData[i];
+                        if (sample > maxVal) maxVal = sample;
+                        if (sample < minVal) minVal = sample;
+                    }
+                    
+                    // Scale values to canvas height, centered
+                    const yMax = ((-maxVal + 1) / 2) * height; // Invert max/min for drawing direction
+                    const yMin = ((-minVal + 1) / 2) * height;
+                    
+                    ctx.moveTo(x, yMax);
+                    ctx.lineTo(x, yMin);
+                }
+                ctx.stroke();
+            }
+            
+            async function loadAndDrawWaveforms() {
+                const fetchPromises = audioURLs.map(url => 
+                    fetch(url).then(res => {
+                        if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.statusText}`);
+                        return res.arrayBuffer();
+                    })
+                );
+                const arrayBuffers = await Promise.all(fetchPromises);
+                
+                const decodePromises = arrayBuffers.map(buffer => 
+                    audioContext.decodeAudioData(buffer)
+                );
+                decodedAudioBuffers = await Promise.all(decodePromises);
+
+                stemControlElements.forEach((stem, index) => {
+                    drawRealWaveform(stem.waveformCanvas, decodedAudioBuffers[index].getChannelData(0));
+                });
+            }
+
+            window.addEventListener('resize', () => {
+                // Update CSS variable on resize too, in case layout changes dramatically
+                if (firstControlsDiv) {
+                    document.documentElement.style.setProperty('--stem-controls-width', `${firstControlsDiv.offsetWidth}px`);
+                }
+                if (decodedAudioBuffers.length > 0) {
+                    stemControlElements.forEach((stem, index) => {
+                        drawRealWaveform(stem.waveformCanvas, decodedAudioBuffers[index].getChannelData(0));
+                    });
+                }
+            });
+
+            // --- 6. GLOBAL CONTROL LOGIC ---
+            playButton.addEventListener('click', () => {
+                const playPromises = audioElements.map(audio => {
+                    if (!audio.muted || (currentSoloTrack !== null && audioElements.indexOf(audio) === currentSoloTrack)) {
+                         return audio.play().catch(e => console.warn("Play interrupted:", e));
+                    }
+                    return Promise.resolve();
+                });
+                Promise.all(playPromises);
+            });
+
+            pauseButton.addEventListener('click', () => {
+                audioElements.forEach(audio => audio.pause());
+            });
+
+            stopButton.addEventListener('click', () => {
+                audioElements.forEach(audio => {
+                    audio.pause();
+                    audio.currentTime = 0;
+                });
+                playhead.style.transform = 'translateX(0px)';
+            });
+
+            window.addEventListener('keydown', (e) => {
+                if (globalControlButtons[0].disabled) return;
+
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    
+                    if (audioElements[0] && !audioElements[0].paused) {
+                        audioElements.forEach(audio => audio.pause());
+                    } else {
+                        const playPromises = audioElements.map(audio => {
+                            if (!audio.muted || (currentSoloTrack !== null && audioElements.indexOf(audio) === currentSoloTrack)) {
+                                 return audio.play().catch(e => console.warn("Play interrupted:", e));
+                            }
+                            return Promise.resolve();
+                        });
+                        Promise.all(playPromises);
+                    }
+                }
+            });
+
+            // --- 7. INDIVIDUAL STEM CONTROL LOGIC (Mute/Solo) ---
+            stemControlElements.forEach((stemControls, index) => {
+                const audio = audioElements[index]; 
+                const muteButton = stemControls.muteButton;
+                const soloButton = stemControls.soloButton;
+                const waveformCanvas = stemControls.waveformCanvas;
+
+                muteButton.addEventListener('click', () => {
+                    audio.muted = !audio.muted;
+                    muteButton.classList.toggle('active', audio.muted);
+                    waveformCanvas.classList.toggle('muted-display', audio.muted);
+                    
+                    if (audio.muted) {
+                        if (currentSoloTrack === index) {
+                            currentSoloTrack = null;
+                            soloButton.classList.remove('active');
+                            audioElements.forEach((otherAudio, otherIndex) => {
+                                if (otherIndex !== index) {
+                                    otherAudio.muted = false;
+                                    stemControlElements[otherIndex].muteButton.classList.remove('active');
+                                    stemControlElements[otherIndex].waveformCanvas.classList.remove('muted-display');
+                                }
+                            });
+                        }
+                    } else {
+                        if (currentSoloTrack !== null && currentSoloTrack !== index) {
+                            audio.muted = true;
+                            muteButton.classList.add('active');
+                            waveformCanvas.classList.add('muted-display');
+                        }
+                    }
+                });
+
+                soloButton.addEventListener('click', () => {
+                    if (currentSoloTrack === index) {
+                        currentSoloTrack = null;
+                        soloButton.classList.remove('active');
+                        audioElements.forEach((otherAudio, otherIndex) => {
+                            otherAudio.muted = false;
+                            stemControlElements[otherIndex].muteButton.classList.remove('active');
+                            stemControlElements[otherIndex].soloButton.classList.remove('active');
+                            stemControlElements[otherIndex].waveformCanvas.classList.remove('muted-display');
+                        });
+                    } else {
+                        currentSoloTrack = index;
+                        soloButton.classList.add('active');
+
+                        audioElements.forEach((otherAudio, otherIndex) => {
+                            if (otherIndex === index) {
+                                otherAudio.muted = false;
+                                stemControlElements[otherIndex].muteButton.classList.remove('active');
+                                stemControlElements[otherIndex].waveformCanvas.classList.remove('muted-display');
+
+                            } else {
+                                otherAudio.muted = true;
+                                stemControlElements[otherIndex].muteButton.classList.add('active');
+                                stemControlElements[otherIndex].waveformCanvas.classList.add('muted-display');
+                            }
+                            if (otherIndex !== index) {
+                                stemControlElements[otherIndex].soloButton.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            });
+
+
+            // --- 8. PLAYHEAD ANIMATION ---
+            function animatePlayhead() {
+                if (audioElements.length === 0 || audioElements[0].readyState < 2) {
+                    requestAnimationFrame(animatePlayhead);
+                    return;
+                }
+                
+                const masterAudio = audioElements[0];
+                const progress = DURATION_SECONDS > 0 ? masterAudio.currentTime / DURATION_SECONDS : 0;
+                
+                // Calculate waveform area width (container width - controls width)
+                const waveformAreaWidth = waveformContainer.offsetWidth - (firstControlsDiv ? firstControlsDiv.offsetWidth : 0);
+                const playheadX = progress * waveformAreaWidth;
+
+                playhead.style.transform = `translateX(${playheadX}px)`;
+
+                requestAnimationFrame(animatePlayhead);
+            }
+
+            animatePlayhead();
+
+            // --- 9. AUDIO LOADING FUNCTIONS ---
+            
+            async function allAudioLoaded() {
+                console.log('All 5 MP3 stems loaded for playback.');
+                globalControlButtons.forEach(button => button.disabled = false);
+                stemControlElements.forEach(stem => {
+                    stem.muteButton.disabled = false;
+                    stem.soloButton.disabled = false;
+                });
+                audioElements.forEach(audio => { audio.loop = true; });
+
+                const loadingText = document.querySelector('#loading-overlay p');
+                if (loadingText) {
+                    loadingText.textContent = 'generating waveforms...';
+                }
+
+                try {
+                    await loadAndDrawWaveforms();
+                    loadingOverlay.style.display = 'none';
+                } catch (e) {
+                    console.error("Error generating waveforms:", e);
+                    if (loadingText) {
+                        loadingText.textContent = "Error generating waveforms. Make sure files are accessible (e.g., CORS).";
+                        loadingText.style.color = "#ef4444";
+                    }
+                }
+            }
+
+            async function onAudioLoaded() {
+                loadedCount++;
+                console.log(`Loaded ${loadedCount} of ${totalToLoad} for playback`);
+                if (loadedCount === totalToLoad) {
+                    await allAudioLoaded();
+                }
+            }
+
+            function onAudioError(e) {
+                console.error("Error loading audio file:", e.target.src, e);
+                const loadingText = document.querySelector('#loading-overlay p');
+                if (loadingText) {
+                    loadingText.textContent = "Error loading audio for playback. Check console for details.";
+                    loadingText.style.color = "#ef4444";
+                }
+            }
+
+            // --- 10. START LOADING AUDIO (for playback) ---
+            audioElements.forEach(audio => {
+                audio.addEventListener('canplaythrough', onAudioLoaded, { once: true });
+                audio.addEventListener('error', onAudioError);
+            });
+        });
+    </script>
+</body>
+</html>
+

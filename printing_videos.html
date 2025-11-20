@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>http://strauh.al/scripts</title>
+    
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="./style.css">
+    
+    <!-- import the webpage's javascript file -->
+    <script src="script.js" defer></script>
+
+  </head>  
+  <body>
+    <!-- <h1>strauh.al</h1> -->
+    <h1><a href="http://strauh.al">strauh.al</a>/printing_videos</h2>
+
+	<p><a href="https://www.youtube.com/watch?v=_rR1-n8o67s">visual differences between inkjet and laser printers</a></p>
+
+	<h2>how to print videos</h2>
+		<p>
+
+<br>
+requirements: a printer, a scanner, adobe after effects and photoshop, macOS strongly recommended (optional: chatGPT account)<br>
+disclaimer: this is the way I print my videos; it may be a bit too convoluted so if you find a better way, feel free to tell me via email (<a href="mailto:ernest@strauh.al">ernest@strauh.al</a>)<br>
+<br>
+<h2>step 1: adobe stuff</h2>
+<p>
+<br>
+1a) install after effects and photoshop (and premiere pro if you want to add audio to your videos or do further arranging/cutting)<br>
+<br>
+1b) take any video file (mp4, mov, etc) and drop it into adobe after effects (add any effects if desired)<br>
+<br>
+1c) crop the video into a perfect square (this can be done through composition settings or by pressing ctrl-k or cmd-k)<br>
+<br>
+1d) go to file > export > add to render que<br>
+<br>
+1e) there should be a bunch of options.  I usually go with 30 or 15 frames per second<br>
+<br>
+1f) this part is important:  you want to export the video as a tiff or png sequence instead of a normal video file<br>
+	also check the “put in subfolder option”  this should make organization easy.<br>
+<br>
+<h2>step 2: homebrew, python, libraries…</h2>
+<p>
+<br>
+		***If you run into any issues during this part, just copy and paste the errors into chatgpt and follow the instructions from there<br>
+<br>
+2a) install homebrew (open terminal and enter the text below)<br>
+<br>
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"<br>
+<br>
+2b) install python3 (through homebrew in terminal)<br>
+<br>
+	brew install python3<br>
+<br>
+2c) then install pip (also in terminal)<br>
+<br>
+	python3 get-pip.py<br>
+<br>
+2d) then install the Pillow library (using pip3;  still in terminal land)<br>
+<br>
+	pip3 install Pillow<br>
+	<br>
+	if pip3 install Pillow doesn't work, use brew install Pillow
+	<br><br>
+		(if the terminal throws an error and says “Consider using the `--user` option or check the permissions" just copy and paste --user at the end<br>
+<br>
+<h2>step 3: printing the video</h2>
+<p>
+<br>
+3a) go to <a href="https://strauh.al/scripts">strauh.al/scripts</a> and download the “layout.py” script<br>
+<br>
+3b) put the layout.py script in the folder of your computer that you want to print videos in<br>
+<br>
+3c) we will have to get our hands dirty with python code.  however, the only lines of code you will need to change are:<br>
+<br>
+	images_per_row = (whatever value you want, bigger values create larger images but less texture)<br>
+	images_per_column = copy and paste the value above into this field<br>
+<br>
+	folder_path = "the_name_of_your_folder” (use the name of your folder that contains all of the tiff files that you exported earlier in Adobe After Effects)<br>
+<br>
+3d) run the python script in Terminal by typing in<br>
+<br>
+	python3 layout.py<br>
+<br>
+3e) this python file should create a grid image inside the folder alongside your frames from After Effects.  It will have the name “grid_image_1.jpg” or something like that 
+<br><br>
+3f) open the grid image and print it using ctrl - P or cmd - P.  Check any options regarding if it is in color or black and white.  Also make sure that it scales to the edges of the page and that it didn’t automatically rotate on its side<br>
+
+<br>
+<h2>step 4: scanning the print</h2>
+<p>
+<br>
+4a) open your scanning application of choice (it might be epson scan or you may have to go to system preferences and click on “printers and scanners”)<br>
+<br>
+4b) do an overview scan<br>
+<br>
+4c) select the area of your grid image using the marquee tool<br>
+<br>
+4d) select the scanning dpi (a smaller value will give you a pixelated image and a larger value will give you a sharper image;  however larger values create tiff files that take up more space on your computer)<br>
+<br>
+4e) you want to have this scan saved as a “.tiff” file and you want to save it somewhere on your computer that will be easy to find<br>
+<br>
+4f) scan the image by pressing the scan button<br>
+<br>
+<br>
+<h2>step 5: preparing the scan</h2>
+<p>
+<br>
+5a) open the scanned print in photoshop.  we’ll have to clean it up before we turn it into a video<br>
+<br>
+5b) change the canvas size so that it’s a perfect square (the width and height have to be the same).  you can get to this menu by pressing option-cmd-c<br>
+<br>
+5c) put the image in transform mode by pressing cmd-t.  we need to stretch the edges of the image to the edges of the photoshop canvas.<br>
+<br>
+5d) hold the command or control key on your computer to skew the image towards the edges of the canvas (use puppet warp as needed to further fit the image to the canvas)<br>
+<br>
+5e) save the image by pressing cmd s.  a dialogue will pop up asking us about tiff options.  click on discard layers (to save computer space)<br>
+
+<br>
+<h2>step 6: turning the scan into a video</h2>
+<p>
+<br>
+6a) go to <a href="https://strauh.al/scripts">strauh.al/scripts</a> and download the “slice.py” script<br>
+<br>
+6b) we’ll need to change 5 lines of code in this script for it to work<br>
+<br>
+	square_size = min(image_width, image_height) // (PUT YOUR NUMBER HERE)<br>
+	for y in range(CHANGE THIS TO THE NUMBER ABOVE):<br>
+	for x in range(AND THIS ONE TO THE NUMBER ABOVE TOO): <br>
+<br>
+	image_path = “the_name_of_your_scan.tiff”<br>
+	output_path = “the_folder_where_your_scan_will_be_sliced_into_frames” (create a new folder where your sliced frames will go)<br>
+<br>
+6c) run the python script in terminal by typing in<br>
+<br>
+	python3 slice.py<br>
+<br>
+
+<h2>step 7: working with video</h2>
+<p>
+<br>
+7a) drop the folder containing the sliced print frames into Adobe After Effects<br>
+<br>
+7b) if a video does not immediately appear, drag the folder from the project window into the timeline<br>
+<br>
+7c) that’s it!  if you see a video print appear, that means you’ve done everything correctly;  congratulations on becoming a video printmaker<br>
+<br>
+<h2>step 8: send me your work</h2>
+<p>
+<br>
+8a) you’re probably one of thew few people in the world (in 2024) that is now printing videos.  the only other person that comes to mind is <a href="https://juliaschimautz.com">Julia Schmiautz</a> and <a href="https://somethingsavage.com">Daniel Savage</a> (their work is phenomenal, check them out asap)<br>
+<br>
+8b) send me your new creation at <a href="mailto:ernest@strauh.al">ernest@strauh.al</a> (don’t worry about spamming me, I’d rather see new artworks than marketing emails)<br>
+<br>
+8c) feel free to share this file with your friends;  if you’re inclined to make a donation, my paypal is <a href="https://paypal.me/estrauhal">paypal.me/estrauhal</a>, if not, no worries<br>
+<br>
+    </p>
+
+    <style>
+
+  </body>
+</html>
