@@ -1,292 +1,316 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // YouTube Embed Function
-    function addEmbedLinks() {
+
+    /**
+     * CONFIGURATION
+     */
+    const CONFIG = {
+        DESKTOP_HOVER_DELAY: 40, // ms: Prevents mass downloads on rapid mouse movement
+        MOBILE_SCROLL_DELAY: 150, // ms: Debounce for loading high-res images after scroll stops
+        CACHE_SIZE: 50,
+        DEFAULT_ANCHOR_Y: 10
+    };
+
+    /**
+     * FEATURE 1: YOUTUBE EMBEDS
+     * Replaces plain text YouTube URLs with toggleable iframes.
+     */
+    function initYouTubeEmbeds() {
         const paragraphs = document.querySelectorAll('p');
+        const youtubeRegex = /(https?:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+))(?:&t=(\d+)s)?/;
 
         paragraphs.forEach(p => {
-            const youtubeRegex = /(https?:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+))(?:&t=(\d+)s)?/g;
-            let match = youtubeRegex.exec(p.innerHTML);
+            const match = youtubeRegex.exec(p.innerHTML);
+            if (!match) return;
 
-            if (match) {
-                const youtubeLink = match[0];
-                const videoId = match[2];
-                const startTime = match[3] ? `&start=${match[3]}` : '';
+            const [fullUrl, _, videoId, startTime] = match;
+            const startParam = startTime ? `&start=${startTime}` : '';
 
-                const embedLink = document.createElement('a');
-                embedLink.textContent = '[display]';
-                embedLink.style.cursor = 'pointer';
-                embedLink.style.marginLeft = '5px';
-                embedLink.style.textDecoration = 'underline';
+            // Create Toggle Link
+            const embedLink = document.createElement('a');
+            Object.assign(embedLink.style, {
+                cursor: 'pointer', marginLeft: '5px', textDecoration: 'underline'
+            });
+            embedLink.textContent = '[display]';
 
-                const spacer = document.createElement('br');
-                let iframe = null;
+            const spacer = document.createElement('br');
+            let iframe = null;
 
-                embedLink.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (!iframe) {
-                        iframe = document.createElement('iframe');
-                        iframe.width = '560';
-                        iframe.height = '315';
-                        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1${startTime}`;
-                        iframe.frameBorder = '0';
-                        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-                        iframe.allowFullscreen = true;
-                        iframe.style.marginLeft = '0';
-                        p.appendChild(spacer);
-                        p.appendChild(iframe);
-                    } else {
-                        iframe.remove();
-                        spacer.remove();
-                        iframe = null;
-                    }
-                });
-
-                const originalLink = p.querySelector(`a[href="${youtubeLink}"]`);
-                if (!originalLink) {
-                     p.innerHTML = p.innerHTML.replace(youtubeLink, `<a href="${youtubeLink}" target="_blank">${youtubeLink}</a>`);
+            embedLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (!iframe) {
+                    iframe = document.createElement('iframe');
+                    Object.assign(iframe, {
+                        width: '560', height: '315', frameBorder: '0',
+                        src: `https://www.youtube.com/embed/${videoId}?autoplay=1${startParam}`,
+                        allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
+                        allowFullscreen: true
+                    });
+                    iframe.style.marginLeft = '0';
+                    p.appendChild(spacer);
+                    p.appendChild(iframe);
+                } else {
+                    iframe.remove();
+                    spacer.remove();
+                    iframe = null;
                 }
-                p.appendChild(embedLink);
+            });
+
+            // Auto-linkify text URL if strictly text
+            if (!p.querySelector(`a[href="${fullUrl}"]`)) {
+                p.innerHTML = p.innerHTML.replace(fullUrl, `<a href="${fullUrl}" target="_blank">${fullUrl}</a>`);
             }
+            p.appendChild(embedLink);
         });
     }
 
-    // Desktop Hover and Mobile Tap for Images
-    function enableImageInteraction() {
+    /**
+     * FEATURE 2: IMAGE PREVIEW
+     * Handles Desktop Hover and Mobile Scroll/Tap interactions.
+     */
+    function initImagePreview() {
         const isMobile = () => window.matchMedia("(max-width: 900px)").matches;
-
-        // Create container
-        const previewContainer = document.createElement('div');
-        previewContainer.id = 'image-preview-container';
-        previewContainer.style.position = 'fixed';
-        previewContainer.style.top = '0';
-        previewContainer.style.left = '0';
-        previewContainer.style.width = '100vw';
-        previewContainer.style.height = '100vh';
-        previewContainer.style.zIndex = '-1'; 
-        previewContainer.style.pointerEvents = 'none';
-        previewContainer.style.display = 'none'; // Start hidden
-        previewContainer.style.flexDirection = 'column'; // For centering
-        previewContainer.style.alignItems = 'center';
-        previewContainer.style.justifyContent = 'center';
-
-        const previewImg = document.createElement('img');
-        // Default styles
-        previewImg.style.maxWidth = '100%';
-        previewImg.style.maxHeight = '100%';
         
-        previewContainer.appendChild(previewImg);
-        document.body.appendChild(previewContainer); 
+        // --- DOM Setup ---
+        const container = document.createElement('div');
+        container.id = 'image-preview-container';
+        Object.assign(container.style, {
+            position: 'fixed', top: '0', left: '0', width: '100vw', height: '100vh',
+            zIndex: '-1', pointerEvents: 'none', display: 'none',
+            flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+            // Safari Fixes: Force hardware acceleration to prevent "jitter" or "scroll" 
+            transform: 'translate3d(0, 0, 0)',
+            webkitTransform: 'translate3d(0, 0, 0)',
+            backfaceVisibility: 'hidden',
+            webkitBackfaceVisibility: 'hidden'
+        });
 
-        let currentStickyLink = null;
-        let imageLoadTimer = null; 
-        const VIEWPORT_ANCHOR_Y = 10; 
-        let anchorY = VIEWPORT_ANCHOR_Y; 
-        let hoverTimer = null; 
+        const img = document.createElement('img');
+        Object.assign(img.style, { maxWidth: '100%', maxHeight: '100%' });
+        
+        container.appendChild(img);
+        document.body.appendChild(container);
 
-        // New State for Double-Tap Logic
-        let lastTappedLink = null;
-        let allowNextClick = false;
+        // --- State Management ---
+        const state = {
+            stickyLink: null,      // Currently highlighted link (Mobile)
+            anchorY: CONFIG.DEFAULT_ANCHOR_Y, // Vertical focal point
+            lastTapped: null,      // For double-tap logic
+            allowClick: false,     // Flag to allow navigation
+            hoverTimer: null,      // Desktop hover debounce
+            loadTimer: null,       // Mobile scroll load debounce
+            scrollTicking: false   // scroll performance lock
+        };
 
+        // --- Image Cache ---
         const imageCache = new Map();
-        const MAX_CACHE_SIZE = 50;
-
-        function cacheImage(src) {
+        const getCachedImage = (src) => {
             if (imageCache.has(src)) {
-                const cached = imageCache.get(src);
+                // Refresh LRU position
+                const val = imageCache.get(src);
                 imageCache.delete(src);
-                imageCache.set(src, cached);
-                return cached;
+                imageCache.set(src, val);
+                return val;
             }
             const newImg = new Image();
             newImg.src = src;
-            if (imageCache.size >= MAX_CACHE_SIZE) {
-                const oldestKey = imageCache.keys().next().value;
-                imageCache.delete(oldestKey);
+            if (imageCache.size >= CONFIG.CACHE_SIZE) {
+                imageCache.delete(imageCache.keys().next().value);
             }
             imageCache.set(src, newImg);
             return newImg;
-        }
+        };
 
-        function showImage(src) {
-            previewImg.style.display = 'none';
-            const cached = cacheImage(src);
+        // --- Core Functions ---
+        const selectors = [
+            'a[href$=".jpg"]', 'a[href$=".jpeg"]', 'a[href$=".png"]', 'a[href$=".gif"]',
+            'a[href$=".JPG"]', 'a[href$=".JPEG"]', 'a[href$=".PNG"]', 'a[href$=".GIF"]',
+            'a[href$=".webp"]', 'a[href$=".WEBP"]'
+        ].join(', ');
+        
+        const imageLinks = document.querySelectorAll(selectors);
+
+        const clearHighlights = () => {
+            imageLinks.forEach(l => l.classList.remove('mobile-hover'));
+        };
+
+        const showPreview = (src) => {
+            const cached = getCachedImage(src);
             
-            // Ensure container is visible (flex)
-            previewContainer.style.display = 'flex';
+            // Reset container for visibility
+            container.style.display = 'flex';
+            container.style.zIndex = '-1';
+            img.style.display = 'none';
 
-            const displayImage = () => {
-                previewImg.src = cached.src;
-                previewImg.style.display = 'block';
+            // Apply styles based on viewport
+            if (isMobile()) {
+                Object.assign(img.style, {
+                    width: 'auto', height: 'auto',
+                    maxWidth: '100%', maxHeight: '100%', objectFit: 'contain'
+                });
+            } else {
+                Object.assign(img.style, {
+                    width: 'auto', height: 'auto',
+                    maxWidth: '100%', maxHeight: '100%', objectFit: 'contain'
+                });
+            }
+
+            const render = () => {
+                img.src = cached.src;
+                img.style.display = 'block';
             };
 
-            if (cached.complete) {
-                displayImage();
-            } else {
-                cached.onload = displayImage;
-            }
-        }
+            if (cached.complete) render();
+            else cached.onload = render;
+        };
 
-        function clearAllHighlights() {
-            imageLinks.forEach(link => link.classList.remove('mobile-hover'));
-        }
+        const hidePreview = () => {
+            container.style.display = 'none';
+            clearHighlights();
+        };
 
-        function hideImage() {
-            previewContainer.style.display = 'none';
-            clearAllHighlights();
-        }
-
-        const imageLinks = document.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"], a[href$=".JPG"], a[href$=".JPEG"], a[href$=".PNG"], a[href$=".GIF"], a[href$=".webp"], a[href$=".WEBP"]');
-
-        // -------------------------
-        // Shared / Mobile Logic Helpers
-        // -------------------------
+        // --- Mobile Logic ---
         
-        function ensureMobileInit() {
-            if (!currentStickyLink && imageLinks.length > 0) {
-                anchorY = VIEWPORT_ANCHOR_Y;
-                currentStickyLink = imageLinks[0];
-                currentStickyLink.classList.add('mobile-hover');
-                
-                // Apply Mobile Styles
-                previewImg.style.width = 'auto';
-                previewImg.style.height = 'auto';
-                previewImg.style.maxWidth = '100%';
-                previewImg.style.maxHeight = '100%';
-                previewImg.style.objectFit = 'contain';
-
-                showImage(currentStickyLink.href);
+        const ensureMobileInit = () => {
+            // If entering mobile mode without a selection, default to first link
+            if (!state.stickyLink && imageLinks.length > 0) {
+                state.anchorY = CONFIG.DEFAULT_ANCHOR_Y;
+                state.stickyLink = imageLinks[0];
+                state.stickyLink.classList.add('mobile-hover');
+                showPreview(state.stickyLink.href);
             }
-        }
+        };
 
-        function updateHighlightOnScroll() {
+        const handleScrollUpdate = () => {
+            let closest = null;
             let minDiff = Infinity;
-            let closestLink = null;
 
-            imageLinks.forEach(link => {
+            // Efficiently find link closest to anchorY
+            for (let i = 0; i < imageLinks.length; i++) {
+                const link = imageLinks[i];
                 const rect = link.getBoundingClientRect();
-                if (rect.width === 0 && rect.height === 0) return; 
-                const diff = Math.abs(rect.top - anchorY);
+                
+                // Optimization: Skip off-screen links
+                if (rect.bottom < 0 || rect.top > window.innerHeight) continue;
+
+                const diff = Math.abs(rect.top - state.anchorY);
                 if (diff < minDiff) {
                     minDiff = diff;
-                    closestLink = link;
+                    closest = link;
                 }
-            });
-
-            if (closestLink && closestLink !== currentStickyLink) {
-                clearAllHighlights();
-                currentStickyLink = closestLink;
-                currentStickyLink.classList.add('mobile-hover');
             }
 
-            clearTimeout(imageLoadTimer);
-            imageLoadTimer = setTimeout(() => {
-                if (currentStickyLink) {
-                    showImage(currentStickyLink.href);
+            if (closest && closest !== state.stickyLink) {
+                clearHighlights();
+                state.stickyLink = closest;
+                state.stickyLink.classList.add('mobile-hover');
+                
+                // Debounce image load to keep scrolling smooth
+                clearTimeout(state.loadTimer);
+                state.loadTimer = setTimeout(() => {
+                    if (state.stickyLink) showPreview(state.stickyLink.href);
+                }, CONFIG.MOBILE_SCROLL_DELAY);
+            }
+            state.scrollTicking = false;
+        };
+
+        // --- Event Listeners ---
+
+        // 1. Scroll (Optimized with requestAnimationFrame)
+        window.addEventListener('scroll', () => {
+            if (!isMobile()) return;
+            if (!state.stickyLink) ensureMobileInit();
+
+            if (!state.scrollTicking) {
+                window.requestAnimationFrame(handleScrollUpdate);
+                state.scrollTicking = true;
+            }
+        }, { passive: true });
+
+        // 2. Touch Interaction
+        document.body.addEventListener('touchstart', (e) => {
+            if (!isMobile()) return;
+            if (!state.stickyLink) ensureMobileInit();
+
+            const link = e.target.closest(selectors);
+
+            if (link) {
+                // Update Anchor to user's touch position
+                state.anchorY = e.touches[0].clientY;
+
+                // Double Tap Logic
+                if (link === state.lastTapped) {
+                    state.allowClick = true;
+                } else {
+                    // New Link Selected
+                    state.allowClick = false;
+                    state.lastTapped = link;
+                    
+                    clearHighlights();
+                    state.stickyLink = link;
+                    state.stickyLink.classList.add('mobile-hover');
+                    
+                    // Instant load on explicit tap
+                    clearTimeout(state.loadTimer);
+                    showPreview(state.stickyLink.href);
                 }
-            }, 150);
-        }
+            } else {
+                // Tapped blank space: Don't move anchor, just update scroll logic
+                handleScrollUpdate();
+            }
+        }, { passive: true });
 
-        // -------------------------
-        // Event Listeners
-        // -------------------------
+        // 3. Resize Handler
+        window.addEventListener('resize', () => {
+            if (isMobile()) ensureMobileInit();
+            else if (state.stickyLink) {
+                // Reset mobile state when switching to desktop
+                clearHighlights();
+                state.stickyLink = null;
+                container.style.display = 'none';
+            }
+        });
 
-        // 1. Link Interaction
+        // 4. Link Handlers
         imageLinks.forEach(link => {
             const src = link.href;
 
-            // CLICK HANDLER: Manages the "Double Tap" logic
+            // Click Guard (Mobile Double Tap)
             link.addEventListener('click', (e) => {
                 if (isMobile()) {
-                    if (allowNextClick) {
-                        allowNextClick = false; // Reset
-                        return; // Allow default navigation (open image)
+                    if (state.allowClick) {
+                        state.allowClick = false;
+                        return; // Allow navigation
                     }
                 }
-                e.preventDefault(); // Prevent navigation otherwise (viewer mode)
+                e.preventDefault(); // Block navigation
             });
 
-            // HOVER HANDLER: Desktop Only
+            // Desktop Hover
             link.addEventListener('mouseenter', () => {
-                if (isMobile()) return; 
-                
-                clearTimeout(hoverTimer);
-                // Reset styles for desktop
-                previewContainer.style.zIndex = '-1';
-                previewImg.style.width = 'auto';
-                previewImg.style.height = 'auto';
-                previewImg.style.maxWidth = '100%';
-                previewImg.style.maxHeight = '100%';
-                previewImg.style.objectFit = 'contain'; 
+                if (isMobile()) return;
 
-                clearAllHighlights();
-                link.classList.add('mobile-hover');
-                showImage(src);
+                clearTimeout(state.hoverTimer);
+                
+                // Add slight delay to prevent mass downloads
+                state.hoverTimer = setTimeout(() => {
+                    clearHighlights();
+                    link.classList.add('mobile-hover');
+                    showPreview(src);
+                }, CONFIG.DESKTOP_HOVER_DELAY); 
             });
 
             link.addEventListener('mouseleave', () => {
                 if (isMobile()) return;
-                hideImage();
+                clearTimeout(state.hoverTimer);
+                hidePreview();
             });
         });
 
-        // 2. Scroll Listener
-        window.addEventListener('scroll', () => {
-            if (!isMobile()) return;
-            if (!currentStickyLink) ensureMobileInit();
-            updateHighlightOnScroll();
-        });
-
-        // 3. Touch Listener (Global)
-        document.body.addEventListener('touchstart', (e) => {
-            if (!isMobile()) return;
-
-            if (!currentStickyLink) ensureMobileInit();
-
-            const tappedLink = e.target.closest('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"], a[href$=".JPG"], a[href$=".JPEG"], a[href$=".PNG"], a[href$=".GIF"], a[href$=".webp"], a[href$=".WEBP"]');
-            
-            if (tappedLink) {
-                // Update anchor to the specific link tap
-                anchorY = e.touches[0].clientY;
-
-                // CHECK FOR DOUBLE TAP (Selection vs Navigation)
-                if (tappedLink === lastTappedLink) {
-                    allowNextClick = true; // Next 'click' event will allowed
-                    // We don't need to update visuals, it's already selected
-                } else {
-                    allowNextClick = false; // Block 'click' event
-                    lastTappedLink = tappedLink; // Set as current selection
-
-                    // Update Visuals (Select the new link)
-                    clearAllHighlights();
-                    currentStickyLink = tappedLink;
-                    currentStickyLink.classList.add('mobile-hover');
-                    
-                    clearTimeout(imageLoadTimer);
-                    showImage(currentStickyLink.href);
-                }
-            } else {
-                // Tap on blank space: Just update highlight based on scrolling logic
-                // Note: This does NOT change the anchorY, so the anchor stays "locked" 
-                // to the last tapped link position until you tap another link.
-                updateHighlightOnScroll();
-            }
-        }, { passive: true });
-
-        // 4. Resize/Load check
-        const checkInit = () => {
-            if (isMobile()) ensureMobileInit();
-            else {
-                if (currentStickyLink) {
-                    clearAllHighlights();
-                    currentStickyLink = null;
-                    previewContainer.style.display = 'none';
-                }
-            }
-        };
-        window.addEventListener('resize', checkInit);
-        checkInit(); 
+        // Initial Check
+        if (isMobile()) ensureMobileInit();
     }
 
-    addEmbedLinks();
-    enableImageInteraction();
+    // Run
+    initYouTubeEmbeds();
+    initImagePreview();
 });
