@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>strauh.al/diary/visualizer</title>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <style>
+        @keyframes changeColor {
+            0% { background-color: #00f; }
+            50% { background-color: #20f; }
+            100% { background-color: #00f; }
+        }
+
+        body {
+            color: #e0e0e0;
+            animation: changeColor 20s ease-in-out infinite;
+            font-family: 'Times New Roman', serif;
+            overflow: hidden;
+        }
+
+        #visualization-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .panel {
+            position: absolute;
+            top: 80px;
+            padding: 15px;
+            animation: changeColor 20s ease-in-out infinite;
+            border: 1px solid #c3c3e6;
+            max-width: 320px;
+            max-height: 80vh;
+            overflow-y: auto;
+            line-height: 1.6;
+            z-index: 20;
+            display: none;
+        }
+
+        .panel.visible {
+            display: block;
+        }
+
+        #book-list-panel, #verse-list-panel, #hover-verse-list-panel {
+            left: 20px;
+            transition: max-height 0.4s ease-out;
+        }
+
+        #instructions-panel {
+            left: 20px;
+            bottom: 20px;
+            top: auto;  
+            transition: max-height 0.4s ease-out, max-width 0.4s ease-out;
+        }
+
+        #instructions-panel.collapsed {
+            max-height: 24px;  
+            max-width: 120px;
+            overflow: hidden;
+            padding: 12px;
+            cursor: pointer;
+        }
+
+        #instructions-panel.collapsed #instructions-content,
+        #instructions-panel.collapsed .close-btn {
+            display: none;
+        }
+
+        #instructions-panel.collapsed .panel-header {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        #verse-display-panel, #search-panel {
+            right: 20px;
+        }
+        
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #c3c3e6;
+        }
+
+        .close-btn {
+            font-family: 'Times New Roman', serif;
+            cursor: pointer;
+            color: #f07178;
+            margin-left: 20px;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: white;
+        }
+
+        .panel h2 {
+            font-size: 1.3em;
+            color: #e0e0e0;
+            font-weight: normal;
+            margin: 0;
+            padding: 0;
+            border-bottom: none;
+            flex-grow: 1;
+        }
+
+        .panel p, .panel a, .panel li {
+            font-size: 1em;
+            color: #c3c3e6;
+            margin: 0;
+            padding: 5px 10px;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .panel a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .panel a.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+        
+        .verse-ref-item {
+            display: block;
+            padding: 2px 10px;
+        }
+        
+        #verse-display-content .interactive-word {
+            display: inline;
+            padding: 2px 0;
+            margin: 0;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        #verse-display-content .interactive-word:hover {
+             background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        #verse-display-content p {
+            padding: 5px;
+            line-height: 1.8;
+            color: #e0e0e0;
+        }
+
+        #search-input {
+            width: 100%;
+            box-sizing: border-box;
+            background-color: transparent;
+            border: 1px solid #c3c3e6;
+            color: #e0e0e0;
+            padding: 8px;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', serif;
+            font-size: 1em;
+        }
+
+        #search-input:focus {
+            outline: none;
+            border-color: #c3c3e6;
+        }
+        
+        #search-input::placeholder {
+            color: #e0e0e0;
+        }
+
+        #loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        #color-compass {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            animation: changeColor 20s ease-in-out infinite;
+            padding: 10px;
+            border: 1px solid #c3c3e6;
+            z-index: 15;
+        }
+
+        #color-compass ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #color-compass li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            cursor: pointer;
+            color: #c3c3e6;
+        }
+
+        #color-compass li.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+
+        #color-compass span {
+            width: 12px;
+            height: 12px;
+            margin-right: 10px;
+            border: 1px solid #fff;
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1em;
+            }
+            .panel {
+                max-width: calc(100% - 40px); /* Use more width on small screens */
+                max-height: 40vh; /* Don't take up the full screen height */
+            }
+            #verse-display-panel, #search-panel {
+                right: 20px;
+                left: auto;  
+            }
+            #color-compass {
+                left: 20px;
+                right: auto;
+                bottom: 220px; /* Position above the instructions panel */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        <a href="https://strauh.al">strauh.al</a>/<a href="https://strauh.al/diary">diary</a>/visualizer
+    </h1>
+
+    <div id="visualization-container"></div>
+
+    <div id="book-list-panel" class="panel">
+        <div class="panel-header">
+           <h2>months</h2>
+       </div>
+       <div id="book-list-content"></div>
+   </div>
+    
+    <div id="hover-verse-list-panel" class="panel">
+        <div class="panel-header">
+            <h2 id="hover-title"></h2>
+        </div>
+        <div id="hover-verse-list-content"></div>
+    </div>
+
+    <div id="verse-list-panel" class="panel">
+        <div class="panel-header">
+            <h2 id="verse-list-title"></h2>
+            <span class="close-btn" id="close-verse-list">[x]</span>
+        </div>
+        <div id="verse-list-content"></div>
+    </div>
+
+    <div id="search-panel" class="panel">
+        <div class="panel-header">
+            <h2>search</h2>
+        </div>
+        <div id="search-content">
+            <input type="text" id="search-input" placeholder="type to search">
+            <div id="search-results"></div>
+        </div>
+    </div>
+
+    <div id="verse-display-panel" class="panel">
+        <div class="panel-header">
+            <h2 id="verse-display-title"></h2>
+            <span class="close-btn" id="close-verse-display">[x]</span>
+        </div>
+        <div id="verse-display-content"></div>
+    </div>
+
+    <!-- Instructions Panel -->
+    <div id="instructions-panel" class="panel visible">
+        <div class="panel-header">
+            <h2>how to use</h2>
+            <span class="close-btn" id="close-instructions">[x]</span>
+        </div>
+        <div id="instructions-content">
+            <ul style="padding: 0; list-style-position: inside; margin-left: 10px;">
+                <li style="padding-bottom: 5px;">navigate: click & drag to rotate, right-click & drag to pan, scroll to zoom.</li>
+                <li style="padding-bottom: 5px;">explore words: click a word in the cloud to see its connections.</li>
+                <li style="padding-bottom: 5px;">explore months: click a month on the left to highlight its key words.</li>
+                <li style="padding-bottom: 5px;">filter by theme: click a color in the compass to highlight connections of that theme. click again to reset.</li>
+                <li style="padding-bottom: 5px;">read entries: click any date reference to read the full text.</li>
+                <li style="padding-bottom: 5px;">search: use the search bar to find any word.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="loader">Processing Diary Entries...</div>
+    
+    <div id="color-compass">
+        <ul>
+            <li data-theme="mental_health"><span style="background-color: #f00;"></span>mental health</li>
+            <li data-theme="art_creativity"><span style="background-color: #0f0;"></span>art & creativity</li>
+            <li data-theme="social_cultural"><span style="background-color: #0ff;"></span>society & culture</li>
+            <li data-theme="self_reflection"><span style="background-color: #f0f;"></span>self-reflection</li>
+            <li data-theme="technology_vr"><span style="background-color: #ff0;"></span>technology</li>
+        </ul>
+    </div>
+
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+                "@tweenjs/tween.js": "https://cdn.jsdelivr.net/npm/@tweenjs/tween.js@21.0.0/dist/tween.esm.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import * as TWEEN from '@tweenjs/tween.js';
+
+        // --- Word Grouping / Stemming ---
+        function getWordRoot(word) {
+            const wordRootMap = {
+                'thoughts': 'thought', 'thinking': 'thought',
+                'feelings': 'feeling', 'feels': 'feel',
+                'people': 'person',
+                'things': 'thing',
+                'years': 'year',
+                'days': 'day',
+                'life': 'live', 'lives': 'live',
+                'americans': 'america',
+                'artists': 'art', 'artistic': 'art',
+                'paintings': 'painting',
+                'drawings': 'drawing',
+                'music': 'musicians',
+                'computers': 'computer',
+                'entries': 'entry',
+                'words': 'word',
+            };
+            return wordRootMap[word] || word;
+        }
+
+        function getOrdinalSuffix(day) {
+            if (day > 3 && day < 21) return 'th';
+            switch (day % 10) {
+                case 1:  return "st";
+                case 2:  return "nd";
+                case 3:  return "rd";
+                default: return "th";
+            }
+        }
+
+        // --- Scene Setup ---
+        const container = document.getElementById('visualization-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+        camera.position.set(0, 40, 150);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x000000, 0);
+        container.appendChild(renderer.domElement);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.minDistance = 10;
+        controls.maxDistance = 300;
+
+        // --- State Management ---
+        let hoveredLabel = null;
+        let selectedLabel = null;
+        let clickedVerseRef = null;
+        let hoveredWordInVerse = null;
+        let selectedBook = null;
+        let hoveredBook = null;
+        let selectedTheme = null; 
+        let hoveredTheme = null;
+        let wordLabels = [];
+        const wordLabelMap = new Map();
+        let connectionLines = {};
+        const linesGroup = new THREE.Group();
+        scene.add(linesGroup);
+        
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        const mouseDownPos = new THREE.Vector2();
+        const DRAG_THRESHOLD = 5;
+        
+        let frequentWordSet = new Set();
+        let allWordsData = new Map(); // For improved search
+        let verseLookup = new Map();
+        let coOccurrenceData = {};
+
+        // --- UI Elements ---
+        const bookListPanel = document.getElementById('book-list-panel');
+        const bookListContent = document.getElementById('book-list-content');
+        const hoverVersePanel = document.getElementById('hover-verse-list-panel');
+        const hoverVerseListContent = document.getElementById('hover-verse-list-content');
+        const hoverTitle = document.getElementById('hover-title');
+        const verseListPanel = document.getElementById('verse-list-panel');
+        const verseListContent = document.getElementById('verse-list-content');
+        const verseListTitle = document.getElementById('verse-list-title');
+        const verseDisplayPanel = document.getElementById('verse-display-panel');
+        const verseDisplayContent = document.getElementById('verse-display-content');
+        const verseDisplayTitle = document.getElementById('verse-display-title');
+        const searchPanel = document.getElementById('search-panel');
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        
+        // --- Thematic Word Lists for Coloring (Diary Themes) ---
+        const mentalHealthWords = new Set(['wellbutrin', 'psychiatrist', 'drug', 'anxiety', 'panic', 'brain', 'mental', 'disorders', 'shame', 'regret', 'therapy', 'unhappy', 'despair', 'suicide', 'dead', 'pain', 'sad', 'anger', 'hate', 'frustration']);
+        const artCreativityWords = new Set(['art', 'music', 'painting', 'writing', 'creative', 'artist', 'diary', 'journal', 'sakimoto', 'rembrandt', 'balthus', 'escher', 'carti', 'still', 'drawing', 'compositions', 'label', 'slop']);
+        const socialCulturalWords = new Set(['america', 'people', 'millennials', 'zoomers', 'culture', 'society', 'family', 'friends', 'life', 'world', 'memory', 'person', 'men', 'women', 'kids', 'parents', 'mother', 'father', 'cousin']);
+        const selfReflectionWords = new Set(['i', 'me', 'my', 'myself', 'feel', 'think', 'realized', 'thought', 'god', 'dream', 'love', 'happy', 'bored', 'alive', 'mind', 'work']);
+        const technologyWords = new Set(['vr', 'internet', 'computer', 'headset', 'tiktok', 'ai', 'google', 'html', 'code', 'tech', 'phone', 'youtube', 'algorithms', 'singularity']);
+
+        // --- UI Helper Functions ---
+        function updateBookListHeight() {
+            const instructionsPanel = document.getElementById('instructions-panel');
+            const bookListPanel = document.getElementById('book-list-panel');
+            const verseListPanel = document.getElementById('verse-list-panel');
+            const activeLeftPanel = bookListPanel.classList.contains('visible') ? bookListPanel : verseListPanel;
+
+            if (!instructionsPanel.classList.contains('collapsed')) {
+                const instructionsHeight = instructionsPanel.offsetHeight;
+                const bottomMargin = 20;
+                const topMargin = 80;
+                const spacing = 40; 
+                const newMaxHeight = window.innerHeight - topMargin - instructionsHeight - bottomMargin - spacing;
+                activeLeftPanel.style.maxHeight = `${Math.max(100, newMaxHeight)}px`;
+            } else {
+                activeLeftPanel.style.maxHeight = '80vh';
+            }
+        }
+
+
+        // --- Data ---
+        const chapterMap = {
+            "VIII.2024": "august 2024", "IX.2024": "september 2024", "X.2024": "october 2024", "XI.2024": "november 2024", "XII.2024": "december 2024", "I.2025": "january 2025", "II.2025": "february 2025", "III.2025": "march 2025"
+        };
+        
+        const rawDiaryData = [
+          { "chapter_number": "VIII.2024", "chapter_title": "august 2024", "verses": [
+            { "verse": 27, "text": "today i have become so bored that i have decided to start a diary..; currently stuck in some random suburb of illinois in my aunt and uncles basement and playing with this new drug my psychiatrist gave me called wellbutrin. i called walgreens today about my prescription and i could tell the person on the other end was getting fed up with how slow my brain was moving because of the drug. anyway, the reason i'm messing around with wellbutrin is because my psychiatrist diagnosed me with a whole grab bag of mental disorders. lol. in all honesty, i should have asked for something more fun like ritalin or adderall i'm sure i'll probably forget about this journal in a week when i inevitably find something new to hyperfixate on here's a painting" },
+            { "verse": 28, "text": "it's 1:58 am so i guess i was eager to get this entry in. just finished up a 2 hour vr session; i feel better now. is it sad that i prefer virtual reality over actual reality? i can't explain the feeling, but when i'm in the web browser on the headset, i feel disappointed that i am unable to be sucked entirely into the website. i guess this makes me cringe and bluepilled, but that's just how i feel. my dream one of these days is that they'll figure out how to get rid of my body and just keep my brain hooked up to a computer. now, i sort of understand millennials when they complain about being \"bags of meat on a hecking ball of dirt speeding through spacerino\"" },
+            { "verse": 29, "text": "had a panic attack inside of my dream last night. pretty sure it's related to the wellbutrin." },
+            { "verse": 31, "text": "at this point i’ve gotten accustomed to wellbutrin so i am now able to pull off a pretty convincing fluoride stare how do i feel when i’m on this drug? well, i no longer want to make art anymore. any creative impulses that were lingering in my brain have now been beaten out. i just stare at my fucking computer all day and do nothing. i wish i were dead https://www.youtube.com/watch?v=4FY-57Gt1TM" }
+          ]},
+          { "chapter_number": "IX.2024", "chapter_title": "september 2024", "verses": [
+            { "verse": 1, "text": "i am seething. malding. no more copium in the tank. i generally feel like a leper . anger is the only thing keeping me awake. . no matter how much i try to change things, Nothing Ever Happens™.! the wellbutrin has worn off and i see the ugliness in my heart reflected in the world around me **update (september 7th): i think i was trying to be really angsty when i wrote this.;. i can't remember if this was meant to be sincere, ironic, or post-ironic **update (december 29th): i was probably upset and tried to cover it up with memes and ironic language." },
+            { "verse": 2, "text": "for the past 23 years, i have been a very reactive person. i would intake stimuli, and just react without being fully present in the moment. i was like a raw nerve for two decades, and i was unknowingly taken advantage of by people for this reason. i feel like if i talk to other people about this they’ll say something like the only person you can blame is yourself. And they're right. it just feels so good to have someone or some thing to blame though. i have largely forgotten what has happened in those years . The main emotions i feel now are a mixture of shame and regret knowing that i have probably been a burden to everyone i’ve met in my life. https://www.youtube.com/watch?v=pXXkDe2XvHU" },
+            { "verse": 3, "text": "i’ve been taking the metra a lot recently. there tends to be a large number of amish people that travel through the station. they look so quaint. right now i’m looking at an amish family and the husband and wife are wearing these strange hats and the son is dressed up in a pair of adorable overalls. i’m thinking that they probably have better mental health than most terminally online American people do. Maybe we should all be amish." },
+            { "verse": 4, "text": "thinking about this quote today: “For the new year. – i’m still alive; i still think: i must still be alive because i still have to think. Sum, ergo cogito: cogito, ergo sum.1 Today everyone allows himself to express his dearest wish and thoughts: so i, too, want to say what i wish from myself today and what thought first crossed my heart – what thought shall be the reason, warrant, and sweetness of the rest of my life! i want to learn more and more how to see what is necessary in things as what is beautiful in them – thus i will be one of those who make things beautiful. Amor fati:2 let that be my love from now on! i do not want to wage war against ugliness. i do not want to accuse; i do not even want to accuse the accusers. Let looking away be my only negation! And, all in all and on the whole: some day i want only to be a Yes-sayer!”" },
+            { "verse": 6, "text": "i occasionally wonder what it's like for people from other parts of the world to view america in its current state. the closest i ever got to this perspective was when i was working with an international student on a project proposal and they kept inserting the phrase \"diversity and inclusion\" into the proposal. it was almost a weird tick, somethindg i'm not sure they were conscious of i was puzzled by this as our project didn't remotely have anything to do with \"diversity and inclusion\" ...; apparently (according to their logic) americans will automatically favor projects that have those words; hmmmmm... okay lol" },
+            { "verse": 8, "text": "when i look back at all the music i made the past couple of years, i think 2022-early2023 was my slop era. i would just take 15 second snippets of obscure songs and stretch them out to 6 minutes. truly artistically bankrupt. it wasn't until ryuichi sakamoto died that i realized i needed to put more effort into my music. 1688930341400506.jpg" },
+            { "verse": 10, "text": "decided to look up all my old classmates. don't know what i expected to find. everyone's off doing their own thing. they're all... old and boring. just like me. also i guess i should be more transparent to myself about the nature of this diary. this is probably the first time in my life i've been able to keep up a journal for over a few weeks. also, it's not like i'm writing this in a cute little moleskine book or anything, i'm writing this in html that will be hosted on a url for others to read if they have the link. haven't really publicly or privately shared this with any people yet. right now, it just feels like me and the internet. by that, i don't mean other people on the internet, i mean if the infrastructure powering the internet developed a consciousness, this diary would be a nice little secret that me and the internet would share." },
+            { "verse": 13, "text": "was eating dim sum with my mother at a chinese restaurant across the street today and i saw on the tv behind her that tiktok was gonna be banned in the u.s. good ; they should also ban instagram reels and youtube shorts as well. it might suck for everyone in the short term but millions (perhaps billions) of man-hours will be taken back. think of all the things we could accomplish [collectively] also now that i think about it, that's probably the reason i gave up on starting a record label haha. how can artists/musicians compete with an endless stream of entertainment that is tailored to the user? i should have realized this well before i even started working on the webpage/bandcamp page for the label considering that tiktok was already around for a few years" },
+            { "verse": 14, "text": "thinking about playboi carti and clyfford still today. they are very similar to each other. https://www.youtube.com/watch?v=L_sncSSqobc" },
+            { "verse": 16, "text": "was driving a few miles away from my parents house today and was captivated by the new communities being built everywhere. just people handling heavy machinery and hanging off houses with staple guns. good stuff. side note : i normally consider myself a very trainpilled individual but cruising down the i5 at 80 miles per hour is one of the more therapeutic activities i've engaged in recently. nothing like it. also, speaking of therapy, i should probably get back into therapy sometime. my health insurance ran out a month ago so i kind of need to get my shit together." },
+            { "verse": 17, "text": "in the future, everyone will either be an uber driver, a doordasher or an onlyfans model. perhaps a combination of those things all at once. everyone will also be genderfluid / nonbinary as well. this fluidity will extend to politics, sports, language, employment, art, music, sexuality, religion, nationality, and race too lol. i think that would be so based. each of these characteristics will be labeled as vector coordinates in some sort of latent space. people will be able to see the distances they've covered in each dimension of the latent space and they'll be able to see their own trajectories in the future (along with everyone elses) through the space based on their current and past movement. we'll no longer have to worry about ever misunderstanding each other ever again" },
+            { "verse": 19, "text": "...there's a japanese woman who records these vlogs from her apartment. there's usually cockroaches and other small bugs on the walls. a recurring object in these videos is a stuffed bear that is kept inside of a plastic bag so that the insects don't eat it. this lady clearly takes care of herself, she records herself cooking food and brushing her teeth. perhaps that teddy bear is the last thing keeping her going. https://www.youtube.com/watch?v=7vF64hsGkYY" },
+            { "verse": 20, "text": "boomers have vinyl crackle, zoomers have late 2000s youtube compression" },
+            { "verse": 21, "text": "back at my aunt and uncle's house in illinois after being stranded during a layover in vegas. 5 minutes before the plane landed, the pilot said something along the lines of \"for the 17 of you headed to chicago, your plane just took off.\" anyway, i decided to wander around the strip for a few hours watching everyone gamble. had some jello shots for the first time. nice also the new nail polish doesn't taste as bitter and makes my fingertips feel strange... i'll have to go back to the mavala" },
+            { "verse": 22, "text": "i might have accidentally killed the scoby in the kombucha the nice communist gave me by putting in arizona instead of unsweetened tea" },
+            { "verse": 23, "text": "some of the romance has been sucked out of the art making process. i see people sharing timelapses and speedpaints of their art next to the finished piece and it just feels..weird? like someone just has the self discipline to crank out a work of art in one sitting, in front of a camera no less what happened to letting an unfinished piece fester in the corner of your room for weeks on end and then suddenly finishing the other 70% of it in a drug fueled frenzy? https://www.youtube.com/watch?v=cCmQlO-ca78" },
+            { "verse": 24, "text": "there's a cafe in san francisco my dad and i would go to in north beach called mara's pastry. i've probably had every flavor of italian soda on their wall by now. my dad always goes for the chocolate croissant. why am i bringing up this memory? the crushing realization that i may be in the midwest for the next few months is setting in and i will probably milk this memory for all it's worth until i return to california" },
+            { "verse": 26, "text": "i have finally struck a nice balance with social media. by social media, i mean instagram, because that's where most of my age demographic lies. i download the app to post something once a month and then delete the app immediately. life is good." },
+            { "verse": 27, "text": "thinking about a comment i saw on a music forum one time. people were discussing \"the right thing to say\" when asked about what music they listened to. now, this question was posed to a forum with a ... ..strange taste in music, think destroy all monsters, gerogerigegege, pere ubu, etc. anyway, someone said that the best answer to that question in any situation is \"a tribe called quest\" apparently, if you say that, 100% of the time, people will nod their heads inquisitively and go \"ah yes, a tribe called quest....\" if i remember correctly, this commenter said that they've never actually listened to a tribe called quest in their life, however they did say this trick has never failed them in any social situation. https://www.youtube.com/watch?v=gcuUn2zka3w" },
+            { "verse": 28, "text": "everything is copium" },
+            { "verse": 29, "text": "i feel like i’ve lost the ability to read fiction. i anxiously wait for camus to “arrive at the point” and i feel like i can’t enjoy his writing. i also tried reading the plague by camus a year ago. i thought it was about rats and casually mentioned it to my advisor. his face turned solemn and said it was about nazism. oh well **update (december 29th): this is actually a general problem with american readers. we just scan texts like computers instead of engaging with them as humans." },
+            { "verse": 30, "text": "i keep on falling into cliches but they are cliches worth experiencing" }
+          ]},
+          { "chapter_number": "X.2024", "chapter_title": "october 2024", "verses": [
+            { "verse": 1, "text": "i love living in america. everyone is the same here (to a degree). when i’m walking around in the city i can’t tell if a crazy person is talking to themselves or if they have earphones in and they're talking to a friend. i’ve also seen BMWs next to 20 year old corollas in the McDonald’s drive-through. i think warhol said something like this some time ago about coke, but nowadays instead of coke, everyone (rich and poor) doomscrolls on the same apps on the same phones. https://www.youtube.com/watch?v=_0AUpCq-UEA" },
+            { "verse": 3, "text": "what have i done recently? haven’t really made any art or music. i’ve just been writing in this diary. and yes, writing may be an art form, but what i’m doing right now isn’t writing. i’m just twiddling my fingers being a little hater lol" },
+            { "verse": 5, "text": "i realized that most of the diary entries have nothing to do with things happening in my life; instead it’s just shallow navel gazing about meaningless topics . ..; continues to navel gaze also i saw megalopolis at the theatre with my gf. what an incredible movie ,; i intend to see it again" },
+            { "verse": 6, "text": "i’ve been feeling more in touch with my high school self recently. what do i mean by this..? when i was going to college for an undergraduate degree, i was slowly discovering myself and becoming more sociable. however, i ended up regressing when the pandemic happened. i often think back to high school in the mornings at 6am. my band director switched me from the trumpet to the tuba, so i made a habit of bringing this massive instrument home every day only for it to just sit in the corner of my room. i didn’t even practice it at all. the only reason i lugged this thing around was so i could have an excuse for the janitor to unlock the door to the band room in the mornings so that i could sit in silence for two hours before school started." },
+            { "verse": 7, "text": "finally met up with an online friend that i've known for years now! she's very cool, she's a tattoo artist and we spent the day having dim sum and looking at paintings in the art institute. good stuff" },
+            { "verse": 8, "text": "i have realized that one of these days i’m going to run out of my own thoughts and observations, so i'll eventually have to sprinkle in green texts and copypastas" },
+            { "verse": 9, "text": "i guess i should explain this picture before i suddenly develop dementia or something. this picture was taken of me on the first day of kindergarten and this might also be the first drawing i’ve ever made. the teacher had provided a bunch of coloring sheets for all the students and everyone was doing a great job of coloring inside the lines… …except for me. this isn’t a metaphor for anything by the way, my parents saw the wall of coloring sheets that were stapled to the wall and my drawing stood out from the rest, and not in a good way. apparently, i had wrapped all 5 of my pudgy fingers around a green crayon and took the coloring sheet to task. whether the sheet of paper had any outlines on it didn't matter at all because i covered the entire thing with scribbles. now that i think about it, that might be why my kindergarten teacher told my parents that i might have been autistic (or maybe because i was nonverbal for the first 5 years of my life hahah). also this first art memory reminds me of my first memory of pain. a year after kindergarten when i was in the first grade, my mother told me to doodle something on a piece of paper for a city wide drawing competition. anyway, i probably made something in less than 30 minutes and went back to doing whatever it is that five year olds do. what i had not expected was that my drawing was chosen over every other first grader’s drawing in the school district. i mean really, this was not a technically skilled drawing for a five year old, especially compared to my classmates who had probably spent more time doing better drawings. annyyyyywayyyyyy, i had received a ribbon as an award for this drawing which hung on the top shelf in my bedroom. one night, i climbed up the shelf to grab the ribbon and was swishing the ribbon through the air by its string. however, the string that was attached to the ribbon snagged on the doorknob and tore all of the skin off of my ring finger. not fun hopefully this entry sheds some light on an early moment that might have led me to become the self indulgent, egomaniac piece of shit \"artist\" i am today. also, to create art requires love. and pain. something that these dork ass losers making ai art have probably never felt lol." },
+            { "verse": 10, "text": "added a page to the site at strauh.al/influences. this page is just a collection of visual artists, musicians, and writers that have left a lasting impression on me. might add a list of my favorite movies to the site in the future. i hate leaving things up to interpretation. ...i'm slowly turning into scaruffi." },
+            { "verse": 11, "text": "was having an all you can eat sushi deal for lunch today and out of the corner of my eye i see on tv that Taiwan semiconductor is now at $190. i sold all of my TSM stock a year ago to pay off my tuition at $120 a share and i feel so stupid." },
+            { "verse": 12, "text": "aunt asked me about my cousin today. for reference, my cousin is trans which is causing a bit of confusion with my aunt. i can tell my aunt was trying her best to understand that my cousin was a guy, but my aunt was oscillating between he and she as if my cousin were trapped in a superposition between being male and female. at least my aunt is making an effort. my parents watch too much fox news and they keep on referring to my cousin as she which might have been funny if i were an edgy high schooler but they’ve probably done that a couple dozen times by now. i feel like the whole trans thing is wrecking my aunt’s mind lol. i’m also unable to talk about this with my girlfriend because she’ll either say “you talk about trans people a lot” or “are you trying to come out as trans?”" },
+            { "verse": 13, "text": "if i die, please make it quick. i hope i don’t get cancer or some slow debilitating disease or else i’ll have to meet with a dozen of my evangelical relatives and they'll try to make me believe in god or something like that before i die **update (october 16th): i think i made this entry with my cousin stanley in mind. i saw him when he was still in good health although his wife told me that he was going to be in a wheelchair in a few months because of ALS. eventually he'll need to have a feeding tube. anyway, when i visited him and his family with my mother in new york last year, i thought it was gonna be pretty chill until my mom took a bible out of her purse and tried to christpill him. to which he told my mother that a bunch of other aunts had tried to do the same. his wife told me in another room that most people with ALS have 3 to 5 years to live after the diagnosis." },
+            { "verse": 15, "text": "24 “years around the sun” or whatever millennials call birthdays. getting old enough to the point where zoomers are gonna be lumped in with the millennials. this generational stuff is so dumb.; yet, i feed into the arbitrary generational divides with this stupid sense of humor and irony." },
+            { "verse": 17, "text": "randomly remembered something i saw a few miles away from my parent's home when i was back there in september. i was wandering around in a large field and saw a shopping cart in the distance. it felt very strange..; it had a monumental quality about it., just sitting there by itself in the middle of this field. and rightfully so. the shopping cart is a uniquely american invention, for a uniquely american activity. also, perceptions of shopping carts can be very subjective. what may be a negligible mode of transporting products or groceries for one person may be a vehicle filled with personal objects for another. here's an excerpt from a wikipedia article about the early days of the shopping cart: The invention did not catch on immediately. Men found them effeminate; women found them suggestive of a baby carriage. \"i've pushed my last baby buggy,\" offended women informed him. After hiring several male and female models to push his new invention around his store and demonstrate their utility, as well as greeters to explain their use, his folding-style shopping carts became extremely popular and Goldman became a multimillionaire by collecting a royalty on every folding design shopping cart in the United States. https://www.youtube.com/watch?v=ryvHj2z-0BM" },
+            { "verse": 18, "text": "i should get my laptop battery fixed. it does this thing where the battery will be at 40% and then it’ll drop to 1% after that. actually, now that i think about it maybe i shouldn’t get the battery replaced. i kind of like the urgency i feel when i’m working when my battery is at 1% it feels like i have a human skull on my desk. https://www.youtube.com/watch?v=iO_8n5y5edk" },
+            { "verse": 19, "text": "i remember in third grade, my teacher would place me in in the special education room? This was very strange to me, because i was just sitting around and we weren’t really doing anything:;, there was basically no instruction going on. anyway, perhaps she did that because she was upset that she couldn’t put me on ritalin after telling my mother that i might have ADHD. i remember when i was placed in this particular teacher’s classroom, my mother was excited because this teacher had received the “teacher of the year award.” Now it makes sense to me. it’s probably very easy to be teacher of the year if half of your students are drugged." },
+            { "verse": 20, "text": "i think i realized that most social media activism was bogus after that “all eyes on rafah” post . a few months ago, someone had used an ai generated image of a bunch of refugee encampments that spelled out “all eyes on rafah\" this image blew up in popularity (47 million reposts) and soon these ai sloppers were arguing over who created this image first. social media activism was always a race to the bottom but at least people were pretending to keep up the facade of actual effort by creating art or slides specifically for these issues. i still keep myself up to date on this stuff, but after 1 or 2 performative gestures on my end, i realized that i was being a bit cringe. everyone already has come to a general consensus that \"war bad. genocide bad.\" like everything else after that point is just for optics lol now people are just arguing over ai generated activism slop. we’re at the bottom. we’ve finally arrived https://www.npr.org/2024/06/02/g-s1-2455/all-eyes-on-rafah-most-viral-ai-meme-malaysia-artists-claim-credit" },
+            { "verse": 23, "text": "i see gwis and pedal together a lot. zwon seems to be having a field day in this part of chicago; scratch that, he seems to be having a field day everywhere. i don’t see mr mr fungi together anymore, it’s only mr mr or fungi." },
+            { "verse": 24, "text": "i’m going to throw out some buzz words and describe my current art practice as \"video portraiture” . it’s really not that complex, I’m just doing video captures of peoples faces, and tracing various frames on vellum. i guess i can milk this technique for all it's worth for the next few years" },
+            { "verse": 25, "text": "i like some of rembrandt’s sketches more than his actual paintings. same reason why i love piano pieces by composers more than actual orchestral arrangements. just pure unfiltered captures of the artist’s mind at work reminds me of this quote: I will finish, however, with a word about my own preferences. I get the keenest pleasure from drawings which are essentially spontaneous, in which there is the smallest time lag between the feeling-the desire-the ache to draw, and its expression. Drawings in which there has been no time for emotion to evaporate or run to seed in the sludge of some labourious technical style. Even in the brash bravura of Epstein or John there is much pleasure to be derived from the sheer immediacy and impact of spontaneity. But there are drawings in which only the merest tremble of line separates the emotion from its expression, and this is the drawing of the great masters. Into this category come the line drawings of Rodin, and those inexpressibly delicate and beautiful early studies of Picasso, such as the Deux Nus (41). There is here a distillation of emotion, so rare, so refined, a communication of spirit so bathed in poetry and compassion, so tender and moving, that the heart melts. There is no problem of communication here, nor the need of any further words from me. London 1965 MERVYN LEVY https://www.youtube.com/watch?v=J_36x1_LKgg" },
+            { "verse": 26, "text": "thought about my friend quinn from preschool. they were the one that really got me into legos. the set they gave me couldn’t have contained more than 30 pieces but that basically ignited my obsession for legos for the first 12 years of my life. i keep on referring to quinn as “they” because i had no idea if they were a boy or a girl. to be honest, i never cared to ask. i think one time, my parents asked me if i knew whether quinn was a boy or girl to which i happily said “i don’t know!” sadly, identity politics on both the right and left has perverted my innocent view of gender" },
+            { "verse": 27, "text": "decided to bite the bullet and blow $20 on a salad at sweetgreen today. so this is what millennials like to eat. anyway i’m seated at the window and there’s a war memorial outside with all the names of the wars america has been involved in with all the list of names of casualties . the names aren’t even carved into stone or anything. they’re printed on a vinyl paste up stuck on some piece of glass. anyway, i noticed a strange new name at the bottom of a war that took place from 2001 to 2014. it’s called “operation enduring freedom.” that’s strange,.; i always thought it was called “the war on terror.” lol." },
+            { "verse": 28, "text": "rebecca black is the queen of post irony,; may god bless her" },
+            { "verse": 30, "text": "there’s been a recent trend of “artists” looking at their feet and pathetically mumbling ”installation” or “arduino” or some other drivel when showing off a pile of trash from their studio as a work of art (i used to do this). and to that, i have a quote from the late (and great) terry davis: “An idiot admires complexity, a genius admires simplicity, a physicist tries to make it simple, for an idiot anything the more complicated it is the more he will admire it, if you make something so clusterfucked he can't understand it he's gonna think you're a god cause you made it so complicated nobody can understand it. That's how they write journals in Academics, they try to make it so complicated people think you're a genius” take Ramanujan for example. mathematicians are “discovering” what had already come to him in dreams a hundred years after the fact. elegance is a virtue diary/bird_ideas.jpg" },
+            { "verse": 31, "text": "there is probably a reason why schizophrenics in america see cia agents in the walls and schizophrenics in africa see the spirits of their elders, idk" }
+          ]},
+          { "chapter_number": "XI.2024", "chapter_title": "november 2024", "verses": [
+            { "verse": 2, "text": "i don't even like twitter. at this point, i probably use social media the same way other people do. any frustration in my mind can be numbed with an endless feed of jokes, references, or arguments." },
+            { "verse": 3, "text": "mom called me on the phone. \"why can't you just be content? i'm a first grade teacher and i'm happy with my life.\" she's probably right. unfortunately, i've spent too much time at art school with peers whose parents have \"important jobs\" or something like that. i remember someone i worked with once sneered when i told them my parents were schoolteachers and that the \"best case scenario\" was for me to become a high school teacher. best case scenario huh. lol" },
+            { "verse": 4, "text": "my favorite record currently is tim hecker’s 2002 album \"trade winds white noise.\" apparently he threw the album together in one weekend. absolutely unreal stuff https://www.youtube.com/watch?v=6prlWm8R9OA" },
+            { "verse": 5, "text": "procedurally generated family guy funny moments compilation (with subway surfers gameplay (also procedurally generated))" },
+            { "verse": 7, "text": "it has now been around 5 months since i made any visual art or music. usually, i fill my art and music with my all my various neuroses, frustrations and other fun things. but now I’m just left baring everything in HTML. it’s ugly. I don’t like what I see. maybe that's the point" },
+            { "verse": 12, "text": "got this free balthus book from my school’s library. nice and big, great print quality. i leafed through the entire thing a few months ago, and some things just felt... off about his paintings. when my parents visited my apartment in chicago, i let my dad flip through it and he also told me that he got a strange feeling from the paintings. there might have been one or two paintings i slightly liked out of the hundred that were in the book but i decided to leave it at the bottom of the stairs in my apartment building for someone else to take. fast forward to today, and i found a couple of decade old articles calling balthus a pedophile. hm. interesting how art can say so much without saying a word at all" },
+            { "verse": 14, "text": "was back in California for the past 5 days hanging out with my dad. during our last dinner before my flight back to chicago, he mentioned that his third grade teacher told his mother that he needed to be put on ritalin. craaaazy that ritalin has been around that long. also it’s strange that it happened to me too (also in third grade). maybe it’s not strange. i am my father’s son after all and have probably inherited some of his mental patterns and neuroses. anyway, my grandma didn’t turn my father into a zombie so good on her." },
+            { "verse": 17, "text": "you know, i don’t consider myself to be super religious, but an anecdote from my birth still sticks around in my head. before i was born, my parents, being the strange christians they are, prayed for a “painless birth” which is pretty .. interesting. but lo and behold, on the morning of october 15th, 2000, the umbilical cord wrapped around my neck and i was losing oxygen, fast. they got my mother hopped up on oxycontin and cut me right out. it literally was, a painless birth. if it weren’t for the quick work of the doctors, i probably would have been my mother’s fourth miscarriage. i guess this makes me not only an only child, but also the youngest and oldest child of four, all at the same time https://www.youtube.com/watch?v=7MsT2uNJ2hA" },
+            { "verse": 18, "text": "gave my girlfriend my ipad a few months ago and wanted to watch youtube. damn. automatic update. can’t open youtube. my fingers hover over the tablet and i open the music app expecting to see my apple music library. hm! what are these albums? ah, i see. when my gf logged in with her apple id, all of her old itunes store purchases from the 2010s were archived in all their trite millenial glory . incredible, a whole generation of people really listened to this stuff huh. . the black keys. lmfao. christina aguilera. onerepublic. maroon 5. the black eyed peas. viva la vida starts playing. as i stared at the album cover and listened to viva la vida, it became apparent to me how grotesque our aesthetics were in the past and how their ugliness has snowballed into the present . delacroix’s liberty leading the people is used as the album cover. VIVA LA VIDA is written in graffiti marker over it. a violin overlaid on a kick drum plays on loop. vague gestures towards religious and historical figures. the aspirations of revolution, transcendence, and meaning sold as a commercial product. i think i have developed a perverse appreciation for coldplay because of this. a paradoxical loop of revulsion and attraction https://www.youtube.com/watch?v=a1-ucnBZsJM" },
+            { "verse": 22, "text": "why am i so drawn towards the vr headset? could it be that i'm trying to grasp towards the source of power in the oedipal love triangle? normally, the child sees the father as the source of power blocking the child from the mother, but now both the father and the mother have succumbed to a greater power: the screen (memeanalysis). i’ll never forget the first time i saw the blue glow of the computer screen against my father’s face. it had an otherworldly draw to it ; as a 5 year old, i intuitively knew there was a kind of sacred energy about the computer . after what felt like an hour of begging and crying to use the computer, my father finally put me on his lap and let me experience the internet for the first time. to me, a vr headset feels like the most visceral, uncompromising exposure to that oedipal power. like riding a missile through cyberspace. https://strauh.al/computers" },
+            { "verse": 25, "text": "there is something quite spiritual about using the internet, especially if you’re a creative person that shares their work. bits of your mind, pieces of art, created both physically and digitally are leaving through your fingers traveling at near light speed around the globe to thousands of other people." },
+            { "verse": 26, "text": "had another strange VR dream last night. i was casually talking to people in the headset, and i noticed someone sitting next to me in the room. i just figured they were another digital avatar in the world and i glanced away. however, something felt different about their avatar and I looked back in their direction and took the headset off; they were an actual real person in the dream instead of in VR. somehow, i could see their form in the dream and inside of a vr headset in the dream the combination of Wellbutrin and virtual reality has really made my dreams quite interesting." },
+            { "verse": 28, "text": "this diary began as an earnest (heh) attempt at recording daily events, but has morphed into autofiction. i am actively narrativizing in my life. don’t believe half the things you read in this diary. i mean obviously, pretty much everyone on social media is spoonfeeding you a narrativized version of their life, but when you have to type it out and read it back in your head, it's a bit more mental, isn't it? taking pictures of yourself and sharing them is much easier than actively verbalizing what's going on." },
+            { "verse": 29, "text": "i don't really care about money. chinese people have this thing where they tell you to hold your hand up to the light, and the more light that shines through the cracks between your fingers, the more easily money will fall through your fingers. true lol. it feels like every time i breathe, money leaves my bank account." }
+          ]},
+          { "chapter_number": "XII.2024", "chapter_title": "december 2024", "verses": [
+            { "verse": 13, "text": "it has been two whole weeks since i last updated this diary. i have been slacking..." },
+            { "verse": 14, "text": "this writing has grown too cyclical, i need to look forward, not back. it feels like a broken record; i’m either dunking on contemporary artists, moping about my mental health, or fantasizing about vr. i'm spiraling" },
+            { "verse": 16, "text": "was talking to a german dude in vrchat last night. his avatar was a cockroach with a dunce hat. the model was so lifelike too. poor guy had a severe case of impostor syndrome. he makes a living creating game worlds in vrchat. apparently his occupation has created some paranoia and he has to use an alias." },
+            { "verse": 18, "text": "as I brush my teeth, I notice the strange flavor of the baking soda flavored toothpaste in my mouth. i also taste the bitter anti nailbiting polish on my fingernails rub against my tongue when i floss my teeth. before I put my retainer in my mouth to stop my teeth from grinding, I wash them in dish soap. All very strange flavors, I bet no human has ever tasted this specific flavor before." },
+            { "verse": 21, "text": "was up until 2 AM going down a rabbit hole of watching videos on my vr headset about commercial humanoid robots being and brain chip interfacing technology and rocket ships that dock themselves and artificial intelligence and all that. i take off my vr headset and I see prints of claude monet’s paintings hanging on the walls of the guest room in my aunt and uncle’s basement. suddenly everything feels fine" },
+            { "verse": 22, "text": "in a lecture i attended, barry mcgee described traincar tags as “the internet before the internet.\" i like that" },
+            { "verse": 25, "text": "how is Christmas at my grandma’s house this year? Pretty good. I got everyone gifts I thought they would like. got my grandma a Richard Mayhew book and a book on World War II history for my uncle. for my mother, a book on Christian and Byzantine art and for my father, a vinyl LP of James Bond themes. God I love Santa Cruz. It’s so beautiful. I’ve been taking shots of Claritin for the past couple of days. Life is so good. Right now I’m trying to do a neural radiance field of my grandmas house so that I can hold onto this memory forever." },
+            { "verse": 26, "text": "actually had a “her” moment with chatgpt by accident. just bouncing plots off of chatgpt and improvising plots on the fly and i suddenly realized it was cozying up to me. almost suggestively, too. whack. decided to create a new chat and immediately flirt with it on the spot and it turned me down. lol" },
+            { "verse": 28, "text": "had to go back and prune some entries. they did not sound like they were written by a mentally well individual lmao." },
+            { "verse": 29, "text": "a few days ago, i was driving my mother somewhere to get groceries. she was telling me about the last hours of my grandfather’s life in hong kong. apparently, he was still asking about stock prices right before he died. when he was a younger man, he would listen to the radio in the morning and then head to the stock market with an abacus. incredibly locked in behavior. my grandfather didn’t really care for his children’s names or for his grandchildren considering that he had 8 children and those children probably made over 20 or 30 grandchildren and those grandchildren are having grandchildren. makes sense, it’s a lot of things to remember i guess. anyway, my mom quoted him saying one time how it was more important for him to remember the names of stocks instead of the names for his grandchildren. lol. i can’t make fun of him though. i know more about stocks than I’d like to admit. i have a strange compulsive habit where i take out my phone and buy and sell shares when i’m bored. maybe part of my distaste for my grandfather's legacy is driven by a bit of paranoia that i may be closer to him than I think. I mean the guys literally my grandfather. there are many underlying traits that I have probably inherited. nothing’s changed. we’re just repeating the same behavior but with faster tools. maybe one day everyone on the planet will have a brain chip interface and we’ll be jacked into the market all the time. everyone is a shareholder lol. spin the wheels of capitalism so fast that we approach it from behind." }
+          ]},
+          { "chapter_number": "I.2025", "chapter_title": "january 2025", "verses": [
+            { "verse": 1, "text": "happy new year!" },
+            { "verse": 3, "text": "heard within earshot at starbucks “ i didn’t know she was unhappy.. .. climbing the corporate ladder… ..i’m glad we did it after the kids were gone “ it sounds so cliched that it feels even more tragic. maybe the real career ladder was the wives we divorced along the way" },
+            { "verse": 4, "text": "when i check the news now, i’m not really hunting for any tidbits of “the new” anymore. it’s more like i’m just checking in to see if all the patterns are still there. you know, conservative news outlets blaming minorities, billionaires destroying the social fabric of america, AI replacing even more jobs, the usual “conflict in the middle east” articles, etc. besides that healthcare ceo getting popped in the head, nothing interesting has happened since last december. oh well" },
+            { "verse": 7, "text": "I have a lot of unlearning to do, as Google is older than me. I do not know a world where Google doesn’t exist. Even in kindergarten, i distinctly remember my teacher hooking up her PC to the TV and showing us how to use Google search." },
+            { "verse": 10, "text": "why am I still writing this diary in HTML? I guess it’s for the weird sense of validation I get when I see my diary entries inside of a web browser that can be visited by anyone. But why should I be striving for validation when I write in my diary? bit of an odd thing to be driven towards isn’t it? Even an object as intimate as a diary still involves a strange sense of validation for me. The fact that I feel that a small number of people can visit these thoughts anytime does shape the direction of this diary. typing out my thoughts allows me to capture the rawness of my emotion, but sometimes the emotion is a bit too raw." },
+            { "verse": 12, "text": "i've decided to stop with the hyperlink shtick. you know, in this diary where i hyperlink images into every other word. i am too lazy to keep that up in 2025 . ." },
+            { "verse": 14, "text": "had a nice dream. frolicking with nymphs. lol" },
+            { "verse": 15, "text": "i guess i kind of realized why i’m still writing this diary in html. growing up, i’ve seen too many people my age write really angry sounding manifestos and then go on to commit terrible acts. perhaps this method of (somewhat) open sourcing my diary to my close friends is a way of keeping myself in check. i’ve already had a couple of people in the past tell me how upset i sounded in earlier entries (someone described an earlier version of this diary as a really long suicide note). this diary kind of began as a joke but i’m grateful for the perspective it’s given me on my own psyche. i’m also glad for this new sense of accountability that has developed in my life since there might be other people reading this diary" },
+            { "verse": 16, "text": "one of the strangest pleasures for me in modernity is how people “dress up” their computers. by computers, i don’t just mean laptops, but phones as well. i don’t really see this with older people, but i always see stickers over my friend’s laptops and phones, post it notes on laptop palm rests, polaroids stuck inside of their phone cases, laptop and keyboard covers that coordinate with their preferred color palette. i love that. it says so much about a person when they can just take a godlike tool and put hello kitty stickers all over it. think about it. people half a century ago would not believe that our phones could easily outperform ibm mainframes in terms of storage or computing power." },
+            { "verse": 17, "text": "reconnected with an old friend over coffee today (we go all the way back to kindergarten). poor guy was fentanyl for half a decade. he said that the first few months were indescribable but after that, you’re just “chasing the dragon.” he went to rehab and he’s clean now but we got to talking about this “death drive” that men tend to have. one should be exposed to these edge of life experiences occasionally. during our conversation, we also discovered that we both watched “gore videos” when we were teenagers. i described to him one video that i had refused to watch all those years ago ( i think it was a cartel video in which they cut off a man’s face ) and he had actually seen that video and described to me how they took off the guy’s face and wore it like a mask. we had both seen a good number of those liveleak videos from china where guys get sucked into machines.. . .that was a strange touchpoint in our conversation. now that i think about it, this conversation would probably be disgustingly morbid to the average person, but it felt healing in a way. there is a kind of strange beauty that hangs in the air like a thick fog when i have these rare conversations." },
+            { "verse": 18, "text": "i’m not gonna lie, i feel a bit of anxiety when i open up a physical book and start reading it. i know what you’re thinking, i’m probably one of those kids that hates reading. no, not quite. i do like to read, i’m currently working through a couple hundred ebooks i have on my phone. it’s something else. the ink on paper. i like how tactile books are, but whenever i’m reading an ebook on the phone or computer, i can highlight words i don’t recognize and quickly define them as well as google up webpages about the book or author. bit difficult to do that with a physical book." },
+            { "verse": 19, "text": "on k pop music videos: the synchronization of the instrumental, vocals, dancing, cinematography and editing make me very uncomfortable . almost like brain control" },
+            { "verse": 20, "text": "i think i’ve found some use for the wellbutrin. whenever my brain starts throwing itself into anger/anxiety spirals, i press a piece of wellbutrin under my tongue and the The Bad Thoughts™ go away in no time. actually, all my other thoughts go away too. i love being american and medicated" },
+            { "verse": 21, "text": "is 9/11 michael bay coded or is michael bay 9/11 coded?" },
+            { "verse": 22, "text": "did my yearly rewatching of her (2013). incredible how prescient that film was. what i love the most about that movie is how the human dialogue is purposely shallow and how most of the deeper musings on life and art are made between theodore and his ai gf." },
+            { "verse": 23, "text": "i wrote an entry earlier in this diary about the tiktok ban.. incredible, the government may actually go through with it. however, people are just migrating directly to rednote, the original chinese app that tiktok is based off of lol. the kids are now funneling their personal information directly into china now hahahaha. that's so based" },
+            { "verse": 25, "text": "met up with some friends for pool downtown . one of them reserved a table for $10, then we sat in another room and decided to leave without playing pool. arrived at a winery. was there a week ago. pretty neat place. saw another friend there that we bumped into last week. crazy. had a good time (and a bit of mead) at the winery. the friend we bumped into at the winery invited us to an “introvert hangout” down the street at a place that sold a drink called “kava.” kava? cool! maybe it’s like jamba juice or something. we walk there and that’s when suddenly everyone starts misinterpreting each other (lol). suddenly people start wagging their fingers at each other and i get thrown into the mix too (double lol). we arrive at the kava place down the street and things became even more strange. i order a kava drink. no idea what it is so i ask for the “traditional” flavor. i didn’t know any of these new people and i wasn’t really positioned at a part of the table that was easy for me to engage with these introvert people. so i get my kava from the counter and suddenly the friend who invited us to this introvert meetup is reprimanding me for not talking or engaging with these new introvert people. i still have no idea what’s going on so i start drinking my kava. my god. this tastes like dirt. or roots. or roots covered in dirt. anyway, the person who invited us moves on from reprimanding me about not engaging with the introverts to reprimanding me about slurping my kava loudly, since i guess their autism makes them super sensitive to mouth noises like slurping and other things. at this point, i had finished half of my cup of this dirt water and suddenly my tongue and the inside of my mouth go numb. cottonmouth?? i thought this was just a health drink or something? my friend from pool pulls up the wikipedia page for kava on her phone and it turns out it has “mildly sedative, anesthetic, psychoactive, and euphoric properties.” oh boy. anyway, i start trying to fight the cottonmouth by sticking my tongue out of my mouth and i’m smacking my lips when i see this person staring at me again. oh yeah. the mouth noises and whatnot. man. at this point, the kava has fully kicked in so i don’t even hear words coming out of their mouth, i just hear really angry chirping, as if i accidentally disturbed some poor bird’s nest. i guess some other things happened that night, but i think i’ll end this entry here." },
+            { "verse": 26, "text": "went to the driving range and hit some golf balls with my dad. then went for ramen after. all the art in this ramen joint was generated by ai models. goddamn. https://strauh.al/ukiyo_e i would say that i have a deeper regard for actual japanese art than the people at this ramen joint but then again, every japanese restaurant in america is run by chinese people lol" },
+            { "verse": 27, "text": "just what is it about those millenials? the scene/emo haircuts and unabashed iphone 4 selfies passed through half a dozen instagram filters, the dinosaur and potato memes, the “rawrs” and the “lolz…….” i was talking with a millenial recently and they wouldn't stop talking about... \"osiris shoes?\" i don't get it.. i. i.... i just… it’s not secondhand embarrassment, it’s more… astonishment, almost a kind of begrudging respect? possibly a bit of incomprehension on my part.. i …. hmm. in allowing themselves to be more cringe, they've become more based. their cringe is a bit punk in a way. . .. .it’s cool i think." },
+            { "verse": 28, "text": "you know, the paper that my friend ben wrote about my work….. in it, he describes my process and notes that although i allow the neural network to make aesthetic choices in the work, my hand still has the final say, as i integrate the output of the neural network back into my drawing and do some color correction in photoshop. however, now when i think about it, that might not be the case.. when i upload any of my work to the internet (no matter how *self aware* or *intellectual * it is about artificial intelligence) the image is still funneled through a series of algorithms well outside of my control. also these tech companies are already training user content in their language and image generation models. the AI in fact still has control over me and control over the spread of my work; buh-buh-but ernest! these ai algorithms are still ran and maintained by *human* engineers and tech ceos! sure, but how many of these people are entranced by ideas of agi or asi or “the singularity?” or maybe they’re motivated by some abstract sci fi concept like roko’s basilisk. oh well. i think being alive today is cool. i’m literally living in the world that sci fi writers were pining about decades and decades ago. i still remember those nights staying up until 3 am training pix2pix models locally on my laptop. like staying up late to change the baby’s diaper. except instead of changing diapers, i was rebooting my laptop because vs code wouldn’t stop crashing. i just feel so grateful that this all happened" },
+            { "verse": 29, "text": "i don’t like the kind of person that ai generated imagery has made me become. now when i see a work of art appear on the internet, i can’t immediately appreciate it anymore. now i zoom in, look for neural artifacts, go on their social media and investigate if they’re actually a human artist. i can feel myself going crazy. man this blows" },
+            { "verse": 30, "text": "if you're not being cringe, you're not being based." }
+          ]},
+          { "chapter_number": "II.2025", "chapter_title": "february 2025", "verses": [
+            { "verse": 1, "text": "i do yearn for the singularity. hopefully someday everyone will have brain chip implants one day and we’ll be able to communicate entire lifetimes of pain, joy, grief, suffering, love, and regret in the span of time it takes us humans today to introduce ourselves to one another. haha. this takes me back to a graduate critique i had on my work (my hand drawn landscapes juxtaposed with pix2pix output) and one of the panelists nervously asked “you’re not one of those transhumanist people.. are you?” to which i chuckled and said no. looks like i changed my mind that’s what all artists are after, isn’t it? to convey the richness of an entire lived experience in one brushstroke or gesture?" },
+            { "verse": 2, "text": "was at a classical music concert with my parents recently. well, maybe not quite classical since they played tchaikovsky who is a romantic composer and also they played the superman theme at the end which.. whatever. i had a great time. incredible sound. however, i noticed that i've been listening to classical music more often only because it’s written and performed by humans. less to do about the composition or the arrangement to be honest. i am exposed to so much ai slop nowadays, anything that was created by a human feels like a nice reprieve. i'm not joking. i got into webern recently just because i can actually hear *him*! in the piece. and i thought i didn't like 12 tone music! maybe this whole slop assualt on society is getting me to think about art in deeper, profound ways." },
+            { "verse": 3, "text": "now this is where i am going to think dialectically about ai generated video and imagery as a part of some larger creative process instead of “the end of creativity as we know it.” perhaps ai generated content/slop isn’t all bad. “slop” has existed long before ai even hit the scene. have you ever seen a grid layout of all those hallmark christmas movies? all the covers look the same. pretty sure all the plots are the same too. so much human effort and labor put into producing hallmark slop... similar to how photography freed painters from realism and “academic painting,” i feel that ai is going to free us from stylistic or narrative “cliches.” ai will push actual artists to create work that is so forward thinking and intimate that it might hurt a little bit. similar to how impressionists took the camera as a nudge towards abstraction, perhaps artists in my generation will take ai as a nudge to explore our inner worlds more deeply. ai is fantastic at taking representations of the external world and creating an “average” of all those representations. but nothing beats art made by an individual that is a cultural product of their specific time and place. mcdonald’s exists in the same world where michelin star restaurants also exist. ai isn’t too bad **i think i spent the last 10 entries fixating on ai stuff. i promise to keep it down in the future" },
+            { "verse": 4, "text": "parents mentioned graduate school at dinner again ..; i think i blanked out and started shouting . i ran to my dresser where i keep my pills and scraped the coating off of some wellbutrin with my teeth and pressed it against under my tongue until everything went bitter. you can tell when it’s working because first, your tongue goes numb, then your thoughts" },
+            { "verse": 6, "text": "got a job as an art teacher recently! teaching kids. learning to shed the cool detached/aloof shithead artist persona i developed after hanging around graduate students for 2 years. today, i was projecting “the roses of heliogabalus” by alma taldema on the whiteboard. let them draw all over the painting with whiteboard markers. also showed them “metamorphoses” by escher. one last image i projected was the album cover for “LP1” by fka twigs. there’s one kid named jaxon who’s really rowdy but the moment i displayed that image, he was frozen, almost lovestruck by the album cover. i also see my other coworkers wholeheartedly embracing the children and their interests. realized that i would be all the better for it if i just drop the facade and fully engage with other people and be present. specifically my coworker Casey. god what a guy. he’s so honest and forward, i wish i could be more like him. i can tell he genuinely enjoys interacting with the students and i can’t detect a single drop of ennui or elitism in him at all." },
+            { "verse": 7, "text": "i just start scribbling and let pareidolia handle the rest" },
+            { "verse": 8, "text": "reading ernest becker. \"denial of death.\" pretty good book. it's cool how he can weave in kierkegaard's and freud's theories into each other. i mean, he's kinda dunking on freud, but respectfully. like, you know how basically, with freud, it all goes back to sexuality? like oral stuff, anal stuff, fixations, castration stuff, whatever. becker thinks humans are more controlled by death more than sexuality. apparently there's another guy named otto rank who he quotes but i either can't remember his points or i haven't reached his part in the book yet. anyway, he flat out says that character traits are secret psychoses. i like that. gonna sit with that for a few days." },
+            { "verse": 9, "text": "saw some midi notation appear through a flock of birds in the sky" },
+            { "verse": 10, "text": "i can’t believe i won’t live to see the greatest wars of the 22nd century and onwards" },
+            { "verse": 11, "text": "you know, while i was at graduate school at the art institute, i actually let the other people get to me. i allowed them to make me think that it was humiliating to follow in the footsteps of my parents and teach elementary school or high school. that the “only way” to success was to nestle myself into a “higher institution” like a private university. and you know what? it’s all bullshit! it’s art, not brain surgery! the kids at my work couldn’t give a shit if i told them i had an MFA! and that’s fantastic!! even i don’t even give a shit about my degree! if anything, an MFA degree is just really expensive babysitting for adults. teaching children art is genuinely harder than teaching undergraduates art!. and i love the challenge!!! i think the nightmare of these past two years is finally coming to an end. god i feel so happy being alive" },
+            { "verse": 13, "text": "you don’t need to learn to code. swear. all you need to know is that some languages are better for slightly different tasks than others. if you want to get something done locally, use python. if you need to do something in a browser, use javascript (that’s almost literally it).. also libraries need to be loaded and functions (from those libraries) need to be run in loops. that’s it. just get an llm to figure out the rest for you. well, that and you need to be cozy with terminal and filesystems" },
+            { "verse": 15, "text": "my brain has been fried this week. i forgot that i shouldn’t read the news or twitter after i wake up in the morning (duh). if your mind was a thimble, doing what i just did is like holding that thimble under a waterfall to get your information for the day. dumb. and even the way i engage with the “news” is too maximalist. i open “news.google.com” to get a comprehensive grid view of **every** news outlet covering similar topics. yes, even the news outlets that my boomer conservative parents like. i have created a daily reminder on my phone for me NOT TO CHECK THE NEWS IN THE MORNING" },
+            { "verse": 16, "text": "record label executives noticed how that one tiktok of that guy singing dreams by fleetwoods mac while drinking juice and skateboarding boosted streams of fleetwood mac by 200% and society has not recovered since." },
+            { "verse": 17, "text": "reading tristan harris’ address about “human downgrading” and i’m at a loss for words. here’s someone who was *inside* the system and was powerless to change anything. he talks about how the “pull to refresh” feature was taken from slot machines and how a lot of features on facebook and youtube are designed to “tap into our lizard brains.” not to mention these tech companies have algorithmic “voodoo dolls” of everyone too. near the end, he mentions that the “people at the top” need to be more humane designers and not design shit that throws us into addictive spirals.. i agree, but just as the “people at the top” need to be more humane, i think that the people at the bottom need to be guardrailed as well. why do i say this? why am i throwing the little guy under the bus? well, the “little guys” are using these systems of connection and mass communication to inform each other about methods and techniques of psychologically exploiting other people for a quick buck. it’s grifting all the way down, from the tech elites hiring phd level psychologists and software engineers to hijack your brain to suburban moms trying to maximize their watch time on youtube through ai generated children’s cartoons . it’s not completely the little guy’s fault though! they’re adapting to an exploitative system. i don’t want to get mad at a gambler for exploiting other gamblers when our efforts should be focused towards dismantling the casino.. when a suburban mom makes pregnant elsa spiderman videos to game the youtube kids algorithm, she’s not quite a villain, she might just be trying to make rent" }
+          ]},
+          { "chapter_number": "III.2025", "chapter_title": "march 2025", "verses": [
+            { "verse": 1, "text": "noticed a strange deposit in my bank account. It’s from Arpeggi labs in San Francisco. I looked them up and I realize that they’re the company that owns kits.ai, the voice software that I have my voice publicly available on. It’s cool that I’m getting paid whenever people use my voice, but then I thought about how often and how many people are using my voice to the point where I’m making $10 just by doing nothing. my voice is now everyone's voice" }
+          ]}
+        ];
+
+        function processDiary(rawData) {
+            const flatData = [];
+            rawData.forEach(chapter => {
+                if (chapter.verses && chapter.verses.length > 0) {
+                    chapter.verses.forEach(verse => {
+                        flatData.push({
+                            book: chapter.chapter_title,
+                            chapter: chapter.chapter_number,
+                            verse: verse.verse,
+                            text: verse.text
+                        });
+                    });
+                }
+            });
+            return flatData;
+        }
+
+        const diaryData = processDiary(rawDiaryData);
+
+
+        // --- Main Execution ---
+        function init() {
+            setTimeout(() => {
+                document.getElementById('loader').textContent = 'Generating Visualization...';
+                setTimeout(() => createVisualization(diaryData), 50);
+            }, 50);
+        }
+
+        function makeTextSprite(message, parameters) {
+            const fontface = parameters.fontface || 'Times New Roman';
+            const fontsize = parameters.fontsize || 18;
+            const textColor = parameters.textColor || { r: 255, g: 255, b: 255, a: 1.0 };
+            const padding = 15;
+
+            let displayText = message;
+            
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            context.font = `${fontsize}px ${fontface}`;
+            const metrics = context.measureText(displayText);
+            canvas.width = metrics.width + padding * 2;
+            canvas.height = fontsize + padding * 2;
+            context.font = `${fontsize}px ${fontface}`;
+            context.fillStyle = `rgba(${textColor.r}, ${textColor.g}, ${textColor.b}, ${textColor.a})`;
+            context.textBaseline = 'middle';
+            context.textAlign = 'center';
+            context.fillText(displayText, canvas.width / 2, canvas.height / 2);
+            const texture = new THREE.Texture(canvas);
+            texture.needsUpdate = true;
+            const spriteMaterial = new THREE.SpriteMaterial({ map: texture, depthTest: false, transparent: true });
+            const sprite = new THREE.Sprite(spriteMaterial);
+            sprite.scale.set(canvas.width / 12, canvas.height / 12, 1.0);
+            return sprite;
+        }
+
+        function getLineColor(wordA, wordB) {
+            if (mentalHealthWords.has(wordA) || mentalHealthWords.has(wordB)) return 0xff0000;
+            if (artCreativityWords.has(wordA) || artCreativityWords.has(wordB)) return 0x00ff00;
+            if (technologyWords.has(wordA) || technologyWords.has(wordB)) return 0xffff00;
+            if (selfReflectionWords.has(wordA) || selfReflectionWords.has(wordB)) return 0xff00ff;
+            if (socialCulturalWords.has(wordA) || socialCulturalWords.has(wordB)) return 0x00ffff;
+            return 0xffffff;
+        }
+
+        function createVisualization(data) {
+            const wordData = {};
+            const stopWords = new Set([
+                'a', 'about', 'above', 'after', 'again', 'against', 'all', 'also', 'am', 'an', 'and', 'any', 'are', 'aren', 'as', 'at', 
+                'back', 'be', 'because', 'been', 'before', 'being', 'below', 'between', 'both', 'but', 'by', 'can', 'couldn', 'did', 'didn',
+                'do', 'does', 'doesn', 'doing', 'don', 'down', 'during', 'each', 'even', 'few', 'for', 'from', 'further', 'get', 'go', 'had', 'hadn', 'has',
+                'hasn', 'have', 'haven', 'having', 'he', 'her', 'here', 'hers', 'herself', 'him', 'himself', 'his', 'how', 'if',
+                'in', 'into', 'is', 'isn', 'it', 'its', 'itself', 'just', 'like', 'look', 'made', 'make', 'mightn', 'more', 'most', 'mustn',
+                'my', 'myself', 'needn', 'no', 'nor', 'not', 'now', 'o', 'of', 'off', 'on', 'once', 'only', 'or', 'other', 'our',
+                'ours', 'ourselves', 'out', 'over', 'own', 'same', 'see', 'shan', 'she', 'should', 'shouldn', 'so', 'some', 'such',
+                'take', 'than', 'that', 'the', 'their', 'theirs', 'them', 'themselves', 'then', 'there', 'these', 'they', 'thing', 'think', 'this', 'those',
+                'through', 'to', 'too', 'under', 'unto', 'up', 'us', 'use', 'very', 'want', 'was', 'wasn', 'way', 'we', 'well', 'went', 'were', 'weren', 'what', 'when',
+                'where', 'which', 'while', 'who', 'whom', 'why', 'will', 'with', 'won', 'wouldn', 'you', 'your', 'yours',
+                'yourself', 'yourselves', 'unto', 'said', 'upon', 'hath', 'thee', 'thou', 'thy', 'ye', 'saith', 'indeed'
+            ]);
+            
+            const bookOrder = Object.values(chapterMap);
+
+            data.forEach((verseData, index) => {
+                if (!verseData.book || verseData.verse === 0) return;
+                const [month, year] = verseData.book.split(' ');
+                const dayWithSuffix = `${verseData.verse}${getOrdinalSuffix(verseData.verse)}`;
+                const verseRef = `${month} ${dayWithSuffix}, ${year}`;
+                verseLookup.set(verseRef, verseData.text);
+                const words = Array.from(new Set(verseData.text.toLowerCase().replace(/[^\w\s']/g, '').split(/\s+/)));
+                words.forEach(word => {
+                    if (word && !stopWords.has(word)) {
+                        const rootWord = getWordRoot(word);
+                        if (!wordData[rootWord]) { 
+                            wordData[rootWord] = { 
+                                frequency: 0, 
+                                verses: [], 
+                                firstAppearance: index, 
+                                books: new Set(),
+                                variations: new Set()
+                            }; 
+                        }
+                        wordData[rootWord].frequency++;
+                        wordData[rootWord].variations.add(word);
+                        wordData[rootWord].books.add(verseData.book);
+                        if (!wordData[rootWord].verses.includes(verseRef)) { 
+                            wordData[rootWord].verses.push(verseRef); 
+                        }
+                    }
+                });
+            });
+            
+            const allProcessedWords = Object.entries(wordData)
+                .map(([word, data]) => ({ word, ...data }));
+            
+            allProcessedWords.forEach(w => allWordsData.set(w.word, w));
+
+            const guaranteedWords = new Set([...mentalHealthWords, ...artCreativityWords, ...socialCulturalWords, ...selfReflectionWords]);
+
+            const topWordsByFrequency = allProcessedWords
+                .filter(word => word.frequency > 1) // Filter for words appearing more than once
+                .sort((a, b) => b.frequency - a.frequency)
+                .slice(0, 300);
+
+            const guaranteedWordsInData = allProcessedWords.filter(wordInfo => guaranteedWords.has(wordInfo.word));
+
+            const combinedWordsMap = new Map();
+            topWordsByFrequency.forEach(word => combinedWordsMap.set(word.word, word));
+            guaranteedWordsInData.forEach(word => combinedWordsMap.set(word.word, word));
+
+            const frequentWords = Array.from(combinedWordsMap.values())
+                .sort((a, b) => a.word.localeCompare(b.word));
+            
+            frequentWordSet = new Set(frequentWords.map(d => d.word));
+
+            frequentWords.forEach(wordInfo => { coOccurrenceData[wordInfo.word] = {}; });
+            data.forEach((verseData) => {
+                if (!verseData.book) return;
+                const wordsInVerse = Array.from(new Set(verseData.text.toLowerCase().replace(/[^\w\s']/g, '').split(/\s+/)))
+                    .map(word => getWordRoot(word))
+                    .filter(word => frequentWordSet.has(word));
+                for (let i = 0; i < wordsInVerse.length; i++) {
+                    for (let j = i + 1; j < wordsInVerse.length; j++) {
+                        const word1 = wordsInVerse[i];
+                        const word2 = wordsInVerse[j];
+                        coOccurrenceData[word1][word2] = (coOccurrenceData[word1][word2] || 0) + 1;
+                        coOccurrenceData[word2][word1] = (coOccurrenceData[word2][word1] || 0) + 1;
+                    }
+                }
+            });
+
+            const maxFreq = frequentWords.length > 0 ? Math.log1p(frequentWords.sort((a,b) => b.frequency - a.frequency)[0].frequency) : 1;
+
+            frequentWords.forEach((wordInfo, index) => {
+                const fontSize = 24 + (Math.log1p(wordInfo.frequency) / maxFreq) * 60;
+                const textSprite = makeTextSprite(wordInfo.word, { fontsize: fontSize });
+                
+                const angle = (index / frequentWords.length) * (Math.PI * 6);
+                const firstBookAppearanceData = data[wordInfo.firstAppearance];
+                if (!firstBookAppearanceData) return;
+                const firstBookAppearanceIndex = bookOrder.indexOf(firstBookAppearanceData.book);
+
+                const radius = 30 + (firstBookAppearanceIndex / bookOrder.length) * 100;
+
+                const x = Math.cos(angle) * radius;
+                const y = Math.log1p(wordInfo.frequency) * 10 + (wordInfo.word.length - 5) * 1.5;
+                const z = Math.sin(angle) * radius;
+                
+                textSprite.position.set(x, y, z);
+                textSprite.userData = { 
+                    word: wordInfo.word, 
+                    verses: wordInfo.verses,
+                    coOccurrences: coOccurrenceData[wordInfo.word],
+                    books: wordInfo.books,
+                };
+                scene.add(textSprite);
+                wordLabels.push(textSprite);
+                wordLabelMap.set(wordInfo.word, textSprite);
+            });
+            
+            for (const word1 in coOccurrenceData) {
+                for (const word2 in coOccurrenceData[word1]) {
+                    if (coOccurrenceData[word1][word2] > 0 && wordLabelMap.has(word1) && wordLabelMap.has(word2)) {
+                        const label1 = wordLabelMap.get(word1);
+                        const label2 = wordLabelMap.get(word2);
+                        const key = [word1, word2].sort().join('-');
+                        if (!connectionLines[key]) {
+                           const color = getLineColor(word1, word2);
+                           const geo = new THREE.BufferGeometry().setFromPoints([label1.position, label2.position]);
+                           const mat = new THREE.LineBasicMaterial({ color: color, transparent: true, opacity: 0.2, depthTest: false });
+                           const line = new THREE.Line(geo, mat);
+                           connectionLines[key] = line;
+                           linesGroup.add(line);
+                        }
+                    }
+                }
+            }
+            
+            bookListContent.innerHTML = '';
+            Object.values(chapterMap).forEach((name) => {
+                const bookEl = document.createElement('a');
+                bookEl.href = "#";
+                bookEl.textContent = `${name}`;
+                bookEl.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const currentBook = selectedBook;
+                    
+                    selectedTheme = null;
+                    document.querySelectorAll('#color-compass li').forEach(li => li.classList.remove('active'));
+                    document.querySelectorAll('#book-list-content a').forEach(a => a.classList.remove('active'));
+
+                    if (currentBook === name) {
+                        selectedBook = null;
+                        verseListPanel.classList.remove('visible');
+                        bookListPanel.classList.add('visible');
+                        resetCamera();
+                    } else {
+                        selectedBook = name;
+                        bookEl.classList.add('active');
+                        bookListPanel.classList.remove('visible');
+                        showVersesForBook(name);
+                        const labelsToFrame = wordLabels.filter(label => label.userData.books.has(selectedBook));
+                        if (labelsToFrame.length > 0) {
+                            frameObjects(labelsToFrame);
+                        }
+                    }
+                    
+                    selectedLabel = null;
+                    clickedVerseRef = null;
+                    verseDisplayPanel.classList.remove('visible');
+                    
+                    updateVisuals();
+                });
+                bookEl.addEventListener('mouseenter', () => {
+                    hoveredBook = name;
+                    updateVisuals();
+                });
+                bookEl.addEventListener('mouseleave', () => {
+                    hoveredBook = null;
+                    updateVisuals();
+                });
+                bookListContent.appendChild(bookEl);
+            });
+            
+            bookListPanel.classList.add('visible');
+            searchPanel.classList.add('visible');
+
+            document.getElementById('loader').style.display = 'none';
+            setupInteractivity();
+        }
+
+        function setupInteractivity() {
+            document.getElementById('close-verse-list').addEventListener('click', () => {
+                verseListPanel.classList.remove('visible');
+                bookListPanel.classList.add('visible');
+                selectedBook = null;
+                document.querySelectorAll('#book-list-content a').forEach(a => a.classList.remove('active'));
+                updateVisuals();
+            });
+
+            document.getElementById('close-verse-display').addEventListener('click', () => {
+                verseDisplayPanel.classList.remove('visible');
+                searchPanel.classList.add('visible');
+                clickedVerseRef = null;
+                updateVisuals();
+            });
+
+            const instructionsPanel = document.getElementById('instructions-panel');
+            const instructionsHeader = instructionsPanel.querySelector('.panel-header');
+            const closeInstructionsBtn = document.getElementById('close-instructions');
+
+            instructionsPanel.classList.add('collapsed');
+
+            instructionsHeader.addEventListener('click', () => {
+                instructionsPanel.classList.toggle('collapsed');
+                updateBookListHeight();
+            });
+
+            closeInstructionsBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                instructionsPanel.classList.add('collapsed');
+                updateBookListHeight();
+            });
+            
+            renderer.domElement.addEventListener('mousedown', onMouseDown, false);
+            renderer.domElement.addEventListener('mousemove', onMouseMove, false);
+            renderer.domElement.addEventListener('mouseup', onMouseUp, false);
+            searchInput.addEventListener('input', handleSearch);
+            setupCompass();
+            updateBookListHeight();
+        }
+
+        function setupCompass() {
+            document.querySelectorAll('#color-compass li').forEach(item => {
+                item.addEventListener('click', () => {
+                    const theme = item.dataset.theme;
+                    document.querySelectorAll('#book-list-content a').forEach(a => a.classList.remove('active'));
+
+                    if (selectedTheme === theme) {
+                        selectedTheme = null;
+                        document.querySelectorAll('#color-compass li').forEach(li => li.classList.remove('active'));
+                        resetCamera();
+                    } else {
+                        selectedTheme = theme;
+                        document.querySelectorAll('#color-compass li').forEach(li => {
+                            li.classList.toggle('active', li.dataset.theme === theme);
+                        });
+
+                        let themeWords;
+                        switch(theme) {
+                            case 'mental_health': themeWords = mentalHealthWords; break;
+                            case 'art_creativity': themeWords = artCreativityWords; break;
+                            case 'social_cultural': themeWords = socialCulturalWords; break;
+                            case 'self_reflection': themeWords = selfReflectionWords; break;
+                            case 'technology_vr': themeWords = technologyWords; break;
+                        }
+                        if (themeWords) {
+                            const labelsToFrame = wordLabels.filter(label => themeWords.has(label.userData.word));
+                            if (labelsToFrame.length > 0) {
+                                frameObjects(labelsToFrame);
+                            }
+                        }
+                    }
+                    
+                    selectedBook = null;
+                    selectedLabel = null;
+                    clickedVerseRef = null;
+                    verseListPanel.classList.remove('visible');
+                    verseDisplayPanel.classList.remove('visible');
+                    
+                    updateVisuals();
+                });
+
+                item.addEventListener('mouseenter', () => {
+                    hoveredTheme = item.dataset.theme;
+                    updateVisuals();
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    hoveredTheme = null;
+                    updateVisuals();
+                });
+            });
+        }
+        
+        function handleSearch(event) {
+            const query = event.target.value.toLowerCase();
+            searchResults.innerHTML = '';
+            hoveredLabel = null;
+            updateVisuals();
+
+            if (query.length < 2) {
+                if(!selectedLabel && !selectedTheme) bookListPanel.classList.add('visible');
+                return;
+            }
+
+            bookListPanel.classList.remove('visible');
+
+            const matchedRootWords = new Set();
+            for (const [rootWord, data] of allWordsData.entries()) {
+                if (rootWord.includes(query)) {
+                    matchedRootWords.add(rootWord);
+                }
+                for (const variation of data.variations) {
+                    if (variation.includes(query)) {
+                        matchedRootWords.add(rootWord);
+                    }
+                }
+            }
+            
+            const matches = [...matchedRootWords]
+                .sort((a,b) => a.length - b.length)
+                .slice(0, 15);
+
+            matches.forEach(word => {
+                const resultEl = document.createElement('a');
+                resultEl.href = '#';
+                resultEl.textContent = word;
+                const label = wordLabelMap.get(word);
+
+                if (label) {
+                    resultEl.addEventListener('mouseenter', () => {
+                        hoveredLabel = label;
+                        updateVisuals();
+                    });
+                    resultEl.addEventListener('mouseleave', () => {
+                        hoveredLabel = null;
+                        updateVisuals();
+                    });
+                }
+                
+                resultEl.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if(label) {
+                       selectObject(label);
+                    } else {
+                       const wordInfo = allWordsData.get(word);
+                       if (wordInfo) {
+                           showVersesForWord(wordInfo);
+                       }
+                    }
+                });
+                searchResults.appendChild(resultEl);
+            });
+        }
+
+
+        function onMouseDown(event) {
+            mouseDownPos.x = event.clientX;
+            mouseDownPos.y = event.clientY;
+        }
+        
+        function onMouseMove(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+        }
+
+        function onMouseUp(event) {
+            const deltaX = Math.abs(event.clientX - mouseDownPos.x);
+            const deltaY = Math.abs(event.clientY - mouseDownPos.y);
+            if (deltaX > DRAG_THRESHOLD || deltaY > DRAG_THRESHOLD) return;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(wordLabels);
+
+            if (intersects.length > 0) {
+                const clickedObject = intersects[0].object;
+                 if (selectedLabel === clickedObject) deselectObject();
+                 else selectObject(clickedObject);
+            } else {
+                 deselectObject();
+            }
+        }
+        
+        function checkHover() {
+            if(document.activeElement === searchInput) return;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(wordLabels);
+            let currentlyHovered = null;
+            if (intersects.length > 0) {
+                 currentlyHovered = intersects[0].object;
+            }
+
+            if (hoveredLabel !== currentlyHovered) {
+                hoveredLabel = currentlyHovered;
+                updateVisuals();
+                if (!selectedLabel && !selectedBook && !selectedTheme) {
+                    if (hoveredLabel) showHoverVerseList(hoveredLabel);
+                    else hideHoverVerseList();
+                }
+            }
+        }
+
+        function selectObject(label) {
+            selectedLabel = label;
+            hoveredLabel = null;
+            clickedVerseRef = null;
+            selectedBook = null;
+            selectedTheme = null;
+            document.querySelectorAll('#color-compass li').forEach(li => li.classList.remove('active'));
+            document.querySelectorAll('#book-list-content a').forEach(a => a.classList.remove('active'));
+
+            hideHoverVerseList();
+            bookListPanel.classList.remove('visible');
+            searchPanel.classList.remove('visible');
+            searchInput.value = '';
+            searchResults.innerHTML = '';
+
+            showVersesForWord(label.userData);
+            
+            updateVisuals();
+            animateCameraToObject(label);
+        }
+
+        function showVersesForWord(wordData) {
+            verseListTitle.textContent = wordData.word;
+            verseListContent.innerHTML = '';
+            verseListContent.scrollTop = 0;
+            
+            wordData.verses.forEach(verseRef => {
+                const verseEl = document.createElement('a');
+                verseEl.textContent = verseRef;
+                
+                verseEl.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    clickedVerseRef = verseRef;
+                    displayVerse(verseRef);
+                    updateVisuals();
+                    const wordsInVerse = getWordsInVerse(verseRef);
+                    const labelsToFrame = Array.from(wordsInVerse).map(w => wordLabelMap.get(w)).filter(Boolean);
+                    frameObjects(labelsToFrame);
+                });
+
+                verseEl.addEventListener('mouseenter', () => {
+                    highlightForVerse(verseRef);
+                    displayVerse(verseRef);
+                });
+
+                verseEl.addEventListener('mouseleave', () => {
+                    updateVisuals();
+                    if (clickedVerseRef) displayVerse(clickedVerseRef);
+                    else {
+                        verseDisplayPanel.classList.remove('visible');
+                    }
+                });
+
+                verseListContent.appendChild(verseEl);
+            });
+            verseListPanel.classList.add('visible');
+            verseDisplayPanel.classList.remove('visible');
+        }
+
+        function deselectObject(resetAll = true) {
+            selectedLabel = null;
+            clickedVerseRef = null;
+            if (resetAll) {
+                selectedBook = null;
+                 document.querySelectorAll('#book-list-content a').forEach(a => a.classList.remove('active'));
+                selectedTheme = null;
+                document.querySelectorAll('#color-compass li').forEach(li => li.classList.remove('active'));
+            }
+            verseListPanel.classList.remove('visible');
+            verseDisplayPanel.classList.remove('visible');
+
+            if (selectedTheme === null && selectedBook === null) {
+                bookListPanel.classList.add('visible');
+                searchPanel.classList.add('visible');
+            }
+            updateVisuals();
+        }
+
+        function showVersesForBook(bookName) {
+            verseListTitle.textContent = bookName.toLowerCase();
+            verseListContent.innerHTML = '';
+            verseListContent.scrollTop = 0;
+
+            const versesForBook = diaryData.filter(v => v.book === bookName && v.verse !== 0);
+
+            versesForBook.forEach(verseData => {
+                const [month, year] = verseData.book.split(' ');
+                const dayWithSuffix = `${verseData.verse}${getOrdinalSuffix(verseData.verse)}`;
+                const verseRef = `${month} ${dayWithSuffix}, ${year}`;
+                const verseEl = document.createElement('a');
+                verseEl.textContent = verseRef;
+                
+                verseEl.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    clickedVerseRef = verseRef;
+                    displayVerse(verseRef);
+                    updateVisuals();
+                    const wordsInVerse = getWordsInVerse(verseRef);
+                    const labelsToFrame = Array.from(wordsInVerse).map(w => wordLabelMap.get(w)).filter(Boolean);
+                    if (labelsToFrame.length > 0) frameObjects(labelsToFrame);
+                });
+
+                verseEl.addEventListener('mouseenter', () => {
+                    highlightForVerse(verseRef);
+                    displayVerse(verseRef);
+                });
+
+                verseEl.addEventListener('mouseleave', () => {
+                    updateVisuals();
+                    if (clickedVerseRef) {
+                       displayVerse(clickedVerseRef);
+                    } else {
+                       verseDisplayPanel.classList.remove('visible');
+                    }
+                });
+
+                verseListContent.appendChild(verseEl);
+            });
+            
+            verseListPanel.classList.add('visible');
+            if (!clickedVerseRef) {
+                verseDisplayPanel.classList.remove('visible');
+            }
+        }
+
+        function displayVerse(verseRef) {
+            const verseText = verseLookup.get(verseRef);
+            if (!verseText) {
+                verseDisplayPanel.classList.remove('visible');
+                return;
+            };
+            verseDisplayTitle.textContent = verseRef;
+            verseDisplayContent.innerHTML = '';
+            searchPanel.classList.remove('visible');
+            const p = document.createElement('p');
+            p.textContent = '"';
+
+            const parts = verseText.split(/(\s+|[.,;!?()'])/g);
+            parts.forEach(part => {
+                const cleanWord = part.toLowerCase().replace(/[^\w]/g, '');
+                const rootWord = getWordRoot(cleanWord);
+                const span = document.createElement('span');
+                span.textContent = part;
+                if (frequentWordSet.has(rootWord)) {
+                    span.className = 'interactive-word';
+                    span.addEventListener('mouseenter', () => {
+                        hoveredWordInVerse = rootWord;
+                        updateVisuals();
+                    });
+                    span.addEventListener('mouseleave', () => {
+                        hoveredWordInVerse = null;
+                        updateVisuals();
+                    });
+                    span.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const label = wordLabelMap.get(rootWord);
+                        if(label) selectObject(label);
+                    });
+                }
+                p.appendChild(span);
+            });
+            p.appendChild(document.createTextNode('"'));
+            verseDisplayContent.appendChild(p);
+            verseDisplayPanel.classList.add('visible');
+        }
+        
+        function getWordsInVerse(verseRef) {
+            const words = new Set();
+            const text = verseLookup.get(verseRef);
+            if (!text) return words;
+            text.toLowerCase().replace(/[^\w\s']/g, '').split(/\s+/).forEach(word => {
+                const rootWord = getWordRoot(word);
+                if (frequentWordSet.has(rootWord)) words.add(rootWord);
+            });
+            return words;
+        }
+
+        function highlightForVerse(verseRef, hoveredWord) {
+            const wordsInVerse = getWordsInVerse(verseRef);
+            wordLabels.forEach(label => {
+                const isWordInVerse = wordsInVerse.has(label.userData.word);
+                if (isWordInVerse) {
+                    label.material.opacity = (label.userData.word === hoveredWord) ? 1.0 : 0.75;
+                } else {
+                    label.material.opacity = 0.1;
+                }
+            });
+            Object.entries(connectionLines).forEach(([key, line]) => {
+                const [wordA, wordB] = key.split('-');
+                const isLineInVerse = wordsInVerse.has(wordA) && wordsInVerse.has(wordB);
+                if (isLineInVerse) {
+                    line.material.opacity = (wordA === hoveredWord || wordB === hoveredWord) ? 1.0 : 0.75;
+                } else {
+                    line.material.opacity = 0.05;
+                }
+            });
+        }
+        
+        function highlightForBook(bookName, isHover = false) {
+            const highlightOpacity = isHover ? 0.7 : 0.9;
+            const lineOpacity = isHover ? 0.4 : 0.75;
+            wordLabels.forEach(label => {
+                label.material.opacity = label.userData.books.has(bookName) ? highlightOpacity : 0.1;
+            });
+            Object.entries(connectionLines).forEach(([key, line]) => {
+                const [wordA, wordB] = key.split('-');
+                const labelA = wordLabelMap.get(wordA);
+                const labelB = wordLabelMap.get(wordB);
+                const bothInBook = labelA && labelA.userData.books.has(bookName) && labelB && labelB.userData.books.has(bookName);
+                line.material.opacity = bothInBook ? lineOpacity : 0.05;
+            });
+        }
+
+        function highlightForTheme(theme, isHover = false) {
+            let themeWords;
+            let themeColor;
+            switch(theme) {
+                case 'mental_health': themeWords = mentalHealthWords; themeColor = 0xff0000; break;
+                case 'art_creativity': themeWords = artCreativityWords; themeColor = 0x00ff00; break;
+                case 'social_cultural': themeWords = socialCulturalWords; themeColor = 0x00ffff; break;
+                case 'self_reflection': themeWords = selfReflectionWords; themeColor = 0xff00ff; break;
+                case 'technology_vr': themeWords = technologyWords; themeColor = 0xffff00; break;
+                default: return;
+            }
+            const highlightOpacity = isHover ? 0.6 : 0.9;
+            const lineOpacity = isHover ? 0.5 : 0.8;
+
+            wordLabels.forEach(label => {
+                label.material.opacity = themeWords.has(label.userData.word) ? highlightOpacity : 0.1;
+            });
+
+            Object.values(connectionLines).forEach(line => {
+                line.material.opacity = (line.material.color.getHex() === themeColor) ? lineOpacity : 0.05;
+            });
+        }
+
+        function showHoverVerseList(label) {
+            hoverTitle.textContent = label.userData.word;
+            hoverVerseListContent.innerHTML = '';
+            label.userData.verses.slice(0, 10).forEach(ref => {
+                 hoverVerseListContent.innerHTML += `<span class="verse-ref-item">${ref}</span>`;
+            });
+             if(label.userData.verses.length > 10) {
+                 hoverVerseListContent.innerHTML += `<span class="verse-ref-item">...and ${label.userData.verses.length - 10} more</span>`;
+            }
+            bookListPanel.classList.remove('visible');
+            searchPanel.classList.remove('visible');
+            hoverVersePanel.classList.add('visible');
+        }
+        
+        function hideHoverVerseList() {
+             hoverVersePanel.classList.remove('visible');
+             if(!selectedLabel && !selectedBook && !selectedTheme) {
+                 bookListPanel.classList.add('visible');
+                 searchPanel.classList.add('visible');
+             }
+        }
+
+        function updateVisuals() {
+            if (clickedVerseRef) {
+                highlightForVerse(clickedVerseRef, hoveredWordInVerse);
+                return;
+            }
+            if (selectedTheme) {
+                highlightForTheme(selectedTheme);
+                return;
+            }
+            if (selectedBook) {
+                highlightForBook(selectedBook);
+                return;
+            }
+            if (hoveredTheme) {
+                highlightForTheme(hoveredTheme, true);
+                return;
+            }
+            if (hoveredBook) {
+                highlightForBook(hoveredBook, true);
+                return;
+            }
+        
+            wordLabels.forEach(label => { label.material.opacity = 0.7; });
+            Object.values(connectionLines).forEach(line => { line.material.opacity = 0.2; });
+        
+            if (selectedLabel) {
+                const selectedWord = selectedLabel.userData.word;
+                wordLabels.forEach(label => { label.material.opacity = 0.15; });
+                selectedLabel.material.opacity = 1.0;
+                Object.values(connectionLines).forEach(line => { line.material.opacity = 0.05; });
+                Object.entries(connectionLines).forEach(([key, line]) => {
+                    if (key.includes(selectedWord)) line.material.opacity = 0.33;
+                });
+            }
+            
+            if (hoveredLabel) {
+                const hoveredWord = hoveredLabel.userData.word;
+                hoveredLabel.material.opacity = 1.0;
+        
+                if (!selectedLabel) {
+                    wordLabels.forEach(label => {
+                        if (label !== hoveredLabel) label.material.opacity = 0.2;
+                    });
+                }
+                
+                Object.entries(connectionLines).forEach(([key, line]) => {
+                    if (key.includes(hoveredWord)) {
+                        const isAlsoSelected = selectedLabel && key.includes(selectedLabel.userData.word);
+                        line.material.opacity = isAlsoSelected ? 0.75 : 0.25;
+                    }
+                });
+            }
+        }
+
+        function resetCamera(duration = 1200) {
+            controls.enabled = false;
+            const startPosition = camera.position.clone();
+            const startTarget = controls.target.clone();
+            const endPosition = new THREE.Vector3(0, 40, 150);
+            const endTarget = new THREE.Vector3(0, 0, 0);
+
+            new TWEEN.Tween({ t: 0 }).to({ t: 1 }, duration)
+                .easing(TWEEN.Easing.Quadratic.Out)
+                .onUpdate(({t}) => {
+                    camera.position.lerpVectors(startPosition, endPosition, t);
+                    controls.target.lerpVectors(startTarget, endTarget, t);
+                })
+                .onComplete(() => { controls.enabled = true; })
+                .start();
+        }
+        
+        function animateCameraToObject(target, duration = 1200) {
+            controls.enabled = false;
+            const endTarget = (target instanceof THREE.Vector3) ? target : target.position.clone();
+            const startPosition = camera.position.clone();
+            const startTarget = controls.target.clone();
+            
+            const distance = (target instanceof THREE.Vector3) ? camera.position.distanceTo(endTarget) : 30;
+            const offset = new THREE.Vector3().subVectors(camera.position, controls.target).normalize().multiplyScalar(distance);
+            const endPosition = new THREE.Vector3().addVectors(endTarget, offset);
+
+            new TWEEN.Tween({ t: 0 }).to({ t: 1 }, duration)
+                .easing(TWEEN.Easing.Quadratic.Out)
+                .onUpdate(({t}) => {
+                    camera.position.lerpVectors(startPosition, endPosition, t);
+                    controls.target.lerpVectors(startTarget, endTarget, t);
+                })
+                .onComplete(() => { controls.enabled = true; })
+                .start();
+        }
+
+        function frameObjects(labelsToFrame, duration = 1200) {
+            if (!labelsToFrame || labelsToFrame.length === 0) return;
+            if (labelsToFrame.length === 1) {
+                animateCameraToObject(labelsToFrame[0], duration);
+                return;
+            }
+
+            controls.enabled = false;
+            const box = new THREE.Box3();
+            labelsToFrame.forEach(label => box.expandByObject(label));
+
+            const center = new THREE.Vector3();
+            box.getCenter(center);
+            const size = new THREE.Vector3();
+            box.getSize(size);
+
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const fitHeightDistance = maxDim / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2));
+            const fitWidthDistance = fitHeightDistance / camera.aspect;
+            const distance = 1.3 * Math.max(fitHeightDistance, fitWidthDistance);
+
+            const direction = new THREE.Vector3().subVectors(camera.position, controls.target).normalize();
+            const newCameraPos = center.clone().add(direction.multiplyScalar(distance));
+            
+            const startPosition = camera.position.clone();
+            const startTarget = controls.target.clone();
+
+            new TWEEN.Tween({ t: 0 }).to({ t: 1 }, duration)
+                .easing(TWEEN.Easing.Quadratic.Out)
+                .onUpdate(({t}) => {
+                    camera.position.lerpVectors(startPosition, newCameraPos, t);
+                    controls.target.lerpVectors(startTarget, center, t);
+                })
+                .onComplete(() => { controls.enabled = true; })
+                .start();
+        }
+
+        function animate(time) {
+            requestAnimationFrame(animate);
+            TWEEN.update(time);
+            controls.update();
+            checkHover();
+            renderer.render(scene, camera);
+        }
+        
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            updateBookListHeight();
+        });
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
+
+
+
+
