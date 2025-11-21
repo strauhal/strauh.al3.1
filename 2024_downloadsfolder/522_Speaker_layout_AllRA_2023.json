@@ -1,0 +1,126 @@
+{
+  "Name": "All-Round Ambisonic decoder (AllRAD) and loudspeaker layout",
+  "Description": "This configuration file was created with the IEM AllRADecoder v0.9.3 plug-in. 15 Feb 2023 11:08:10am",
+  "Decoder": {
+    "Name": "Decoder",
+    "Description": "A 1st order Ambisonics decoder using the AllRAD approach.",
+    "ExpectedInputNormalization": "n3d",
+    "Weights": "maxrE",
+    "WeightsAlreadyApplied": false,
+    "Matrix": [
+      [
+        0.226344034075737,
+        0.1483013033866882,
+        0.03907907009124756,
+        0.2568728029727936
+      ],
+      [
+        0.2263329029083252,
+        -0.1483098417520523,
+        0.03905913606286049,
+        0.2568692862987518
+      ],
+      [
+        0.2263472974300385,
+        -0.29660764336586,
+        0.039076779037714,
+        4.772674401465338e-6
+      ],
+      [
+        0.2263274341821671,
+        -0.1483106017112732,
+        0.03905719891190529,
+        -0.2568655014038086
+      ],
+      [
+        0.2263425290584564,
+        0.148304358124733,
+        0.03907333314418793,
+        -0.2568683922290802
+      ],
+      [
+        0.2263278961181641,
+        0.2966046631336212,
+        0.03905300423502922,
+        2.564612486821716e-6
+      ]
+    ],
+    "Routing": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  "LoudspeakerLayout": {
+    "Name": "A loudspeaker layout",
+    "Loudspeakers": [
+      {
+        "Azimuth": 30.0,
+        "Elevation": 30.0,
+        "Radius": 1.0,
+        "IsImaginary": false,
+        "Channel": 1,
+        "Gain": 1.0
+      },
+      {
+        "Azimuth": -30.0,
+        "Elevation": 30.0,
+        "Radius": 1.0,
+        "IsImaginary": false,
+        "Channel": 2,
+        "Gain": 1.0
+      },
+      {
+        "Azimuth": -90.0,
+        "Elevation": 30.0,
+        "Radius": 1.0,
+        "IsImaginary": false,
+        "Channel": 3,
+        "Gain": 1.0
+      },
+      {
+        "Azimuth": -150.0,
+        "Elevation": 30.0,
+        "Radius": 1.0,
+        "IsImaginary": false,
+        "Channel": 4,
+        "Gain": 1.0
+      },
+      {
+        "Azimuth": 150.0,
+        "Elevation": 30.0,
+        "Radius": 1.0,
+        "IsImaginary": false,
+        "Channel": 5,
+        "Gain": 1.0
+      },
+      {
+        "Azimuth": 0.0,
+        "Elevation": 90.0,
+        "Radius": 1.0,
+        "IsImaginary": true,
+        "Channel": 7,
+        "Gain": 0.0
+      },
+      {
+        "Azimuth": 0.0,
+        "Elevation": -90.0,
+        "Radius": 1.0,
+        "IsImaginary": true,
+        "Channel": 8,
+        "Gain": 0.0
+      },
+      {
+        "Azimuth": 90.0,
+        "Elevation": 30.0,
+        "Radius": 1.0,
+        "IsImaginary": false,
+        "Channel": 6,
+        "Gain": 1.0
+      }
+    ]
+  }
+}

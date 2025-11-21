@@ -1,0 +1,349 @@
+ _____                                
+|_   _|__  ___ _ __   __ _  __ _  ___ 
+  | |/ _ \/ _ \ '_ \ / _` |/ _` |/ _ \
+  | |  __/  __/ | | | (_| | (_| |  __/
+  |_|\___|\___|_| |_|\__,_|\__, |\___|
+                           |___/      
+ _____             _                      _             
+| ____|_ __   __ _(_)_ __   ___  ___ _ __(_)_ __   __ _ 
+|  _| | '_ \ / _` | | '_ \ / _ \/ _ \ '__| | '_ \ / _` |
+| |___| | | | (_| | | | | |  __/  __/ |  | | | | | (_| |
+|_____|_| |_|\__, |_|_| |_|\___|\___|_|  |_|_| |_|\__, |
+             |___/                                |___/ 
+ ____   ___        _ ____  
+|  _ \ / _ \      / |___ \ 
+| |_) | | | |_____| | __) |
+|  __/| |_| |_____| |/ __/ 
+|_|    \___/      |_|_____|
+                           
+    - the worlds smallest drum computer -
+
+
+
+
+o==========o
+| CONTENTS |
+o==========o
+
+SUMMARY
+
+PART A. GENERAL
+        1. The screen
+        2. Knobs and buttons
+        3. Table of sounds and effects
+        4. Auto power off (APO)
+        5. Battery status
+        6. Volume
+        7. Factory reset
+
+PART B. OPERATION
+        1. Getting started
+           a. Set clock
+           b. Set alarm
+        2. Play
+           a. Try sounds out
+           b. Select pattern 
+           c. Press "Play"
+        3. Step recording
+           a. Optionally: clear pattern
+           b. Select a sound
+           c. Set sound parameters
+           d. Create the sequence
+           e. Change parameters afterwards
+        4. Live recording
+           a. Quantizer
+           b. Step multiplier (flam)
+        5. Tweak the sound
+           a. Effects
+           b. Parameter locking (motion recording)
+           c. Swing and tempo (BPM)
+        6. Making a song
+           a. Copy pattern
+           b. Clear pattern
+           c. Chain patterns to a song
+
+PART C. SYNC
+
+PART D. TIPS, HINTS QUIRKS AND BUGS
+
+
+
+
+
+o=========o
+| SUMMARY | 
+o=========o
+
+1. Clear pattern: Function + Pattern.
+
+2. Press Write.
+
+3. Choose instrument: Sound + number.
+
+4. Parameters: set sample speed (A) and LP filter (B).
+
+5. Set sequence for instrument 1.
+
+6. Set parameters differently and program rest of sequence for instrument 1.
+
+7. Motion recording: select instrument and press play. Hold write and turn A or B (this is handy for "synth" sounds 15 and 16).
+
+8. Flam: select an instrument and while playing press and hold a number (to select a step). Press "BPM" to insert the flam.
+
+9. Effect: while playing hold FX and press a number. Use distortion (nr. 2) for snappy snare drum.
+
+10. Song mode: press and hold Pattern and select patterns.
+
+
+
+
+
+
+
+
+o=================o
+| PART A. GENERAL |
+o=================o
+
+Clear a pattern: press "Function" + "Pattern".
+
+A-1 The screen
+~~~~~~~~~~~~~~
+The screen displays the following in its own quirky way:
+ 
+- Selected tempo (numerical, upper right): AM/PM flickers in the beat when sync'ed
+- Time (= clock & alarm)/node/additional info (also upper right)
+- Sound parameters A and B (in the form of two spools, right hand side)
+- Sync: icon of a needle on the left hand side
+- Play/rec mode: [>] indicates play;  [o] indicates write mode is active
+- The pattern (or: sequence) currently playing is the pattern that the sewing machine currently
+  sews. The 16 different patterns are indicated graphically as follows (or simply keep the Pattern 
+  button pressed to see its number light up):
+
+  1. /\/\/\/\/\/\/\          2. /  /  /  /  /
+     \/\/\/\/\/\/\/              /  /  /  /
+                                                   
+  3. /_|/_|/_|/_|/_|         4. __ __ __ __ __
+                                \/ \/ \/ \/ \/
+                                ¯¯ ¯¯ ¯¯ ¯¯ ¯¯  
+  5. etc.
+
+- When a pattern repeats a "wave" goes through the pattern. 
+- When the sequencer changes from one pattern to another then the spool of the sewing machine moves from left to right and a different pattern is displayed afterwards.
+- The drummer. A rough indication as to which instrument's step is played is given by the drummer. For instance: he stomps on a pedal when the kick drum is played. A hand clap indicated the clap or the sticks. When he hits the pot on the ground a low or high tom is played. Hi-hats are indicated by him rining the bell. Notice that the light of a sound played also light up when a pattern is played.
+- Sound & sound parameters. When one keeps the Sound button pressed (shortly) the currently selected sound (for instance sound number 2 for the snare drum) is indicated in the numerical part of the screen (upper right corner). It shows a one and a dash followed by the number of the sound (for instance: 1-02 for the snare). Keep "Sound" pressed and press the number of a sound to change instrument. The parameters A & B set for that sound/instrument are represented by the thread spools above the A & B knobs.
+- The icon of the button w/ four holes: if it lights up then the step played has flam (step multiplier) activated on it. See B-4b. 
+- Spark of the needle. When an effect (FX) has been applied to a step in a sequence that is playing then the needle sparks.
+- The dashes at the bottom are constantly on (possible bug, see part D).
+- The numbers 2, 4, 8 16 next tot the icon of a button w/ four holes (on the left hand side) never show. Possible bug, see part D.
+
+
+A-2 Knobs and buttons
+~~~~~~~~~~~~~~~~~~~~~
+- Sound (hold and press 1-16)
+- Pattern (hold and press 1-16)
+- BPM (press to select tempo w/ knob B, hold to set master volume 1-16, hold 
+  step 1-16 + M to set multiplier)
+- Knobs A/B
+- Function
+- FX (hold and press 1-16)
+- Play (/stop)
+- Write
+
+
+A-3 Table of sounds and effects
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+While playing, hold "FX" and press any key 1-16 to punch-in effects.
+
+   Table 1. Instruments sounds and effects.
+   ____________________________________________
+  
+                   Sounds
+   ____________________________________________
+   1. bass drum                9. hand clap
+   2. snare drum              10. click 
+   3. closed hi-hat           11. low tom 
+   4. open hi-hat             12. hi tom 
+   5. synthesized snare       13. cow bell
+   6. sticks                  14. blip
+   7. cymbal                  15. tone  
+   8. noise                   16. bass tone
+   _____________________________________________  
+
+                      Effects                      
+   _____________________________________________
+   1. low sample rate          9. stutter 4  
+   2. distortion              10. stutter 3 
+   3. bit crush               11. repeat 8 
+   4. delay (echo)            12. repeat 6 
+   5. lowpass filter          13. note shuffle 
+   6. lowpass sweep           14. feedback  
+   7. hipass filter           15. parameter lfo 
+   8. hipass sweep            16. vibrato
+   _____________________________________________
+
+Interesting effects: 1 (low sample r.) and 2 (distortion, for snare dr.). The echo/delay (nr. 4) is a bit too much.
+
+
+A-4 Auto power off (APO)
+~~~~~~~~~~~~~~~~~~~~~~~~
+The unit auto powers off after 5 minutes of inactivity. In this state all patterns and settings will be saved, leaving only the LCD lit (lights go off). This state draws very little power so there is no need to remove batteries. If there is a cable connected in the line in, the unit will auto power off after 60 minutes of inactivity. Press any key to wake the unit after sleep (lights go on). 
+
+After going into standby mode settings/sequences etc. are permanently stored. Even when batteries are changed! 
+
+
+A-5 Battery status
+~~~~~~~~~~~~~~~~~~
+Press sound + BPM to show battery status. Its in the numerical part of the display.
+
+
+A-6 Volume
+~~~~~~~~~~
+Hold "BPM" and press any key 1-16 to adjust master volume. Note: if a headphone or speaker is connected to the PO-12 then its volume is set down to 5. When the headphone jack is removed then the volume is set back to its high value.
+
+
+A-7 Factory reset
+~~~~~~~~~~~~~~~~~
+Hold Pattern + Write while inserting batteries to restore the unit to factory default. Note: If you have an older software revision this reset functionality is not implemented.
+
+
+A-8 Knobs A & B
+~~~~~~~~~~~~~~~
+It seems that knob A determines how fast the sample of an instrument is played back and that B is a low pass filter. So a long low bass drum (long decay) can be achieved by turning A up (but not too much) and turning B down. A snappy high snare drum is more difficult. The sample may not be too short but when it is long that means that the sample is played back slowly, and thus, not snappy. Filter all the way up.      
+
+
+
+
+
+
+o===================o
+| PART B. OPERATION |
+o===================o
+
+B-1 Getting started
+~~~~~~~~~~~~~~~~~~~~
+a. Set clock
+Insert batteries. Set time by turning knob A for hours and knob B for minutes. press any key to confirm and exit. Reset the clock by removing the batteries and start over.
+
+b. Set alarm
+Press Sound + Pattern. Set alarm clock by turning A for hours and B for minutes. (disable alarm by turning knob A all the way down). Press key 1-16 to set pattern for the alarm. 
+
+
+B-2 Play 
+~~~~~~~~
+a. Try sounds out 
+When neither the play or rec mode is selected (see LCD screen) one can push buttons 1 to 16 to hear its sound. The parameters of the sound can be altered by turning knobs A and B. Beware: when one pushes the button of a sound multiple times quickly then the parameters of the sound are (re)set to those seen on the display (i.e. the two spools).
+
+b. Select pattern 
+Hold the Pattern button and press any key from 1-16 to select a pattern. Blinking led indicates active pattern
+
+c. Press "Play"
+Press play to start playing, press again to stop. Watch the 16 step sequencer move from step to step (the steps light up). The button number of the sound played blinks for a short time too.   
+
+
+B-3 Step recording
+~~~~~~~~~~~~~~~~~~
+To choose a pattern: press "Pattern" + number.
+
+a. Optionally: clear pattern
+Press "Function" + "Pattern".
+
+b. Select a sound
+Hold the Sound button and press a key from 1-16.
+
+c. Set sound parameters
+Before entering a note into the sequencer one may alter the sound w/ knobs A & B. The values for parameter A & B which are set for that instrument are represented by the thread spools above the A & B knobs. They are saved into memory along w/ the sequence. For the bass drum parameter A sounds like pitch and B like decay (compare to a Roland TR-808).
+
+d. Create the sequence
+Press "Write" (the rec symbol will be shown on the LCD screen). Enter sounds/notes in the grid of the sequencer. Press "Sound + number" to select another instrument. Press play to listen to your pattern. The sequence is automatically saved when the PO-12 is not operated for 5 minutes (and goes in to standby mode).
+
+e. Change parameters afterwards
+To change an instrument's parameters, activate the instrument (press Sound + instrument number) turn knobs A & B and re-enter the sequence for that instrument (see also B-5b Parameter locking). 
+
+
+B-4 Live recording
+~~~~~~~~~~~~~~~~~~
+a. Quantizer 
+While playing, hold "Write" and press any key 1-16 to punch in notes. Notes will be quantized along with current swing setting. release write when finished. Beware! All parameters (i.e knob A & B) that you've set during step recording are reset. 
+
+b. Flam (step multiplier)
+- Select a sound (i.e. instrument) w/ "Sound" + number key. 
+- While playing, press and hold a number key to select a step. 
+- Press "BPM/M" to insert a re-trig (flam) on that step. 
+- Press "BPM/M" multiple times to switch between 2, 4, 8, 16 or 0 flams (four times). 
+
+When flam is active the icon of a button w/ four holes on the left side blinks  when the "flammed" step is played. Probably the number of flams should have had to appear next to the button icon (the numbers 2, 4, 8, and 16 are there), but has been forgotten to be implemented during development (also see part D). It is now very difficult to see how many times you should press "BPM" to get rid of the flam, if you can even find out on which instrument it has been activated and on which step. So use w/ care!
+
+
+B-5 Tweak the sound
+~~~~~~~~~~~~~~~~~~~
+a. Effects
+- See table 1 in section A-3. While playing, press and hold the number key of the desired effect. Then press FX to punch-in the effect. If an effect is applied to a certain step in the sequence then the needle of the sewing machine sparks. You cannot see what effect was applied. You can apply more that one effect on one step.
+- If an effect is applied on a two steps in a row then the left spark shows first and then the right. If an effect is only applied to an isolated step then only the left spark shows.
+- Hold FX without pressing any key to clear effects. You can clear all effects on all steps or all effects that were applied on one step (time carefully!). You can not clear one effect: only all.  
+- If you deactivate a step then the effect is not deactivated.
+
+b. Parameter locking (motion recording)
+- Select an instrument (Sound + number) and press play. 
+- Hold write while turning knob A or B to write sound parameter changes over time.
+- Does this only affect the selected instrument? 
+
+c. Swing and tempo (BPM)
+Hold "BPM" and turn A to adjust the swing or B to adjust the tempo (BPM). The amount of BPM is shown in the numerical part of he display in the upper right hand corner.
+
+
+B-6 Making a song
+~~~~~~~~~~~~~~~~~
+a. Copy pattern
+Hold "Write" + "Pattern" and press 1-16 to paste the active pattern to the corresponding new slot.
+
+b. Clear pattern
+If needed: press Function + Pattern.
+
+c. Chain patterns to a song
+Press and hold "Pattern" and select which patterns (1 - 16) to chain by pressing its corresponding number. Up to 16 patterns can be chained. A pattern can be selected multiple times. Example: 1,1,1,4 plays pattern 1 three times then moves on to pattern 4. After last pattern is played the sequence will start over again. A song is not saved. Check the patterns to be played (and thus if you are in song mode) by holding down Pattern. That will make the patterns in a song light up and the first one blinks.
+
+
+
+
+
+o==============o
+| PART C. SYNC |  
+o==============o
+
+When the PO-12 is synched with another machine then the icon of a needle is shown on the left hand side of the display.
+
+   Table 2. Sync modes.
+   _________________________________________
+   ID         Input            Output
+   _________________________________________
+   SY0        stereo           stereo
+   SY1        stereo           mono/sync
+   SY2        sync             stereo
+   SY3        sync             mono/sync
+   SY4        mono/sync        stereo
+   SY5        mono/sync        mono/sync
+   _________________________________________
+
+It is possible to sync the OP-12 with a click track using line in and out. Warning: sync levels should not exceed 5 Vpp (Volt peak-to-peak). Connect a standard stereo audio cable between the units. The master unit will control the tempo of the slave unit. 
+
+Hold Function and press BPM on to toggle between sync modes. Press repeatedly to toggle between different modes. There are 5 sync modes. Default mode is SY0. When sync is used the signal will be split between audio (right) and sync (left).
+
+To sync a synth and the OP-12 choose mode SY2. This is not saved: one must press "Function" + "BPM" every time when the PO-12 is synced. 
+
+
+
+
+o=====================================o
+| PART D. TIPS, HINTS QUIRKS AND BUGS |
+o=====================================o
+
+D-1. Want to see the parameters (A & B) that you've set for a particular instrument in a sequence? Select that sound ("Sound" + number) and it is displayed on the thread spools A & B during play. 
+
+D-2. The numbers 2, 4 ,8 and 16 next to the flam indicator (i.e. the step multiplier: the icon of a button w/ four holes) do never show AFAIK. Considering the fact that flam can take the value of those numbers it might have been an error during the development of the device, that is: they should have shown up in combination w/ flam.
+
+D-3. Some units show the number of flams (i.e. step multiplier) in the clock section of the screen when flam is applied. What is shown is "t-2", "t-4", etc. Mine does not show this. Different firmwares?
+
+D-4. On the bottom of the LCD display there are 16 dashes. Considering the fact that 16 sequences can be chained to form a song those dashes might have been meant to indicate the position of a selected pattern in a song. It might have have been the intention to have them lit up when the Pattern button is pressed in song mode. Currently only the pattern number of the song that is currently playing blinks. Possibly another error during development of the device.
+
+D-5. If battery power is low (95% - 80%) then the PO-12 crashes if the volume is set high. However, the PO-12 is quite sturdy: I've dropped it from small hights without it resetting.
