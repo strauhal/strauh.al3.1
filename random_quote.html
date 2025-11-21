@@ -57,6 +57,10 @@
 	            line-height: 1.5;
 	        }
 
+	        body {
+	        	overflow: scroll;
+	        }
+
 	        .content-container {
 	            /*position: relative;*/
 	            display: flex;
@@ -67,7 +71,7 @@
 	        }
 
 	        #quote-display {
-	            position: fixed; /* Allows z-index to work */
+	            position: relative; /* Allows z-index to work */
 	            z-index: 2; /* Places it on top of the image */
 	            font-style: italic;
 	            color: white;
