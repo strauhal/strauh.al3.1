@@ -74,6 +74,72 @@
 
             z-index: 3; 
         }
+
+        @media (max-width: 900px) {
+
+
+            #interactive-canvas { 
+                position: absolute; 
+                top: 0; 
+                left: 0; 
+                width: 100%; 
+                height: 100%;
+                z-index: 1; 
+                cursor: pointer; 
+            }
+            
+            body {
+                overflow-y: auto; /* Allow scrolling on mobile */
+                overflow-x: hidden;
+            }
+
+            .content-container {
+                position: relative; /* No longer fixed to viewport */
+                display: flex;
+                flex-direction: column; /* Stack: Image Top, Text Bottom */
+                align-items: center;
+                justify-content: flex-start; /* Start from top */
+                width: 100%;
+                height: auto; /* Let height grow with content */
+                min-height: 100vh;
+                padding-top: 20px;
+                padding-bottom: 40px;
+            }
+
+            #background-image {
+                position: relative; /* Reset from fixed */
+                top: auto;
+                left: auto;
+                margin-top: 0;
+                
+                /* Mobile Sizing */
+                width: 90%; 
+                height: auto; /* Maintain aspect ratio */
+                max-height: 50vh; /* Don't let image take up entire screen */
+                
+                z-index: 1;
+                margin-bottom: 20px; /* Space between image and text */
+            }
+
+            #quote-display {
+                position: relative; /* Reset from fixed */
+                top: auto;
+                left: auto;
+                transform: none;
+                
+                /* Mobile Sizing */
+                width: 70%;
+                max-width: 90%; 
+                
+                /* Styling adjustments */
+                margin-top: 0;
+                z-index: 2;
+                font-size: 1.1rem;
+                line-height: 1.5;
+            }
+        }
+
+
     </style>
 </head>
 <body>

@@ -52,33 +52,55 @@
         }
 
         @media (max-width: 900px) {
+            body {
+                overflow-y: auto; /* Allow scrolling on mobile */
+                overflow-x: hidden;
+            }
 
-	        p {
-	            line-height: 1.5;
-	        }
+            .content-container {
+                position: relative; /* No longer fixed to viewport */
+                display: flex;
+                flex-direction: column; /* Stack: Image Top, Text Bottom */
+                align-items: center;
+                justify-content: flex-start; /* Start from top */
+                width: 100%;
+                height: auto; /* Let height grow with content */
+                min-height: 100vh;
+                padding-top: 20px;
+                padding-bottom: 40px;
+            }
 
-	        body {
-	        	overflow: scroll;
-	        }
+            #background-image {
+                position: relative; /* Reset from fixed */
+                top: auto;
+                left: auto;
+                margin-top: 0;
+                
+                /* Mobile Sizing */
+                width: 90%; 
+                height: auto; /* Maintain aspect ratio */
+                max-height: 50vh; /* Don't let image take up entire screen */
+                
+                z-index: 1;
+                margin-bottom: 20px; /* Space between image and text */
+            }
 
-	        .content-container {
-	            /*position: relative;*/
-	            display: flex;
-	            align-items: center;
-	            justify-content: center;
-	            width: 100vw;
-	            height: 100vh;
-	        }
-
-	        #quote-display {
-	            position: relative; /* Allows z-index to work */
-	            z-index: 2; /* Places it on top of the image */
-	            font-style: italic;
-	            color: white;
-	            max-width: 90%; /* To keep text roughly within the image bounds */
-	            background-color: #00f;
-	        }
-
+            #quote-display {
+                position: relative; /* Reset from fixed */
+                top: auto;
+                left: auto;
+                transform: none;
+                
+                /* Mobile Sizing */
+                width: 70%;
+                max-width: 90%; 
+                
+                /* Styling adjustments */
+                margin-top: 0;
+                z-index: 2;
+                font-size: 1.1rem;
+                line-height: 1.5;
+            }
         }
 
     </style>
