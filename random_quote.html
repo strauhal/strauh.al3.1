@@ -51,6 +51,32 @@
 
         }
 
+        @media (max-width: 900px) {
+
+	        p {
+	            line-height: 1.5;
+	        }
+
+	        .content-container {
+	            /*position: relative;*/
+	            display: flex;
+	            align-items: center;
+	            justify-content: center;
+	            width: 100vw;
+	            height: 100vh;
+	        }
+
+	        #quote-display {
+	            position: fixed; /* Allows z-index to work */
+	            z-index: 2; /* Places it on top of the image */
+	            font-style: italic;
+	            color: white;
+	            max-width: 90%; /* To keep text roughly within the image bounds */
+	            background-color: #00f;
+	        }
+
+        }
+
     </style>
 </head>
 <body>
