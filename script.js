@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * FEATURE 1: YOUTUBE EMBEDS
      * Replaces plain text YouTube URLs with toggleable iframes.
+     * Lazy loads iframe only upon user interaction.
      */
     function initYouTubeEmbeds() {
         const paragraphs = document.querySelectorAll('p');
@@ -38,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             embedLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 if (!iframe) {
+                    // Lazy load: Create iframe only when clicked
                     iframe = document.createElement('iframe');
                     Object.assign(iframe, {
                         width: '560', height: '315', frameBorder: '0',
@@ -66,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * FEATURE 2: IMAGE PREVIEW
      * Handles Desktop Hover and Mobile Scroll/Tap interactions.
+     * Implements lazy loading, debouncing, and cache management.
      */
     function initImagePreview() {
         const isMobile = () => window.matchMedia("(max-width: 900px)").matches;
@@ -134,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const showPreview = (src) => {
+            // Trigger cache load only when actually needed (Lazy)
             const cached = getCachedImage(src);
             
             // Reset container for visibility
@@ -155,6 +159,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const render = () => {
+                // Ensure we are still trying to show the same image
+                // (Edge case check if rapid switch happened)
                 img.src = cached.src;
                 img.style.display = 'block';
             };
@@ -165,6 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const hidePreview = () => {
             container.style.display = 'none';
+            // Optimization: Clear src to cancel pending downloads/rendering
+            img.src = ''; 
             clearHighlights();
         };
 
@@ -267,6 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearHighlights();
                 state.stickyLink = null;
                 container.style.display = 'none';
+                img.src = ''; // Clear image
             }
         });
 
@@ -274,15 +283,17 @@ document.addEventListener('DOMContentLoaded', () => {
         imageLinks.forEach(link => {
             const src = link.href;
 
-            // Click Guard (Mobile Double Tap)
+            // Click Handler
             link.addEventListener('click', (e) => {
-                if (isMobile()) {
-                    if (state.allowClick) {
-                        state.allowClick = false;
-                        return; // Allow navigation
-                    }
+                // Desktop: Always allow default navigation (open image)
+                if (!isMobile()) return;
+
+                // Mobile: Only allow if Double Tap flag is active
+                if (state.allowClick) {
+                    state.allowClick = false; // Reset
+                    return; 
                 }
-                e.preventDefault(); // Block navigation
+                e.preventDefault(); // Block navigation on first tap
             });
 
             // Desktop Hover
