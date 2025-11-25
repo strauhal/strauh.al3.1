@@ -1,0 +1,38 @@
+name: Jekyll site CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    # --- GUTTING START ---
+    # This action aggressively cleans the runner to prevent "No space left on device"
+    - name: Free Disk Space (Gutting pre-installed bloat)
+      uses: jlumbroso/free-disk-space@v1.3.1
+      with:
+        # Removes large pre-installed tools
+        android: true
+        dotnet: true
+        haskell: true
+        # Removes pre-cached docker images (safe since you pull your own)
+        docker-images: true
+        # Removes large packages and codeql
+        large-packages: true
+        # Clears swap to create disk space
+        swap-storage: true
+    # --- GUTTING END ---
+
+    - name: Build the site in the jekyll/builder container
+      run: |
+        docker run \
+        -v ${{ github.workspace }}:/srv/jekyll \
+        -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
+        jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
