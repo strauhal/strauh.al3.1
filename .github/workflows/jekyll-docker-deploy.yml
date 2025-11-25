@@ -1,0 +1,84 @@
+name: Optimize and Deploy Jekyll
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+# Grant permission to change the site settings
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one deployment at a time so they don't crash into each other
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    # Puts the "Live URL" on your dashboard after the show
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # --- STEP 1: GUT THE STUDIO (Deep Clean) ---
+      # This clears roughly 15-20GB of space. 
+      # We are throwing out the pre-installed backline we don't use.
+      - name: Free Disk Space
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: false
+          android: true       # Ditch Android SDKs
+          dotnet: true        # Ditch .NET
+          haskell: true       # Ditch Haskell
+          large-packages: true # Ditch other bloat
+          docker-images: true # Ditch cached Docker images
+          swap-storage: true  # reclaim swap space
+
+      # --- STEP 2: SETUP & RECORD ---
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Install Dependencies
+        run: |
+          gem install jekyll bundler
+          bundle install
+
+      - name: Build Site
+        run: jekyll build --future
+        env:
+          JEKYLL_ENV: production
+
+      # --- STEP 3: MASTERING (OPTIMIZE) ---
+      # This compresses the silence out of your files (HTML/CSS/JS).
+      # Makes the download size smaller so it loads instantly.
+      - name: Minify Assets
+        uses: anthony-y/minifier-action@v1.0.1
+        with:
+          directory: '_site'
+          recursive: true
+          patterns: '**/*.{html,css,js,json,xml}' # Added XML for RSS feeds
+
+      # --- STEP 4: RELEASE (Deploy) ---
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './_site'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
