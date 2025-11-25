@@ -19,22 +19,31 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    # Puts the "Live URL" on your dashboard after the show
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1 # OPTIMIZATION: Only download the latest version, not the whole history.
 
-      # --- STEP 1: GUT THE STUDIO ---
-      # Clears roughly 15GB of space so the runner doesn't choke.
+      # --- STEP 1: GUT THE STUDIO (Deep Clean) ---
+      # This clears roughly 15-20GB of space. 
+      # We are throwing out the pre-installed backline we don't use.
       - name: Free Disk Space
         uses: jlumbroso/free-disk-space@v1.3.1
         with:
           tool-cache: false
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: true
+          android: true       # Ditch Android SDKs
+          dotnet: true        # Ditch .NET
+          haskell: true       # Ditch Haskell
+          large-packages: true # Ditch other bloat
+          docker-images: true # Ditch cached Docker images
+          swap-storage: true  # reclaim swap space
 
       # --- STEP 2: SETUP & RECORD ---
       - name: Setup Ruby
@@ -54,19 +63,16 @@ jobs:
           JEKYLL_ENV: production
 
       # --- STEP 3: MASTERING (OPTIMIZE) ---
-      # This squeezes the air out of your HTML/CSS/JS files so they load faster.
-      # It's like compressing a WAV to a high-quality MP3.
+      # This compresses the silence out of your files (HTML/CSS/JS).
+      # Makes the download size smaller so it loads instantly.
       - name: Minify Assets
         uses: anthony-y/minifier-action@v1.0.1
         with:
-          # Point it to the folder Jekyll just created
           directory: '_site'
-          # Recursive means "go into subfolders"
           recursive: true
-          # What to compress
-          patterns: '**/*.{html,css,js,json}'
+          patterns: '**/*.{html,css,js,json,xml}' # Added XML for RSS feeds
 
-      # --- STEP 4: RELEASE ---
+      # --- STEP 4: RELEASE (Deploy) ---
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
