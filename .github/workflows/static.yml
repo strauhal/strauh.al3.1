@@ -1,0 +1,80 @@
+name: Optimize and Deploy Jekyll
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+# Grant permission to change the site settings
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one deployment at a time so they don't crash into each other
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # --- STEP 1: GUT THE STUDIO ---
+      # Clears roughly 15GB of space so the runner doesn't choke.
+      - name: Free Disk Space
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: false
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+
+      # --- STEP 2: SETUP & RECORD ---
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Install Dependencies
+        run: |
+          gem install jekyll bundler
+          bundle install
+
+      - name: Build Site
+        run: jekyll build --future
+        env:
+          JEKYLL_ENV: production
+
+      # --- STEP 3: MASTERING (OPTIMIZE) ---
+      # This squeezes the air out of your HTML/CSS/JS files so they load faster.
+      # It's like compressing a WAV to a high-quality MP3.
+      - name: Minify Assets
+        uses: anthony-y/minifier-action@v1.0.1
+        with:
+          # Point it to the folder Jekyll just created
+          directory: '_site'
+          # Recursive means "go into subfolders"
+          recursive: true
+          # What to compress
+          patterns: '**/*.{html,css,js,json}'
+
+      # --- STEP 4: RELEASE ---
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './_site'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
