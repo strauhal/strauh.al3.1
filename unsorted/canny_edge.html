@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CANNY // EDGE PROCESSOR</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+var Module = {
+  onRuntimeInitialized: function() {
+    window._cvReady = true;
+    setStatus('Ready — open a video file');
+    document.getElementById('cv-indicator').style.background = '#00e5ff';
+    document.getElementById('cv-indicator-lbl').textContent = 'OpenCV ready';
+    if (window._videoLoaded) document.getElementById('export-btn').disabled = false;
+  }
+};
+</script>
+<script async src="https://docs.opencv.org/4.10.0/opencv.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0d0d0d;
+  color: #e8e8e8;
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ── SIDEBAR ── */
+#sidebar {
+  width: 272px;
+  min-width: 272px;
+  background: #111;
+  border-right: 1px solid #222;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#sidebar::-webkit-scrollbar { width: 4px; }
+#sidebar::-webkit-scrollbar-track { background: #111; }
+#sidebar::-webkit-scrollbar-thumb { background: #2a2a2a; }
+
+.logo-wrap { padding: 20px 18px 14px; border-bottom: 1px solid #1e1e1e; }
+.logo-main { font-size: 15px; font-weight: bold; color: #00e5ff; letter-spacing: 4px; }
+.logo-sub  { font-size: 8px; color: #3a3a3a; letter-spacing: 3px; margin-top: 3px; }
+
+.cv-status { display: flex; align-items: center; gap: 7px; padding: 8px 18px; background: #0d0d0d; border-bottom: 1px solid #1e1e1e; }
+#cv-indicator { width: 6px; height: 6px; border-radius: 50%; background: #ff4081; flex-shrink: 0; }
+#cv-indicator-lbl { font-size: 8px; color: #666; letter-spacing: 1px; }
+
+.section { padding: 14px 18px 10px; }
+.section-lbl { font-size: 8px; font-weight: bold; color: #00e5ff; letter-spacing: 3px; margin-bottom: 10px; }
+.divider { height: 1px; background: #1e1e1e; }
+
+/* File picker rows */
+.field-lbl { font-size: 8px; color: #555; letter-spacing: 2px; display: block; margin-bottom: 5px; }
+.file-wrap { display: flex; border: 1px solid #222; }
+.file-name { flex: 1; font-size: 8px; color: #444; padding: 7px 8px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.file-name.active { color: #ccc; }
+.pick-btn {
+  background: #1e1e1e; color: #00e5ff; border: none; border-left: 1px solid #222;
+  padding: 7px 10px; cursor: pointer; font-family: inherit; font-size: 13px;
+  flex-shrink: 0; transition: all .12s;
+}
+.pick-btn:hover { background: #00e5ff; color: #000; }
+
+.text-input {
+  width: 100%;
+  background: #0d0d0d;
+  border: 1px solid #222;
+  color: #ccc;
+  font-family: inherit;
+  font-size: 8px;
+  padding: 7px 8px;
+  outline: none;
+}
+.text-input:focus { border-color: #00e5ff; }
+
+/* Sliders */
+.slider-block { margin-bottom: 12px; }
+.slider-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+.slider-name { font-size: 8px; color: #555; letter-spacing: 2px; }
+.slider-val  { font-size: 10px; font-weight: bold; color: #00e5ff; min-width: 28px; text-align: right; }
+input[type=range] {
+  width: 100%; height: 3px; cursor: pointer;
+  -webkit-appearance: none; appearance: none;
+  background: #1e1e1e; outline: none; border-radius: 0;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 12px; height: 12px; background: #00e5ff;
+  border-radius: 0; cursor: pointer;
+}
+input[type=range]::-moz-range-thumb {
+  width: 12px; height: 12px; background: #00e5ff;
+  border: none; border-radius: 0; cursor: pointer;
+}
+
+/* Aperture toggle */
+.ap-wrap { display: flex; gap: 5px; margin-top: 5px; }
+.ap-btn {
+  flex: 1; background: #0d0d0d; border: 1px solid #222;
+  color: #666; font-family: inherit; font-size: 9px; letter-spacing: 2px;
+  padding: 5px 0; cursor: pointer; transition: all .1s;
+}
+.ap-btn:hover { border-color: #00e5ff; color: #00e5ff; }
+.ap-btn.on { background: #00e5ff; border-color: #00e5ff; color: #000; font-weight: bold; }
+
+/* Checkboxes */
+.check-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; cursor: pointer; }
+.check-row input[type=checkbox] { accent-color: #00e5ff; cursor: pointer; width: 12px; height: 12px; }
+.check-row label { font-size: 8px; color: #666; letter-spacing: 1px; cursor: pointer; }
+
+/* FPS */
+.fps-row { display: flex; align-items: center; gap: 10px; }
+.fps-row label { font-size: 8px; color: #555; letter-spacing: 2px; }
+.fps-input {
+  width: 54px; background: #0d0d0d; border: 1px solid #222;
+  color: #ccc; font-family: inherit; font-size: 9px; padding: 5px 6px;
+  text-align: center; outline: none;
+}
+.fps-input:focus { border-color: #00e5ff; }
+.fps-note { font-size: 8px; color: #333; letter-spacing: 1px; }
+
+/* Export */
+#export-btn {
+  margin: 0 18px 8px;
+  padding: 11px 0;
+  background: #00e5ff; color: #000;
+  border: none; font-family: inherit;
+  font-size: 9px; font-weight: bold;
+  letter-spacing: 3px; cursor: pointer;
+  transition: all .12s;
+}
+#export-btn:hover:not(:disabled) { background: #ff4081; color: #fff; }
+#export-btn:disabled { background: #1e1e1e; color: #3a3a3a; cursor: not-allowed; }
+
+.progress-track { margin: 0 18px 5px; height: 2px; background: #1e1e1e; }
+.progress-fill  { height: 100%; background: #00e5ff; width: 0%; transition: width .15s; }
+.status-lbl { font-size: 8px; color: #444; padding: 0 18px 18px; letter-spacing: 1px; line-height: 1.6; }
+
+/* ── MAIN ── */
+#main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+#canvas-area {
+  flex: 1; display: flex; align-items: center;
+  justify-content: center; overflow: hidden;
+  background: #0a0a0a; position: relative;
+}
+#placeholder {
+  position: absolute; font-size: 11px; color: #1e1e1e;
+  letter-spacing: 5px; pointer-events: none; text-align: center; line-height: 2;
+}
+canvas#preview { display: block; image-rendering: pixelated; }
+
+/* Drop zone glow */
+#canvas-area.dragover { outline: 2px dashed #00e5ff; outline-offset: -12px; }
+
+/* Scrub bar */
+#scrub-bar {
+  padding: 10px 20px 14px;
+  border-top: 1px solid #181818;
+  display: flex; align-items: center; gap: 12px;
+}
+#scrub-bar label { font-size: 8px; color: #333; letter-spacing: 2px; white-space: nowrap; }
+#scrubber { flex: 1; }
+#frame-readout { font-size: 8px; color: #444; letter-spacing: 1px; white-space: nowrap; min-width: 110px; text-align: right; }
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ─────────────────────────────────── -->
+<div id="sidebar">
+
+  <div class="logo-wrap">
+    <div class="logo-main">⬡ CANNY</div>
+    <div class="logo-sub">EDGE DETECTION PROCESSOR</div>
+  </div>
+
+  <div class="cv-status">
+    <div id="cv-indicator"></div>
+    <span id="cv-indicator-lbl">Loading OpenCV.js …</span>
+  </div>
+
+  <!-- INPUT -->
+  <div class="section">
+    <div class="section-lbl">INPUT</div>
+    <span class="field-lbl">VIDEO FILE</span>
+    <div class="file-wrap" style="margin-bottom:10px">
+      <span class="file-name" id="vid-name">MP4 · MOV · AVI · MKV · WEBM …</span>
+      <button class="pick-btn" title="Choose file" onclick="document.getElementById('vid-input').click()">…</button>
+    </div>
+    <input type="file" id="vid-input" accept="video/*,.mkv" style="display:none">
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- OUTPUT -->
+  <div class="section">
+    <div class="section-lbl">OUTPUT</div>
+    <span class="field-lbl" style="margin-bottom:5px; display:block">ZIP NAME</span>
+    <input type="text" class="text-input" id="zip-name" value="canny_frames" autocomplete="off">
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PARAMETERS -->
+  <div class="section">
+    <div class="section-lbl">PARAMETERS</div>
+
+    <div class="slider-block">
+      <div class="slider-head">
+        <span class="slider-name">LOW THRESHOLD</span>
+        <span class="slider-val" id="v-low">50</span>
+      </div>
+      <input type="range" id="s-low" min="0" max="500" step="1" value="50">
+    </div>
+
+    <div class="slider-block">
+      <div class="slider-head">
+        <span class="slider-name">HIGH THRESHOLD</span>
+        <span class="slider-val" id="v-high">150</span>
+      </div>
+      <input type="range" id="s-high" min="0" max="500" step="1" value="150">
+    </div>
+
+    <div class="slider-block">
+      <div class="slider-head">
+        <span class="slider-name">BLUR KERNEL</span>
+        <span class="slider-val" id="v-blur">3</span>
+      </div>
+      <input type="range" id="s-blur" min="1" max="21" step="2" value="3">
+    </div>
+
+    <div class="slider-block">
+      <div class="slider-head">
+        <span class="slider-name">BLEND WITH ORIGINAL %</span>
+        <span class="slider-val" id="v-blend">0</span>
+      </div>
+      <input type="range" id="s-blend" min="0" max="100" step="1" value="0">
+    </div>
+
+    <div class="slider-block" style="margin-bottom:14px">
+      <span class="field-lbl">APERTURE SIZE</span>
+      <div class="ap-wrap">
+        <button class="ap-btn on" data-v="3">3</button>
+        <button class="ap-btn"    data-v="5">5</button>
+        <button class="ap-btn"    data-v="7">7</button>
+      </div>
+    </div>
+
+    <div class="check-row">
+      <input type="checkbox" id="ck-l2">
+      <label for="ck-l2">L2 GRADIENT (PRECISE NORM)</label>
+    </div>
+    <div class="check-row">
+      <input type="checkbox" id="ck-inv">
+      <label for="ck-inv">INVERT OUTPUT</label>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- EXPORT -->
+  <div class="section" style="padding-bottom:12px">
+    <div class="section-lbl">EXPORT</div>
+    <div class="fps-row" style="margin-bottom:12px">
+      <label for="fps-in">VIDEO FPS</label>
+      <input type="number" class="fps-input" id="fps-in" value="30" min="1" max="240">
+      <span class="fps-note">(used to count frames)</span>
+    </div>
+  </div>
+
+  <button id="export-btn" disabled>▶  EXPORT ALL FRAMES</button>
+  <div class="progress-track"><div class="progress-fill" id="prog"></div></div>
+  <div class="status-lbl" id="status">No video loaded</div>
+
+</div><!-- /sidebar -->
+
+<!-- ── MAIN ──────────────────────────────────────── -->
+<div id="main">
+  <div id="canvas-area">
+    <div id="placeholder">DROP A VIDEO FILE HERE<br>OR USE THE SIDEBAR</div>
+    <canvas id="preview"></canvas>
+  </div>
+  <div id="scrub-bar">
+    <label>FRAME</label>
+    <input type="range" id="scrubber" min="0" max="0" step="1" value="0" disabled>
+    <span id="frame-readout">— / —</span>
+  </div>
+</div>
+
+<!-- Hidden video + processing canvas -->
+<video id="hv" style="display:none" preload="auto" crossorigin="anonymous"></video>
+<canvas id="pc" style="display:none"></canvas>
+
+<script>
+(function() {
+  /* ── state ── */
+  let aperture = 3;
+  let exportRunning = false;
+
+  const hv    = document.getElementById('hv');
+  const pc    = document.getElementById('pc');
+  const prev  = document.getElementById('preview');
+  const scrub = document.getElementById('scrubber');
+  const fread = document.getElementById('frame-readout');
+  const prog  = document.getElementById('prog');
+  const expBtn = document.getElementById('export-btn');
+
+  /* ── helpers ── */
+  function setStatus(msg) { document.getElementById('status').textContent = msg; }
+
+  function fps() { return Math.max(1, parseFloat(document.getElementById('fps-in').value) || 30); }
+
+  function totalFrames() { return hv.duration ? Math.round(hv.duration * fps()) : 0; }
+
+  function getParams() {
+    return {
+      low:     +document.getElementById('s-low').value,
+      high:    +document.getElementById('s-high').value,
+      blur:    +document.getElementById('s-blur').value,
+      blend:   +document.getElementById('s-blend').value / 100,
+      aperture,
+      l2:      document.getElementById('ck-l2').checked,
+      invert:  document.getElementById('ck-inv').checked,
+    };
+  }
+
+  /* ── slider wiring ── */
+  [['s-low','v-low'],['s-high','v-high'],['s-blur','v-blur'],['s-blend','v-blend']].forEach(([sid,vid]) => {
+    const s = document.getElementById(sid);
+    const v = document.getElementById(vid);
+    s.addEventListener('input', () => { v.textContent = s.value; if (window._videoLoaded) renderPreview(); });
+  });
+
+  document.querySelectorAll('.ap-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.ap-btn').forEach(x => x.classList.remove('on'));
+      b.classList.add('on');
+      aperture = +b.dataset.v;
+      if (window._videoLoaded) renderPreview();
+    });
+  });
+
+  document.getElementById('ck-l2').addEventListener('change', () => { if (window._videoLoaded) renderPreview(); });
+  document.getElementById('ck-inv').addEventListener('change', () => { if (window._videoLoaded) renderPreview(); });
+
+  /* ── file load ── */
+  document.getElementById('vid-input').addEventListener('change', e => {
+    if (e.target.files[0]) loadFile(e.target.files[0]);
+  });
+
+  function loadFile(file) {
+    hv.src = URL.createObjectURL(file);
+    hv.load();
+    document.getElementById('vid-name').textContent = file.name;
+    document.getElementById('vid-name').classList.add('active');
+    document.getElementById('zip-name').value =
+      file.name.replace(/\.[^/.]+$/, '') + '_canny';
+    document.getElementById('placeholder').style.display = 'none';
+
+    hv.addEventListener('loadedmetadata', () => {
+      const tot = totalFrames();
+      scrub.max = Math.max(0, tot - 1);
+      scrub.value = 0;
+      scrub.disabled = false;
+      window._videoLoaded = true;
+      setStatus(`Loaded · ${tot} frames · ${hv.duration.toFixed(2)}s @ ${fps()}fps`);
+      if (window._cvReady) expBtn.disabled = false;
+      seekFrame(0);
+    }, { once: true });
+  }
+
+  /* ── scrub ── */
+  scrub.addEventListener('input', () => { if (window._videoLoaded) seekFrame(+scrub.value); });
+
+  function seekFrame(idx) {
+    hv.currentTime = idx / fps();
+    hv.addEventListener('seeked', () => {
+      drawToProc();
+      renderPreview();
+      const tot = totalFrames();
+      fread.textContent = `${idx} / ${tot - 1} · ${(idx / fps()).toFixed(2)}s`;
+    }, { once: true });
+  }
+
+  function drawToProc() {
+    pc.width  = hv.videoWidth;
+    pc.height = hv.videoHeight;
+    pc.getContext('2d').drawImage(hv, 0, 0);
+  }
+
+  /* ── canny ── */
+  function applyCanny(srcCanvas, p) {
+    if (!window._cvReady || !cv) return null;
+    let src, gray, blur, edges, out;
+    try {
+      src   = cv.imread(srcCanvas);
+      gray  = new cv.Mat();
+      blur  = new cv.Mat();
+      edges = new cv.Mat();
+      out   = new cv.Mat();
+
+      cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY, 0);
+
+      let k = Math.max(1, p.blur);
+      if (k % 2 === 0) k += 1;
+      if (k > 1) {
+        const ks = new cv.Size(k, k);
+        cv.GaussianBlur(gray, blur, ks, 0, 0, cv.BORDER_DEFAULT);
+      } else {
+        gray.copyTo(blur);
+      }
+
+      cv.Canny(blur, edges, p.low, p.high, p.aperture, p.l2);
+
+      if (p.invert) cv.bitwise_not(edges, edges);
+
+      cv.cvtColor(edges, out, cv.COLOR_GRAY2RGBA, 0);
+
+      if (p.blend > 0) {
+        cv.addWeighted(out, 1 - p.blend, src, p.blend, 0, out);
+      }
+
+      const offscreen = document.createElement('canvas');
+      offscreen.width  = srcCanvas.width;
+      offscreen.height = srcCanvas.height;
+      cv.imshow(offscreen, out);
+      return offscreen;
+    } catch (e) {
+      console.error('Canny error:', e);
+      return null;
+    } finally {
+      if (src)   src.delete();
+      if (gray)  gray.delete();
+      if (blur)  blur.delete();
+      if (edges) edges.delete();
+      if (out)   out.delete();
+    }
+  }
+
+  function renderPreview() {
+    if (!window._cvReady || !window._videoLoaded) return;
+    const result = applyCanny(pc, getParams());
+    if (!result) return;
+
+    const area = document.getElementById('canvas-area');
+    const maxW = area.clientWidth  - 32;
+    const maxH = area.clientHeight - 20;
+    const scale = Math.min(1, maxW / result.width, maxH / result.height);
+    prev.width  = Math.round(result.width  * scale);
+    prev.height = Math.round(result.height * scale);
+    prev.getContext('2d').drawImage(result, 0, 0, prev.width, prev.height);
+  }
+
+  /* ── export ── */
+  expBtn.addEventListener('click', startExport);
+
+  async function startExport() {
+    if (!window._videoLoaded || exportRunning || !window._cvReady) return;
+    exportRunning = true;
+    expBtn.disabled = true;
+    expBtn.textContent = '⏳  EXPORTING …';
+    prog.style.width = '0%';
+
+    const p    = getParams();
+    const f    = fps();
+    const tot  = totalFrames();
+    const digs = String(tot).length;
+    const zip  = new JSZip();
+    const zfn  = (document.getElementById('zip-name').value || 'canny_frames').trim();
+    const folder = zip.folder(zfn);
+
+    for (let i = 0; i < tot; i++) {
+      hv.currentTime = i / f;
+      await new Promise(r => hv.addEventListener('seeked', r, { once: true }));
+      drawToProc();
+
+      const result = applyCanny(pc, p);
+      if (result) {
+        const blob = await new Promise(r => result.toBlob(r, 'image/png'));
+        folder.file(`frame_${String(i).padStart(digs, '0')}.png`, blob);
+      }
+
+      const pct = Math.round((i + 1) / tot * 100);
+      prog.style.width = pct + '%';
+      if (i % 5 === 0) setStatus(`Exporting … ${i + 1} / ${tot}  (${pct}%)`);
+      if (i % 8 === 0) await new Promise(r => setTimeout(r, 0));
+    }
+
+    setStatus('Compressing ZIP …');
+    const zipBlob = await zip.generateAsync({
+      type: 'blob',
+      compression: 'DEFLATE',
+      compressionOptions: { level: 1 }
+    });
+
+    const url = URL.createObjectURL(zipBlob);
+    Object.assign(document.createElement('a'), { href: url, download: zfn + '.zip' }).click();
+    URL.revokeObjectURL(url);
+
+    setStatus(`✓ ${tot} frames exported as ${zfn}.zip`);
+    expBtn.textContent = '▶  EXPORT ALL FRAMES';
+    expBtn.disabled = false;
+    exportRunning = false;
+  }
+
+  /* ── drag & drop ── */
+  const area = document.getElementById('canvas-area');
+  area.addEventListener('dragover',  e => { e.preventDefault(); area.classList.add('dragover'); });
+  area.addEventListener('dragleave', e => area.classList.remove('dragover'));
+  area.addEventListener('drop', e => {
+    e.preventDefault();
+    area.classList.remove('dragover');
+    const f = e.dataTransfer.files[0];
+    if (f && (f.type.startsWith('video/') || /\.(mkv|mov|avi|mp4|m4v|webm|flv)$/i.test(f.name))) loadFile(f);
+  });
+
+  /* ── resize ── */
+  window.addEventListener('resize', () => { if (window._videoLoaded) renderPreview(); });
+
+  setStatus('Loading OpenCV.js …');
+})();
+</script>
+</body>
+</html>

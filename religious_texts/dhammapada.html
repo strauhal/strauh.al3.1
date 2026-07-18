@@ -1,0 +1,3174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>strauh.al/religious_texts/dhammapada</title>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <style>
+        @keyframes changeColor {
+            0% { background-color: #00f; }
+            50% { background-color: #20f; }
+            100% { background-color: #00f; }
+        }
+
+        body {
+            color: #fff;
+            animation: changeColor 15s ease-in-out infinite;
+            font-family: 'Times New Roman', serif;
+            /*margin: 0;*/
+            overflow: hidden;
+        }
+ 
+        #visualization-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+
+        .panel {
+            position: absolute;
+            top: 80px;
+            padding: 15px;
+            animation: changeColor 15s ease-in-out infinite;
+            border: 1px solid #fff;
+            border-radius: 0;
+            max-width: 300px;
+            max-height: 80vh;
+            overflow-y: auto;
+            line-height: 1.6;
+            z-index: 20;
+            display: none;
+        }
+
+        .panel.visible {
+            display: block;
+        }
+
+        #book-list-panel, #verse-list-panel, #hover-verse-list-panel {
+            left: 20px;
+            transition: max-height 0.4s ease-out;
+        }
+
+        #instructions-panel {
+            left: 20px;
+            bottom: 20px;
+            top: auto; 
+            transition: max-height 0.4s ease-out, max-width 0.4s ease-out;
+        }
+
+        #instructions-panel.collapsed {
+            max-height: 24px; 
+            max-width: 120px;
+            overflow: hidden;
+            padding: 12px;
+            cursor: pointer;
+        }
+
+        #instructions-panel.collapsed #instructions-content,
+        #instructions-panel.collapsed .close-btn {
+            display: none;
+        }
+
+        #instructions-panel.collapsed .panel-header {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        #verse-display-panel, #search-panel {
+            right: 20px;
+        }
+        
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #fff;
+        }
+
+        .close-btn {
+            font-family: 'Times New Roman', serif;
+            cursor: pointer;
+            color: #f00;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+
+        .close-btn:hover {
+            color: white;
+        }
+
+        .panel h2 {
+            font-size: 1.3em;
+            color: #fff;
+            font-weight: normal;
+            margin: 0;
+            padding: 0;
+            border-bottom: none;
+            flex-grow: 1;
+        }
+
+        .panel p, .panel a, .panel li {
+            font-size: 1em;
+            color: #fff;
+            margin: 0;
+            padding: 5px 10px;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .panel a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .panel a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .verse-ref-item {
+            display: block;
+            padding: 2px 10px;
+        }
+        
+        #verse-display-content .interactive-word {
+            display: inline;
+            padding: 2px 0;
+            margin: 0;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        #verse-display-content .interactive-word:hover {
+             background-color: rgba(255, 255, 255, 0.25);
+        }
+        
+        #verse-display-content p {
+            padding: 5px;
+            line-height: 1.8;
+        }
+
+        #search-input {
+            width: 100%;
+            box-sizing: border-box;
+            background-color: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+            padding: 8px;
+            margin-bottom: 10px;
+            font-family: 'Times New Roman', serif;
+            font-size: 1em;
+            border-radius: 0;
+        }
+
+        #search-input:focus {
+            outline: none;
+            border-radius: 0;
+        }
+        
+        #search-input::placeholder {
+            color: #fff;
+            opacity: 1; /* Firefox fix */
+        }
+
+        #loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        #color-compass {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            animation: changeColor 15s ease-in-out infinite;
+            padding: 10px;
+            border: 1px solid #fff;
+            border-radius: 0;
+            z-index: 15;
+        }
+
+        #color-compass ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #color-compass li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        #color-compass li.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        #color-compass span {
+            width: 12px;
+            height: 12px;
+            margin-right: 10px;
+            border: 1px solid #fff;
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1em;
+            }
+            .panel {
+                max-width: calc(100% - 40px); /* Use more width on small screens */
+                max-height: 40vh; /* Don't take up the full screen height */
+            }
+            #verse-display-panel, #search-panel {
+                right: 20px;
+                left: auto; 
+            }
+            #color-compass {
+                left: 20px;
+                right: auto;
+                bottom: 220px; /* Position above the instructions panel */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        <a href="https://strauh.al">strauh.al</a>/<a href="https://strauh.al/religious_texts">religious_texts</a>/dhammapada
+    </h1>
+
+    <div id="visualization-container"></div>
+
+    <div id="book-list-panel" class="panel">
+        <div class="panel-header">
+           <h2>chapters</h2>
+       </div>
+       <div id="book-list-content"></div>
+   </div>
+    
+    <div id="hover-verse-list-panel" class="panel">
+        <div class="panel-header">
+            <h2 id="hover-title"></h2>
+        </div>
+        <div id="hover-verse-list-content"></div>
+    </div>
+
+    <div id="verse-list-panel" class="panel">
+         <div class="panel-header">
+            <h2 id="verse-list-title"></h2>
+            <span class="close-btn" id="close-verse-list">[x]</span>
+        </div>
+        <div id="verse-list-content"></div>
+    </div>
+
+    <div id="search-panel" class="panel">
+        <div class="panel-header">
+            <h2>search</h2>
+        </div>
+        <div id="search-content">
+            <input type="text" id="search-input" placeholder="type to search">
+            <div id="search-results"></div>
+        </div>
+    </div>
+
+    <div id="verse-display-panel" class="panel">
+        <div class="panel-header">
+            <h2 id="verse-display-title"></h2>
+            <span class="close-btn" id="close-verse-display">[x]</span>
+        </div>
+        <div id="verse-display-content"></div>
+    </div>
+
+    <!-- Instructions Panel -->
+    <div id="instructions-panel" class="panel visible">
+        <div class="panel-header">
+            <h2>how to use</h2>
+            <span class="close-btn" id="close-instructions">[x]</span>
+        </div>
+        <div id="instructions-content">
+            <ul style="padding: 0; list-style-position: inside; margin-left: 10px;">
+                <li style="padding-bottom: 5px;">navigate: click & drag to rotate, right-click & drag to pan, scroll to zoom.</li>
+                <li style="padding-bottom: 5px;">explore words: click a word in the cloud to see its connections.</li>
+                <li style="padding-bottom: 5px;">explore chapters: click a chapter name on the left to highlight its key words.</li>
+                <li style="padding-bottom: 5px;">filter by theme: click a color in the compass to highlight connections of that theme. click again to reset.</li>
+                <li style="padding-bottom: 5px;">read verses: click any reference to read its full text.</li>
+                <li style="padding-bottom: 5px;">search: use the search bar to find any word.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="loader">Processing Dhammapada Data...</div>
+    
+    <div id="color-compass">
+        <ul>
+            <li data-theme="mindfulness"><span style="background-color: #ff0;"></span>mindfulness & wisdom</li>
+            <li data-theme="suffering"><span style="background-color: #f00;"></span>suffering & impermanence</li>
+            <li data-theme="virtue"><span style="background-color: #0f0;"></span>virtue & the path</li>
+            <li data-theme="states"><span style="background-color: #f0f;"></span>states of being</li>
+            <li data-theme="attachment"><span style="background-color: #0ff;"></span>attachment & aversion</li>
+        </ul>
+    </div>
+
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+                "@tweenjs/tween.js": "https://cdn.jsdelivr.net/npm/@tweenjs/tween.js@21.0.0/dist/tween.esm.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import * as TWEEN from '@tweenjs/tween.js';
+
+        // --- Word Grouping / Stemming ---
+        function getWordRoot(word) {
+            // A map for grouping similar words to their root form for better analysis.
+            const wordRootMap = {
+                'thoughts': 'thought', 'thinking': 'thought',
+                'deeds': 'deed',
+                'men': 'man',
+                'hater': 'hatred', 'hating': 'hatred',
+                'pleasures': 'pleasure',
+                'senses': 'sense',
+                'fools': 'fool', 'foolish': 'fool', 'foolishness': 'fool',
+                'wise': 'wisdom',
+                'sins': 'sin',
+                'virtues': 'virtue',
+                'desires': 'desire',
+                'laws': 'law'
+            };
+            return wordRootMap[word] || word;
+        }
+
+        // --- Scene Setup ---
+        const container = document.getElementById('visualization-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+        camera.position.set(0, 40, 150);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x000000, 0);
+        container.appendChild(renderer.domElement);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.minDistance = 10;
+        controls.maxDistance = 300;
+
+        // --- State Management ---
+        let hoveredLabel = null;
+        let selectedLabel = null;
+        let clickedVerseRef = null;
+        let hoveredWordInVerse = null;
+        let selectedBook = null;
+        let hoveredBook = null;
+        let selectedTheme = null; 
+        let hoveredTheme = null;
+        let wordLabels = [];
+        const wordLabelMap = new Map();
+        let connectionLines = {};
+        const linesGroup = new THREE.Group();
+        scene.add(linesGroup);
+        
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        const mouseDownPos = new THREE.Vector2();
+        const DRAG_THRESHOLD = 5;
+        
+        let frequentWordSet = new Set();
+        let allWordsData = new Map(); // For improved search
+        let verseLookup = new Map();
+        let coOccurrenceData = {};
+
+        // --- UI Elements ---
+        const bookListPanel = document.getElementById('book-list-panel');
+        const bookListContent = document.getElementById('book-list-content');
+        const hoverVersePanel = document.getElementById('hover-verse-list-panel');
+        const hoverVerseListContent = document.getElementById('hover-verse-list-content');
+        const hoverTitle = document.getElementById('hover-title');
+        const verseListPanel = document.getElementById('verse-list-panel');
+        const verseListContent = document.getElementById('verse-list-content');
+        const verseListTitle = document.getElementById('verse-list-title');
+        const verseDisplayPanel = document.getElementById('verse-display-panel');
+        const verseDisplayContent = document.getElementById('verse-display-content');
+        const verseDisplayTitle = document.getElementById('verse-display-title');
+        const searchPanel = document.getElementById('search-panel');
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        
+        // --- Thematic Word Lists for Coloring (Dhammapada Themes) ---
+        const mindfulnessWords = new Set(['thought', 'mind', 'wise', 'knowledge', 'meditation', 'watchful', 'reflecting', 'understanding', 'intelligent', 'serenity', 'sober', 'discernment', 'contemplation', 'awakened', 'buddha']);
+        const sufferingWords = new Set(['pain', 'death', 'grief', 'suffering', 'old', 'age', 'sorrow', 'body', 'perish', 'destruction', 'decay', 'tormented', 'hell', 'loss', 'vanity', 'unreal', 'impermanence', 'misery']);
+        const virtueWords = new Set(['virtue', 'law', 'path', 'good', 'righteous', 'truth', 'pure', 'restraint', 'earnestness', 'control', 'duty', 'discipline', 'chaste', 'just', 'charity', 'liberality', 'faith']);
+        const statesWords = new Set(['fool', 'sage', 'brahmana', 'mendicant', 'bhikshu', 'ariyan', 'elect', 'disciple', 'conqueror', 'arhat', 'gods', 'layman', 'king', 'enemy', 'friend', 'kinsfolk']);
+        const attachmentWords = new Set(['desire', 'hatred', 'passion', 'love', 'pleasure', 'lust', 'greed', 'anger', 'evil', 'vanity', 'craving', 'thirst', 'bondage', 'fetter', 'envy', 'pride']);
+
+        // --- UI Helper Functions ---
+        function updateBookListHeight() {
+            const instructionsPanel = document.getElementById('instructions-panel');
+            const bookListPanel = document.getElementById('book-list-panel');
+            const verseListPanel = document.getElementById('verse-list-panel');
+            const activeLeftPanel = bookListPanel.classList.contains('visible') ? bookListPanel : verseListPanel;
+
+            if (!instructionsPanel.classList.contains('collapsed')) {
+                const instructionsHeight = instructionsPanel.offsetHeight;
+                const bottomMargin = 20;
+                const topMargin = 80;
+                const spacing = 40; 
+                const newMaxHeight = window.innerHeight - topMargin - instructionsHeight - bottomMargin - spacing;
+                activeLeftPanel.style.maxHeight = `${Math.max(100, newMaxHeight)}px`;
+            } else {
+                activeLeftPanel.style.maxHeight = '80vh';
+            }
+        }
+
+
+        // --- Data ---
+        const chapterMap = {
+            "I": "The Twin-Verses", "II": "On Earnestness", "III": "Thought", "IV": "Flowers", "V": "The Fool", "VI": "The Wise Man (Pandita)", "VII": "The Venerable (Arhat)", "VIII": "The Thousands", "IX": "Evil", "X": "Punishment", "XI": "Old Age", "XII": "Self", "XIII": "The World", "XIV": "The Buddha (The Awakened)", "XV": "Happiness", "XVI": "Pleasure", "XVII": "Anger", "XVIII": "Impurity", "XIX": "The Just", "XX": "The Way", "XXI": "Miscellaneous", "XXII": "The Downward Course", "XXIII": "The Elephant", "XXIV": "Thirst", "XXV": "The Bhikshu (Mendicant)", "XXVI": "The Brahmana (Arhat)"
+        };
+
+        // **IMPORTANT**: You can paste the full Dhammapada JSON array here.
+        // The script is designed to handle the full data, but a snippet is included for brevity.
+        const rawDhammapadaData = [
+  {
+    "chapter_number": "I",
+    "chapter_title": "The Twin-Verses",
+    "verses": []
+  },
+  {
+    "chapter_number": "III",
+    "chapter_title": "Thought",
+    "verses": []
+  },
+  {
+    "chapter_number": "V",
+    "chapter_title": "The Fool",
+    "verses": []
+  },
+  {
+    "chapter_number": "VII",
+    "chapter_title": "The Venerable (Arhat).",
+    "verses": []
+  },
+  {
+    "chapter_number": "IX",
+    "chapter_title": "Evil",
+    "verses": []
+  },
+  {
+    "chapter_number": "XI",
+    "chapter_title": "Old Age",
+    "verses": []
+  },
+  {
+    "chapter_number": "XIII",
+    "chapter_title": "The World",
+    "verses": []
+  },
+  {
+    "chapter_number": "XV",
+    "chapter_title": "Happiness",
+    "verses": []
+  },
+  {
+    "chapter_number": "XVII",
+    "chapter_title": "Anger",
+    "verses": []
+  },
+  {
+    "chapter_number": "XIX",
+    "chapter_title": "The Just",
+    "verses": []
+  },
+  {
+    "chapter_number": "XXI",
+    "chapter_title": "Miscellaneous",
+    "verses": []
+  },
+  {
+    "chapter_number": "XXIII",
+    "chapter_title": "The Elephant",
+    "verses": []
+  },
+  {
+    "chapter_number": "XXV",
+    "chapter_title": "The Bhikshu (Mendicant)",
+    "verses": []
+  },
+  {
+    "chapter_number": "I",
+    "chapter_title": "The Twin-Verses",
+    "verses": [
+      {
+        "verse": 1,
+        "text": "All that we are is the result of what we have thought: it is founded on our thoughts, it is made up of our thoughts. If a man speaks or acts with an evil thought, pain follows him, as the wheel follows the foot of the ox that draws the carriage."
+      },
+      {
+        "verse": 2,
+        "text": "All that we are is the result of what we have thought: it is founded on our thoughts, it is made up of our thoughts. If a man speaks or acts with a pure thought, happiness follows him, like a shadow that never leaves him."
+      },
+      {
+        "verse": 3,
+        "text": "\"He abused me, he beat me, he defeated me, he robbed me,\"—in those who harbour such thoughts hatred will never cease."
+      },
+      {
+        "verse": 4,
+        "text": "\"He abused me, he beat me, he defeated me, he robbed me,\"—in those who do not harbour such thoughts hatred will cease."
+      },
+      {
+        "verse": 5,
+        "text": "For hatred does not cease by hatred at any time: hatred ceases by love, this is an old rule."
+      },
+      {
+        "verse": 6,
+        "text": "The world does not know that we must all come to an end here;—but those who know it, their quarrels cease at once."
+      },
+      {
+        "verse": 7,
+        "text": "He who lives looking for pleasures only, his senses uncontrolled, immoderate in his food, idle, and weak, Mara (the tempter) will certainly overthrow him, as the wind throws down a weak tree."
+      },
+      {
+        "verse": 8,
+        "text": "He who lives without looking for pleasures, his senses well controlled, moderate in his food, faithful and strong, him Mara will certainly not overthrow, any more than the wind throws down a rocky mountain."
+      },
+      {
+        "verse": 9,
+        "text": "He who wishes to put on the yellow dress without having cleansed himself from sin, who disregards temperance and truth, is unworthy of the yellow dress."
+      },
+      {
+        "verse": 10,
+        "text": "But he who has cleansed himself from sin, is well grounded in all virtues, and regards also temperance and truth, he is indeed worthy of the yellow dress."
+      },
+      {
+        "verse": 11,
+        "text": "They who imagine truth in untruth, and see untruth in truth, never arrive at truth, but follow vain desires."
+      },
+      {
+        "verse": 12,
+        "text": "They who know truth in truth, and untruth in untruth, arrive at truth, and follow true desires."
+      },
+      {
+        "verse": 13,
+        "text": "As rain breaks through an ill-thatched house, passion will break through an unreflecting mind."
+      },
+      {
+        "verse": 14,
+        "text": "As rain does not break through a well-thatched house, passion will not break through a well-reflecting mind."
+      },
+      {
+        "verse": 15,
+        "text": "The evil-doer mourns in this world, and he mourns in the next; he mourns in both. He mourns and suffers when he sees the evil of his own work."
+      },
+      {
+        "verse": 16,
+        "text": "The virtuous man delights in this world, and he delights in the next; he delights in both. He delights and rejoices, when he sees the purity of his own work."
+      },
+      {
+        "verse": 17,
+        "text": "The evil-doer suffers in this world, and he suffers in the next; he suffers in both. He suffers when he thinks of the evil he has done; he suffers more when going on the evil path."
+      },
+      {
+        "verse": 18,
+        "text": "The virtuous man is happy in this world, and he is happy in the next; he is happy in both. He is happy when he thinks of the good he has done; he is still more happy when going on the good path."
+      },
+      {
+        "verse": 19,
+        "text": "The thoughtless man, even if he can recite a large portion (of the law), but is not a doer of it, has no share in the priesthood, but is like a cowherd counting the cows of others."
+      },
+      {
+        "verse": 20,
+        "text": "The follower of the law, even if he can recite only a small portion (of the law), but, having forsaken passion and hatred and foolishness, possesses true knowledge and serenity of mind, he, caring for nothing in this world or that to come, has indeed a share in the priesthood."
+      }
+    ]
+  },
+  {
+    "chapter_number": "II",
+    "chapter_title": "On Earnestness",
+    "verses": [
+      {
+        "verse": 21,
+        "text": "Earnestness is the path of immortality (Nirvana), thoughtlessness the path of death. Those who are in earnest do not die, those who are thoughtless are as if dead already."
+      },
+      {
+        "verse": 22,
+        "text": "Those who are advanced in earnestness, having understood this clearly, delight in earnestness, and rejoice in the knowledge of the Ariyas (the elect)."
+      },
+      {
+        "verse": 23,
+        "text": "These wise people, meditative, steady, always possessed of strong powers, attain to Nirvana, the highest happiness."
+      },
+      {
+        "verse": 24,
+        "text": "If an earnest person has roused himself, if he is not forgetful, if his deeds are pure, if he acts with consideration, if he restrains himself, and lives according to law,—then his glory will increase."
+      },
+      {
+        "verse": 25,
+        "text": "By rousing himself, by earnestness, by restraint and control, the wise man may make for himself an island which no flood can overwhelm."
+      },
+      {
+        "verse": 26,
+        "text": "Fools follow after vanity, men of evil wisdom. The wise man keeps earnestness as his best jewel."
+      },
+      {
+        "verse": 27,
+        "text": "Follow not after vanity, nor after the enjoyment of love and lust! He who is earnest and meditative, obtains ample joy."
+      },
+      {
+        "verse": 28,
+        "text": "When the learned man drives away vanity by earnestness, he, the wise, climbing the terraced heights of wisdom, looks down upon the fools, serene he looks upon the toiling crowd, as one that stands on a mountain looks down upon them that stand upon the plain."
+      },
+      {
+        "verse": 29,
+        "text": "Earnest among the thoughtless, awake among the sleepers, the wise man advances like a racer, leaving behind the hack."
+      },
+      {
+        "verse": 30,
+        "text": "By earnestness did Maghavan (Indra) rise to the lordship of the gods. People praise earnestness; thoughtlessness is always blamed."
+      },
+      {
+        "verse": 31,
+        "text": "A Bhikshu (mendicant) who delights in earnestness, who looks with fear on thoughtlessness, moves about like fire, burning all his fetters, small or large."
+      },
+      {
+        "verse": 32,
+        "text": "A Bhikshu (mendicant) who delights in reflection, who looks with fear on thoughtlessness, cannot fall away (from his perfect state)—he is close upon Nirvana."
+      }
+    ]
+  },
+  {
+    "chapter_number": "III",
+    "chapter_title": "Thought",
+    "verses": [
+      {
+        "verse": 33,
+        "text": "As a fletcher makes straight his arrow, a wise man makes straight his trembling and unsteady thought, which is difficult to guard, difficult to hold back."
+      },
+      {
+        "verse": 34,
+        "text": "As a fish taken from his watery home and thrown on dry ground, our thought trembles all over in order to escape the dominion of Mara (the tempter)."
+      },
+      {
+        "verse": 35,
+        "text": "It is good to tame the mind, which is difficult to hold in and flighty, rushing wherever it listeth; a tamed mind brings happiness."
+      },
+      {
+        "verse": 36,
+        "text": "Let the wise man guard his thoughts, for they are difficult to perceive, very artful, and they rush wherever they list: thoughts well guarded bring happiness."
+      },
+      {
+        "verse": 37,
+        "text": "Those who bridle their mind which travels far, moves about alone, is without a body, and hides in the chamber (of the heart), will be free from the bonds of Mara (the tempter)."
+      },
+      {
+        "verse": 38,
+        "text": "If a man's thoughts are unsteady, if he does not know the true law, if his peace of mind is troubled, his knowledge will never be perfect."
+      },
+      {
+        "verse": 39,
+        "text": "If a man's thoughts are not dissipated, if his mind is not perplexed, if he has ceased to think of good or evil, then there is no fear for him while he is watchful."
+      },
+      {
+        "verse": 40,
+        "text": "Knowing that this body is (fragile) like a jar, and making this thought firm like a fortress, one should attack Mara (the tempter) with the weapon of knowledge, one should watch him when conquered, and should never rest."
+      },
+      {
+        "verse": 41,
+        "text": "Before long, alas! this body will lie on the earth, despised, without understanding, like a useless log."
+      },
+      {
+        "verse": 42,
+        "text": "Whatever a hater may do to a hater, or an enemy to an enemy, a wrongly-directed mind will do us greater mischief."
+      },
+      {
+        "verse": 43,
+        "text": "Not a mother, not a father will do so much, nor any other relative; a well-directed mind will do us greater service."
+      }
+    ]
+  },
+  {
+    "chapter_number": "IV",
+    "chapter_title": "Flowers",
+    "verses": [
+      {
+        "verse": 44,
+        "text": "Who shall overcome this earth, and the world of Yama (the lord of the departed), and the world of the gods? Who shall find out the plainly shown path of virtue, as a clever man finds out the (right) flower?"
+      },
+      {
+        "verse": 45,
+        "text": "The disciple will overcome the earth, and the world of Yama, and the world of the gods. The disciple will find out the plainly shown path of virtue, as a clever man finds out the (right) flower."
+      },
+      {
+        "verse": 46,
+        "text": "He who knows that this body is like froth, and has learnt that it is as unsubstantial as a mirage, will break the flower-pointed arrow of Mara, and never see the king of death."
+      },
+      {
+        "verse": 47,
+        "text": "Death carries off a man who is gathering flowers and whose mind is distracted, as a flood carries off a sleeping village."
+      },
+      {
+        "verse": 48,
+        "text": "Death subdues a man who is gathering flowers, and whose mind is distracted, before he is satiated in his pleasures."
+      },
+      {
+        "verse": 49,
+        "text": "As the bee collects nectar and departs without injuring the flower, or its colour or scent, so let a sage dwell in his village."
+      },
+      {
+        "verse": 50,
+        "text": "Not the perversities of others, not their sins of commission or omission, but his own misdeeds and negligences should a sage take notice of."
+      },
+      {
+        "verse": 51,
+        "text": "Like a beautiful flower, full of colour, but without scent, are the fine but fruitless words of him who does not act accordingly."
+      },
+      {
+        "verse": 52,
+        "text": "But, like a beautiful flower, full of colour and full of scent, are the fine and fruitful words of him who acts accordingly."
+      },
+      {
+        "verse": 53,
+        "text": "As many kinds of wreaths can be made from a heap of flowers, so many good things may be achieved by a mortal when once he is born."
+      },
+      {
+        "verse": 54,
+        "text": "The scent of flowers does not travel against the wind, nor (that of) sandal-wood, or of Tagara and Mallika flowers; but the odour of good people travels even against the wind; a good man pervades every place."
+      },
+      {
+        "verse": 55,
+        "text": "Sandal-wood or Tagara, a lotus-flower, or a Vassiki, among these sorts of perfumes, the perfume of virtue is unsurpassed."
+      },
+      {
+        "verse": 56,
+        "text": "Mean is the scent that comes from Tagara and sandal-wood;—the perfume of those who possess virtue rises up to the gods as the highest."
+      },
+      {
+        "verse": 57,
+        "text": "Of the people who possess these virtues, who live without thoughtlessness, and who are emancipated through true knowledge, Mara, the tempter, never finds the way. 58, 59. As on a heap of rubbish cast upon the highway the lily will grow full of sweet perfume and delight, thus the disciple of the truly enlightened Buddha shines forth by his knowledge among those who are like rubbish, among the people that walk in darkness."
+      }
+    ]
+  },
+  {
+    "chapter_number": "V",
+    "chapter_title": "The Fool",
+    "verses": [
+      {
+        "verse": 60,
+        "text": "Long is the night to him who is awake; long is a mile to him who is tired; long is life to the foolish who do not know the true law."
+      },
+      {
+        "verse": 61,
+        "text": "If a traveller does not meet with one who is his better, or his equal, let him firmly keep to his solitary journey; there is no companionship with a fool."
+      },
+      {
+        "verse": 62,
+        "text": "\"These sons belong to me, and this wealth belongs to me,\" with such thoughts a fool is tormented. He himself does not belong to himself; how much less sons and wealth?"
+      },
+      {
+        "verse": 63,
+        "text": "The fool who knows his foolishness, is wise at least so far. But a fool who thinks himself wise, he is called a fool indeed."
+      },
+      {
+        "verse": 64,
+        "text": "If a fool be associated with a wise man even all his life, he will perceive the truth as little as a spoon perceives the taste of soup."
+      },
+      {
+        "verse": 65,
+        "text": "If an intelligent man be associated for one minute only with a wise man, he will soon perceive the truth, as the tongue perceives the taste of soup."
+      },
+      {
+        "verse": 66,
+        "text": "Fools of little understanding have themselves for their greatest enemies, for they do evil deeds which must bear bitter fruits."
+      },
+      {
+        "verse": 67,
+        "text": "That deed is not well done of which a man must repent, and the reward of which he receives crying and with a tearful face."
+      },
+      {
+        "verse": 68,
+        "text": "No, that deed is well done of which a man does not repent, and the reward of which he receives gladly and cheerfully."
+      },
+      {
+        "verse": 69,
+        "text": "As long as the evil deed done does not bear fruit, the fool thinks it is like honey; but when it ripens, then the fool suffers grief."
+      },
+      {
+        "verse": 70,
+        "text": "Let a fool month after month eat his food (like an ascetic) with the tip of a blade of Kusa grass, yet he is not worth the sixteenth particle of those who have well weighed the law."
+      },
+      {
+        "verse": 71,
+        "text": "An evil deed, like newly-drawn milk, does not turn (suddenly); smouldering, like fire covered by ashes, it follows the fool."
+      },
+      {
+        "verse": 72,
+        "text": "And when the evil deed, after it has become known, brings sorrow to the fool, then it destroys his bright lot, nay, it cleaves his head."
+      },
+      {
+        "verse": 73,
+        "text": "Let the fool wish for a false reputation, for precedence among the Bhikshus, for lordship in the convents, for worship among other people!"
+      },
+      {
+        "verse": 74,
+        "text": "\"May both the layman and he who has left the world think that this is done by me; may they be subject to me in everything which is to be done or is not to be done,\" thus is the mind of the fool, and his desire and pride increase."
+      },
+      {
+        "verse": 75,
+        "text": "\"One is the road that leads to wealth, another the road that leads to Nirvana;\" if the Bhikshu, the disciple of Buddha, has learnt this, he will not yearn for honour, he will strive after separation from the world."
+      }
+    ]
+  },
+  {
+    "chapter_number": "VI",
+    "chapter_title": "The Wise Man (Pandita)",
+    "verses": [
+      {
+        "verse": 76,
+        "text": "If you see an intelligent man who tells you where true treasures are to be found, who shows what is to be avoided, and administers reproofs, follow that wise man; it will be better, not worse, for those who follow him."
+      },
+      {
+        "verse": 77,
+        "text": "Let him admonish, let him teach, let him forbid what is improper!—he will be beloved of the good, by the bad he will be hated."
+      },
+      {
+        "verse": 78,
+        "text": "Do not have evil-doers for friends, do not have low people for friends: have virtuous people for friends, have for friends the best of men."
+      },
+      {
+        "verse": 79,
+        "text": "He who drinks in the law lives happily with a serene mind: the sage rejoices always in the law, as preached by the elect (Ariyas)."
+      },
+      {
+        "verse": 80,
+        "text": "Well-makers lead the water (wherever they like); fletchers bend the arrow; carpenters bend a log of wood; wise people fashion themselves."
+      },
+      {
+        "verse": 81,
+        "text": "As a solid rock is not shaken by the wind, wise people falter not amidst blame and praise."
+      },
+      {
+        "verse": 82,
+        "text": "Wise people, after they have listened to the laws, become serene, like a deep, smooth, and still lake."
+      },
+      {
+        "verse": 83,
+        "text": "Good people walk on whatever befall, the good do not prattle, longing for pleasure; whether touched by happiness or sorrow wise people never appear elated or depressed."
+      },
+      {
+        "verse": 84,
+        "text": "If, whether for his own sake, or for the sake of others, a man wishes neither for a son, nor for wealth, nor for lordship, and if he does not wish for his own success by unfair means, then he is good, wise, and virtuous."
+      },
+      {
+        "verse": 85,
+        "text": "Few are there among men who arrive at the other shore (become Arhats); the other people here run up and down the shore."
+      },
+      {
+        "verse": 86,
+        "text": "But those who, when the law has been well preached to them, follow the law, will pass across the dominion of death, however difficult to overcome. 87, 88. A wise man should leave the dark state (of ordinary life), and follow the bright state (of the Bhikshu). After going from his home to a homeless state, he should in his retirement look for enjoyment where there seemed to be no enjoyment. Leaving all pleasures behind, and calling nothing his own, the wise man should purge himself from all the troubles of the mind."
+      },
+      {
+        "verse": 89,
+        "text": "Those whose mind is well grounded in the (seven) elements of knowledge, who without clinging to anything, rejoice in freedom from attachment, whose appetites have been conquered, and who are full of light, are free (even) in this world."
+      }
+    ]
+  },
+  {
+    "chapter_number": "VII",
+    "chapter_title": "The Venerable (Arhat).",
+    "verses": [
+      {
+        "verse": 90,
+        "text": "There is no suffering for him who has finished his journey, and abandoned grief, who has freed himself on all sides, and thrown off all fetters."
+      },
+      {
+        "verse": 91,
+        "text": "They depart with their thoughts well-collected, they are not happy in their abode; like swans who have left their lake, they leave their house and home."
+      },
+      {
+        "verse": 92,
+        "text": "Men who have no riches, who live on recognised food, who have perceived void and unconditioned freedom (Nirvana), their path is difficult to understand, like that of birds in the air."
+      },
+      {
+        "verse": 93,
+        "text": "He whose appetites are stilled, who is not absorbed in enjoyment, who has perceived void and unconditioned freedom (Nirvana), his path is difficult to understand, like that of birds in the air."
+      },
+      {
+        "verse": 94,
+        "text": "The gods even envy him whose senses, like horses well broken in by the driver, have been subdued, who is free from pride, and free from appetites."
+      },
+      {
+        "verse": 95,
+        "text": "Such a one who does his duty is tolerant like the earth, like Indra's bolt; he is like a lake without mud; no new births are in store for him."
+      },
+      {
+        "verse": 96,
+        "text": "His thought is quiet, quiet are his word and deed, when he has obtained freedom by true knowledge, when he has thus become a quiet man."
+      },
+      {
+        "verse": 97,
+        "text": "The man who is free from credulity, but knows the uncreated, who has cut all ties, removed all temptations, renounced all desires, he is the greatest of men."
+      },
+      {
+        "verse": 98,
+        "text": "In a hamlet or in a forest, in the deep water or on the dry land, wherever venerable persons (Arhanta) dwell, that place is delightful."
+      },
+      {
+        "verse": 99,
+        "text": "Forests are delightful; where the world finds no delight, there the passionless will find delight, for they look not for pleasures."
+      }
+    ]
+  },
+  {
+    "chapter_number": "VIII",
+    "chapter_title": "The Thousands",
+    "verses": [
+      {
+        "verse": 100,
+        "text": "Even though a speech be a thousand (of words), but made up of senseless words, one word of sense is better, which if a man hears, he becomes quiet."
+      },
+      {
+        "verse": 101,
+        "text": "Even though a Gatha (poem) be a thousand (of words), but made up of senseless words, one word of a Gatha is better, which if a man hears, he becomes quiet."
+      },
+      {
+        "verse": 102,
+        "text": "Though a man recite a hundred Gathas made up of senseless words, one word of the law is better, which if a man hears, he becomes quiet."
+      },
+      {
+        "verse": 103,
+        "text": "If one man conquer in battle a thousand times thousand men, and if another conquer himself, he is the greatest of conquerors. 104, 105. One's own self conquered is better than all other people; not even a god, a Gandharva, not Mara with Brahman could change into defeat the victory of a man who has vanquished himself, and always lives under restraint."
+      },
+      {
+        "verse": 106,
+        "text": "If a man for a hundred years sacrifice month after month with a thousand, and if he but for one moment pay homage to a man whose soul is grounded (in true knowledge), better is that homage than sacrifice for a hundred years."
+      },
+      {
+        "verse": 107,
+        "text": "If a man for a hundred years worship Agni (fire) in the forest, and if he but for one moment pay homage to a man whose soul is grounded (in true knowledge), better is that homage than sacrifice for a hundred years."
+      },
+      {
+        "verse": 108,
+        "text": "Whatever a man sacrifice in this world as an offering or as an oblation for a whole year in order to gain merit, the whole of it is not worth a quarter (a farthing); reverence shown to the righteous is better."
+      },
+      {
+        "verse": 109,
+        "text": "He who always greets and constantly reveres the aged, four things will increase to him, viz. life, beauty, happiness, power."
+      },
+      {
+        "verse": 110,
+        "text": "But he who lives a hundred years, vicious and unrestrained, a life of one day is better if a man is virtuous and reflecting."
+      },
+      {
+        "verse": 111,
+        "text": "And he who lives a hundred years, ignorant and unrestrained, a life of one day is better if a man is wise and reflecting."
+      },
+      {
+        "verse": 112,
+        "text": "And he who lives a hundred years, idle and weak, a life of one day is better if a man has attained firm strength."
+      },
+      {
+        "verse": 113,
+        "text": "And he who lives a hundred years, not seeing beginning and end, a life of one day is better if a man sees beginning and end."
+      },
+      {
+        "verse": 114,
+        "text": "And he who lives a hundred years, not seeing the immortal place, a life of one day is better if a man sees the immortal place."
+      },
+      {
+        "verse": 115,
+        "text": "And he who lives a hundred years, not seeing the highest law, a life of one day is better if a man sees the highest law."
+      }
+    ]
+  },
+  {
+    "chapter_number": "IX",
+    "chapter_title": "Evil",
+    "verses": [
+      {
+        "verse": 116,
+        "text": "If a man would hasten towards the good, he should keep his thought away from evil; if a man does what is good slothfully, his mind delights in evil."
+      },
+      {
+        "verse": 117,
+        "text": "If a man commits a sin, let him not do it again; let him not delight in sin: pain is the outcome of evil."
+      },
+      {
+        "verse": 118,
+        "text": "If a man does what is good, let him do it again; let him delight in it: happiness is the outcome of good."
+      },
+      {
+        "verse": 119,
+        "text": "Even an evil-doer sees happiness as long as his evil deed has not ripened; but when his evil deed has ripened, then does the evil-doer see evil."
+      },
+      {
+        "verse": 120,
+        "text": "Even a good man sees evil days, as long as his good deed has not ripened; but when his good deed has ripened, then does the good man see happy days."
+      },
+      {
+        "verse": 121,
+        "text": "Let no man think lightly of evil, saying in his heart, It will not come nigh unto me. Even by the falling of water-drops a water-pot is filled; the fool becomes full of evil, even if he gather it little by little."
+      },
+      {
+        "verse": 122,
+        "text": "Let no man think lightly of good, saying in his heart, It will not come nigh unto me. Even by the falling of water-drops a water-pot is filled; the wise man becomes full of good, even if he gather it little by little."
+      },
+      {
+        "verse": 123,
+        "text": "Let a man avoid evil deeds, as a merchant, if he has few companions and carries much wealth, avoids a dangerous road; as a man who loves life avoids poison."
+      },
+      {
+        "verse": 124,
+        "text": "He who has no wound on his hand, may touch poison with his hand; poison does not affect one who has no wound; nor is there evil for one who does not commit evil."
+      },
+      {
+        "verse": 125,
+        "text": "If a man offend a harmless, pure, and innocent person, the evil falls back upon that fool, like light dust thrown up against the wind."
+      },
+      {
+        "verse": 126,
+        "text": "Some people are born again; evil-doers go to hell; righteous people go to heaven; those who are free from all worldly desires attain Nirvana."
+      },
+      {
+        "verse": 127,
+        "text": "Not in the sky, not in the midst of the sea, not if we enter into the clefts of the mountains, is there known a spot in the whole world where a man might be freed from an evil deed."
+      },
+      {
+        "verse": 128,
+        "text": "Not in the sky, not in the midst of the sea, not if we enter into the clefts of the mountains, is there known a spot in the whole world where death could not overcome (the mortal)."
+      }
+    ]
+  },
+  {
+    "chapter_number": "X",
+    "chapter_title": "Punishment",
+    "verses": [
+      {
+        "verse": 129,
+        "text": "All men tremble at punishment, all men fear death; remember that you are like unto them, and do not kill, nor cause slaughter."
+      },
+      {
+        "verse": 130,
+        "text": "All men tremble at punishment, all men love life; remember that thou art like unto them, and do not kill, nor cause slaughter."
+      },
+      {
+        "verse": 131,
+        "text": "He who seeking his own happiness punishes or kills beings who also long for happiness, will not find happiness after death."
+      },
+      {
+        "verse": 132,
+        "text": "He who seeking his own happiness does not punish or kill beings who also long for happiness, will find happiness after death."
+      },
+      {
+        "verse": 133,
+        "text": "Do not speak harshly to anybody; those who are spoken to will answer thee in the same way. Angry speech is painful, blows for blows will touch thee."
+      },
+      {
+        "verse": 134,
+        "text": "If, like a shattered metal plate (gong), thou utter not, then thou hast reached Nirvana; contention is not known to thee."
+      },
+      {
+        "verse": 135,
+        "text": "As a cowherd with his staff drives his cows into the stable, so do Age and Death drive the life of men."
+      },
+      {
+        "verse": 136,
+        "text": "A fool does not know when he commits his evil deeds: but the wicked man burns by his own deeds, as if burnt by fire."
+      },
+      {
+        "verse": 137,
+        "text": "He who inflicts pain on innocent and harmless persons, will soon come to one of these ten states:"
+      },
+      {
+        "verse": 138,
+        "text": "He will have cruel suffering, loss, injury of the body, heavy affliction, or loss of mind,"
+      },
+      {
+        "verse": 139,
+        "text": "Or a misfortune coming from the king, or a fearful accusation, or loss of relations, or destruction of treasures,"
+      },
+      {
+        "verse": 140,
+        "text": "Or lightning-fire will burn his houses; and when his body is destroyed, the fool will go to hell."
+      },
+      {
+        "verse": 141,
+        "text": "Not nakedness, not platted hair, not dirt, not fasting, or lying on the earth, not rubbing with dust, not sitting motionless, can purify a mortal who has not overcome desires."
+      },
+      {
+        "verse": 142,
+        "text": "He who, though dressed in fine apparel, exercises tranquillity, is quiet, subdued, restrained, chaste, and has ceased to find fault with all other beings, he indeed is a Brahmana, an ascetic (sramana), a friar (bhikshu)."
+      },
+      {
+        "verse": 143,
+        "text": "Is there in this world any man so restrained by humility that he does not mind reproof, as a well-trained horse the whip?"
+      },
+      {
+        "verse": 144,
+        "text": "Like a well-trained horse when touched by the whip, be ye active and lively, and by faith, by virtue, by energy, by meditation, by discernment of the law you will overcome this great pain (of reproof), perfect in knowledge and in behaviour, and never forgetful."
+      },
+      {
+        "verse": 145,
+        "text": "Well-makers lead the water (wherever they like); fletchers bend the arrow; carpenters bend a log of wood; good people fashion themselves."
+      }
+    ]
+  },
+  {
+    "chapter_number": "XI",
+    "chapter_title": "Old Age",
+    "verses": [
+      {
+        "verse": 146,
+        "text": "How is there laughter, how is there joy, as this world is always burning? Why do you not seek a light, ye who are surrounded by darkness?"
+      },
+      {
+        "verse": 147,
+        "text": "Look at this dressed-up lump, covered with wounds, joined together, sickly, full of many thoughts, which has no strength, no hold!"
+      },
+      {
+        "verse": 148,
+        "text": "This body is wasted, full of sickness, and frail; this heap of corruption breaks to pieces, life indeed ends in death."
+      },
+      {
+        "verse": 149,
+        "text": "Those white bones, like gourds thrown away in the autumn, what pleasure is there in looking at them?"
+      },
+      {
+        "verse": 150,
+        "text": "After a stronghold has been made of the bones, it is covered with flesh and blood, and there dwell in it old age and death, pride and deceit."
+      },
+      {
+        "verse": 151,
+        "text": "The brilliant chariots of kings are destroyed, the body also approaches destruction, but the virtue of good people never approaches destruction,—thus do the good say to the good."
+      },
+      {
+        "verse": 152,
+        "text": "A man who has learnt little, grows old like an ox; his flesh grows, but his knowledge does not grow. 153, 154. Looking for the maker of this tabernacle, I shall have to run through a course of many births, so long as I do not find (him); and painful is birth again and again. But now, maker of the tabernacle, thou hast been seen; thou shalt not make up this tabernacle again. All thy rafters are broken, thy ridge-pole is sundered; the mind, approaching the Eternal (visankhara, nirvana), has attained to the extinction of all desires."
+      },
+      {
+        "verse": 155,
+        "text": "Men who have not observed proper discipline, and have not gained treasure in their youth, perish like old herons in a lake without fish."
+      },
+      {
+        "verse": 156,
+        "text": "Men who have not observed proper discipline, and have not gained treasure in their youth, lie, like broken bows, sighing after the past."
+      }
+    ]
+  },
+  {
+    "chapter_number": "XII",
+    "chapter_title": "Self",
+    "verses": [
+      {
+        "verse": 157,
+        "text": "If a man hold himself dear, let him watch himself carefully; during one at least out of the three watches a wise man should be watchful."
+      },
+      {
+        "verse": 158,
+        "text": "Let each man direct himself first to what is proper, then let him teach others; thus a wise man will not suffer."
+      },
+      {
+        "verse": 159,
+        "text": "If a man make himself as he teaches others to be, then, being himself well subdued, he may subdue (others); one's own self is indeed difficult to subdue."
+      },
+      {
+        "verse": 160,
+        "text": "Self is the lord of self, who else could be the lord? With self well subdued, a man finds a lord such as few can find."
+      },
+      {
+        "verse": 161,
+        "text": "The evil done by oneself, self-begotten, self-bred, crushes the foolish, as a diamond breaks a precious stone."
+      },
+      {
+        "verse": 162,
+        "text": "He whose wickedness is very great brings himself down to that state where his enemy wishes him to be, as a creeper does with the tree which it surrounds."
+      },
+      {
+        "verse": 163,
+        "text": "Bad deeds, and deeds hurtful to ourselves, are easy to do; what is beneficial and good, that is very difficult to do."
+      },
+      {
+        "verse": 164,
+        "text": "The foolish man who scorns the rule of the venerable (Arahat), of the elect (Ariya), of the virtuous, and follows false doctrine, he bears fruit to his own destruction, like the fruits of the Katthaka reed."
+      },
+      {
+        "verse": 165,
+        "text": "By oneself the evil is done, by oneself one suffers; by oneself evil is left undone, by oneself one is purified. Purity and impurity belong to oneself, no one can purify another."
+      },
+      {
+        "verse": 166,
+        "text": "Let no one forget his own duty for the sake of another's, however great; let a man, after he has discerned his own duty, be always attentive to his duty."
+      }
+    ]
+  },
+  {
+    "chapter_number": "XIII",
+    "chapter_title": "The World",
+    "verses": [
+      {
+        "verse": 167,
+        "text": "Do not follow the evil law! Do not live on in thoughtlessness! Do not follow false doctrine! Be not a friend of the world."
+      },
+      {
+        "verse": 168,
+        "text": "Rouse thyself! do not be idle! Follow the law of virtue! The virtuous rests in bliss in this world and in the next."
+      },
+      {
+        "verse": 169,
+        "text": "Follow the law of virtue; do not follow that of sin. The virtuous rests in bliss in this world and in the next."
+      },
+      {
+        "verse": 170,
+        "text": "Look upon the world as a bubble, look upon it as a mirage: the king of death does not see him who thus looks down upon the world."
+      },
+      {
+        "verse": 171,
+        "text": "Come, look at this glittering world, like unto a royal chariot; the foolish are immersed in it, but the wise do not touch it."
+      },
+      {
+        "verse": 172,
+        "text": "He who formerly was reckless and afterwards became sober, brightens up this world, like the moon when freed from clouds."
+      },
+      {
+        "verse": 173,
+        "text": "He whose evil deeds are covered by good deeds, brightens up this world, like the moon when freed from clouds."
+      },
+      {
+        "verse": 174,
+        "text": "This world is dark, few only can see here; a few only go to heaven, like birds escaped from the net."
+      },
+      {
+        "verse": 175,
+        "text": "The swans go on the path of the sun, they go through the ether by means of their miraculous power; the wise are led out of this world, when they have conquered Mara and his train."
+      },
+      {
+        "verse": 176,
+        "text": "If a man has transgressed one law, and speaks lies, and scoffs at another world, there is no evil he will not do."
+      },
+      {
+        "verse": 177,
+        "text": "The uncharitable do not go to the world of the gods; fools only do not praise liberality; a wise man rejoices in liberality, and through it becomes blessed in the other world."
+      },
+      {
+        "verse": 178,
+        "text": "Better than sovereignty over the earth, better than going to heaven, better than lordship over all worlds, is the reward of the first step in holiness."
+      }
+    ]
+  },
+  {
+    "chapter_number": "XIV",
+    "chapter_title": "The Buddha (The Awakened)",
+    "verses": [
+      {
+        "verse": 179,
+        "text": "He whose conquest is not conquered again, into whose conquest no one in this world enters, by what track can you lead him, the Awakened, the Omniscient, the trackless?"
+      },
+      {
+        "verse": 180,
+        "text": "He whom no desire with its snares and poisons can lead astray, by what track can you lead him, the Awakened, the Omniscient, the trackless?"
+      },
+      {
+        "verse": 181,
+        "text": "Even the gods envy those who are awakened and not forgetful, who are given to meditation, who are wise, and who delight in the repose of retirement (from the world)."
+      },
+      {
+        "verse": 182,
+        "text": "Difficult (to obtain) is the conception of men, difficult is the life of mortals, difficult is the hearing of the True Law, difficult is the birth of the Awakened (the attainment of Buddhahood)."
+      },
+      {
+        "verse": 183,
+        "text": "Not to commit any sin, to do good, and to purify one's mind, that is the teaching of (all) the Awakened."
+      },
+      {
+        "verse": 184,
+        "text": "The Awakened call patience the highest penance, long-suffering the highest Nirvana; for he is not an anchorite (pravragita) who strikes others, he is not an ascetic (sramana) who insults others."
+      },
+      {
+        "verse": 185,
+        "text": "Not to blame, not to strike, to live restrained under the law, to be moderate in eating, to sleep and sit alone, and to dwell on the highest thoughts,—this is the teaching of the Awakened."
+      },
+      {
+        "verse": 186,
+        "text": "There is no satisfying lusts, even by a shower of gold pieces; he who knows that lusts have a short taste and cause pain, he is wise;"
+      },
+      {
+        "verse": 187,
+        "text": "Even in heavenly pleasures he finds no satisfaction, the disciple who is fully awakened delights only in the destruction of all desires."
+      },
+      {
+        "verse": 188,
+        "text": "Men, driven by fear, go to many a refuge, to mountains and forests, to groves and sacred trees."
+      },
+      {
+        "verse": 189,
+        "text": "But that is not a safe refuge, that is not the best refuge; a man is not delivered from all pains after having gone to that refuge."
+      },
+      {
+        "verse": 190,
+        "text": "He who takes refuge with Buddha, the Law, and the Church; he who, with clear understanding, sees the four holy truths:—"
+      },
+      {
+        "verse": 191,
+        "text": "Viz. pain, the origin of pain, the destruction of pain, and the eightfold holy way that leads to the quieting of pain;—"
+      },
+      {
+        "verse": 192,
+        "text": "That is the safe refuge, that is the best refuge; having gone to that refuge, a man is delivered from all pain."
+      },
+      {
+        "verse": 193,
+        "text": "A supernatural person (a Buddha) is not easily found, he is not born everywhere. Wherever such a sage is born, that race prospers."
+      },
+      {
+        "verse": 194,
+        "text": "Happy is the arising of the awakened, happy is the teaching of the True Law, happy is peace in the church, happy is the devotion of those who are at peace. 195, 196. He who pays homage to those who deserve homage, whether the awakened (Buddha) or their disciples, those who have overcome the host (of evils), and crossed the flood of sorrow, he who pays homage to such as have found deliverance and know no fear, his merit can never be measured by anybody."
+      }
+    ]
+  },
+  {
+    "chapter_number": "XV",
+    "chapter_title": "Happiness",
+    "verses": [
+      {
+        "verse": 197,
+        "text": "Let us live happily then, not hating those who hate us! among men who hate us let us dwell free from hatred!"
+      },
+      {
+        "verse": 198,
+        "text": "Let us live happily then, free from ailments among the ailing! among men who are ailing let us dwell free from ailments!"
+      },
+      {
+        "verse": 199,
+        "text": "Let us live happily then, free from greed among the greedy! among men who are greedy let us dwell free from greed!"
+      },
+      {
+        "verse": 200,
+        "text": "Let us live happily then, though we call nothing our own! We shall be like the bright gods, feeding on happiness!"
+      },
+      {
+        "verse": 201,
+        "text": "Victory breeds hatred, for the conquered is unhappy. He who has given up both victory and defeat, he, the contented, is happy."
+      },
+      {
+        "verse": 202,
+        "text": "There is no fire like passion; there is no losing throw like hatred; there is no pain like this body; there is no happiness higher than rest."
+      },
+      {
+        "verse": 203,
+        "text": "Hunger is the worst of diseases, the body the greatest of pains; if one knows this truly, that is Nirvana, the highest happiness."
+      },
+      {
+        "verse": 204,
+        "text": "Health is the greatest of gifts, contentedness the best riches; trust is the best of relationships, Nirvana the highest happiness."
+      },
+      {
+        "verse": 205,
+        "text": "He who has tasted the sweetness of solitude and tranquillity, is free from fear and free from sin, while he tastes the sweetness of drinking in the law."
+      },
+      {
+        "verse": 206,
+        "text": "The sight of the elect (Arya) is good, to live with them is always happiness; if a man does not see fools, he will be truly happy."
+      },
+      {
+        "verse": 207,
+        "text": "He who walks in the company of fools suffers a long way; company with fools, as with an enemy, is always painful; company with the wise is pleasure, like meeting with kinsfolk."
+      },
+      {
+        "verse": 208,
+        "text": "Therefore, one ought to follow the wise, the intelligent, the learned, the much enduring, the dutiful, the elect; one ought to follow a good and wise man, as the moon follows the path of the stars."
+      }
+    ]
+  },
+  {
+    "chapter_number": "XVI",
+    "chapter_title": "Pleasure",
+    "verses": [
+      {
+        "verse": 209,
+        "text": "He who gives himself to vanity, and does not give himself to meditation, forgetting the real aim (of life) and grasping at pleasure, will in time envy him who has exerted himself in meditation."
+      },
+      {
+        "verse": 210,
+        "text": "Let no man ever look for what is pleasant, or what is unpleasant. Not to see what is pleasant is pain, and it is pain to see what is unpleasant."
+      },
+      {
+        "verse": 211,
+        "text": "Let, therefore, no man love anything; loss of the beloved is evil. Those who love nothing and hate nothing, have no fetters."
+      },
+      {
+        "verse": 212,
+        "text": "From pleasure comes grief, from pleasure comes fear; he who is free from pleasure knows neither grief nor fear."
+      },
+      {
+        "verse": 213,
+        "text": "From affection comes grief, from affection comes fear; he who is free from affection knows neither grief nor fear."
+      },
+      {
+        "verse": 214,
+        "text": "From lust comes grief, from lust comes fear; he who is free from lust knows neither grief nor fear."
+      },
+      {
+        "verse": 215,
+        "text": "From love comes grief, from love comes fear; he who is free from love knows neither grief nor fear."
+      },
+      {
+        "verse": 216,
+        "text": "From greed comes grief, from greed comes fear; he who is free from greed knows neither grief nor fear."
+      },
+      {
+        "verse": 217,
+        "text": "He who possesses virtue and intelligence, who is just, speaks the truth, and does what is his own business, him the world will hold dear."
+      },
+      {
+        "verse": 218,
+        "text": "He in whom a desire for the Ineffable (Nirvana) has sprung up, who is satisfied in his mind, and whose thoughts are not bewildered by love, he is called urdhvamsrotas (carried upwards by the stream)."
+      },
+      {
+        "verse": 219,
+        "text": "Kinsmen, friends, and lovers salute a man who has been long away, and returns safe from afar."
+      },
+      {
+        "verse": 220,
+        "text": "In like manner his good works receive him who has done good, and has gone from this world to the other;—as kinsmen receive a friend on his return."
+      }
+    ]
+  },
+  {
+    "chapter_number": "XVII",
+    "chapter_title": "Anger",
+    "verses": [
+      {
+        "verse": 221,
+        "text": "Let a man leave anger, let him forsake pride, let him overcome all bondage! No sufferings befall the man who is not attached to name and form, and who calls nothing his own."
+      },
+      {
+        "verse": 222,
+        "text": "He who holds back rising anger like a rolling chariot, him I call a real driver; other people are but holding the reins."
+      },
+      {
+        "verse": 223,
+        "text": "Let a man overcome anger by love, let him overcome evil by good; let him overcome the greedy by liberality, the liar by truth!"
+      },
+      {
+        "verse": 224,
+        "text": "Speak the truth, do not yield to anger; give, if thou art asked for little; by these three steps thou wilt go near the gods."
+      },
+      {
+        "verse": 225,
+        "text": "The sages who injure nobody, and who always control their body, they will go to the unchangeable place (Nirvana), where, if they have gone, they will suffer no more."
+      },
+      {
+        "verse": 226,
+        "text": "Those who are ever watchful, who study day and night, and who strive after Nirvana, their passions will come to an end."
+      },
+      {
+        "verse": 227,
+        "text": "This is an old saying, O Atula, this is not only of to-day: `They blame him who sits silent, they blame him who speaks much, they also blame him who says little; there is no one on earth who is not blamed.'"
+      },
+      {
+        "verse": 228,
+        "text": "There never was, there never will be, nor is there now, a man who is always blamed, or a man who is always praised. 229, 230. But he whom those who discriminate praise continually day after day, as without blemish, wise, rich in knowledge and virtue, who would dare to blame him, like a coin made of gold from the Gambu river? Even the gods praise him, he is praised even by Brahman."
+      },
+      {
+        "verse": 231,
+        "text": "Beware of bodily anger, and control thy body! Leave the sins of the body, and with thy body practise virtue!"
+      },
+      {
+        "verse": 232,
+        "text": "Beware of the anger of the tongue, and control thy tongue! Leave the sins of the tongue, and practise virtue with thy tongue!"
+      },
+      {
+        "verse": 233,
+        "text": "Beware of the anger of the mind, and control thy mind! Leave the sins of the mind, and practise virtue with thy mind!"
+      },
+      {
+        "verse": 234,
+        "text": "The wise who control their body, who control their tongue, the wise who control their mind, are indeed well controlled."
+      }
+    ]
+  },
+  {
+    "chapter_number": "XVIII",
+    "chapter_title": "Impurity",
+    "verses": [
+      {
+        "verse": 235,
+        "text": "Thou art now like a sear leaf, the messengers of death (Yama) have come near to thee; thou standest at the door of thy departure, and thou hast no provision for thy journey."
+      },
+      {
+        "verse": 236,
+        "text": "Make thyself an island, work hard, be wise! When thy impurities are blown away, and thou art free from guilt, thou wilt enter into the heavenly world of the elect (Ariya)."
+      },
+      {
+        "verse": 237,
+        "text": "Thy life has come to an end, thou art come near to death (Yama), there is no resting-place for thee on the road, and thou hast no provision for thy journey."
+      },
+      {
+        "verse": 238,
+        "text": "Make thyself an island, work hard, be wise! When thy impurities are blown away, and thou art free from guilt, thou wilt not enter again into birth and decay."
+      },
+      {
+        "verse": 239,
+        "text": "Let a wise man blow off the impurities of his self, as a smith blows off the impurities of silver one by one, little by little, and from time to time."
+      },
+      {
+        "verse": 240,
+        "text": "As the impurity which springs from the iron, when it springs from it, destroys it; thus do a transgressor's own works lead him to the evil path."
+      },
+      {
+        "verse": 241,
+        "text": "The taint of prayers is non-repetition; the taint of houses, non-repair; the taint of the body is sloth; the taint of a watchman, thoughtlessness."
+      },
+      {
+        "verse": 242,
+        "text": "Bad conduct is the taint of woman, greediness the taint of a benefactor; tainted are all evil ways in this world and in the next."
+      },
+      {
+        "verse": 243,
+        "text": "But there is a taint worse than all taints,—ignorance is the greatest taint. O mendicants! throw off that taint, and become taintless!"
+      },
+      {
+        "verse": 244,
+        "text": "Life is easy to live for a man who is without shame, a crow hero, a mischief-maker, an insulting, bold, and wretched fellow."
+      },
+      {
+        "verse": 245,
+        "text": "But life is hard to live for a modest man, who always looks for what is pure, who is disinterested, quiet, spotless, and intelligent."
+      },
+      {
+        "verse": 246,
+        "text": "He who destroys life, who speaks untruth, who in this world takes what is not given him, who goes to another man's wife;"
+      },
+      {
+        "verse": 247,
+        "text": "And the man who gives himself to drinking intoxicating liquors, he, even in this world, digs up his own root."
+      },
+      {
+        "verse": 248,
+        "text": "O man, know this, that the unrestrained are in a bad state; take care that greediness and vice do not bring thee to grief for a long time!"
+      },
+      {
+        "verse": 249,
+        "text": "The world gives according to their faith or according to their pleasure: if a man frets about the food and the drink given to others, he will find no rest either by day or by night."
+      },
+      {
+        "verse": 250,
+        "text": "He in whom that feeling is destroyed, and taken out with the very root, finds rest by day and by night."
+      },
+      {
+        "verse": 251,
+        "text": "There is no fire like passion, there is no shark like hatred, there is no snare like folly, there is no torrent like greed."
+      },
+      {
+        "verse": 252,
+        "text": "The fault of others is easily perceived, but that of oneself is difficult to perceive; a man winnows his neighbour's faults like chaff, but his own fault he hides, as a cheat hides the bad die from the gambler."
+      },
+      {
+        "verse": 253,
+        "text": "If a man looks after the faults of others, and is always inclined to be offended, his own passions will grow, and he is far from the destruction of passions."
+      },
+      {
+        "verse": 254,
+        "text": "There is no path through the air, a man is not a Samana by outward acts. The world delights in vanity, the Tathagatas (the Buddhas) are free from vanity."
+      },
+      {
+        "verse": 255,
+        "text": "There is no path through the air, a man is not a Samana by outward acts. No creatures are eternal; but the awakened (Buddha) are never shaken."
+      }
+    ]
+  },
+  {
+    "chapter_number": "XIX",
+    "chapter_title": "The Just",
+    "verses": [
+      {
+        "verse": 257,
+        "text": "A man is not just if he carries a matter by violence; no, he who distinguishes both right and wrong, who is learned and leads others, not by violence, but by law and equity, and who is guarded by the law and intelligent, he is called just."
+      },
+      {
+        "verse": 258,
+        "text": "A man is not learned because he talks much; he who is patient, free from hatred and fear, he is called learned."
+      },
+      {
+        "verse": 259,
+        "text": "A man is not a supporter of the law because he talks much; even if a man has learnt little, but sees the law bodily, he is a supporter of the law, a man who never neglects the law."
+      },
+      {
+        "verse": 260,
+        "text": "A man is not an elder because his head is grey; his age may be ripe, but he is called `Old-in-vain.'"
+      },
+      {
+        "verse": 261,
+        "text": "He in whom there is truth, virtue, love, restraint, moderation, he who is free from impurity and is wise, he is called an elder."
+      },
+      {
+        "verse": 262,
+        "text": "An envious greedy, dishonest man does not become respectable by means of much talking only, or by the beauty of his complexion."
+      },
+      {
+        "verse": 263,
+        "text": "He in whom all this is destroyed, and taken out with the very root, he, when freed from hatred and wise, is called respectable."
+      },
+      {
+        "verse": 264,
+        "text": "Not by tonsure does an undisciplined man who speaks falsehood become a Samana; can a man be a Samana who is still held captive by desire and greediness?"
+      },
+      {
+        "verse": 265,
+        "text": "He who always quiets the evil, whether small or large, he is called a Samana (a quiet man), because he has quieted all evil."
+      },
+      {
+        "verse": 266,
+        "text": "A man is not a mendicant (Bhikshu) simply because he asks others for alms; he who adopts the whole law is a Bhikshu, not he who only begs."
+      },
+      {
+        "verse": 267,
+        "text": "He who is above good and evil, who is chaste, who with knowledge passes through the world, he indeed is called a Bhikshu. 268, 269. A man is not a Muni because he observes silence (mona, i.e. mauna), if he is foolish and ignorant; but the wise who, taking the balance, chooses the good and avoids evil, he is a Muni, and is a Muni thereby; he who in this world weighs both sides is called a Muni."
+      },
+      {
+        "verse": 270,
+        "text": "A man is not an elect (Ariya) because he injures living creatures; because he has pity on all living creatures, therefore is a man called Ariya. 271, 272. Not only by discipline and vows, not only by much learning, not by entering into a trance, not by sleeping alone, do I earn the happiness of release which no worldling can know. Bhikshu, be not confident as long as thou hast not attained the extinction of desires."
+      }
+    ]
+  },
+  {
+    "chapter_number": "XX",
+    "chapter_title": "The Way",
+    "verses": [
+      {
+        "verse": 273,
+        "text": "The best of ways is the eightfold; the best of truths the four words; the best of virtues passionlessness; the best of men he who has eyes to see."
+      },
+      {
+        "verse": 274,
+        "text": "This is the way, there is no other that leads to the purifying of intelligence. Go on this way! Everything else is the deceit of Mara (the tempter)."
+      },
+      {
+        "verse": 275,
+        "text": "If you go on this way, you will make an end of pain! The way was preached by me, when I had understood the removal of the thorns (in the flesh)."
+      },
+      {
+        "verse": 276,
+        "text": "You yourself must make an effort. The Tathagatas (Buddhas) are only preachers. The thoughtful who enter the way are freed from the bondage of Mara."
+      },
+      {
+        "verse": 277,
+        "text": "`All created things perish,' he who knows and sees this becomes passive in pain; this is the way to purity."
+      },
+      {
+        "verse": 278,
+        "text": "`All created things are grief and pain,' he who knows and sees this becomes passive in pain; this is the way that leads to purity."
+      },
+      {
+        "verse": 279,
+        "text": "`All forms are unreal,' he who knows and sees this becomes passive in pain; this is the way that leads to purity."
+      },
+      {
+        "verse": 280,
+        "text": "He who does not rouse himself when it is time to rise, who, though young and strong, is full of sloth, whose will and thought are weak, that lazy and idle man will never find the way to knowledge."
+      },
+      {
+        "verse": 281,
+        "text": "Watching his speech, well restrained in mind, let a man never commit any wrong with his body! Let a man but keep these three roads of action clear, and he will achieve the way which is taught by the wise."
+      },
+      {
+        "verse": 282,
+        "text": "Through zeal knowledge is gotten, through lack of zeal knowledge is lost; let a man who knows this double path of gain and loss thus place himself that knowledge may grow."
+      },
+      {
+        "verse": 283,
+        "text": "Cut down the whole forest (of lust), not a tree only! Danger comes out of the forest (of lust). When you have cut down both the forest (of lust) and its undergrowth, then, Bhikshus, you will be rid of the forest and free!"
+      },
+      {
+        "verse": 284,
+        "text": "So long as the love of man towards women, even the smallest, is not destroyed, so long is his mind in bondage, as the calf that drinks milk is to its mother."
+      },
+      {
+        "verse": 285,
+        "text": "Cut out the love of self, like an autumn lotus, with thy hand! Cherish the road of peace. Nirvana has been shown by Sugata (Buddha)."
+      },
+      {
+        "verse": 286,
+        "text": "`Here I shall dwell in the rain, here in winter and summer,' thus the fool meditates, and does not think of his death."
+      },
+      {
+        "verse": 287,
+        "text": "Death comes and carries off that man, praised for his children and flocks, his mind distracted, as a flood carries off a sleeping village."
+      },
+      {
+        "verse": 288,
+        "text": "Sons are no help, nor a father, nor relations; there is no help from kinsfolk for one whom death has seized."
+      },
+      {
+        "verse": 289,
+        "text": "A wise and good man who knows the meaning of this, should quickly clear the way that leads to Nirvana."
+      }
+    ]
+  },
+  {
+    "chapter_number": "XXI",
+    "chapter_title": "Miscellaneous",
+    "verses": [
+      {
+        "verse": 290,
+        "text": "If by leaving a small pleasure one sees a great pleasure, let a wise man leave the small pleasure, and look to the great."
+      },
+      {
+        "verse": 291,
+        "text": "He who, by causing pain to others, wishes to obtain pleasure for himself, he, entangled in the bonds of hatred, will never be free from hatred."
+      },
+      {
+        "verse": 292,
+        "text": "What ought to be done is neglected, what ought not to be done is done; the desires of unruly, thoughtless people are always increasing."
+      },
+      {
+        "verse": 293,
+        "text": "But they whose whole watchfulness is always directed to their body, who do not follow what ought not to be done, and who steadfastly do what ought to be done, the desires of such watchful and wise people will come to an end."
+      },
+      {
+        "verse": 294,
+        "text": "A true Brahmana goes scatheless, though he have killed father and mother, and two valiant kings, though he has destroyed a kingdom with all its subjects."
+      },
+      {
+        "verse": 295,
+        "text": "A true Brahmana goes scatheless, though he have killed father and mother, and two holy kings, and an eminent man besides."
+      },
+      {
+        "verse": 296,
+        "text": "The disciples of Gotama (Buddha) are always well awake, and their thoughts day and night are always set on Buddha."
+      },
+      {
+        "verse": 297,
+        "text": "The disciples of Gotama are always well awake, and their thoughts day and night are always set on the law."
+      },
+      {
+        "verse": 298,
+        "text": "The disciples of Gotama are always well awake, and their thoughts day and night are always set on the church."
+      },
+      {
+        "verse": 299,
+        "text": "The disciples of Gotama are always well awake, and their thoughts day and night are always set on their body."
+      },
+      {
+        "verse": 300,
+        "text": "The disciples of Gotama are always well awake, and their mind day and night always delights in compassion."
+      },
+      {
+        "verse": 301,
+        "text": "The disciples of Gotama are always well awake, and their mind day and night always delights in meditation."
+      },
+      {
+        "verse": 302,
+        "text": "It is hard to leave the world (to become a friar), it is hard to enjoy the world; hard is the monastery, painful are the houses; painful it is to dwell with equals (to share everything in common) and the itinerant mendicant is beset with pain. Therefore let no man be an itinerant mendicant and he will not be beset with pain."
+      },
+      {
+        "verse": 303,
+        "text": "Whatever place a faithful, virtuous, celebrated, and wealthy man chooses, there he is respected."
+      },
+      {
+        "verse": 304,
+        "text": "Good people shine from afar, like the snowy mountains; bad people are not seen, like arrows shot by night."
+      },
+      {
+        "verse": 305,
+        "text": "He alone who, without ceasing, practises the duty of sitting alone and sleeping alone, he, subduing himself, will rejoice in the destruction of all desires alone, as if living in a forest."
+      }
+    ]
+  },
+  {
+    "chapter_number": "XXII",
+    "chapter_title": "The Downward Course",
+    "verses": [
+      {
+        "verse": 306,
+        "text": "He who says what is not, goes to hell; he also who, having done a thing, says I have not done it. After death both are equal, they are men with evil deeds in the next world."
+      },
+      {
+        "verse": 307,
+        "text": "Many men whose shoulders are covered with the yellow gown are ill-conditioned and unrestrained; such evil-doers by their evil deeds go to hell."
+      },
+      {
+        "verse": 308,
+        "text": "Better it would be to swallow a heated iron ball, like flaring fire, than that a bad unrestrained fellow should live on the charity of the land."
+      },
+      {
+        "verse": 309,
+        "text": "Four things does a wreckless man gain who covets his neighbour's wife,—a bad reputation, an uncomfortable bed, thirdly, punishment, and lastly, hell."
+      },
+      {
+        "verse": 310,
+        "text": "There is bad reputation, and the evil way (to hell), there is the short pleasure of the frightened in the arms of the frightened, and the king imposes heavy punishment; therefore let no man think of his neighbour's wife."
+      },
+      {
+        "verse": 311,
+        "text": "As a grass-blade, if badly grasped, cuts the arm, badly-practised asceticism leads to hell."
+      },
+      {
+        "verse": 312,
+        "text": "An act carelessly performed, a broken vow, and hesitating obedience to discipline, all this brings no great reward."
+      },
+      {
+        "verse": 313,
+        "text": "If anything is to be done, let a man do it, let him attack it vigorously! A careless pilgrim only scatters the dust of his passions more widely."
+      },
+      {
+        "verse": 314,
+        "text": "An evil deed is better left undone, for a man repents of it afterwards; a good deed is better done, for having done it, one does not repent."
+      },
+      {
+        "verse": 315,
+        "text": "Like a well-guarded frontier fort, with defences within and without, so let a man guard himself. Not a moment should escape, for they who allow the right moment to pass, suffer pain when they are in hell."
+      },
+      {
+        "verse": 316,
+        "text": "They who are ashamed of what they ought not to be ashamed of, and are not ashamed of what they ought to be ashamed of, such men, embracing false doctrines enter the evil path."
+      },
+      {
+        "verse": 317,
+        "text": "They who fear when they ought not to fear, and fear not when they ought to fear, such men, embracing false doctrines, enter the evil path."
+      },
+      {
+        "verse": 318,
+        "text": "They who forbid when there is nothing to be forbidden, and forbid not when there is something to be forbidden, such men, embracing false doctrines, enter the evil path."
+      },
+      {
+        "verse": 319,
+        "text": "They who know what is forbidden as forbidden, and what is not forbidden as not forbidden, such men, embracing the true doctrine, enter the good path."
+      }
+    ]
+  },
+  {
+    "chapter_number": "XXIII",
+    "chapter_title": "The Elephant",
+    "verses": [
+      {
+        "verse": 320,
+        "text": "Silently shall I endure abuse as the elephant in battle endures the arrow sent from the bow: for the world is ill-natured."
+      },
+      {
+        "verse": 321,
+        "text": "They lead a tamed elephant to battle, the king mounts a tamed elephant; the tamed is the best among men, he who silently endures abuse."
+      },
+      {
+        "verse": 322,
+        "text": "Mules are good, if tamed, and noble Sindhu horses, and elephants with large tusks; but he who tames himself is better still."
+      },
+      {
+        "verse": 323,
+        "text": "For with these animals does no man reach the untrodden country (Nirvana), where a tamed man goes on a tamed animal, viz. on his own well-tamed self."
+      },
+      {
+        "verse": 324,
+        "text": "The elephant called Dhanapalaka, his temples running with sap, and difficult to hold, does not eat a morsel when bound; the elephant longs for the elephant grove."
+      },
+      {
+        "verse": 325,
+        "text": "If a man becomes fat and a great eater, if he is sleepy and rolls himself about, that fool, like a hog fed on wash, is born again and again."
+      },
+      {
+        "verse": 326,
+        "text": "This mind of mine went formerly wandering about as it liked, as it listed, as it pleased; but I shall now hold it in thoroughly, as the rider who holds the hook holds in the furious elephant."
+      },
+      {
+        "verse": 327,
+        "text": "Be not thoughtless, watch your thoughts! Draw yourself out of the evil way, like an elephant sunk in mud."
+      },
+      {
+        "verse": 328,
+        "text": "If a man find a prudent companion who walks with him, is wise, and lives soberly, he may walk with him, overcoming all dangers, happy, but considerate."
+      },
+      {
+        "verse": 329,
+        "text": "If a man find no prudent companion who walks with him, is wise, and lives soberly, let him walk alone, like a king who has left his conquered country behind,—like an elephant in the forest."
+      },
+      {
+        "verse": 330,
+        "text": "It is better to live alone, there is no companionship with a fool; let a man walk alone, let him commit no sin, with few wishes, like an elephant in the forest."
+      },
+      {
+        "verse": 331,
+        "text": "If an occasion arises, friends are pleasant; enjoyment is pleasant, whatever be the cause; a good work is pleasant in the hour of death; the giving up of all grief is pleasant."
+      },
+      {
+        "verse": 332,
+        "text": "Pleasant in the world is the state of a mother, pleasant the state of a father, pleasant the state of a Samana, pleasant the state of a Brahmana."
+      },
+      {
+        "verse": 333,
+        "text": "Pleasant is virtue lasting to old age, pleasant is a faith firmly rooted; pleasant is attainment of intelligence, pleasant is avoiding of sins."
+      }
+    ]
+  },
+  {
+    "chapter_number": "XXIV",
+    "chapter_title": "Thirst",
+    "verses": [
+      {
+        "verse": 334,
+        "text": "The thirst of a thoughtless man grows like a creeper; he runs from life to life, like a monkey seeking fruit in the forest."
+      },
+      {
+        "verse": 335,
+        "text": "Whomsoever this fierce thirst overcomes, full of poison, in this world, his sufferings increase like the abounding Birana grass."
+      },
+      {
+        "verse": 336,
+        "text": "He who overcomes this fierce thirst, difficult to be conquered in this world, sufferings fall off from him, like water-drops from a lotus leaf."
+      },
+      {
+        "verse": 337,
+        "text": "This salutary word I tell you, `Do ye, as many as are here assembled, dig up the root of thirst, as he who wants the sweet-scented Usira root must dig up the Birana grass, that Mara (the tempter) may not crush you again and again, as the stream crushes the reeds.'"
+      },
+      {
+        "verse": 338,
+        "text": "As a tree, even though it has been cut down, is firm so long as its root is safe, and grows again, thus, unless the feeders of thirst are destroyed, the pain (of life) will return again and again."
+      },
+      {
+        "verse": 339,
+        "text": "He whose thirst running towards pleasure is exceeding strong in the thirty-six channels, the waves will carry away that misguided man, viz. his desires which are set on passion."
+      },
+      {
+        "verse": 340,
+        "text": "The channels run everywhere, the creeper (of passion) stands sprouting; if you see the creeper springing up, cut its root by means of knowledge."
+      },
+      {
+        "verse": 341,
+        "text": "A creature's pleasures are extravagant and luxurious; sunk in lust and looking for pleasure, men undergo (again and again) birth and decay."
+      },
+      {
+        "verse": 342,
+        "text": "Men, driven on by thirst, run about like a snared hare; held in fetters and bonds, they undergo pain for a long time, again and again."
+      },
+      {
+        "verse": 343,
+        "text": "Men, driven on by thirst, run about like a snared hare; let therefore the mendicant drive out thirst, by striving after passionlessness for himself."
+      },
+      {
+        "verse": 344,
+        "text": "He who having got rid of the forest (of lust) (i.e. after having reached Nirvana) gives himself over to forest-life (i.e. to lust), and who, when removed from the forest (i.e. from lust), runs to the forest (i.e. to lust), look at that man! though free, he runs into bondage."
+      },
+      {
+        "verse": 345,
+        "text": "Wise people do not call that a strong fetter which is made of iron, wood, or hemp; far stronger is the care for precious stones and rings, for sons and a wife."
+      },
+      {
+        "verse": 346,
+        "text": "That fetter wise people call strong which drags down, yields, but is difficult to undo; after having cut this at last, people leave the world, free from cares, and leaving desires and pleasures behind."
+      },
+      {
+        "verse": 347,
+        "text": "Those who are slaves to passions, run down with the stream (of desires), as a spider runs down the web which he has made himself; when they have cut this, at last, wise people leave the world free from cares, leaving all affection behind."
+      },
+      {
+        "verse": 348,
+        "text": "Give up what is before, give up what is behind, give up what is in the middle, when thou goest to the other shore of existence; if thy mind is altogether free, thou wilt not again enter into birth and decay."
+      },
+      {
+        "verse": 349,
+        "text": "If a man is tossed about by doubts, full of strong passions, and yearning only for what is delightful, his thirst will grow more and more, and he will indeed make his fetters strong."
+      },
+      {
+        "verse": 350,
+        "text": "If a man delights in quieting doubts, and, always reflecting, dwells on what is not delightful (the impurity of the body, &c.), he certainly will remove, nay, he will cut the fetter of Mara."
+      },
+      {
+        "verse": 351,
+        "text": "He who has reached the consummation, who does not tremble, who is without thirst and without sin, he has broken all the thorns of life: this will be his last body."
+      },
+      {
+        "verse": 352,
+        "text": "He who is without thirst and without affection, who understands the words and their interpretation, who knows the order of letters (those which are before and which are after), he has received his last body, he is called the great sage, the great man."
+      },
+      {
+        "verse": 353,
+        "text": "`I have conquered all, I know all, in all conditions of life I am free from taint; I have left all, and through the destruction of thirst I am free; having learnt myself, whom shall I teach?'"
+      },
+      {
+        "verse": 354,
+        "text": "The gift of the law exceeds all gifts; the sweetness of the law exceeds all sweetness; the delight in the law exceeds all delights; the extinction of thirst overcomes all pain."
+      },
+      {
+        "verse": 355,
+        "text": "Pleasures destroy the foolish, if they look not for the other shore; the foolish by his thirst for pleasures destroys himself, as if he were his own enemy."
+      },
+      {
+        "verse": 356,
+        "text": "The fields are damaged by weeds, mankind is damaged by passion: therefore a gift bestowed on the passionless brings great reward."
+      },
+      {
+        "verse": 357,
+        "text": "The fields are damaged by weeds, mankind is damaged by hatred: therefore a gift bestowed on those who do not hate brings great reward."
+      },
+      {
+        "verse": 358,
+        "text": "The fields are damaged by weeds, mankind is damaged by vanity: therefore a gift bestowed on those who are free from vanity brings great reward."
+      },
+      {
+        "verse": 359,
+        "text": "The fields are damaged by weeds, mankind is damaged by lust: therefore a gift bestowed on those who are free from lust brings great reward."
+      }
+    ]
+  },
+  {
+    "chapter_number": "XXV",
+    "chapter_title": "The Bhikshu (Mendicant)",
+    "verses": [
+      {
+        "verse": 360,
+        "text": "Restraint in the eye is good, good is restraint in the ear, in the nose restraint is good, good is restraint in the tongue."
+      },
+      {
+        "verse": 361,
+        "text": "In the body restraint is good, good is restraint in speech, in thought restraint is good, good is restraint in all things. A Bhikshu, restrained in all things, is freed from all pain."
+      },
+      {
+        "verse": 362,
+        "text": "He who controls his hand, he who controls his feet, he who controls his speech, he who is well controlled, he who delights inwardly, who is collected, who is solitary and content, him they call Bhikshu."
+      },
+      {
+        "verse": 363,
+        "text": "The Bhikshu who controls his mouth, who speaks wisely and calmly, who teaches the meaning and the law, his word is sweet."
+      },
+      {
+        "verse": 364,
+        "text": "He who dwells in the law, delights in the law, meditates on the law, follows the law, that Bhikshu will never fall away from the true law."
+      },
+      {
+        "verse": 365,
+        "text": "Let him not despise what he has received, nor ever envy others: a mendicant who envies others does not obtain peace of mind."
+      },
+      {
+        "verse": 366,
+        "text": "A Bhikshu who, though he receives little, does not despise what he has received, even the gods will praise him, if his life is pure, and if he is not slothful."
+      },
+      {
+        "verse": 367,
+        "text": "He who never identifies himself with name and form, and does not grieve over what is no more, he indeed is called a Bhikshu."
+      },
+      {
+        "verse": 368,
+        "text": "The Bhikshu who acts with kindness, who is calm in the doctrine of Buddha, will reach the quiet place (Nirvana), cessation of natural desires, and happiness."
+      },
+      {
+        "verse": 369,
+        "text": "O Bhikshu, empty this boat! if emptied, it will go quickly; having cut off passion and hatred thou wilt go to Nirvana."
+      },
+      {
+        "verse": 370,
+        "text": "Cut off the five (senses), leave the five, rise above the five. A Bhikshu, who has escaped from the five fetters, he is called Oghatinna, `saved from the flood.'"
+      },
+      {
+        "verse": 371,
+        "text": "Meditate, O Bhikshu, and be not heedless! Do not direct thy thought to what gives pleasure that thou mayest not for thy heedlessness have to swallow the iron ball (in hell), and that thou mayest not cry out when burning, `This is pain.'"
+      },
+      {
+        "verse": 372,
+        "text": "Without knowledge there is no meditation, without meditation there is no knowledge: he who has knowledge and meditation is near unto Nirvana."
+      },
+      {
+        "verse": 373,
+        "text": "A Bhikshu who has entered his empty house, and whose mind is tranquil, feels a more than human delight when he sees the law clearly."
+      },
+      {
+        "verse": 374,
+        "text": "As soon as he has considered the origin and destruction of the elements (khandha) of the body, he finds happiness and joy which belong to those who know the immortal (Nirvana)."
+      },
+      {
+        "verse": 375,
+        "text": "And this is the beginning here for a wise Bhikshu: watchfulness over the senses, contentedness, restraint under the law; keep noble friends whose life is pure, and who are not slothful."
+      },
+      {
+        "verse": 376,
+        "text": "Let him live in charity, let him be perfect in his duties; then in the fulness of delight he will make an end of suffering."
+      },
+      {
+        "verse": 377,
+        "text": "As the Vassika plant sheds its withered flowers, men should shed passion and hatred, O ye Bhikshus!"
+      },
+      {
+        "verse": 378,
+        "text": "The Bhikshu whose body and tongue and mind are quieted, who is collected, and has rejected the baits of the world, he is called quiet."
+      },
+      {
+        "verse": 379,
+        "text": "Rouse thyself by thyself, examine thyself by thyself, thus self-protected and attentive wilt thou live happily, O Bhikshu!"
+      },
+      {
+        "verse": 380,
+        "text": "For self is the lord of self, self is the refuge of self; therefore curb thyself as the merchant curbs a good horse."
+      },
+      {
+        "verse": 381,
+        "text": "The Bhikshu, full of delight, who is calm in the doctrine of Buddha will reach the quiet place (Nirvana), cessation of natural desires, and happiness."
+      },
+      {
+        "verse": 382,
+        "text": "He who, even as a young Bhikshu, applies himself to the doctrine of Buddha, brightens up this world, like the moon when free from clouds."
+      }
+    ]
+  },
+  {
+    "chapter_number": "XXVI",
+    "chapter_title": "The Brahmana (Arhat)",
+    "verses": [
+      {
+        "verse": 383,
+        "text": "Stop the stream valiantly, drive away the desires, O Brahmana! When you have understood the destruction of all that was made, you will understand that which was not made."
+      },
+      {
+        "verse": 384,
+        "text": "If the Brahmana has reached the other shore in both laws (in restraint and contemplation), all bonds vanish from him who has obtained knowledge."
+      },
+      {
+        "verse": 385,
+        "text": "He for whom there is neither this nor that shore, nor both, him, the fearless and unshackled, I call indeed a Brahmana."
+      },
+      {
+        "verse": 386,
+        "text": "He who is thoughtful, blameless, settled, dutiful, without passions, and who has attained the highest end, him I call indeed a Brahmana."
+      },
+      {
+        "verse": 387,
+        "text": "The sun is bright by day, the moon shines by night, the warrior is bright in his armour, the Brahmana is bright in his meditation; but Buddha, the Awakened, is bright with splendour day and night."
+      },
+      {
+        "verse": 388,
+        "text": "Because a man is rid of evil, therefore he is called Brahmana; because he walks quietly, therefore he is called Samana; because he has sent away his own impurities, therefore he is called Pravragita (Pabbagita, a pilgrim)."
+      },
+      {
+        "verse": 389,
+        "text": "No one should attack a Brahmana, but no Brahmana (if attacked) should let himself fly at his aggressor! Woe to him who strikes a Brahmana, more woe to him who flies at his aggressor!"
+      },
+      {
+        "verse": 390,
+        "text": "It advantages a Brahmana not a little if he holds his mind back from the pleasures of life; when all wish to injure has vanished, pain will cease."
+      },
+      {
+        "verse": 391,
+        "text": "Him I call indeed a Brahmana who does not offend by body, word, or thought, and is controlled on these three points."
+      },
+      {
+        "verse": 392,
+        "text": "After a man has once understood the law as taught by the Well-awakened (Buddha), let him worship it carefully, as the Brahmana worships the sacrificial fire."
+      },
+      {
+        "verse": 393,
+        "text": "A man does not become a Brahmana by his platted hair, by his family, or by birth; in whom there is truth and righteousness, he is blessed, he is a Brahmana."
+      },
+      {
+        "verse": 394,
+        "text": "What is the use of platted hair, O fool! what of the raiment of goat-skins? Within thee there is ravening, but the outside thou makest clean."
+      },
+      {
+        "verse": 395,
+        "text": "The man who wears dirty raiments, who is emaciated and covered with veins, who lives alone in the forest, and meditates, him I call indeed a Brahmana."
+      },
+      {
+        "verse": 396,
+        "text": "I do not call a man a Brahmana because of his origin or of his mother. He is indeed arrogant, and he is wealthy: but the poor, who is free from all attachments, him I call indeed a Brahmana."
+      },
+      {
+        "verse": 397,
+        "text": "Him I call indeed a Brahmana who has cut all fetters, who never trembles, is independent and unshackled."
+      },
+      {
+        "verse": 398,
+        "text": "Him I call indeed a Brahmana who has cut the strap and the thong, the chain with all that pertains to it, who has burst the bar, and is awakened."
+      },
+      {
+        "verse": 399,
+        "text": "Him I call indeed a Brahmana who, though he has committed no offence, endures reproach, bonds, and stripes, who has endurance for his force, and strength for his army."
+      },
+      {
+        "verse": 400,
+        "text": "Him I call indeed a Brahmana who is free from anger, dutiful, virtuous, without appetite, who is subdued, and has received his last body."
+      },
+      {
+        "verse": 401,
+        "text": "Him I call indeed a Brahmana who does not cling to pleasures, like water on a lotus leaf, like a mustard seed on the point of a needle."
+      },
+      {
+        "verse": 402,
+        "text": "Him I call indeed a Brahmana who, even here, knows the end of his suffering, has put down his burden, and is unshackled."
+      },
+      {
+        "verse": 403,
+        "text": "Him I call indeed a Brahmana whose knowledge is deep, who possesses wisdom, who knows the right way and the wrong, and has attained the highest end."
+      },
+      {
+        "verse": 404,
+        "text": "Him I call indeed a Brahmana who keeps aloof both from laymen and from mendicants, who frequents no houses, and has but few desires."
+      },
+      {
+        "verse": 405,
+        "text": "Him I call indeed a Brahmana who finds no fault with other beings, whether feeble or strong, and does not kill nor cause slaughter."
+      },
+      {
+        "verse": 406,
+        "text": "Him I call indeed a Brahmana who is tolerant with the intolerant, mild with fault-finders, and free from passion among the passionate."
+      },
+      {
+        "verse": 407,
+        "text": "Him I call indeed a Brahmana from whom anger and hatred, pride and envy have dropt like a mustard seed from the point of a needle."
+      },
+      {
+        "verse": 408,
+        "text": "Him I call indeed a Brahmana who utters true speech, instructive and free from harshness, so that he offend no one."
+      },
+      {
+        "verse": 409,
+        "text": "Him I call indeed a Brahmana who takes nothing in the world that is not given him, be it long or short, small or large, good or bad."
+      },
+      {
+        "verse": 410,
+        "text": "Him I call indeed a Brahmana who fosters no desires for this world or for the next, has no inclinations, and is unshackled."
+      },
+      {
+        "verse": 411,
+        "text": "Him I call indeed a Brahmana who has no interests, and when he has understood (the truth), does not say How, how? and who has reached the depth of the Immortal."
+      },
+      {
+        "verse": 412,
+        "text": "Him I call indeed a Brahmana who in this world is above good and evil, above the bondage of both, free from grief from sin, and from impurity."
+      },
+      {
+        "verse": 413,
+        "text": "Him I call indeed a Brahmana who is bright like the moon, pure, serene, undisturbed, and in whom all gaiety is extinct."
+      },
+      {
+        "verse": 414,
+        "text": "Him I call indeed a Brahmana who has traversed this miry road, the impassable world and its vanity, who has gone through, and reached the other shore, is thoughtful, guileless, free from doubts, free from attachment, and content."
+      },
+      {
+        "verse": 415,
+        "text": "Him I call indeed a Brahmana who in this world, leaving all desires, travels about without a home, and in whom all concupiscence is extinct."
+      },
+      {
+        "verse": 416,
+        "text": "Him I call indeed a Brahmana who, leaving all longings, travels about without a home, and in whom all covetousness is extinct."
+      },
+      {
+        "verse": 417,
+        "text": "Him I call indeed a Brahmana who, after leaving all bondage to men, has risen above all bondage to the gods, and is free from all and every bondage."
+      },
+      {
+        "verse": 418,
+        "text": "Him I call indeed a Brahmana who has left what gives pleasure and what gives pain, who is cold, and free from all germs (of renewed life), the hero who has conquered all the worlds."
+      },
+      {
+        "verse": 419,
+        "text": "Him I call indeed a Brahmana who knows the destruction and the return of beings everywhere, who is free from bondage, welfaring (Sugata), and awakened (Buddha)."
+      },
+      {
+        "verse": 420,
+        "text": "Him I call indeed a Brahmana whose path the gods do not know, nor spirits (Gandharvas), nor men, whose passions are extinct, and who is an Arhat (venerable)."
+      },
+      {
+        "verse": 421,
+        "text": "Him I call indeed a Brahmana who calls nothing his own, whether it be before, behind, or between, who is poor, and free from the love of the world."
+      },
+      {
+        "verse": 422,
+        "text": "Him I call indeed a Brahmana, the manly, the noble, the hero, the great sage, the conqueror, the impassible, the accomplished, the awakened."
+      },
+      {
+        "verse": 423,
+        "text": "Him I call indeed a Brahmana who knows his former abodes, who sees heaven and hell, has reached the end of births, is perfect in knowledge, a sage, and whose perfections are all perfect. *** END OF THE PROJECT GUTENBERG EBOOK 2017 ***"
+      }
+    ]
+  }
+];
+
+        function processDhammapada(rawData) {
+            const flatData = [];
+            const chapterDataMap = new Map();
+
+            rawData.forEach(chapter => {
+                if (!chapterDataMap.has(chapter.chapter_number)) {
+                    chapterDataMap.set(chapter.chapter_number, {
+                        title: chapter.chapter_title,
+                        verses: []
+                    });
+                }
+                 if (chapter.verses && chapter.verses.length > 0) {
+                    chapterDataMap.get(chapter.chapter_number).verses.push(...chapter.verses);
+                }
+            });
+
+            chapterDataMap.forEach((data, number) => {
+                if (data.verses.length > 0) {
+                    data.verses.forEach(verse => {
+                        flatData.push({
+                            book: data.title,
+                            chapter: number,
+                            verse: verse.verse,
+                            text: verse.text
+                        });
+                    });
+                }
+            });
+            
+            Object.entries(chapterMap).forEach(([number, title]) => {
+                if (!chapterDataMap.has(number) || chapterDataMap.get(number).verses.length === 0) {
+                    flatData.push({ book: title, chapter: number, verse: 0, text: `Verses from ${title}.` });
+                }
+            });
+
+            return flatData;
+        }
+
+        const dhammapadaData = processDhammapada(rawDhammapadaData);
+
+
+        // --- Main Execution ---
+        function init() {
+            setTimeout(() => {
+                document.getElementById('loader').textContent = 'Generating Visualization...';
+                setTimeout(() => createVisualization(dhammapadaData), 50);
+            }, 50);
+        }
+
+        function makeTextSprite(message, parameters) {
+            const fontface = parameters.fontface || 'Times New Roman';
+            const fontsize = parameters.fontsize || 18;
+            const textColor = parameters.textColor || { r: 255, g: 255, b: 255, a: 1.0 };
+            const padding = 15;
+
+            let displayText = message;
+            
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            context.font = `${fontsize}px ${fontface}`;
+            const metrics = context.measureText(displayText);
+            canvas.width = metrics.width + padding * 2;
+            canvas.height = fontsize + padding * 2;
+            context.font = `${fontsize}px ${fontface}`;
+            context.fillStyle = `rgba(${textColor.r}, ${textColor.g}, ${textColor.b}, ${textColor.a})`;
+            context.textBaseline = 'middle';
+            context.textAlign = 'center';
+            context.fillText(displayText, canvas.width / 2, canvas.height / 2);
+            const texture = new THREE.Texture(canvas);
+            texture.needsUpdate = true;
+            const spriteMaterial = new THREE.SpriteMaterial({ map: texture, depthTest: false, transparent: true });
+            const sprite = new THREE.Sprite(spriteMaterial);
+            sprite.scale.set(canvas.width / 12, canvas.height / 12, 1.0);
+            return sprite;
+        }
+
+        function getLineColor(wordA, wordB) {
+            if (sufferingWords.has(wordA) || sufferingWords.has(wordB)) return 0xff0000;
+            if (mindfulnessWords.has(wordA) || mindfulnessWords.has(wordB)) return 0xffff00;
+            if (statesWords.has(wordA) || statesWords.has(wordB)) return 0xff00ff;
+            if (virtueWords.has(wordA) || virtueWords.has(wordB)) return 0x00ff00;
+            if (attachmentWords.has(wordA) || attachmentWords.has(wordB)) return 0x00ffff;
+            return 0xffffff;
+        }
+
+        function createVisualization(data) {
+            const wordData = {};
+            const stopWords = new Set([
+                'a', 'about', 'above', 'after', 'again', 'against', 'all', 'also', 'am', 'an', 'and', 'any', 'are', 'aren', 'as', 'at', 
+                'back', 'be', 'because', 'been', 'before', 'being', 'below', 'between', 'both', 'but', 'by', 'can', 'couldn', 'did', 'didn',
+                'do', 'does', 'doesn', 'doing', 'don', 'down', 'during', 'each', 'even', 'few', 'for', 'from', 'further', 'get', 'go', 'had', 'hadn', 'has',
+                'hasn', 'have', 'haven', 'having', 'he', 'her', 'here', 'hers', 'herself', 'him', 'himself', 'his', 'how', 'i', 'if',
+                'in', 'into', 'is', 'isn', 'it', 'its', 'itself', 'just', 'like', 'look', 'made', 'make', 'mightn', 'more', 'most', 'mustn',
+                'my', 'myself', 'needn', 'no', 'nor', 'not', 'now', 'o', 'of', 'off', 'on', 'once', 'only', 'or', 'other', 'our',
+                'ours', 'ourselves', 'out', 'over', 'own', 'same', 'see', 'shan', 'she', 'should', 'shouldn', 'so', 'some', 'such',
+                'take', 'than', 'that', 'the', 'their', 'theirs', 'them', 'themselves', 'then', 'there', 'these', 'they', 'thing', 'think', 'this', 'those',
+                'through', 'to', 'too', 'under', 'unto', 'up', 'us', 'use', 'very', 'want', 'was', 'wasn', 'way', 'we', 'well', 'went', 'were', 'weren', 'what', 'when',
+                'where', 'which', 'while', 'who', 'whom', 'why', 'will', 'with', 'won', 'wouldn', 'you', 'your', 'yours',
+                'yourself', 'yourselves', 'unto', 'said', 'upon', 'hath', 'thee', 'thou', 'thy', 'ye', 'saith', 'indeed'
+            ]);
+            
+            const bookOrder = Object.values(chapterMap);
+
+            data.forEach((verseData, index) => {
+                if (!verseData.book || verseData.verse === 0) return;
+                const verseRef = `${verseData.book} ${verseData.verse}`;
+                verseLookup.set(verseRef, verseData.text);
+                const words = Array.from(new Set(verseData.text.toLowerCase().replace(/[^\w\s']/g, '').split(/\s+/)));
+                words.forEach(word => {
+                    if (word && !stopWords.has(word)) {
+                        const rootWord = getWordRoot(word);
+                        if (!wordData[rootWord]) { 
+                            wordData[rootWord] = { 
+                                frequency: 0, 
+                                verses: [], 
+                                firstAppearance: index, 
+                                books: new Set(),
+                                variations: new Set()
+                            }; 
+                        }
+                        wordData[rootWord].frequency++;
+                        wordData[rootWord].variations.add(word);
+                        wordData[rootWord].books.add(verseData.book);
+                        if (!wordData[rootWord].verses.includes(verseRef)) { 
+                            wordData[rootWord].verses.push(verseRef); 
+                        }
+                    }
+                });
+            });
+            
+            const allProcessedWords = Object.entries(wordData)
+                .map(([word, data]) => ({ word, ...data }));
+            
+            allProcessedWords.forEach(w => allWordsData.set(w.word, w));
+
+            const guaranteedWords = new Set([...mindfulnessWords, ...sufferingWords, ...virtueWords, ...statesWords, ...attachmentWords]);
+
+            const topWordsByFrequency = allProcessedWords
+                .filter(word => word.frequency > 0)
+                .sort((a, b) => b.frequency - a.frequency)
+                .slice(0, 250);
+
+            const guaranteedWordsInData = allProcessedWords.filter(wordInfo => guaranteedWords.has(wordInfo.word));
+
+            const combinedWordsMap = new Map();
+            topWordsByFrequency.forEach(word => combinedWordsMap.set(word.word, word));
+            guaranteedWordsInData.forEach(word => combinedWordsMap.set(word.word, word));
+
+            const frequentWords = Array.from(combinedWordsMap.values())
+                .sort((a, b) => a.word.localeCompare(b.word));
+            
+            frequentWordSet = new Set(frequentWords.map(d => d.word));
+
+            frequentWords.forEach(wordInfo => { coOccurrenceData[wordInfo.word] = {}; });
+            data.forEach((verseData) => {
+                if (!verseData.book) return;
+                const wordsInVerse = Array.from(new Set(verseData.text.toLowerCase().replace(/[^\w\s']/g, '').split(/\s+/)))
+                    .map(word => getWordRoot(word))
+                    .filter(word => frequentWordSet.has(word));
+                for (let i = 0; i < wordsInVerse.length; i++) {
+                    for (let j = i + 1; j < wordsInVerse.length; j++) {
+                        const word1 = wordsInVerse[i];
+                        const word2 = wordsInVerse[j];
+                        coOccurrenceData[word1][word2] = (coOccurrenceData[word1][word2] || 0) + 1;
+                        coOccurrenceData[word2][word1] = (coOccurrenceData[word2][word1] || 0) + 1;
+                    }
+                }
+            });
+
+            const maxFreq = frequentWords.length > 0 ? Math.log1p(frequentWords.sort((a,b) => b.frequency - a.frequency)[0].frequency) : 1;
+
+            frequentWords.forEach((wordInfo, index) => {
+                const fontSize = 24 + (Math.log1p(wordInfo.frequency) / maxFreq) * 60;
+                const textSprite = makeTextSprite(wordInfo.word, { fontsize: fontSize });
+                
+                const angle = (index / frequentWords.length) * (Math.PI * 6);
+                const firstBookAppearanceData = data[wordInfo.firstAppearance];
+                if (!firstBookAppearanceData) return;
+                const firstBookAppearanceIndex = bookOrder.indexOf(firstBookAppearanceData.book);
+
+                const radius = 30 + (firstBookAppearanceIndex / bookOrder.length) * 100;
+
+                const x = Math.cos(angle) * radius;
+                const y = Math.log1p(wordInfo.frequency) * 10 + (wordInfo.word.length - 5) * 1.5;
+                const z = Math.sin(angle) * radius;
+                
+                textSprite.position.set(x, y, z);
+                textSprite.userData = { 
+                    word: wordInfo.word, 
+                    verses: wordInfo.verses,
+                    coOccurrences: coOccurrenceData[wordInfo.word],
+                    books: wordInfo.books,
+                };
+                scene.add(textSprite);
+                wordLabels.push(textSprite);
+                wordLabelMap.set(wordInfo.word, textSprite);
+            });
+            
+            for (const word1 in coOccurrenceData) {
+                for (const word2 in coOccurrenceData[word1]) {
+                    if (coOccurrenceData[word1][word2] > 0 && wordLabelMap.has(word1) && wordLabelMap.has(word2)) {
+                        const label1 = wordLabelMap.get(word1);
+                        const label2 = wordLabelMap.get(word2);
+                        const key = [word1, word2].sort().join('-');
+                        if (!connectionLines[key]) {
+                           const color = getLineColor(word1, word2);
+                           const geo = new THREE.BufferGeometry().setFromPoints([label1.position, label2.position]);
+                           const mat = new THREE.LineBasicMaterial({ color: color, transparent: true, opacity: 0.1, depthTest: false });
+                           const line = new THREE.Line(geo, mat);
+                           connectionLines[key] = line;
+                           linesGroup.add(line);
+                        }
+                    }
+                }
+            }
+            
+            bookListContent.innerHTML = '';
+            Object.entries(chapterMap).forEach(([number, name]) => {
+                const bookEl = document.createElement('a');
+                bookEl.href = "#";
+                bookEl.textContent = `${number}. ${name}`;
+                bookEl.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const currentBook = selectedBook;
+                    
+                    selectedTheme = null;
+                    document.querySelectorAll('#color-compass li').forEach(li => li.classList.remove('active'));
+                    document.querySelectorAll('#book-list-content a').forEach(a => a.classList.remove('active'));
+
+                    if (currentBook === name) {
+                        selectedBook = null;
+                        verseListPanel.classList.remove('visible');
+                        bookListPanel.classList.add('visible');
+                        resetCamera();
+                    } else {
+                        selectedBook = name;
+                        bookEl.classList.add('active');
+                        bookListPanel.classList.remove('visible');
+                        showVersesForBook(name);
+                        const labelsToFrame = wordLabels.filter(label => label.userData.books.has(selectedBook));
+                        if (labelsToFrame.length > 0) {
+                            frameObjects(labelsToFrame);
+                        }
+                    }
+                    
+                    selectedLabel = null;
+                    clickedVerseRef = null;
+                    verseDisplayPanel.classList.remove('visible');
+                    
+                    updateVisuals();
+                });
+                bookEl.addEventListener('mouseenter', () => {
+                    hoveredBook = name;
+                    updateVisuals();
+                });
+                bookEl.addEventListener('mouseleave', () => {
+                    hoveredBook = null;
+                    updateVisuals();
+                });
+                bookListContent.appendChild(bookEl);
+            });
+            
+            bookListPanel.classList.add('visible');
+            searchPanel.classList.add('visible');
+
+            document.getElementById('loader').style.display = 'none';
+            setupInteractivity();
+        }
+
+        function setupInteractivity() {
+            document.getElementById('close-verse-list').addEventListener('click', () => {
+                verseListPanel.classList.remove('visible');
+                bookListPanel.classList.add('visible');
+                selectedBook = null;
+                document.querySelectorAll('#book-list-content a').forEach(a => a.classList.remove('active'));
+                updateVisuals();
+            });
+
+            document.getElementById('close-verse-display').addEventListener('click', () => {
+                verseDisplayPanel.classList.remove('visible');
+                searchPanel.classList.add('visible');
+                clickedVerseRef = null;
+                updateVisuals();
+            });
+
+            const instructionsPanel = document.getElementById('instructions-panel');
+            const instructionsHeader = instructionsPanel.querySelector('.panel-header');
+            const closeInstructionsBtn = document.getElementById('close-instructions');
+
+            instructionsPanel.classList.add('collapsed');
+
+            instructionsHeader.addEventListener('click', () => {
+                instructionsPanel.classList.toggle('collapsed');
+                updateBookListHeight();
+            });
+
+            closeInstructionsBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                instructionsPanel.classList.add('collapsed');
+                updateBookListHeight();
+            });
+            
+            renderer.domElement.addEventListener('mousedown', onMouseDown, false);
+            renderer.domElement.addEventListener('mousemove', onMouseMove, false);
+            renderer.domElement.addEventListener('mouseup', onMouseUp, false);
+            searchInput.addEventListener('input', handleSearch);
+            setupCompass();
+            updateBookListHeight();
+        }
+
+        function setupCompass() {
+            document.querySelectorAll('#color-compass li').forEach(item => {
+                item.addEventListener('click', () => {
+                    const theme = item.dataset.theme;
+                    document.querySelectorAll('#book-list-content a').forEach(a => a.classList.remove('active'));
+
+                    if (selectedTheme === theme) {
+                        selectedTheme = null;
+                        document.querySelectorAll('#color-compass li').forEach(li => li.classList.remove('active'));
+                        resetCamera();
+                    } else {
+                        selectedTheme = theme;
+                        document.querySelectorAll('#color-compass li').forEach(li => {
+                            li.classList.toggle('active', li.dataset.theme === theme);
+                        });
+
+                        let themeWords;
+                        switch(theme) {
+                            case 'mindfulness': themeWords = mindfulnessWords; break;
+                            case 'suffering': themeWords = sufferingWords; break;
+                            case 'virtue': themeWords = virtueWords; break;
+                            case 'states': themeWords = statesWords; break;
+                            case 'attachment': themeWords = attachmentWords; break;
+                        }
+                        if (themeWords) {
+                            const labelsToFrame = wordLabels.filter(label => themeWords.has(label.userData.word));
+                            if (labelsToFrame.length > 0) {
+                                frameObjects(labelsToFrame);
+                            }
+                        }
+                    }
+                    
+                    selectedBook = null;
+                    selectedLabel = null;
+                    clickedVerseRef = null;
+                    verseListPanel.classList.remove('visible');
+                    verseDisplayPanel.classList.remove('visible');
+                    
+                    updateVisuals();
+                });
+
+                item.addEventListener('mouseenter', () => {
+                    hoveredTheme = item.dataset.theme;
+                    updateVisuals();
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    hoveredTheme = null;
+                    updateVisuals();
+                });
+            });
+        }
+        
+        function handleSearch(event) {
+            const query = event.target.value.toLowerCase();
+            searchResults.innerHTML = '';
+            hoveredLabel = null;
+            updateVisuals();
+
+            if (query.length < 2) {
+                if(!selectedLabel && !selectedTheme) bookListPanel.classList.add('visible');
+                return;
+            }
+
+            bookListPanel.classList.remove('visible');
+
+            const matchedRootWords = new Set();
+            for (const [rootWord, data] of allWordsData.entries()) {
+                if (rootWord.includes(query)) {
+                    matchedRootWords.add(rootWord);
+                }
+                for (const variation of data.variations) {
+                    if (variation.includes(query)) {
+                        matchedRootWords.add(rootWord);
+                    }
+                }
+            }
+            
+            const matches = [...matchedRootWords]
+                .sort((a,b) => a.length - b.length)
+                .slice(0, 15);
+
+            matches.forEach(word => {
+                const resultEl = document.createElement('a');
+                resultEl.href = '#';
+                resultEl.textContent = word;
+                const label = wordLabelMap.get(word);
+
+                if (label) {
+                    resultEl.addEventListener('mouseenter', () => {
+                        hoveredLabel = label;
+                        updateVisuals();
+                    });
+                    resultEl.addEventListener('mouseleave', () => {
+                        hoveredLabel = null;
+                        updateVisuals();
+                    });
+                }
+                
+                resultEl.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if(label) {
+                       selectObject(label);
+                    } else {
+                       const wordInfo = allWordsData.get(word);
+                       if (wordInfo) {
+                           showVersesForWord(wordInfo);
+                       }
+                    }
+                });
+                searchResults.appendChild(resultEl);
+            });
+        }
+
+
+        function onMouseDown(event) {
+            mouseDownPos.x = event.clientX;
+            mouseDownPos.y = event.clientY;
+        }
+        
+        function onMouseMove(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+        }
+
+        function onMouseUp(event) {
+            const deltaX = Math.abs(event.clientX - mouseDownPos.x);
+            const deltaY = Math.abs(event.clientY - mouseDownPos.y);
+            if (deltaX > DRAG_THRESHOLD || deltaY > DRAG_THRESHOLD) return;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(wordLabels);
+
+            if (intersects.length > 0) {
+                const clickedObject = intersects[0].object;
+                 if (selectedLabel === clickedObject) deselectObject();
+                 else selectObject(clickedObject);
+            } else {
+                 deselectObject();
+            }
+        }
+        
+        function checkHover() {
+            if(document.activeElement === searchInput) return;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(wordLabels);
+            let currentlyHovered = null;
+            if (intersects.length > 0) {
+                 currentlyHovered = intersects[0].object;
+            }
+
+            if (hoveredLabel !== currentlyHovered) {
+                hoveredLabel = currentlyHovered;
+                updateVisuals();
+                if (!selectedLabel && !selectedBook && !selectedTheme) {
+                    if (hoveredLabel) showHoverVerseList(hoveredLabel);
+                    else hideHoverVerseList();
+                }
+            }
+        }
+
+        function selectObject(label) {
+            selectedLabel = label;
+            hoveredLabel = null;
+            clickedVerseRef = null;
+            selectedBook = null;
+            selectedTheme = null;
+            document.querySelectorAll('#color-compass li').forEach(li => li.classList.remove('active'));
+            document.querySelectorAll('#book-list-content a').forEach(a => a.classList.remove('active'));
+
+            hideHoverVerseList();
+            bookListPanel.classList.remove('visible');
+            searchPanel.classList.remove('visible');
+            searchInput.value = '';
+            searchResults.innerHTML = '';
+
+            showVersesForWord(label.userData);
+            
+            updateVisuals();
+            animateCameraToObject(label);
+        }
+
+        function showVersesForWord(wordData) {
+            verseListTitle.textContent = wordData.word;
+            verseListContent.innerHTML = '';
+            verseListContent.scrollTop = 0;
+            
+            wordData.verses.forEach(verseRef => {
+                const verseEl = document.createElement('a');
+                verseEl.textContent = verseRef;
+                
+                verseEl.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    clickedVerseRef = verseRef;
+                    displayVerse(verseRef);
+                    updateVisuals();
+                    const wordsInVerse = getWordsInVerse(verseRef);
+                    const labelsToFrame = Array.from(wordsInVerse).map(w => wordLabelMap.get(w)).filter(Boolean);
+                    frameObjects(labelsToFrame);
+                });
+
+                verseEl.addEventListener('mouseenter', () => {
+                    highlightForVerse(verseRef);
+                    displayVerse(verseRef);
+                });
+
+                verseEl.addEventListener('mouseleave', () => {
+                    updateVisuals();
+                    if (clickedVerseRef) displayVerse(clickedVerseRef);
+                    else {
+                        verseDisplayPanel.classList.remove('visible');
+                    }
+                });
+
+                verseListContent.appendChild(verseEl);
+            });
+            verseListPanel.classList.add('visible');
+            verseDisplayPanel.classList.remove('visible');
+        }
+
+        function deselectObject(resetAll = true) {
+            selectedLabel = null;
+            clickedVerseRef = null;
+            if (resetAll) {
+                selectedBook = null;
+                 document.querySelectorAll('#book-list-content a').forEach(a => a.classList.remove('active'));
+                selectedTheme = null;
+                document.querySelectorAll('#color-compass li').forEach(li => li.classList.remove('active'));
+            }
+            verseListPanel.classList.remove('visible');
+            verseDisplayPanel.classList.remove('visible');
+
+            if (selectedTheme === null && selectedBook === null) {
+                bookListPanel.classList.add('visible');
+                searchPanel.classList.add('visible');
+            }
+            updateVisuals();
+        }
+
+        function showVersesForBook(bookName) {
+            verseListTitle.textContent = bookName.toLowerCase();
+            verseListContent.innerHTML = '';
+            verseListContent.scrollTop = 0;
+
+            const versesForBook = dhammapadaData.filter(v => v.book === bookName && v.verse !== 0);
+
+            versesForBook.forEach(verseData => {
+                const verseRef = `${verseData.book} ${verseData.verse}`;
+                const verseEl = document.createElement('a');
+                verseEl.textContent = verseRef;
+                
+                verseEl.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    clickedVerseRef = verseRef;
+                    displayVerse(verseRef);
+                    updateVisuals();
+                    const wordsInVerse = getWordsInVerse(verseRef);
+                    const labelsToFrame = Array.from(wordsInVerse).map(w => wordLabelMap.get(w)).filter(Boolean);
+                    if (labelsToFrame.length > 0) frameObjects(labelsToFrame);
+                });
+
+                verseEl.addEventListener('mouseenter', () => {
+                    highlightForVerse(verseRef);
+                    displayVerse(verseRef);
+                });
+
+                verseEl.addEventListener('mouseleave', () => {
+                    updateVisuals();
+                    if (clickedVerseRef) {
+                       displayVerse(clickedVerseRef);
+                    } else {
+                       verseDisplayPanel.classList.remove('visible');
+                    }
+                });
+
+                verseListContent.appendChild(verseEl);
+            });
+            
+            verseListPanel.classList.add('visible');
+            if (!clickedVerseRef) {
+                verseDisplayPanel.classList.remove('visible');
+            }
+        }
+
+        function displayVerse(verseRef) {
+            const verseText = verseLookup.get(verseRef);
+            if (!verseText) {
+                verseDisplayPanel.classList.remove('visible');
+                return;
+            };
+            verseDisplayTitle.textContent = verseRef;
+            verseDisplayContent.innerHTML = '';
+            searchPanel.classList.remove('visible');
+            const p = document.createElement('p');
+            p.textContent = '"';
+
+            const parts = verseText.split(/(\s+|[.,;!?()'])/g);
+            parts.forEach(part => {
+                const cleanWord = part.toLowerCase().replace(/[^\w]/g, '');
+                const rootWord = getWordRoot(cleanWord);
+                const span = document.createElement('span');
+                span.textContent = part;
+                if (frequentWordSet.has(rootWord)) {
+                    span.className = 'interactive-word';
+                    span.addEventListener('mouseenter', () => {
+                        hoveredWordInVerse = rootWord;
+                        updateVisuals();
+                    });
+                    span.addEventListener('mouseleave', () => {
+                        hoveredWordInVerse = null;
+                        updateVisuals();
+                    });
+                    span.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const label = wordLabelMap.get(rootWord);
+                        if(label) selectObject(label);
+                    });
+                }
+                p.appendChild(span);
+            });
+            p.appendChild(document.createTextNode('"'));
+            verseDisplayContent.appendChild(p);
+            verseDisplayPanel.classList.add('visible');
+        }
+        
+        function getWordsInVerse(verseRef) {
+            const words = new Set();
+            const text = verseLookup.get(verseRef);
+            if (!text) return words;
+            text.toLowerCase().replace(/[^\w\s']/g, '').split(/\s+/).forEach(word => {
+                const rootWord = getWordRoot(word);
+                if (frequentWordSet.has(rootWord)) words.add(rootWord);
+            });
+            return words;
+        }
+
+        function highlightForVerse(verseRef, hoveredWord) {
+            const wordsInVerse = getWordsInVerse(verseRef);
+            wordLabels.forEach(label => {
+                const isWordInVerse = wordsInVerse.has(label.userData.word);
+                if (isWordInVerse) {
+                    label.material.opacity = (label.userData.word === hoveredWord) ? 1.0 : 0.75;
+                } else {
+                    label.material.opacity = 0.1;
+                }
+            });
+            Object.entries(connectionLines).forEach(([key, line]) => {
+                const [wordA, wordB] = key.split('-');
+                const isLineInVerse = wordsInVerse.has(wordA) && wordsInVerse.has(wordB);
+                if (isLineInVerse) {
+                    line.material.opacity = (wordA === hoveredWord || wordB === hoveredWord) ? 1.0 : 0.75;
+                } else {
+                    line.material.opacity = 0.05;
+                }
+            });
+        }
+        
+        function highlightForBook(bookName, isHover = false) {
+            const highlightOpacity = isHover ? 0.7 : 0.9;
+            const lineOpacity = isHover ? 0.4 : 0.75;
+            wordLabels.forEach(label => {
+                label.material.opacity = label.userData.books.has(bookName) ? highlightOpacity : 0.1;
+            });
+            Object.entries(connectionLines).forEach(([key, line]) => {
+                const [wordA, wordB] = key.split('-');
+                const labelA = wordLabelMap.get(wordA);
+                const labelB = wordLabelMap.get(wordB);
+                const bothInBook = labelA && labelA.userData.books.has(bookName) && labelB && labelB.userData.books.has(bookName);
+                line.material.opacity = bothInBook ? lineOpacity : 0.05;
+            });
+        }
+
+        function highlightForTheme(theme, isHover = false) {
+            let themeWords;
+            let themeColor;
+            switch(theme) {
+                case 'mindfulness': themeWords = mindfulnessWords; themeColor = 0xffff00; break;
+                case 'suffering': themeWords = sufferingWords; themeColor = 0xff0000; break;
+                case 'virtue': themeWords = virtueWords; themeColor = 0x00ff00; break;
+                case 'states': themeWords = statesWords; themeColor = 0xff00ff; break;
+                case 'attachment': themeWords = attachmentWords; themeColor = 0x00ffff; break;
+                default: return;
+            }
+            const highlightOpacity = isHover ? 0.6 : 0.9;
+            const lineOpacity = isHover ? 0.5 : 0.8;
+
+            wordLabels.forEach(label => {
+                label.material.opacity = themeWords.has(label.userData.word) ? highlightOpacity : 0.1;
+            });
+
+            Object.values(connectionLines).forEach(line => {
+                line.material.opacity = (line.material.color.getHex() === themeColor) ? lineOpacity : 0.05;
+            });
+        }
+
+        function showHoverVerseList(label) {
+            hoverTitle.textContent = label.userData.word;
+            hoverVerseListContent.innerHTML = '';
+            label.userData.verses.slice(0, 10).forEach(ref => {
+                 hoverVerseListContent.innerHTML += `<span class="verse-ref-item">${ref}</span>`;
+            });
+             if(label.userData.verses.length > 10) {
+                hoverVerseListContent.innerHTML += `<span class="verse-ref-item">...and ${label.userData.verses.length - 10} more</span>`;
+            }
+            bookListPanel.classList.remove('visible');
+            searchPanel.classList.remove('visible');
+            hoverVersePanel.classList.add('visible');
+        }
+        
+        function hideHoverVerseList() {
+             hoverVersePanel.classList.remove('visible');
+             if(!selectedLabel && !selectedBook && !selectedTheme) {
+                 bookListPanel.classList.add('visible');
+                 searchPanel.classList.add('visible');
+             }
+        }
+
+        function updateVisuals() {
+            if (clickedVerseRef) {
+                highlightForVerse(clickedVerseRef, hoveredWordInVerse);
+                return;
+            }
+            if (selectedTheme) {
+                highlightForTheme(selectedTheme);
+                return;
+            }
+            if (selectedBook) {
+                highlightForBook(selectedBook);
+                return;
+            }
+            if (hoveredTheme) {
+                highlightForTheme(hoveredTheme, true);
+                return;
+            }
+            if (hoveredBook) {
+                highlightForBook(hoveredBook, true);
+                return;
+            }
+        
+            wordLabels.forEach(label => { label.material.opacity = 0.7; });
+            Object.values(connectionLines).forEach(line => { line.material.opacity = 0.1; });
+        
+            if (selectedLabel) {
+                const selectedWord = selectedLabel.userData.word;
+                wordLabels.forEach(label => { label.material.opacity = 0.15; });
+                selectedLabel.material.opacity = 1.0;
+                Object.values(connectionLines).forEach(line => { line.material.opacity = 0.05; });
+                Object.entries(connectionLines).forEach(([key, line]) => {
+                    if (key.includes(selectedWord)) line.material.opacity = 0.33;
+                });
+            }
+            
+            if (hoveredLabel) {
+                const hoveredWord = hoveredLabel.userData.word;
+                hoveredLabel.material.opacity = 1.0;
+        
+                if (!selectedLabel) {
+                    wordLabels.forEach(label => {
+                        if (label !== hoveredLabel) label.material.opacity = 0.2;
+                    });
+                }
+                
+                Object.entries(connectionLines).forEach(([key, line]) => {
+                    if (key.includes(hoveredWord)) {
+                        const isAlsoSelected = selectedLabel && key.includes(selectedLabel.userData.word);
+                        line.material.opacity = isAlsoSelected ? 0.75 : 0.25;
+                    }
+                });
+            }
+        }
+
+        function resetCamera(duration = 1200) {
+            controls.enabled = false;
+            const startPosition = camera.position.clone();
+            const startTarget = controls.target.clone();
+            const endPosition = new THREE.Vector3(0, 40, 150);
+            const endTarget = new THREE.Vector3(0, 0, 0);
+
+            new TWEEN.Tween({ t: 0 }).to({ t: 1 }, duration)
+                .easing(TWEEN.Easing.Quadratic.Out)
+                .onUpdate(({t}) => {
+                    camera.position.lerpVectors(startPosition, endPosition, t);
+                    controls.target.lerpVectors(startTarget, endTarget, t);
+                })
+                .onComplete(() => { controls.enabled = true; })
+                .start();
+        }
+        
+        function animateCameraToObject(target, duration = 1200) {
+            controls.enabled = false;
+            const endTarget = (target instanceof THREE.Vector3) ? target : target.position.clone();
+            const startPosition = camera.position.clone();
+            const startTarget = controls.target.clone();
+            
+            const distance = (target instanceof THREE.Vector3) ? camera.position.distanceTo(endTarget) : 30;
+            const offset = new THREE.Vector3().subVectors(camera.position, controls.target).normalize().multiplyScalar(distance);
+            const endPosition = new THREE.Vector3().addVectors(endTarget, offset);
+
+            new TWEEN.Tween({ t: 0 }).to({ t: 1 }, duration)
+                .easing(TWEEN.Easing.Quadratic.Out)
+                .onUpdate(({t}) => {
+                    camera.position.lerpVectors(startPosition, endPosition, t);
+                    controls.target.lerpVectors(startTarget, endTarget, t);
+                })
+                .onComplete(() => { controls.enabled = true; })
+                .start();
+        }
+
+        function frameObjects(labelsToFrame, duration = 1200) {
+            if (!labelsToFrame || labelsToFrame.length === 0) return;
+            if (labelsToFrame.length === 1) {
+                animateCameraToObject(labelsToFrame[0], duration);
+                return;
+            }
+
+            controls.enabled = false;
+            const box = new THREE.Box3();
+            labelsToFrame.forEach(label => box.expandByObject(label));
+
+            const center = new THREE.Vector3();
+            box.getCenter(center);
+            const size = new THREE.Vector3();
+            box.getSize(size);
+
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const fitHeightDistance = maxDim / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2));
+            const fitWidthDistance = fitHeightDistance / camera.aspect;
+            const distance = 1.3 * Math.max(fitHeightDistance, fitWidthDistance);
+
+            const direction = new THREE.Vector3().subVectors(camera.position, controls.target).normalize();
+            const newCameraPos = center.clone().add(direction.multiplyScalar(distance));
+            
+            const startPosition = camera.position.clone();
+            const startTarget = controls.target.clone();
+
+            new TWEEN.Tween({ t: 0 }).to({ t: 1 }, duration)
+                .easing(TWEEN.Easing.Quadratic.Out)
+                .onUpdate(({t}) => {
+                    camera.position.lerpVectors(startPosition, newCameraPos, t);
+                    controls.target.lerpVectors(startTarget, center, t);
+                })
+                .onComplete(() => { controls.enabled = true; })
+                .start();
+        }
+
+        function animate(time) {
+            requestAnimationFrame(animate);
+            TWEEN.update(time);
+            controls.update();
+            checkHover();
+            renderer.render(scene, camera);
+        }
+        
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            updateBookListHeight();
+        });
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
+

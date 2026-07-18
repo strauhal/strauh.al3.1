@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta property="og:title" content="Portrait of nick"/>
+  <meta property="og:image" content="nick1.png" />
+  <title>strauh.al/portraits/nick</title>
+
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    img {
+      transition: filter 0.05s ease-out;
+      will-change: filter;
+      width: 66vh;
+      margin-left: 33vh;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        margin: 0;
+        word-wrap: break-word;
+      }
+
+      img {
+        width: 80vw;
+        margin-left: 0;
+        display: block;
+        margin: 40px auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>
+    <a href="http://strauh.al">strauh.al</a>/<a href="http://strauh.al/portraits">portraits</a>/nick
+  </h1>
+
+  <img id="hueImage" src="nick1.png" loading="lazy" alt="Portrait of nick">
+  <p><i>Portrait of Nick, 2025</i></p>
+
+</body>
+
+<script>
+const img = document.getElementById('hueImage');
+
+// Detect mobile
+const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+
+// Track state
+let currentHue = 0;
+let targetHue = 0;
+let currentSaturation = 150;
+let targetSaturation = 150;
+let userActive = false;
+let userTimeout;
+let hueIncreasing = true;
+
+// Ease factor — higher = faster change
+const ease = 0.2;
+
+// Animate loop
+function animate() {
+  currentHue += (targetHue - currentHue) * ease;
+  currentSaturation += (targetSaturation - currentSaturation) * ease;
+  img.style.filter = `hue-rotate(${currentHue}deg) saturate(${currentSaturation}%)`;
+  requestAnimationFrame(animate);
+}
+animate();
+
+// Reset user interaction
+function resetUserTimer() {
+  userActive = true;
+  clearTimeout(userTimeout);
+  userTimeout = setTimeout(() => {
+    userActive = false;
+  }, 1000); // User remains "active" for 1s after input
+}
+
+// Throttle helper
+function throttle(fn, limit) {
+  let lastCall = 0;
+  return function (...args) {
+    const now = Date.now();
+    if (now - lastCall >= limit) {
+      lastCall = now;
+      fn.apply(this, args);
+    }
+  };
+}
+
+// Scroll-based hue (MOBILE)
+if (isMobile) {
+  window.addEventListener(
+    'scroll',
+    throttle(() => {
+      const scrollY = window.scrollY;
+      targetHue = scrollY % 360;
+      targetSaturation = 200;
+      resetUserTimer();
+    }, 50), // Run max every 50ms
+    { passive: true }
+  );
+} else {
+  // Mousemove-based hue (DESKTOP)
+  window.addEventListener(
+    'mousemove',
+    throttle((e) => {
+      const xRatio = e.clientX / window.innerWidth;
+      const yRatio = e.clientY / window.innerHeight;
+      targetHue = Math.floor(xRatio * 360);
+      targetSaturation = 100 + yRatio * 100;
+      resetUserTimer();
+    }, 30) // Max every 30ms
+  );
+}
+
+// Auto hue oscillation when idle
+setInterval(() => {
+  if (!userActive) {
+    const step = isMobile ? 2 : 4; // slower on mobile
+    if (hueIncreasing) {
+      targetHue += step;
+      if (targetHue >= 360) {
+        targetHue = 360;
+        hueIncreasing = false;
+      }
+    } else {
+      targetHue -= step;
+      if (targetHue <= 0) {
+        targetHue = 0;
+        hueIncreasing = true;
+      }
+    }
+    targetSaturation = 150;
+  }
+}, 60); // smoother but slower interval for performance
+
+</script>
+
+
+</html>
