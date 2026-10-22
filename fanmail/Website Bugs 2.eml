@@ -1,0 +1,194 @@
+Delivered-To: estrauhal@gmail.com
+Received: by 2002:a05:7110:4816:b0:2ef:922:58bc with SMTP id b22csp909383gel;
+        Fri, 6 Mar 2026 18:58:15 -0800 (PST)
+X-Forwarded-Encrypted: i=4; AJvYcCX34HuyTnXru3gr2tAeTRmnShVuVLMsOCZW6Ef1+XSJLyyqGbLuiNCXFMfisY1lIm2+BuscKB/2z7E=@gmail.com
+X-Received: by 2002:a05:622a:58e:b0:4f1:bdf7:1795 with SMTP id d75a77b69052e-508f46f8373mr58210451cf.22.1772852295182;
+        Fri, 06 Mar 2026 18:58:15 -0800 (PST)
+ARC-Seal: i=3; a=rsa-sha256; t=1772852295; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=MvXjojZlDpV5+rR1T/u2x1bBRbtzBqan93Uc0yjDgSvtCInImmBsmRR6w0SR1bUna4
+         MGke9F7ucAs6etUKBFZcbLIWQdId/7k5YCQbtcrAs3tZDuExGgp3g2bK3+/Osujm7asO
+         WH9VFohIMyGG+oUQw4mP2J/Q8HGRgsNiqMlKkWB5gLQsKh7ujsmDpTbm724FM5AL8n7i
+         FTDPCMP9uWWwymCyF/VWUd9T2U3eT75Hjy0hpKUmFnZ6+LlS6A0jrJ6rsMo4WDq1XChf
+         9XEHxCc8r2rBgpq1+56TjVWohqnaJnRkvdjw85aHIWGHuU6cdHuGL78n/H5S6KVNZuvv
+         LW+Q==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature
+         :original-recipient;
+        bh=2fSmNGQD1SyUsbjq/4VUrOafOKpNOPsDuDgL/zF9ZUU=;
+        fh=7IE/ytSGXT6hWg5MYW09AQztlqLXR7gnnHXGJUZJaFM=;
+        b=FfEZbM1NIR5ZglMnyj+PxCSpTET8/tCmCcUoiPXLfcw7l/116Rm4rYVj6JdZLoDx4H
+         U/flmkyO6ZkcEoMfsFabh6CIVLzx8PpfLXQkeJVnrnzlres6u6Bzz/r1PrrnxNXzJ6FL
+         LXfbtJCK8XejYW5qXm9S8QGk0TT3U/lc167H5XeJn5rKc2S8853B0jVXyElt9DJyQvCs
+         52qwP0RruB9HNII7QVOUZyq6YmNHq/FT/d7hRgdLwwxUe5Up0jemfl1IrjZJ2dwXrVkV
+         C1B9SW0l/V/4ENrH7zSG3n3oFr7Y+YVsm5xfWhqTdzlkFnNdTgMoKx/Uq8nMurIFWRYv
+         D4hA==;
+        dara=google.com
+ARC-Authentication-Results: i=3; mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=mV1JXpNC;
+       arc=pass (i=2 spf=pass spfdomain=gmail.com dkim=pass dkdomain=gmail.com dmarc=pass fromdomain=gmail.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.91.221 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=neutral header.i=@gmail.com
+Return-Path: <ernest@strauh.al>
+Received: from outbound.ci.icloud.com (ci-2003i-snip4-11.eps.apple.com. [57.103.91.221])
+        by mx.google.com with ESMTPS id 6a1803df08f44-89a31717a87si39226996d6.280.2026.03.06.18.58.14
+        for <estrauhal@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Mar 2026 18:58:14 -0800 (PST)
+Received-SPF: pass (google.com: domain of ernest@strauh.al designates 57.103.91.221 as permitted sender) client-ip=57.103.91.221;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=mV1JXpNC;
+       arc=pass (i=2 spf=pass spfdomain=gmail.com dkim=pass dkdomain=gmail.com dmarc=pass fromdomain=gmail.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.91.221 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=neutral header.i=@gmail.com
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-8 (Postfix) with ESMTPS id BBDF91800147
+	for <estrauhal@gmail.com>; Sat,  7 Mar 2026 02:58:12 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; cv=pass; d=icloud.com; s=arc-0513; b=uEa0mfQgzIrp6p0SJ+gDMHBAJobrQQRrTdrwA37Tgqtxvt/UV1/x0HPnE+hayFTUlcRAvKu2OlOVacgPZhxQZ5GohDZ2h5CZHI8BMm3gfEdack4EEXl8RkPUo526pO1JudOiOOOe/0JU0GOFqnVluBZ8rkpx640dx52xgDx0v/G3u1ReZWUGu6FN2Gec7trIkEnqAIuIH12lQQ6uz1TE1nWg2DIsYwXCnax/4FvL+gjg4JI3cJkgJ7wfmIDIvwUsGI9tFrpEsfQS/PPbc6QkBbmXysEBuuX1pKvHsyKMTX0A5YVkq0597L/jvqp4xeLF9VKIaNeWc5LmcR/c8eTvww==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=arc-0513; h=from:to:subject:message-id:date:mime-version:content-type:dkim-signature; bh=2fSmNGQD1SyUsbjq/4VUrOafOKpNOPsDuDgL/zF9ZUU=; b=FlTM81/Xwu9iBjMxLSN9UmnSd3RxTG+LswpJvCCVcYuuAiNV5flNAHy/cZTK9phJaxSA81rZyFXcFyaDQZ/GtV64WqKh2Vnzu3gIoYLq//UY5C5T/TmqezW5AVUMy+bAx7i/4C0+5oe52AyGwZVsAUITrDny3yIFJeCx/CNCxf0QVG5U4+dB4+Ig6cw/Zb8vKc+bCoYyeRGIqONnsuDccgkahNq/RPqS4BHcG//kbE+L6F2068j4c7gSWub2igyl9NJ8N/9X6xq3mxr9cJfD8EWN20A/mzakVIkY0JFGA6hpc5jRXvtp5RZl/egjSeGFdX3qBXuJEwZYHFoVszNbng==
+ARC-Authentication-Results: i=2; arc.icloud.com; arc=pass; dmarc=pass header.from=gmail.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=mV1JXpNC; spf=pass (spf.icloud.com: domain of aschweitzer114@gmail.com designates 74.125.82.52 as permitted sender) smtp.mailfrom=aschweitzer114@gmail.com
+Received: from unknown (unknown [10.168.160.104])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-8 (Postfix) with SMTP id 2D24918000AE
+	for <estrauhal@gmail.com>; Sat,  7 Mar 2026 02:58:11 +0000 (UTC)
+Received: from p00-icloudmta-smtpin-us-west-2a-60-percent-29 by p162-mailgateway-smtp-c45f594ff-mbmnw (mailgateway 2606B152)
+	with SMTP id 86276ed3-0112-4fb0-81e6-469064e04ebf 
+	for <ernest@strauh.al>; Sat, 7 Mar 2026 02:58:11 GMT
+X-Apple-Action: FORWARD/estrauhal@gmail.com
+Original-Recipient: rfc822;ernest@strauh.al
+x-apple-request-uuid: 86276ed3-0112-4fb0-81e6-469064e04ebf
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	by p00-icloudmta-smtpin-us-west-2a-60-percent-29 (Postfix) with ESMTPS id 24975C000CF
+	for <ernest@strauh.al>; Sat,  7 Mar 2026 02:58:08 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQFUVUKE0oWX1gHVQoPB0UHAkxES1NZQAIYV0dZAxNFUUUBHQ4DHgxKUxBESFI3H11XCxlXBRgVEFAGSB4LFhFcGAEaFEYFGw1TEBscFQM4Q0IQFAwOWRlcFgoQFQlKFVFfDlgdCkZVVgNQWx4JGB9cU0wWFgtXCEREXxgYDxtVVFpTWB9TRVZXWQ0SFQNZG19bQhEdWxAVUV8OWxoJGlhdXwZIRSU2KElOJwITDSIpAWUlDCEHNRVZQC0kTT8lHANvABQJUBACBAAEHjojLRp+BlIWDjcTD3BbAxwVSBAVUV8OWxoJGkY=
+X-ICL-Score: 2.33303322433
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=pass; id=mx.google.com; r1=-22; r2=1
+Authentication-Results: arc.icloud.com; arc=pass
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=gmail.com
+X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=mV1JXpNC
+Received-SPF: pass (spf.icloud.com: domain of aschweitzer114@gmail.com designates 74.125.82.52 as permitted sender) receiver=spf.icloud.com; client-ip=74.125.82.52; helo=mail-dl1-f52.google.com; envelope-from=aschweitzer114@gmail.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of aschweitzer114@gmail.com designates 74.125.82.52 as permitted sender) smtp.mailfrom=aschweitzer114@gmail.com
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1271257ae53so11995048c88.1
+        for <ernest@strauh.al>; Fri, 06 Mar 2026 18:58:08 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772852287; cv=none;
+        d=google.com; s=arc-20240605;
+        b=LpcWye4Of7vUFa2SpxVHWq/R7plq3mAEYg5kycH5XzOIVJUXDC5RB0qfoMHDcpJSOV
+         wRytRK5+HQb6CUhf3t24wIe3xY/Iw2BVb3iXLa5JkjiyE9T0pSdeTXfvaqyNSenMioiI
+         J23m4AePWYFPsGvOBb1begVQzuCesgUsJ0yhC6UYPMBJKuuHeCvKZR598VgWyYzOddEz
+         LTCfq3cMVl3Vzflx8xZxNc4KpXg5FAJv6X9xXZmjFnxWalIz82xiYAG7An68Cj6ur1hf
+         SsgtZpRTX2r4APssgFm+rAs8nIRZrRb82Dk1vsTmER9EIPNqsCKTxK2fIjqoNnUiDZf/
+         pIuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=2fSmNGQD1SyUsbjq/4VUrOafOKpNOPsDuDgL/zF9ZUU=;
+        fh=7IE/ytSGXT6hWg5MYW09AQztlqLXR7gnnHXGJUZJaFM=;
+        b=R9XKwLGJiQh4LalisOCyvOPiG57Y7/zherI+uW7xW9fBmVD2cpTbG3B5HHAC9PCsMT
+         EGmvRUULrCmrprk2MqjfBAvLw6nL3cxwAxmC7ivyyk7pXfHQm7xYC4pNj39Q0auLUvD6
+         zzrHUfXRQ4c2RpiB2x+C5Zz0iYT3bc/jhxv9meoJLc4OY3ZeKndAQVIYQc1N60BY4jMV
+         BbFlVgPAa3ZKuJagInkF3OCiGXZ/4pX1y+GDf6amtmzALy52COA3mKdfVkB3Idqq+5Yi
+         dVH76UFYWI7flZaNXVzzofhDg+u1Z/PgD/KpLE6g3l4S4ca41QU0gtk8jKMiuNlHOxAR
+         PrBQ==;
+        darn=strauh.al
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1772852287; x=1773457087; darn=strauh.al;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=2fSmNGQD1SyUsbjq/4VUrOafOKpNOPsDuDgL/zF9ZUU=;
+        b=mV1JXpNCORs/VoYMUJ8kUJlYTpWA23vyxBiuLV+As0KOAgOP4nJob62/+00QD5YrNH
+         dlxUxWpibFxwtifADJ0C5muZCyJC1cx56VK3osRswssv9/y5HXATfmmTOn/9apu3vcC8
+         PLteiwUtHOjv6sUmF9/LduLxGx30un3TC783NZRJurpU4UEpJLlh9jeCGlkwbWuPxQci
+         L9QJGnsZ1/G3xhSL3Inj/ws/JfPqhsM5qHfYr9kuxdDL4fMEVf6NdKQkrdXt3WprcUea
+         hyxPxH2UILGXMTKToYhkQiWASXhxmDh2rYWLbiSLnSHfydrjsDQ3U0IqJX6QwYG90MCE
+         prOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772852287; x=1773457087;
+        h=to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=2fSmNGQD1SyUsbjq/4VUrOafOKpNOPsDuDgL/zF9ZUU=;
+        b=okoKQ+kfZn1p1TM/mzEdj0DNbdpyNFYXBPKkCHEHLQEKMzcfHvipvxgEUivQHqBF0q
+         QmoqCJWIc4GbHpl6WbmPjz0dA1q0lIS85yocv0pCEy2WwEhiHn8abeoCMPLnuIjo3HNN
+         7Eo/rI8annFybReBfAO5X4MNreRoSyTMft3qgxtViNtpwjmkbS+oh5/I3uJFnBOw5q2U
+         OaMD1BqNH0krwsXgIhvOXTeJLXSlfLGh9Xegr3R2UJlVSXBeNafjtMrheSKP8BuCMw6y
+         9jCGc/SFWYsu19MLnOpXM3n8p1F1qocZPOPdCnGOL96w9QoDd/kFu1ok1W9AaWLtg1oB
+         cRCQ==
+X-Gm-Message-State: AOJu0YzCHRBdA2q8VlI0fWJ1STwE5n2mmOQ7gnkBjmu0RyPzmNwye44f
+	ufxO45zPTEY4X3ZHMHhcS1pTOpA99dmFc1iZD2FvzhO5klYw3wztXAJOXb+oGhD4GDOhEDdUL30
+	G/VR4SRhxhgNNFdO7ynYGnNHNex6Nqbf5rvS/vOg=
+X-Gm-Gg: ATEYQzzb8NNjCvDvS3PCB4wPgxvGR/FRT5bAH/yrxSX43SY8YqKXlaSyoQMD4SJHoBS
+	HKr4xAejDduNBBtcVxT2Jr/1p9SL+Bo6rvIaJ+fglzj6MvvhZdbC1HpFc2vnOX9p0p+CV2hnPWQ
+	PBv44FSuJXTNwmKecRdgvn7vj5T8VAHvsb1K6qfzy71JWWYYh4tOIg3TvKJPXk/f17VJisoo1Wh
+	sFRGybp8kANnVUZ3FOxVgPnAIh6Y6zniRKQ/xU6A3/5rq9nebvb2cABAmzjtjVYAlljegN/cxbB
+	99SNDM3+Se6wVa9VHgCY3lHcOcmhlAmEaWM7/ZYk0+5JaNsVT1qKigQfJmbySxmNORpyQKw=
+X-Received: by 2002:a05:7022:426:b0:119:e55a:9be7 with SMTP id
+ a92af1059eb24-128c2d9b12emr1517996c88.3.1772852286961; Fri, 06 Mar 2026
+ 18:58:06 -0800 (PST)
+MIME-Version: 1.0
+From: Alexander Schweitzer <aschweitzer114@gmail.com>
+Date: Fri, 6 Mar 2026 21:57:55 -0500
+X-Gm-Features: AaiRm53UvK9Dg7Eksf1sp8mOv_sPghSo9idrs2Y0NMhwmvYpBoFTBGoxjKEzpbw
+Message-ID: <CAPyxEwjkUQ1SGyXaBmivOQ4YRd3Ybap6gz46fkCEZbN00cwQdw@mail.gmail.com>
+Subject: Website Bugs
+To: ernest@strauh.al
+Content-Type: multipart/alternative; boundary="000000000000cdbfc6064c665629"
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA3MDAyNSBTYWx0ZWRfXyenYlHEBkzkq
+ Nr+X3UQe2pDckosUx9qK+qR9ZRjUK3PQr6ljhR2X0ApZsOC118tpiWGObOkba9sYIRYpnbmJRU7
+ 0JmwvTXVNL5BVv6kh42qSH6zczmIAMjN30jjGUIKeRTf/S5rvWpIK58ccNIXJPSk8v1L/E98DuO
+ Dh6jJEK5ZGZlOsjqqNYHLPvHhSe9mjTZW4PP6dTpPKFDsFUf/rxcbXjaCigW7f4ebqzCts3hb3n
+ u4Ftm0sjOf5h/cj6AZWzyhJK7zICES5Ei3Wckjt78Z73lk3EuLv2cdG/wGJH32DsTTq3y8jdxgZ
+ ZR3982BAv8UJ5BwN+dw0lzcfT4dnTlUS4j4bRggelvos6LEf9edD4YlLhqhoJs=
+X-Proofpoint-GUID: VkZck8yPIK5y4NMluxF5SkegiHI0TSN3
+X-Proofpoint-ORIG-GUID: VkZck8yPIK5y4NMluxF5SkegiHI0TSN3
+X-JNJ: AAAAAAABu9g5HatFqEMPacrYN7zzDEBrtnsz0eRM+wKdzZxdkPWSY2VL5cIT27mj4s3PM3mpOJFPpDZPSbp9dczIxGQStybvzVCzu3s0MXBhN6LNbLYS9JnYCBtjDKxQlO7xP3qCApKPkylA3p1qyfzA7O1VmQOwbC8vSvzQPzNWtu2RKva4UCIxBHuhoeXgcUqT6d2CKG8fg8Xafb3LB00Bv9r6wYgZDrnboJuWei9y5fE46KJLIroIvpbFtPsJtsLIq3lHqEzBmc62inKRvZzCHqtd07qZ0ZeBBn2rlg3+1SKyvyjB64FT1mtm4jsn2QMTLXyMUZ67gsoqltJBjYQjJMrZcUkxsUBdfU1Ke146z7ARuDKrGj+w3DeeWKmovyjIDRU6I26XmUtzUsatgqhve86y/xxphwfpJV/2VnHq7qmO+LrgxsxiihHczh5xxfiVoPe968QiALAIUoo6SN0WD0jJdv0ZqS2KWwAWJ+qI4iuJeB5fmr4L/YpHg8fksrCHslGPqRJR23Ac+M8VOTsRNyfb1Cx33yXda1U2fM73ZyJKJUej2Esw/XwO8Jv46AIbcCGaJkXxXRo6UbTiHk7XuIg70iAvCRqI3UBj7DJCbydGl5Ak5H7drHwI5ZVFOmQCulEDpSPAGMmVBXyeYphFZekwovvFUf8WHXsv32Ztq9m8OIDMPPrPZSKeuI0OL1ZEVIegqXQlNEv15ZnELYdpaWxl5EjQkgdYAdLOhAuA++r7NaMG39J08w0zCoQqFNy2VJT/mzQiyJGyu5uWUTbA0CqnrCZd6gssrt0wh3MJIFd3b8E=
+X-Authority-Info-Out: v=2.4 cv=RYqdyltv c=1 sm=1 tr=0 ts=69ab9444
+ cx=c_apl:c_pps:t_out a=T0mU/zd77MEem+zjWCBf6Q==:117 a=Yq5XynenixoA:10
+ a=1EWHoNYXi6cA:10 a=x7bEGLp0ZPQA:10 a=CKWW7-Rt_H4A:10 a=95EFz5htlIgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=tKduxpFpAAAA:8 a=TKBzCN2aV7AJcrZFwssA:9
+ a=QEXdDO2ut3YA:10 a=X2aA1jk9dk25DSTaWwAA:9 a=n1AfiiBRdGghPUUu:21
+ a=JLqy2AP9ldsA:10 a=d4dXUV6eZJzrS-FD2bfw:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-07_01,2026-03-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=probablespam policy=default score=55
+ bulkscore=0 mlxlogscore=-7 malwarescore=0 clxscore=1030 phishscore=0
+ mlxscore=55 spamscore=55 adultscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=spam authscore=0 adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2601150000 definitions=main-2603070025
+X-Suspected-Spam: true
+X-JNJ: AAAAAAABf1J9l/5vp0MRkTlgUMx7aziTkz1ogOYErEUM2ll4YFTnLU1zwtpNFE6RWtMkVP3kVT0nmCkQU4PA9Iq0pjEFDnZb1GMaFPLSEDdvTbhwVflurJigNfXj3K3EK/2BrALZt+IgU4fVSF4ZqjDwDpw5cetcPmxsICY50pZNSoqRTumHqZxOW3MIzm7nAycw6Yk/Aj+IewKludZ7oo58kJmbJF98sRhJcgmbwPGfOmZ5FQhSz8/QCE1aAqDD7GEN8E3iKqcQJKZ8DeTmy9wbrdJUlXL8O3hdLH1EPy3FebvwGDDZUs2gBVccsWCaAMmh3tbyOBkVDhIOcAzKyg0yiNKpnSOp5tPnZCh5DIuxK0d1FngFeF68DGzzTik/WEvOfuiPKy0k3gw4PSQWVeWMG29b8leNo7pca+MGbnfcXa6B22UbVSmdPXawlvCuvqfzlNygkn18r+vDx+NtUQaWnr/4fTbF6Y2Hvo7q+LifUlEBrFNwZG0YyfwTgM0G3W2xzJ5Yz4lqXG3PRo3ntzmQRw4nzvvLFJvppKg2JyGdIAQrL0BEyj1xrqJJXaBA1pTWbbAHY6IyTbFnjZ+GBeubrdnE7jMf7Z1R4GWj6IPyBqA53pZ/+/8=
+
+--000000000000cdbfc6064c665629
+Content-Type: text/plain; charset="UTF-8"
+
+Love your website! Thought I'd let you know the word charts for the guru,
+torah, and vedas under "/religous_texts" are all pulling 404s.
+
+https://strauh.al/religious_texts/guru
+https://strauh.al/religious_texts/torah
+https://strauh.al/religious_texts/vedas
+
+-- 
+Sincerely,
+Alexander C. Schweitzer
+
+--000000000000cdbfc6064c665629
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Love your website! Thought I&#39;d let you know the w=
+ord charts for the guru, torah, and vedas under &quot;/religous_texts&quot;=
+ are all pulling 404s.</div><div><br></div><div><a href=3D"https://strauh.a=
+l/religious_texts/guru">https://strauh.al/religious_texts/guru</a></div><di=
+v><a href=3D"https://strauh.al/religious_texts/torah">https://strauh.al/rel=
+igious_texts/torah</a></div><div><a href=3D"https://strauh.al/religious_tex=
+ts/vedas">https://strauh.al/religious_texts/vedas</a></div><div><br></div><=
+span class=3D"gmail_signature_prefix">-- </span><br><div dir=3D"ltr" class=
+=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr">Si=
+ncerely,<div>Alexander C. Schweitzer</div><div><br></div></div></div></div>
+
+--000000000000cdbfc6064c665629--
+

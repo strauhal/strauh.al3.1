@@ -1,0 +1,156 @@
+Delivered-To: estrauhal@gmail.com
+Received: by 2002:a59:d10e:0:b0:568:670e:d867 with SMTP id bo14csp1798843vqb;
+        Tue, 27 Jan 2026 18:26:38 -0800 (PST)
+X-Forwarded-Encrypted: i=3; AJvYcCXr6ubdcs2d+BKJuAu00sSCczRDh6lxFGRpzCJjlpXGrRx4Q61DVI26u7H5Iu79NS7Vxrrfc7OyVkU=@gmail.com
+X-Received: by 2002:ac8:7f07:0:b0:503:2f21:6358 with SMTP id d75a77b69052e-5032f9f0ffbmr55556971cf.39.1769567198187;
+        Tue, 27 Jan 2026 18:26:38 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1769567198; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=YnBK2dj/28sZMKe3nir6I07DG1fQKhhrgWwS4MDk3NLKYboH0ab4uUKOy5C/KRmmVD
+         eb81Zy5ZtP6S64UI++kGLZ71BYJIv9XPh9e+KBXBpmEBBCmJ36ap8tRZ5K6u05vxvwzp
+         LCMagPRbxwKaP+E93P+gA6dJAjtpTmwHtDJ6EIoVfO8pC2b55dM1SOHZyM5yh2LLMSNP
+         mTEqauGyoohHH0PnkADn6IApaCyi90n8KGawEr9hHeYFOAKUQEZJwAmlUm2PyToxxUCv
+         Qe9y01QqDS7jLJ8AQa5hGcgoEx23UJU415fyMNJExNsaSoUcaSiPPKOAPnlNVvkvTfv0
+         1zEA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=references:mime-version:subject:message-id:to:from:date
+         :dkim-signature:original-recipient;
+        bh=9ee5Wk78MGSq8cp1gJsj1OjTLUCdKUsgvEz1EPQWneY=;
+        fh=f/YmknvgmXBgHwd1ZE7tjrQKcF08ks6nOClAiG2h/ZI=;
+        b=haKGHo6rc02FwcWO4BrmmIxhGs29rM0wfZ2RF88Fw0Zf635SXUwCwjPRAscxJBKqOX
+         T9TasDjN4DtbPWd7n1zROtYy8Gr6cBLupYvb7onA6ZEDqvsprSqE3pvpSDID6oAPPkYm
+         8qJhsgso+iPRIykQf5HZtP1N9XOuYyp0s/tL5Fvkmxraqam8x90Uy9BUlGteC5O3TdIN
+         ryJEdNdOJ0TUJOhfUfM8Hq7D/pyfseIfda3lrCq5bM4Df++ZF0gwnU6UuBm9h/jyYUit
+         r5gmYbDH2diF07C8iCSUfHE/j5XsLV55Gpps+mhdal5s4yyfD8ChrL4gPgHEvwcvU03g
+         RGyA==;
+        dara=google.com
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@yahoo.com header.s=s2048 header.b=FLLYMz0M;
+       arc=pass (i=1 spf=pass spfdomain=yahoo.com dkim=pass dkdomain=yahoo.com dmarc=pass fromdomain=yahoo.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.88.199 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=yahoo.com
+Return-Path: <ernest@strauh.al>
+Received: from outbound.ci.icloud.com (ci-2002g-snip4-8.eps.apple.com. [57.103.88.199])
+        by mx.google.com with ESMTPS id d75a77b69052e-50338101952si11259031cf.451.2026.01.27.18.26.37
+        for <estrauhal@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Jan 2026 18:26:37 -0800 (PST)
+Received-SPF: pass (google.com: domain of ernest@strauh.al designates 57.103.88.199 as permitted sender) client-ip=57.103.88.199;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@yahoo.com header.s=s2048 header.b=FLLYMz0M;
+       arc=pass (i=1 spf=pass spfdomain=yahoo.com dkim=pass dkdomain=yahoo.com dmarc=pass fromdomain=yahoo.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.88.199 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=yahoo.com
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-60-percent-15 (Postfix) with ESMTPS id C3F12180012E
+	for <estrauhal@gmail.com>; Wed, 28 Jan 2026 02:26:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; cv=none; d=icloud.com; s=arc-0513; b=lNIWX8e2neg12wp4asxfT2/9wwFZE9B/8KR5XXLf2F3+bMgNWqdv6U5Hd4m7dHGRdDM7qejEWrA0YMEteYzxRLuSBVXkB1IwV9jHdv1EcxZMFN/gMVFGFIQ18+Dqxps0h3Ih4pUGweUbFg2TaiiiqqJEUITUoCBrgWE/+h47CToZAQk6pb7L0YAE8BOZ9bWEDam1EAZlSyZlY3UBE58JECtJRI2gc3CNUvrWW0tpK+fkmtY8RSDgZEH4/maUJyUS7hixHpID2ux0b3ktZ9WsDl34dxmkPQARQnT1KzQy4upWKLqnPtip1FRZNmLa0/PHNT+VWD2nCm0n4hHtymEVOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=arc-0513; h=from:to:subject:message-id:date:mime-version:content-type:dkim-signature; bh=9ee5Wk78MGSq8cp1gJsj1OjTLUCdKUsgvEz1EPQWneY=; b=aAzdGu0BPOGdsy2Y6bNPKj08BhElt9svubtdHBJH/0qUgAvrMOOarg8caYZLWcOP2XkjdREmzKVBGltwecf4M53I3RBBBlYRtBCPCMXxqRJki4wzFBIGP5dn98zXsldUBi+xvvtGI59inbGiHyKM1ltFnQyeR3nlJmipdZeBnzIynUzi8li4u3tTLyj2zEMKRL72z6NHUpYr/mfrmSpLFSJyshkvosilzU3X5DIvaQjs9BlGTB3oE0Bq2ldoO3PD3GSyO9jgImIT9HLspCItNYjhGLKoEcAPbnb9tRI5yh448WPNWQiu+QEgPGeqfWNb87Ng52KaeLo3Ui4EWntN3w==
+ARC-Authentication-Results: i=1; arc.icloud.com; arc=none; dmarc=pass header.from=yahoo.com; dkim=pass header.d=yahoo.com header.i=@yahoo.com header.b=FLLYMz0M; spf=pass (spf.icloud.com: domain of camdensnider1@yahoo.com designates 98.137.66.205 as permitted sender) smtp.mailfrom=camdensnider1@yahoo.com
+Received: from unknown (unknown [10.168.160.104])
+	by p00-icloudmta-asmtp-us-central-1k-60-percent-15 (Postfix) with SMTP id 359D21800649
+	for <estrauhal@gmail.com>; Wed, 28 Jan 2026 02:26:35 +0000 (UTC)
+Received: from p00-icloudmta-smtpin-us-west-3a-100-percent-0 by p162-mailgateway-smtp-6b8d4bb5b9-9868z (mailgateway 2544B77)
+	with SMTP id eac1f871-dd17-476e-8bbc-3111753e10ac 
+	for <ernest@strauh.al>; Wed, 28 Jan 2026 02:26:35 GMT
+X-Apple-Action: FORWARD/estrauhal@gmail.com
+Original-Recipient: rfc822;ernest@strauh.al
+x-apple-request-uuid: eac1f871-dd17-476e-8bbc-3111753e10ac
+Received: from sonic319-24.consmr.mail.gq1.yahoo.com (sonic319-24.consmr.mail.gq1.yahoo.com [98.137.66.205])
+	by p00-icloudmta-smtpin-us-west-3a-100-percent-0 (Postfix) with ESMTPS id 65A23C000CC
+	for <ernest@strauh.al>; Wed, 28 Jan 2026 02:26:32 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQEUVUKE0oWX1gHVQoPB0UJDkxESlFZTgYYUEVMRhIcDVUDGB0DGQteXwYQC1c3AVFeDRpXBRgVEFAGSAAHHxdfGAEaFEYFGw1TEBscFQM4Q0IQFAwOWRlcFgoQFQlKC19YCxZKV05VAgJMFhYIBBVCGA8UEApZH0EHTAwYDhgXHlUNGFkWAwoNRQ0bEAVESQkbUEFXBRgWQ1sQWxQHHhQeURNEVx8WEF9ZTBYWC1ccVAsbFBEJGFZTWQ9VFA8TRQwAV0FJUk9MAAJMQUpVREEHGFNCT19CTgcHWkJPUkQ4XVcLGVcfFhBfWUwWFgtJ
+X-ICL-Score: 2.33303322423
+Authentication-Results: bimi.icloud.com; bimi=none
+X-ARC-Info: policy=fail; arc=none; r1=-20; r2=0
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=yahoo.com
+X-DMARC-Policy: v=DMARC1; p=reject; pct=100; rua=mailto:d@rua.agari.com; ruf=mailto:d@ruf.agari.com;
+X-DMARC-Info: pass=pass; dmarc-policy=reject; s=r1; d=r1; pdomain=yahoo.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=yahoo.com header.i=@yahoo.com header.b=FLLYMz0M
+Received-SPF: pass (spf.icloud.com: domain of camdensnider1@yahoo.com designates 98.137.66.205 as permitted sender) receiver=spf.icloud.com; client-ip=98.137.66.205; helo=sonic319-24.consmr.mail.gq1.yahoo.com; envelope-from=camdensnider1@yahoo.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of camdensnider1@yahoo.com designates 98.137.66.205 as permitted sender) smtp.mailfrom=camdensnider1@yahoo.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1769567190; bh=9ee5Wk78MGSq8cp1gJsj1OjTLUCdKUsgvEz1EPQWneY=; h=Date:From:To:Subject:References:From:Subject:Reply-To; b=FLLYMz0MbTFcSIs+UhtbJgqQ83PhTvJJxLCHgD361zV2DTtCFF7HEP7aaM0rokJOlb27gJ5rGk1yliG4B4DjfpLoEQMYCQoACdx3k//FB78FvNm8YY0vIFkdrcJDMWQQ+Sq6YYdbeBKR6UKEa1HeL8D4zO4D8LtkzhUMpYjSRYFyk2D4qgA5Rd+QC3/tGVEhYOzDOVvrIkiuviTs9veUcmYlVl0PrRIXwdB5t0+tcnArBpzYfUckXXva8oZ3PJBvTiUYbE+2JuuKyWbxX+1irIJG+z2Y+b7ivVB3A0E5Oh1wHOKtvwCxZ4dIZI/maSsk3LU6iF1SNdeWw8crmGxYKg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1769567190; bh=s81FFfOM3y35U2hPkaKzNWXZkmg9AdSr4JndSqfI9Xe=; h=X-Sonic-MF:Date:From:To:Subject:From:Subject; b=DaBuigveEXTtCfPJ4ZCnHbdqNm2tNX80IyaJDC08qRxLuzfvTjkxFokdl2vCH/57OF5Mucu1l+aThwamxkx/cyOA67Syaf80lAnVouwyBkdpxVRnTf6DH26lPqTp16paGLxJW1jZzvTjzSaWJbsmkHasLhxJf3G9ZrmGriVZYGmoGaUkmdzUgCf9+oTrJLCekJaa9eCgrR7v1nGmGaHMRx2JAk3/xtRnv0oPqtSiQ1nS+y5iKMBBtCCdWIGI5tOJK3anYCz274hAKqcjgu6Co+MFiY4g+h73GXMdMxpGPIfwUy9nM8dReaEpoQ9TYDG/mWX53ri5b/adQugyTIj++w==
+X-YMail-OSG: Oax1QwAVM1lQbGRO7V6eKb8YKyNevUhYZdqLSkaY4YkIpHWgCtAqOEhtbm6VKBG
+ UpBn11Erqc8zDuGFGJ9U1TUqfRziX0W3wnyoaMCJYcsKSOxFhUSbjffvX_9y2GpROaPqRwOuzbtR
+ Wv56pgVN4uwHTAj50MfmBNvM6bcu2fSrlKcNE0taQlp8GdMB3BVI4CezAjkdRGD2wF33hK0gnjhc
+ iUk5afF4iPV3lJW2FgLjSVTYjYqyVzNnCmreDwbJgxm0oVaQ.XXwItF4yZQ6jDt8wXl1TH4_G4zw
+ epA5XjHNnCxgy0jAjN6pjAsUrRraAaAobfTkjI2EtNTb6MSzAIvYEzkgFjNQkvm9wUyd9Jjul0PS
+ APsm9ZY55K80HsBtjUoD2vDSeLE9yQGrQBeLNrLiW4lk8wKJpC5iCfV4CGwc6ggNQeRmIdF9xwPA
+ e3vsQK.C5iiLxglqaoz4c2uckjZqLqC8dIGkn8M4UPUQh2BdvUxO9NKerHquOE_vYijtmE4X2piq
+ GBmY5jCCQZqE.aMZCc8S0e14Z.jAEGzbbJUCSAEGYlhVPs6JMlM9D3.cntWaPsct2abQ7rZZEqhH
+ lMwpper6hygWV.HEzj_KalviTafr8EJRdknmvVxDMgyJBOCTavu3mNBCUf4TUPD.dHVMYnbPjSvQ
+ yyAlQBbL6OXqXnJFeG7DdSyOrCY8l8ewQopk0_biGOd6Z2yr6m_lrL.vNfkyKap5d7SgMQ8fP7mO
+ LMd6O1WX53_liTcTZHXOa0jqMi_N2s7FjqwHCeEuzr4NvWuvZ.n0AGY2WMo3ZOxNWwvjTvuBdBoc
+ DyQxHinsJXnv8orebrSo9os_NfkqRuyQiBRXCPxAIR8.2kEBhQWDP8zzIipPmjstEe8nyE_7AOCO
+ ds22XhetF8mOiSu1diMtC5P3_VIr59NITFnXU5Of_VumO0vqw2dTw11IpSr3PNJEPFEYP9dL1syt
+ nPZwhCRTpSGMmIG10ZhDlXKKNEuv0nUBhPnnMOQRkuuZgaHYTUWiMKFbueS8kSYT_z4DNM5nOC7u
+ rHN3P_0o0LXuHOYiN8pOOesbAqD1wJRolpwSp0ryKQLM8M3ksiw1yiSDpcXkWPRHk3g7eYQttPJ2
+ rkl67.qk5K3aKbND9rlyo056VodXoHguVX.4evD3ZOzklpBXuQvxTXbg6SFD23TckxUUHfP8o.sO
+ MIRPD3f1_smAgSGuDJjNGHIaXCah5j5tH4tTFAUV1dHGaSgNpQ2KhsLhiuZcsfD1iymmr4H4PIKu
+ F5afhWQ7x8eg6nYNEfWWiMFmQU9TLxLNwoyJfLOBPM7QStDu4S41pWNTFBW8bFRofl6rWF2JY08g
+ IQ0mlhWNJ2WoBlt7m4eolqLsP4NswxMNor0ynFM8B.Z0TeFNFBfSMEuOSijRKNr5e9mrdKZ4fFtN
+ .u1.BFMhLLeooqk29cKfIKaTW2qZpgT0LgeqgJgmQskjJ3wQM_RQcV5m6_9oW_kRHqO_0j_xYmev
+ AC9sQWTtDDL1HGqVrHCuVBjd4O0j9f5BLj54kAgi.8MApFCKUcxqEXZc9MrEoFCoeot2HEtwatjI
+ kcW._99x3gNhwOMjR1RY3sq7fW17YNsGE3v9tqJgjPa7t2a5JLa4RJ3Et8sjBIYxarEXOdfrjEsu
+ 9JYwUYMAFC4gPYiHGspEwSzr1Npu8mxNsB5FABIvBkIY8EaNTNMhhfJfDJsyf4S.GyBM5kGrTlHR
+ WurVQVbk.QabmhRYgFV9kA1OIyA1iK.PkQ0ydUKNXlsq8tEL92oD6glIJ2ITh3nL2eSW7ux4myjZ
+ 6tmTW8lqLnPBC.ysg1WOpxFjfeKs1HlLUlmAUHG6p3.PaDWYugGOMJXWTFip4oL9DqJ9Jac5tROT
+ ln80IpWSVdBTnN1_8shHl7vjWSuJIhgHL1L8r3JYcky0KLg617t1TWqNnrGiqI_QSUhNG1wZB4IU
+ 3_E.CVodNg6XSgL1b_tOlVS5FihQj41rGF_tJ63Z1kTBGA0t3hT2CMK4NyIMIrzB7rk5y2ubisVq
+ ahCZ1GkHt8w1QhBCe3h_0KbqSomVltSsUWKbIG90.nZr5oufx4q3NTaiGct3X8RGJIBwFaJzE3Fg
+ pkXVWyikvH4LifOrsPx.OXbC.FLwT5M6nf4h3Bm65EEw_eI8hUWBgPV6x75WML3EQUJDc8DKolFQ
+ C6KyWFWMZF_cY20n7D0hhws73rJnvdNA3_2rQWrZYntRNTtj7T5rPEYIvWh8K9VxHTIv9SuP8EQM
+ NmW_wYIg5YTMqNRFkVZZGhUEgn4xaZvm_bf9SCePHX3X83kjoFRlXZygDi_5WA2vW
+X-Sonic-MF: <camdensnider1@yahoo.com>
+X-Sonic-ID: e2e38106-7e18-4050-8d99-ea7c312040cb
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic319.consmr.mail.gq1.yahoo.com with HTTP; Wed, 28 Jan 2026 02:26:30 +0000
+Date: Wed, 28 Jan 2026 02:26:27 +0000 (UTC)
+From: Camden Snider <camdensnider1@yahoo.com>
+To: "ernest@strauh.al" <ernest@strauh.al>
+Message-ID: <654048404.433397.1769567187643@mail.yahoo.com>
+Subject: Submission
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_433396_1021632445.1769567187642"
+References: <654048404.433397.1769567187643.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.24987 YMailNorrin
+X-Proofpoint-ORIG-GUID: X9rsJa2fvWVAPUUte3qhYJQ5F0yO6wW_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI4MDAxNyBTYWx0ZWRfXxJNNd2+g0+2K
+ qa2yU2+vy1HCCp9HE8rMcRSBYrEmhBYDzzN9bFO+DV+vTHrSg4YBgZJHFZtElQseqtsOIJOt4Y2
+ 5LPcM5wg5/8CaVUGwzHT7E6svPuqWPQ1p/xfmFFbkJdvDA5uRKDVeyE89dZPGl/cw/PIXp3jhjo
+ 1z3jip+RBJNfchQBCOaeosicmCQTXDb8VaZl2jzIbzK6n6yCORJ+usOvgeRdYieg72Gw55XXPAw
+ EUF9aamv3DjZkfOnJTJO8dvHIRTxg9yRJSYa1SDNrDww31XS/Ua6za49bzCY2bePW/tHtxKu3UG
+ DXvkQrQ2V2wzjT3Gltojt4xtAuy/FhniAhNQbHpazpLh9geEeyLtrPg67H/OJs=
+X-Proofpoint-GUID: X9rsJa2fvWVAPUUte3qhYJQ5F0yO6wW_
+X-JNJ: AAAAAAABd9P8/0WbsDCwSBm1iw4xTVC3bOJucljXK5mYm89LLaE4w11bG0TZGbqhqbbqb7E+Ipc4Gsb6YcAakIuMB0oSnPhLE8/x7FQF6cukgWyc1bI2QtJ6kccR7k1NhqHApNB1clQL/4KTzlB/X4nBh747lC1sarXvwDJMvbkRsUzyzWAHGZvlVIp+etPgGr3O/IlRuZcsZ/M/P/mxg0rQKlCMcyAHtS7p+TXwgMpnywCSEPbSoit7SvUa1M3V9/8RiW+61I59C+1vPE498gjpfGhxLik8WzWILCX6+jDhvP78bxU9jGbLbtOUsnMS3IGnEKb6h19Q7VsCNwad0YpOkCeZnW0pSFKQ9YDlo9k/6/lmOBKASDLIkgbdFq0CJFWayR5Ji1I+d3MvrC/ttWB5+rvr18oIOoHgPyRIlY2yHGDDCoRLeLeMQutxV0VY7alHKANgG1S6CTOzr/QxSqwH36mdSztCEedkcTy39oUj5hI8SChIAmAoXN1rQ9+qU0AActbDC5wziy94gvXOSiLMw59DKVwVnE5H4X3+Ya+Z27aNzu8leSTHTX5Qrms3Q2zAT8POWH0V7tzEPmFXaaEo1oC9K3hmAOgJSloixHOPaPaQ8tOTpGw4r1DtpUe9h9d8dwKUgc7OB5MbJfyK/i/JjYhvvkY8lgPko9JtyOkAP/UFM4xsOsHlWyf/aAzK
+X-Authority-Info-Out: v=2.4 cv=ZYoQ98VA c=1 sm=1 tr=0 ts=697973db
+ cx=c_apl:c_apl_out:c_pps a=T0mU/zd77MEem+zjWCBf6Q==:117 a=vUbySO9Y5rIA:10
+ a=x7bEGLp0ZPQA:10 a=U8cdixa48LoA:10 a=s23OOv2JePUA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=g4e8mwqQK1VQHKpW3CQA:9 a=QEXdDO2ut3YA:10
+ a=7h-hW10XzW8XFuSii-UA:9 a=_W_S_7VecoQA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-01-27_05,2026-01-27_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=1 spamscore=1
+ malwarescore=0 lowpriorityscore=0 mlxscore=1 suspectscore=0 clxscore=1030
+ bulkscore=0 mlxlogscore=216 adultscore=0 phishscore=0 classifier=spam
+ authscore=0 adjust=0 reason=mlx scancount=1 engine=8.22.0-2601150000
+ definitions=main-2601280017
+X-JNJ: AAAAAAABatYCYcVhHhzYe02mhzwr/CaFDOeFxrAwXlaV2mzm/eE4e3Y7hSfEVM+xNGCARBbMERRkNV0+Ph/SAXF6xKKpSpOvjmDkdVdiLXktqkgqjOlgPfpd9Ov/IuXrTw8U3RhPPLyHDXohBja8i/N37Dw0bZZqWC1mgVU68HzQgzxiXcT3pnG5hmN1ghRmwr4kG7lP2poraQGBIGtqNgTzzccqAa4HRYN4NeI7Tn4ojukGbaK2h9Wn+Z0A1VFS3HkOuO+5klNZCUuZ7OP3xJ9OEeqpAuQfYT/BfzwBDxZNpy14Jne4r2r4CB+w9YuiU6Bp0vnyH6C1m8shCFhvovYkbTWuL3fpNccd4y2OWTe4LCjSzYVwGlsoCnLt5/t1tN8qpx/PUo7Ml6wfP271FTrljFaZ6L3KA8RdwbcjNQqilzhd6uj+9VnnaZ96XiwPWsjVcjkX4xzJmU7KtgoSdgUaU6oN9dPeVZCa/srfYCRFZdPz7wDZQLIdaF1dpPuawIvvVw4uEViCgxP3EHnGcympO/YsFD4tueuKOilkA6U0xl3gHvy2tjTMHBp3I57XPPl231wnAN/YikIqBBf0
+
+------=_Part_433396_1021632445.1769567187642
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Camden -- "Billy Graham"
+Found your site via 4chan. Wow, what a neat site!
+
+------=_Part_433396_1021632445.1769567187642
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<html><head></head><body><div class="yahoo-style-wrap" style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:16px;"><div dir="ltr" data-setdir="false">Camden -- "Billy Graham"</div><div dir="ltr" data-setdir="false"><br></div><div dir="ltr" data-setdir="false">Found your site via 4chan. Wow, what a neat site!<br></div></div></body></html>
+------=_Part_433396_1021632445.1769567187642--
+

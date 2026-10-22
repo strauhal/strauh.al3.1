@@ -1,0 +1,265 @@
+Delivered-To: estrauhal@gmail.com
+Received: by 2002:a05:7110:364b:20b0:329:a6c8:6b2a with SMTP id e11-n2csp1151148gea;
+        Fri, 10 Jul 2026 09:09:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=4; AHgh+Roa9XoL9vLX2/XRTJruwa/JMJvWHN+GVNOYN/NnX2nYHX2YxUx9DeOuNNgB7NgLwTrPLQpc3SIbjRk=@gmail.com
+X-Received: by 2002:ac8:5796:0:b0:51c:868:899d with SMTP id d75a77b69052e-51c8b2aa3d0mr142732841cf.15.1783699748211;
+        Fri, 10 Jul 2026 09:09:08 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1783699748; cv=pass;
+        d=google.com; s=arc-20260327;
+        b=Pbnn3VYylca7qaakKaFWg+SBtj0mBVGFB5LZ825BEo5kgn5wIQukftw3LJQAojUaPU
+         q+AE206jvp+RBJBDLul6HgTg557GTURwatPGeJwe/UYmL8ovo+7b2iYXUwnkdh5ASFLb
+         ETu1QL4wHxA0hO/hNm9Lc5r82zTYuyILZOhgJkxXX0FSnSX+4/wZbxUFfbdavtxfDSsp
+         t48RC5Dlk1V0XAE7BBRtLU15482MvWG161pLDpHvulRgSYjbq+GlgaWHaiqIWJZgBmgo
+         OmdiqEB+JiLgTi5ZXMsqztLFgR18x1g0jsh8HZcwvj1SLoOmHU0LoIsQMfKS/IlCf3iD
+         /ffg==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature:original-recipient;
+        bh=Ysy5FgCacgTN37q3R8iU8ihybsoyg0FqFns4uIE/GBk=;
+        fh=iTsocPkwoAf4/iJQxuzV1A+HgP4OJVqjQr8y/x+9YpU=;
+        b=HShlq193V1TU4gm5XHa7NfakOl56HgE/UnC8UE2RSCfxbvJJChz0mNDiMAP7CGplKz
+         F0UXI66Me/G3RiPfu02TuXXAA+XrATlsp/gZEii4RAK5GFcNtwOo/JP8gty5jxqkI2TG
+         czXNTKgHxpgrqiumEN2SW8INWAZJXSTKf1sFAzKX5ut7RAFU1lcE45GhMts39ObqfSjm
+         /PsAc9zad/EzkE3E/7NmI2HIKRXlCvKskn1/wVGuYLn80eCNE91ugz9+m2qmoSqOgFgp
+         VzzrV3zQ7HDL69v0RaXJB2FbhfjqagYL9pZOsjcYC/WQmfH9PIAxbMOwKS4YW0xdJ8BB
+         JnMw==;
+        dara=google.com
+ARC-Authentication-Results: i=3; mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20251104 header.b=VBj7iyyC;
+       arc=pass (i=2 spf=pass spfdomain=gmail.com dkim=pass dkdomain=gmail.com dmarc=pass fromdomain=gmail.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.88.79 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=neutral header.i=@gmail.com
+Return-Path: <ernest@strauh.al>
+Received: from outbound.ci.icloud.com (ci-2007h-snip4-6.eps.apple.com. [57.103.88.79])
+        by mx.google.com with ESMTPS id 6a1803df08f44-8ffd85d9f1bsi79965246d6.257.2026.07.10.09.09.07
+        for <estrauhal@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 10 Jul 2026 09:09:07 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ernest@strauh.al designates 57.103.88.79 as permitted sender) client-ip=57.103.88.79;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20251104 header.b=VBj7iyyC;
+       arc=pass (i=2 spf=pass spfdomain=gmail.com dkim=pass dkdomain=gmail.com dmarc=pass fromdomain=gmail.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.88.79 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=neutral header.i=@gmail.com
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-60-percent-10 (Postfix) with ESMTPS id AE9341809F9F
+	for <estrauhal@gmail.com>; Fri, 10 Jul 2026 16:09:03 +0000 (UTC)
+X-ICL-RepId: 019f4cca-2398-7539-8f4f-aa777cc4b163
+X-ICL-Out-Info: HUtFAUMHWAJACUgBTUQeDx5WFlZNRAJCTUwWWANYHFxQXBwOCEUFVwNNOEAZRQpHGBcZX01RDw8XVBlaARkIXR0ZClBQBktaFVUXDgJCH1AfTBZXQ1QCHBlaFFwYU0VRH1RYQxlFVmlBC08dXRlbHEJkWFcJCgxfEVAUHQ5YBhIdUBwOUXQqdgFLElkZVgVYQUFLYjcCCBkeXE12Bl0cczpcPAA7ZCpfI0oAdVtgPl1HaRFyVW46VTBUGVoBGQxfEVAUHQ5YBgxQTQFDCAoNXQJOGUEJ
+ARC-Seal: i=2; a=rsa-sha256; cv=pass; d=icloud.com; s=arc-0513; b=W7NoDt7//Z5Vwp++zBpwo+n/LiIGsv4KDOAAfHdMD6edMWqOtcrxSHUang+yMwGWaeEpGKD0QPnVj2Ufe+9Dixmrzfsp6x9Q7I1cZGT0G0Kn/MV7wN4KNhzMuJA06TePUsdL6OLXwJv5Mr1tlMKRM84BxtMskJlPLQDmlou4zcT9+am+ipenYAjLr6XOe7kpGJDR6Y9xJDs/YRdBkjnTpx6BZIo6GPLkz8EyDBQWSOERwbSJa+BrUxG5+G2isTiq/kAMDG8juDTtc+TriVefn9fh8JSDud1BoPZSut8I+yxn3HIGGtxL7sl7mWOpvIHiDFxbSmQNZyiwsM0fI+HoJg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=arc-0513; h=from:to:subject:message-id:date:mime-version:content-type:dkim-signature; bh=Ysy5FgCacgTN37q3R8iU8ihybsoyg0FqFns4uIE/GBk=; b=nOab35n13IrjEVSrFR2nPeTtJqUFZBUqJKDwjF44GwVrJNKuKplMnyb5lXniCHFWN2UAuH4LSTjinqj2g/qa5sTJ0u4yy18NRsoHGsQS5w2pPxlvFkQDbqH6F5/CQge1bAIXn1xNLsOmVWY60crPMgR9oUELtPzuh7Rv6A7nbuy1gGX/Y1yuHCyZn2F1jJLl2OK/xfNOIEcBLvnJOHXAl6JFBelMIxCDm/tCwh+jOGMkHYo66VXRPY/KumHyKz+SjS9D6frwr6DuwJqM+wJ5jnYzYsFmA/TN+HpyOAkawo0vGLslYibhxm0KlYWKW3jP6eaYL+K9d2cGHLSCAVUzXQ==
+ARC-Authentication-Results: i=2; arc.icloud.com; arc=pass; dmarc=pass header.from=gmail.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=VBj7iyyC; spf=pass (spf.icloud.com: domain of krshoemake@gmail.com designates 209.85.128.42 as permitted sender) smtp.mailfrom=krshoemake@gmail.com
+Received: from unknown (unknown [10.168.160.104])
+	by p00-icloudmta-asmtp-us-central-1k-60-percent-10 (Postfix) with SMTP id 778EE180CA01
+	for <estrauhal@gmail.com>; Fri, 10 Jul 2026 16:07:18 +0000 (UTC)
+Received: from p00-icloudmta-smtpin-us-east-2d-60-percent-32 by p162-mailgateway-smtp-668d4bbf6f-9r4gx (mailgateway 2624B114)
+	with SMTP id 688c17e3-d219-42ed-b236-d08eca11e8d2 
+	for <ernest@strauh.al>; Fri, 10 Jul 2026 16:07:18 GMT
+X-Apple-Action: FORWARD/estrauhal@gmail.com
+Original-Recipient: rfc822;ernest@strauh.al
+x-apple-request-uuid: 688c17e3-d219-42ed-b236-d08eca11e8d2
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	by p00-icloudmta-smtpin-us-east-2d-60-percent-32 (Postfix) with ESMTPS id 36A60C000D6
+	for <ernest@strauh.al>; Fri, 10 Jul 2026 16:07:13 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVHSgQFUVUKE0oWX1gHVQoPB0UCBltbQVNZSQIOTEFLRhIcDV0QBhEJEhVRXQc1HgsWEVwYARoURhEcDVEPFBAKWRtfW0IHGlsSCl5TEQE5FQMKUUMKWxgKVxBVWg1IFAceFB1BD0RUAENKHlENGh4KElZTWQ9VCRIFRV1XCxlUERpJHVBWR1cBGBdXWgdbGgkaWFRSXxIUBx4UHlUNGFkLHhwNCiE0PRcFElpCAxsTVw9LYWxXFlIIEk11XQgCOCwSPANgMTQUNQQAdgA1IBZRJxFxDjskHiYaGVlaTBIUBx4UHlUNGEc=
+X-ICL-Score: 2.33303302433
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=pass; id=mx.google.com; r1=-22; r2=1
+Authentication-Results: arc.icloud.com; arc=pass
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=gmail.com
+X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=VBj7iyyC
+Received-SPF: pass (spf.icloud.com: domain of krshoemake@gmail.com designates 209.85.128.42 as permitted sender) receiver=spf.icloud.com; client-ip=209.85.128.42; helo=mail-wm1-f42.google.com; envelope-from=krshoemake@gmail.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of krshoemake@gmail.com designates 209.85.128.42 as permitted sender) smtp.mailfrom=krshoemake@gmail.com
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-493f60208a5so6097845e9.3
+        for <ernest@strauh.al>; Fri, 10 Jul 2026 09:07:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783699631; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OiUoMRzHQJOMjrx5i92uro6LTUFdFZqTxAXFam0bo65s59ysflSm93fm4Za568akrI
+         mcp8cO9f+8Vdh0ji+InErt/X4FPhFfYq83w15B0U41ZUE8Ip933Kt3wdlMI0hyfKpRAU
+         Ox1pogmaEMhZVv3hu6JP5I43VuErLnZfGOxCAypH4MjRgKlzAEw5N/U68cnseapRWp0H
+         cT4hQSqRA0XYFNl8tjjm3qU6xS6m3dY3MRY2usPEH7o8i7+nxhckLtk/xjBGqXkoj0g8
+         yPf2niuVCPV8UyIbQ8wSk3/c28xS/na4UeRfbNUW01zwydUwrpPCq7gxF3DkospGFRPG
+         IIUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature;
+        bh=Ysy5FgCacgTN37q3R8iU8ihybsoyg0FqFns4uIE/GBk=;
+        fh=iTsocPkwoAf4/iJQxuzV1A+HgP4OJVqjQr8y/x+9YpU=;
+        b=LQ2Ygxw8xAZ3WLxBlEEY84xOiF138Y6tbr2w/I0HYrKjn4wvSlni0H1mi4ir+9y5Tn
+         JsiRswzR0svBqIyy1Z67lDZ1ybVQWVIQbW5ucdHlSZ/Osk96GmVssOjfZhCdad4EiY8V
+         aOK+Srr+U3YVESRuaXhLg440Fwqz7LktWT0HHa7nSWUI2glyY8QkgJ2FjW9NfMABiZ7C
+         HVQvWG+cMviGMG7Y299jsF1wVfxKF7cl0xi4OQenW2roHZPovnnMag5v5ZEDKRCojMZM
+         4Iipw3N7HnS+FBuxHarTMVQI3Xm8QMAr9dxq/TNJ4U9OsyKG3E3LhxAKwYDwpZcsKSAo
+         xiDg==;
+        darn=strauh.al
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783699631; x=1784304431; darn=strauh.al;
+        h=content-type:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ysy5FgCacgTN37q3R8iU8ihybsoyg0FqFns4uIE/GBk=;
+        b=VBj7iyyC7FECnalpKCBRJAwOy/rWHBxrwx8fKNwohIxz4Wy2VvPhMG+TBKExROCA5Q
+         UxRu/1UI/38FVGlwWI37/W9gEybH/X/ahIVplyO08aEy5qnz72NNnuZe1DCG8y/fxPhJ
+         8DPqZznVvpsbzkJkuNur1GlbyB7TXLFSDGXlDK+NLcrHmVFxA/VzUx+MZu4/Futmkqfq
+         h7NqJSmW4i5kiIfEhNmRqWd/6sXI+Q5+emLCOXNmqx4QiW9XfrrvYo6Hl+QtdF8rERSm
+         mXUT+WWiGHMeKe/StDEITVLXdjphK+5lp101Klf6R4H61WRYR3qN8Horch/UjwdLe1yM
+         Z1/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783699631; x=1784304431;
+        h=content-type:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ysy5FgCacgTN37q3R8iU8ihybsoyg0FqFns4uIE/GBk=;
+        b=Jm6wwc1Ll4uQCs+M1thrPkDP9BF/C1Z5L6yZBG1GExxCjti7f6IgKCC8GVm2AfnapZ
+         rJYj/UcPBO4WTh9PS8/J0G1XbqcNElpA/LXb1wDQZc4ndbqHFwojqkyqYt4K3cfo5k19
+         60VjVTPskoWbHnlpGrOOvgEZNizSo84gjVNQtgzso46mjxc8seAAxEBRxBYq72o6tMuE
+         Jpcvf5SIOFEZqRki05PqgWV1mVpbg4fZQpFa75cWn/dWebgDnEnL47obshVfBNM1ZryT
+         g4ueWGtBvvB4sjETf1d1g1qzsA7CZeKZt2DxIps8N+C218pykfKmjTGSd4tDcNT7N+Om
+         0eIQ==
+X-Gm-Message-State: AOJu0YzyKQ7uAsRjMq80z0XQZR34yQCVRMKDkrFCWiIGJA3wHG3LM2mK
+	CZsyjNlbDsruFw5QRTkwuKt5K6pZGFu4WiaCr1kvAHstrMoVuEh6XT3KmHSMpS/RwIfDWiofwjj
+	mpdH8HX7183VJCKG0oTG2cwo/pB8hrURsbg==
+X-Gm-Gg: AfdE7cmsaPFpj6mxvHJysgj6oEh9YQzeJBapXXp5qZgTwjdJO/a77ZU9hxaIPRMvFPC
+	rWLbT4Do2ljEqnI+0xAmcvi3dLQXqMlbqlyje0YQam5BzlAjJX+MMTKhmUYG/0WoW1glKthzRiG
+	fxJvQaZIDf3DjTCiB57aER9WXpBlPS1D5YeVPaT7wrxw06dPFcezrJv+AxjeIG9PMUm4q2npJo4
+	XH/t6QaYvYb6J77j1KHNgSsRsjWSrDAJN4iaKCAMlKobYGSPufeXunWldNtTCKCAcsihZ1WGHgB
+	uxNi3KxoieiyTEZQZP3Nve8cnjo=
+X-Received: by 2002:a05:6000:26cd:b0:46f:f12b:e456 with SMTP id
+ ffacd0b85a97d-47df075b35cmr13497366f8f.25.1783699630620; Fri, 10 Jul 2026
+ 09:07:10 -0700 (PDT)
+MIME-Version: 1.0
+References: <CADqrjjtgrXuvt8Z_Q2=FJGUXX26Sq116crSpwGPrPct4VTMXqA@mail.gmail.com>
+ <28C39EDE-9E84-42B5-9777-065860FD0036@strauh.al>
+In-Reply-To: <28C39EDE-9E84-42B5-9777-065860FD0036@strauh.al>
+From: Kace Shoemake <krshoemake@gmail.com>
+Date: Fri, 10 Jul 2026 11:06:51 -0500
+X-Gm-Features: AUfX_myPADSsvK1G3y7C02LVhMX9j7TNMkbIyaWh2z9Bec_-ZvcJWApBrdI_K5I
+Message-ID: <CADqrjjtanj1x3QZ5c+ne5EkjwAJeD3VSAmSsxF6WUo7PiA8YQg@mail.gmail.com>
+Subject: Re: Broken Link :)
+To: erneststrauhal <ernest@strauh.al>
+Content-Type: multipart/alternative; boundary="000000000000de848c065643ee6b"
+X-Proofpoint-ORIG-GUID: gD2F4IOEdixhoiXc7wk_vgJ8H8qykqE_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDE2MSBTYWx0ZWRfX4k7Qs+FkOw8P
+ 0PrsEoF3OsXDZp196SZe0du+/bV2VxWQfXg7oTZ4PIhY5x9pg3W4xoacQavjlXfg4eQf7Xn0mrU
+ U7AVKs2pHl+u9A0OmIg0Fum9inPhvvIDJVxY3yghIVnM1EpbAkcksiwwdNCWxBL6AfMR05XYHWf
+ 6aNo6QF4MRb5BirED0iMqDnEKKeCYmckfCZ4pvFmVOZQd7vdX1cx+05yduMrGdx9zz1VZfmr2es
+ iLYoAHCCAWr/yIjUOf2oBnRKLwjsOuNo1MDO2zvV3/9YJLpFsDB1fuxC2TTFGu7n3IrZMY8kdLW
+ 4GnmFzKKmDs5/HR5Bjd
+X-Proofpoint-GUID: gD2F4IOEdixhoiXc7wk_vgJ8H8qykqE_
+X-Authority-Info: v=2.4 cv=T6aBjvKQ c=1 sm=1 tr=0 ts=6a5118b2 cx=c_apl:c_pps
+ a=nTCjdchExN1yLu2YyrcXcQ==:117 a=RAioF0-LDSMA:10 a=x7bEGLp0ZPQA:10
+ a=rgKUDq7ApkYA:10 a=95EFz5htlIgA:10 a=7vDGY0IZAAAA:8 a=pGLkceISAAAA:8
+ a=HpaqmYU79AVj1egWHSoA:9 a=QEXdDO2ut3YA:10 a=tKduxpFpAAAA:8
+ a=gIptO8Y_SPlt4jQH1GgA:9 a=l82CfZwdY1qEYXUg:21 a=lqcHg5cX4UMA:10
+ a=nSQ5VAfR602qW9vLZnAS:22 a=d4dXUV6eZJzrS-FD2bfw:22 a=zGhZ_f1oTUEa81u3ub5m:22
+
+--000000000000de848c065643ee6b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Just saw your earlier message, that was so kind of you to say, wow! And
+thank you for making those changes, you're doing incredibly cool work. Let
+me know if you'd like any support in any other way, I'm happy to donate
+graphics/good vibes! May your flower be sticky and your body hydrated and
+your inner demons be sucker punched <3
+
+On Fri, Jul 10, 2026 at 2:38=E2=80=AFAM erneststrauhal <ernest@strauh.al> w=
+rote:
+
+> hi kace,
+>
+> just checking in with everyone who=E2=80=99s shown interest in
+> duplicating/modifying the site in some way
+>
+> made some pretty substantial additions and rearrangements to the site
+> recently (way more paintings and photographs added, photos has its own
+> webpage now)
+> if you cloned strauh.al3.1, just fetch the update from github.  if you
+> downloaded strauh.al3.1 as a zip, highly recommend deleting it and
+> downloading the new version of strauh.al3.1
+>
+> all the best,
+> ernest
+>
+> On Mar 17, 2026, at 1:09=E2=80=AFPM, Kace Shoemake <krshoemake@gmail.com>=
+ wrote:
+>
+> Hil friend! LOVE and so deeply appreciate your strauh.al site more than I
+> have words for! It feels so pre dead-internet. I noticed the links for th=
+e
+> Torah and Vedas are both broken and was wondering if we could get thos
+> eback up by any chance, as my partner studies religious texts and this
+> would be INCREDIBLY for their studies. Cheers, and thanks so much! What a
+> rad project, seriously.
+>
+> --
+> Kacey Shoemake | She/They
+> Graphic Design + Creative Direction
+>
+> *(636) 541-8847*
+> *www.kcshoemake.com <http://www.kcshoemake.com/>*
+>
+>
+>
+
+--=20
+Kacey Shoemake | She/They
+Graphic Design + Creative Direction
+
+*(636) 541-8847*
+*www.kcshoemake.com <http://www.kcshoemake.com>*
+
+--000000000000de848c065643ee6b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Just saw your earlier message, that was so kind of you to =
+say, wow! And thank you for making those changes, you&#39;re doing incredib=
+ly cool work. Let me know=C2=A0if you&#39;d like any support in any other w=
+ay, I&#39;m happy to donate graphics/good vibes! May your flower be sticky =
+and your body hydrated and your inner demons be sucker punched &lt;3</div><=
+br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=
+=3D"gmail_attr">On Fri, Jul 10, 2026 at 2:38=E2=80=AFAM erneststrauhal &lt;=
+<a href=3D"mailto:ernest@strauh.al">ernest@strauh.al</a>&gt; wrote:<br></di=
+v><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;borde=
+r-left:1px solid rgb(204,204,204);padding-left:1ex"><div>hi kace,<div><br><=
+/div><div>just checking in with everyone who=E2=80=99s shown interest in du=
+plicating/modifying the site in some way=C2=A0<br><div><br></div><div>made =
+some pretty substantial additions and rearrangements to the site recently (=
+way more paintings and photographs added, photos has its own webpage now)</=
+div><div>if you cloned strauh.al3.1, just fetch the update from github. =C2=
+=A0if you downloaded strauh.al3.1 as a zip, highly recommend deleting it an=
+d downloading the new version of strauh.al3.1</div><div><br></div><div>all =
+the best,</div><div>ernest</div></div><div><br><blockquote type=3D"cite"><d=
+iv>On Mar 17, 2026, at 1:09=E2=80=AFPM, Kace Shoemake &lt;<a href=3D"mailto=
+:krshoemake@gmail.com" target=3D"_blank">krshoemake@gmail.com</a>&gt; wrote=
+:</div><br><div><div dir=3D"ltr"><div>Hil friend! LOVE and so deeply apprec=
+iate your <a href=3D"http://strauh.al/" target=3D"_blank">strauh.al</a> sit=
+e more than I have words for! It feels so pre dead-internet. I noticed the =
+links for the Torah and Vedas are both broken and was wondering if we could=
+ get thos eback up by any chance, as my partner studies religious texts and=
+ this would be INCREDIBLY for their studies. Cheers, and thanks so much! Wh=
+at a rad project, seriously.</div><div><br></div><span class=3D"gmail_signa=
+ture_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"><div =
+dir=3D"ltr"><div><div dir=3D"ltr"><div><span style=3D"font-family:&quot;ari=
+al narrow&quot;,sans-serif">Kacey Shoemake | She/They<br>Graphic Design + C=
+reative Direction<br><i><b>(636) 541-8847<br></b></i></span></div><i><span =
+style=3D"font-family:&quot;arial narrow&quot;,sans-serif"><b><a href=3D"htt=
+p://www.kcshoemake.com/" target=3D"_blank">www.kcshoemake.com</a></b></span=
+></i><br></div></div></div></div></div>
+</div></blockquote></div><br></div></blockquote></div><div><br clear=3D"all=
+"></div><div><br></div><span class=3D"gmail_signature_prefix">-- </span><br=
+><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div><div dir=
+=3D"ltr"><div><span style=3D"font-family:&quot;arial narrow&quot;,sans-seri=
+f">Kacey Shoemake | She/They<br>Graphic Design + Creative Direction<br><i><=
+b>(636) 541-8847<br></b></i></span></div><i><span style=3D"font-family:&quo=
+t;arial narrow&quot;,sans-serif"><b><a href=3D"http://www.kcshoemake.com" t=
+arget=3D"_blank">www.kcshoemake.com</a></b></span></i><br></div></div></div=
+></div>
+
+--000000000000de848c065643ee6b--

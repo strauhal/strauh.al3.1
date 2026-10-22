@@ -1,0 +1,124 @@
+Return-path: <jordang2667@gmail.com>
+Original-recipient: rfc822;ernest@strauh.al
+Received: from p00-icloudmta-smtpin-us-central-1n-60-percent-12 by p162-mailgateway-smtp-64bdd8cd9-rrv6n (mailgateway 2530B71)
+	with SMTP id 1f0b59d2-6df9-466f-82da-4c9d64e8284b 
+	for <ernest@strauh.al>; Sat, 9 Aug 2025 22:20:24 GMT
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: MOVE_TO_FOLDER/INBOX
+X-Apple-UUID: 1f0b59d2-6df9-466f-82da-4c9d64e8284b
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	by p00-icloudmta-smtpin-us-central-1n-60-percent-12 (Postfix) with ESMTPS id E75C4C00137
+	for <ernest@strauh.al>; Sat,  9 Aug 2025 22:20:20 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQEUVUKE0oWX1gHVQoPB0UCBltbQVNZSgAOTEBIRhIcDVwNBx0HGR8CAFRCOQEaGVlaTBYWC1ceVAsFGBgPG1ZTWQ9VCwVKHUJYBwYNJgQMQlcXHVcHG1hYUw4aRAsWEVwbBxFISxFNARgFGhYBGx0eVQ0YWRYDCg1bAxwVSxIcARsEQEhIEBdfUQ4QVwUYFRBSBkgeCxYRXBgBGhRGGhFUC142OCEaFgZ9VyJBVTUZeFAuWC0sOiloYDM2MzwDClt7KiNBABEBaWYyHCAxEC18VwtNOyc3FVFfDlseCxYRXBgBGhRY
+X-ICL-Score: 2.33303322423
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=none
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=gmail.com
+X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
+Authentication-Results: dkim-verifier.icloud.com;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SLINAGFp
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of jordang2667@gmail.com designates 209.85.208.51 as permitted sender) smtp.mailfrom=jordang2667@gmail.com
+Received-SPF: pass (spf.icloud.com: domain of jordang2667@gmail.com designates 209.85.208.51 as permitted sender) receiver=spf.icloud.com; client-ip=209.85.208.51; helo=mail-ed1-f51.google.com; envelope-from=jordang2667@gmail.com
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-61571192ba5so5191528a12.2
+        for <ernest@strauh.al>; Sat, 09 Aug 2025 15:20:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1754778019; x=1755382819; darn=strauh.al;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=vI1r4FRcdWJB+A7ivJ8bV2jTov52ffWT5wouARU88Es=;
+        b=SLINAGFpQbPkOyokUZNocMEpaWXB8sRA7VwGBxTtOwdvNSeDBQhEZJzogkD7XHt3r2
+         BZC+I+Fis1BJcUPZJ3rQEEUKdRVTbghfnmGyXljeeRcI7sDNyW05SsyxlgqkTCkS22uo
+         Xsc38dI6v/9ozbXK2qWYQgIVMa9aR+6H5mRNhZzSAnOWrKsJ0JXCKTXHwQu/0njJnmkr
+         1r2YZOvoBNzMJUpmE/1uM7OHciMcSGK0ODrYW1kiNeUFNeJLwXNqdBghM+wo3PrBpddB
+         iUZoAT53EPD1WrixpqZQ5tqAibpeKi22aPDTu/k418bEqYJkuhOZQ7SstNJXv0FH/7Wh
+         XOPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754778019; x=1755382819;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=vI1r4FRcdWJB+A7ivJ8bV2jTov52ffWT5wouARU88Es=;
+        b=rILUh1U0tp/witmcE+xi21yHNGVrrwEZG9LrxskhQb1Xwu7ea9JEeQlZxZrt57rUTY
+         Lj9/vtzzZIiulkSrnEJEJJsNG074fDCmE3XVCsQJOMk5Tz6HK4M7OZsJxooK7fgRNQLl
+         /bBasfPQcAJ0ImqoGh4hDk/ivpTRqkjyUPn5hc+i384k0fJIs7TzOEGxhURBpcddGixI
+         sozt7/klzcjqnvI+3eGuodqwMGdbhcW49ibvNOIIkvvYXt3i/5I3kqj06WB3fbP5m2/2
+         nc7REZEKBAHgperJsGFnJUjtM+ox47RDRdIcIaeFODHhe0sCagmyn4sdGs97NXrJJi5V
+         Xblw==
+X-Gm-Message-State: AOJu0YwXdVOrt8/+BbKvl2+A7FIQ2DZH+PDzc1Rj8yyfMWWoGYjstWhH
+	AumSsdViSwNrXnDBcVy77vJoFx/89PXL1RzPp9CT158lmTOxz2fOG9CScYE2KSEsZRP9KHmfP/X
+	bYsJrE9rpLKXRenXJKhlAmqlPdEBtzh/Rcg==
+X-Gm-Gg: ASbGncsiWu1/twDVcSDU79pMG0qpfJNtRlOqT9NqYeEvEh3GNCgHgRLT9WDighKAG2Q
+	nCUGHnTHlWe3oiBt6zV6wFF1bTqTpgaX1TrFXc1eDCWn6XVm3Qe9CwjXqI9EG7kDsQHHp7d/KsA
+	sf1HcFbMuXc+LYcyHQYWIWcpXQDcBdH1Kxt9y32rT4L6MNtY/RareszaE+qPKcwPtu29BKBjQu4
+	BaiRJSNecIi2boT5hT5ssse04TB7cKOWiX0abya0g==
+X-Google-Smtp-Source: AGHT+IHx1NpZkVfikpmd9vynZ57n0Ygj5w3Iu5nzQrXuWiJLcpVh2vRe0fJWpuL7NPwKO/fP1Nj1RGqFT395NpIruzs=
+X-Received: by 2002:a17:906:9f91:b0:af9:10c7:59b6 with SMTP id
+ a640c23a62f3a-af9c6517d35mr648498466b.32.1754778018718; Sat, 09 Aug 2025
+ 15:20:18 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAGmn6K59S8Lk4xTO6tkZ7RbgbOvav+vR=bSUCapk+i=+7-+62Q@mail.gmail.com>
+ <C2F2CC93-46A0-41DF-B8DE-A66BA5DC552C@strauh.al>
+In-Reply-To: <C2F2CC93-46A0-41DF-B8DE-A66BA5DC552C@strauh.al>
+From: Jordan Gee <jordang2667@gmail.com>
+Date: Sat, 9 Aug 2025 15:20:07 -0700
+X-Gm-Features: Ac12FXxkzxj08Yx23wkYSXSbxTh5M7Tc8gA4jad4Y7Lh2yfT6yNCevPD0SEULT4
+Message-ID: <CAGmn6K5W83BaHfL-TJMQXVQCJZtrkMHV8ffyYPPiYWgULai8BA@mail.gmail.com>
+Subject: Re: submit me daddy
+To: erneststrauhal <ernest@strauh.al>
+Content-Type: multipart/alternative; boundary="000000000000772687063bf618f9"
+X-MANTSH: 1TFkXGxoRCllEF2B9UxhhfG1aGWB+EQpZTRdkRURPEQpfWRcfHhEKX00XZEVETxE
+ KWUkXBx5xGwYHEncGGRoGGgYaBhgSBhpxGhAadwYaBhoGGgYaBhoGGnEaEBp3BhoRClleF2xse
+ REKQ04XR057GX1yeWRIR31tfWh+QWxQRh1QB0hPUGh8Rn5dGEgRClhcFxkEGgQfHgUbGhoEEhg
+ EHhgEGB0QGx4aHxoRCl5ZF0xQfR9rEQpNXBcfHREKTFoXaE1ra2sRCkxGF2JNaxEKQ1oXGBoTB
+ BIfBBgaEgQfGxEKQl4XGxEKQlwXGxEKXk4XGxEKQksXY1Nja3sTWH4aX14RCkJJF2NTY2t7E1h
+ +Gl9eEQpCRRdsSEB7WFlMTU1DUxEKQk4XY1Nja3sTWH4aX14RCkJMF2FEHUhobB9NbVxpEQpCb
+ BdpXnllZk0dTWZFaREKQkAXY3h7fxhnWB5PYHIRCkJYF2R+cxwfWmRmXmBHEQpNXhcHGxEKWlg
+ XGBEKcGgXbxoSYGFbbBppSR8QBxkaEQpwaBdgGUNfcn1THx0BexAHGRoRCnBoF2IbYXxBXGAYb
+ nB5EAcZGhEKcGgXelkTG3xwWxseXk4QBxkaEQpwaBdiSUwfTkNOGGxZWBAHGRoRCnBoF2IfcB5
+ kTH1JSUJeEAcZGhEKcGwXZ0VQeUh/a2BzTW0QBxkaEQpwTBdvc1h5T25tBWsFexAHGRoRCm1+F
+ wcbEQpYTRdLEQ==
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA5MDE3NyBTYWx0ZWRfX3kejCXHY7a6S
+ cIU8uq409jFqhDTlCDyNzkjmqcWvfLNJMrrtEDAafuo5aEduWOj46VtkkXH/4LdxqdYPG226LfL
+ mg0nQvKlMJpNpQji7LtKcgekEp3xH0c7mQ83wwOhooF25QHqURBppJPU7mMIfKVfXPQNMgwHasC
+ 7BBuiepxhRgNx7D3oxv6TvAU72Xka39fhgLzRu4abkQPqw53a9PeOHfWgLfXWUk/9uOIcFDdJaT
+ S2LkEqgcjy0uEAoRKaGFxn2ail0lXEL5O5B1q+gTuDB0q7rNJsRiBy3U1ZBEPZZdnxdWCAKeg=
+X-Proofpoint-GUID: mdQ3WXSNbmWGWBTkFzl7z-bezBVlTw2b
+X-Proofpoint-ORIG-GUID: mdQ3WXSNbmWGWBTkFzl7z-bezBVlTw2b
+
+--000000000000772687063bf618f9
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Drive threw.
+
+On Fri, Aug 8, 2025 at 6:14=E2=80=AFPM erneststrauhal <ernest@strauh.al> wr=
+ote:
+
+> awesome , really cool;  do you have a name and title?
+>
+> > On Aug 8, 2025, at 12:48 PM, Jordan Gee <jordang2667@gmail.com> wrote:
+> >
+> > =EF=BB=BF
+> >
+>
+
+--000000000000772687063bf618f9
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Drive threw.</div><br><div class=3D"gmail_quote gmail_quot=
+e_container"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Aug 8, 2025 at 6=
+:14=E2=80=AFPM erneststrauhal &lt;<a href=3D"mailto:ernest@strauh.al">ernes=
+t@strauh.al</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">awesome , really cool;=C2=A0 do you have a name and title?<br>
+<br>
+&gt; On Aug 8, 2025, at 12:48 PM, Jordan Gee &lt;<a href=3D"mailto:jordang2=
+667@gmail.com" target=3D"_blank">jordang2667@gmail.com</a>&gt; wrote:<br>
+&gt; <br>
+&gt; =EF=BB=BF<br>
+&gt; <br>
+</blockquote></div>
+
+--000000000000772687063bf618f9--

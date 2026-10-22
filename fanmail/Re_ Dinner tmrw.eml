@@ -1,0 +1,167 @@
+Delivered-To: estrauhal@gmail.com
+Received: by 2002:a05:7110:1315:b0:2ef:922:58bc with SMTP id i21csp415331gee;
+        Sat, 7 Mar 2026 16:27:21 -0800 (PST)
+X-Forwarded-Encrypted: i=3; AJvYcCWnIdfCzbkMjmE3wbqryFqHW6MSCyga8gkgLTYK5dR8LmTcjyu4jbWwQlesZZSyP+8akS095NNDNFM=@gmail.com
+X-Received: by 2002:a05:620a:c4e:b0:8ca:3c67:8914 with SMTP id af79cd13be357-8cd6d52d54bmr856584385a.72.1772929641121;
+        Sat, 07 Mar 2026 16:27:21 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1772929641; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=cNwxpRzrOCTu3whzaRfXSe62vkFYZGL+pmkROog/mRehQ9VGPfG6mv8/7lcy7wL2ll
+         HbhOTO//kC50kwJBBw1Pxdxv9HzUO+J1TL89ZBN9Ed3UJfEX4Q4z5FKhfyf6UWR/QOvc
+         Xv8EoNpqU616GweC4LZ1pmzRSSQXrsQO6lgjc4HLJEiua8o/5fd1neiNdJtfD9B8k8+x
+         OgNm1518gyrCDA6jL+hbVAF16/b4cbL9H6ht3ErSjy9AMXf8Lnt3OReMy+qN2MJU++xE
+         VjmC6ik3IyAcIZzslH4d2XdQ/jSaZAjcpfYZANa3T8umBQHZ+bFxqqQzW7bWkHB0piZF
+         YG5Q==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:references:message-id:date:in-reply-to:from:subject:mime-version
+         :content-transfer-encoding:dkim-signature:original-recipient;
+        bh=olqHYy+9L+lnhGRKh5wmmTQgy2FCqxKkZlpwN56GY8A=;
+        fh=iTsocPkwoAf4/iJQxuzV1A+HgP4OJVqjQr8y/x+9YpU=;
+        b=N0NDNQAn09FTlzK2XUg8z+2cSzxC3Ia0QytLn4LgcqlId8FsT3wPhppHGiIGMXuwIA
+         mxxxGDvQ4zZk7gKBGi75IPEvi8uvq7bDiDBHjwL6K1ECdpHa/kqIJzqeDCCdZUOHQAb2
+         yiP0hBJqJ80styObU7nk2Q1FvaFu4cQdGMs5kZcXp0kvxE+DwhuEpuTstBMadTSy51QD
+         Am4C44B94MoidgeEdBK1eg+6ypwuXU9cM7jBcenMu8tL/O702sBmGxDG0qgl8IH0YuL2
+         VNE/FmrYtAnhIgdbEU/oNHehfOGmpcGofnnVGNK7QS/wpq7BrhGFB4qG5WGe8Uf8XyK2
+         M1BQ==;
+        dara=google.com
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@prepare2rise.com header.s=google header.b=kaYHFaFP;
+       arc=pass (i=1 spf=pass spfdomain=prepare2rise.com dkim=pass dkdomain=prepare2rise.com dmarc=pass fromdomain=prepare2rise.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.90.222 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prepare2rise.com
+Return-Path: <ernest@strauh.al>
+Received: from outbound.ci.icloud.com (ci-2006j-snip4-1.eps.apple.com. [57.103.90.222])
+        by mx.google.com with ESMTPS id af79cd13be357-8cd838e32f5si19328185a.175.2026.03.07.16.27.20
+        for <estrauhal@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Mar 2026 16:27:20 -0800 (PST)
+Received-SPF: pass (google.com: domain of ernest@strauh.al designates 57.103.90.222 as permitted sender) client-ip=57.103.90.222;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@prepare2rise.com header.s=google header.b=kaYHFaFP;
+       arc=pass (i=1 spf=pass spfdomain=prepare2rise.com dkim=pass dkdomain=prepare2rise.com dmarc=pass fromdomain=prepare2rise.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.90.222 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prepare2rise.com
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-4 (Postfix) with ESMTPS id B0BF3180050A
+	for <estrauhal@gmail.com>; Sun,  8 Mar 2026 00:27:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; cv=none; d=icloud.com; s=arc-0513; b=iD/Gziy0O3pDbiE3xRvjsvQiGBWUQuE/6ykGYclqo8SK/DUa3Zeu8arBoLZOQL1kyl6yY3dJqZkweAj7G2NVuLf1mWNBf84fqvyaZFsC+iGwU6gv8SW639bXGq+HaWg3mjRnSJwMSr9qiDOuqFgy4W8WukYUbO/kzD5HC/L354c+DuipWTOjTz+0QAO1TkJREA+0BuqRIkLaWulJWg7tc66zmbJKVP9/ncvSlPKULBYbps3yWYkVadqzIh+3YV4g2feHeIjySvMzXe5bx5WMth6XdCAAdi9t5MjUkvzPQWwcsfMkqk5Wij7jidNpnfwD6mRiGzFSSDaCom+8PCSbqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=arc-0513; h=from:to:subject:message-id:date:mime-version:content-type:dkim-signature; bh=olqHYy+9L+lnhGRKh5wmmTQgy2FCqxKkZlpwN56GY8A=; b=UdohE9Q+0b2YgKcH1Bw2Wfww9ZuQSMw+SX7teGc4X8J+QHmT7A4z/aOmjs7oPjdIaF9vAeq3PjjUTUMGgY8YLMMGZn6yVTkQzzKhBhajhGaf+pJQN9c0LtByOLiq0j0ocZnYH2BTX0Esgw0OCmwdEeRjlXZgyRMnPdtz8RDysrDGxYk82aAKHLulQr6PqY3n9FlzsTlDXvHGkBv0zTlAj9pRAIROY2SuZTFduvp4Jr3G+/4MaVMvsHrYtUKx3ucVO8ChKpWfFS18sY4+vPgGoVml6c0DA2dMrAAjpQuXmMMgeQzoR8tsWWx2vYiQVEcBgszwUC1nvOeTBlXeR9yF5g==
+ARC-Authentication-Results: i=1; arc.icloud.com; arc=none; dmarc=pass header.from=prepare2rise.com; dkim=pass header.d=prepare2rise.com header.i=@prepare2rise.com header.b=kaYHFaFP; spf=pass (spf.icloud.com: domain of brandon@prepare2rise.com designates 209.85.210.54 as permitted sender) smtp.mailfrom=brandon@prepare2rise.com
+Received: from unknown (unknown [10.168.160.104])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-4 (Postfix) with SMTP id 459071800508
+	for <estrauhal@gmail.com>; Sun,  8 Mar 2026 00:27:17 +0000 (UTC)
+Received: from p00-icloudmta-smtpin-us-west-1a-60-percent-5 by p162-mailgateway-smtp-c45f594ff-bvzp7 (mailgateway 2606B152)
+	with SMTP id 5f932464-6252-4008-989d-6f1e3e72ea41 
+	for <ernest@strauh.al>; Sun, 8 Mar 2026 00:27:17 GMT
+X-Apple-Action: FORWARD/estrauhal@gmail.com
+Original-Recipient: rfc822;ernest@strauh.al
+x-apple-request-uuid: 5f932464-6252-4008-989d-6f1e3e72ea41
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+	by p00-icloudmta-smtpin-us-west-1a-60-percent-5 (Postfix) with ESMTPS id 94828C00150
+	for <ernest@strauh.al>; Sun,  8 Mar 2026 00:27:14 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQEUFUKE0oWX1gHVQoPB0UCBltbQVNZSgEGTEBNRhIcDVQQFBcCGBZwRhAQCQcFHQJECwYcSBQXXRYEEUQWBR1AVxAQSxQeC1UYARoURgUbDVMQGxwVAzhDQhAUDA5ZGVwWChAVCUoVUV8OWBYSRlVWA1ZbHgkYH1xTTBYWC1cIRERfGBgPG1VfQlNYH1NDVldZDRIVA1kbX1tCER1bBwpVRgMHHFQFEUNTTBYWC1cVWVJfSU0lRzsIBVpMVCBPPAcbVkJNIlo6CAJbWDpVMj0FA1I3OiA2SnBGEBAJBwUdAkQLBhxIFBddCA==
+X-ICL-Score: 2.33303322422
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=none; r1=-20; r2=0
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=prepare2rise.com
+X-DMARC-Policy: v=DMARC1; p=none;
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=prepare2rise.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=prepare2rise.com header.i=@prepare2rise.com header.b=kaYHFaFP
+Received-SPF: pass (spf.icloud.com: domain of brandon@prepare2rise.com designates 209.85.210.54 as permitted sender) receiver=spf.icloud.com; client-ip=209.85.210.54; helo=mail-ot1-f54.google.com; envelope-from=brandon@prepare2rise.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of brandon@prepare2rise.com designates 209.85.210.54 as permitted sender) smtp.mailfrom=brandon@prepare2rise.com
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7d7412cfb9eso284272a34.1
+        for <ernest@strauh.al>; Sat, 07 Mar 2026 16:27:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=prepare2rise.com; s=google; t=1772929632; x=1773534432; darn=strauh.al;
+        h=to:references:message-id:date:in-reply-to:from:subject:mime-version
+         :content-transfer-encoding:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=olqHYy+9L+lnhGRKh5wmmTQgy2FCqxKkZlpwN56GY8A=;
+        b=kaYHFaFPZ5tXLqyHmbBhI0FKh/BxgO8cTBOXPXGYHW2+T4MH81aNZ4Uk+K2w7sKv2S
+         itM6JyPI8PzalZaMV/Y6xe+UwQo62ou82x3cg96XsJpvTkyYjbIc2UEK5wQMbPYt7x/i
+         nSRtMkxvI7/Jphc4Hi/ythpeoQVegmHkqjfhY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772929632; x=1773534432;
+        h=to:references:message-id:date:in-reply-to:from:subject:mime-version
+         :content-transfer-encoding:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=olqHYy+9L+lnhGRKh5wmmTQgy2FCqxKkZlpwN56GY8A=;
+        b=gDtAakALMR2f8OWkexYDOJ2ai40oUokp0A3gMwS8Xb8Z4lL8pP1iuPNS4MHy0gFodo
+         d5R1Ic+3+ysx2WncjCIPmWQS09XK2E3PNeZUuYo9NLrLHgNKzimkdyT5/8DoxlcqwOtc
+         Laz+DOwBtVDqNzyO0IFFx0+qkyG4j/ePrhN4TtzQqjAscpUetWWM9y0+ykQWifg1502j
+         Xkbe9pWanvsaQOE+hsXq3vieNgvNIrizkZ/6a6AODh2K3/jybE9eEYUtfKzd9RiK0/Sk
+         yG9VuC5CKTX4jEU8DkF2Cymjc1TsclMoqqr3LKM/4PYVXvIIRZrm9yUD18XXi+yAsujU
+         oU9A==
+X-Gm-Message-State: AOJu0YwAHrFSrqN2CHKVfbi+AITK2VjAYcDVKL7h8pz96I6v5NHQEX94
+	2X5ul2FN+KuaDvqJaknX+2tt4EE6GEjlLhHZ9ueNzmNR/Qa1OTlfkSyNg3Vu4Q5J2Y4J8AbO512
+	WYr6D
+X-Gm-Gg: ATEYQzw2XjTsH4mr3JNO7szQIh/KALY6bf1IlKXnSaeiEfpNoC3H8ilgvacrEDiFr80
+	sWNIHlVPQgwg4ArhsVgYCpw0YKsorqFygnJP2x4LbtuB9CPADk1i5UMKQFFZ2eNHYY2QSD5MAX4
+	iVgZTKiNOS8f8fNlAGpis8WqelsQ10CfhMRepZB+01A3cKN06lND8eTKMPQcTsaBTOZ3ZeL/3RW
+	dd0pPbZV+e7PfuYqWy2fvkdKJ/NbwDS6hAzCwbIxRKmsKyhjmZ18kXegw2bmX96OIysK9H4HPTC
+	b6IW3jIF7XkMHpC0s+yI0eI8iY+ybhwG70H/leQQstCT7Sh/Ktuw8EDvoACMMvcUKKcqJ4ab4oD
+	CEmicjAL48124lur3vEM92vAHZb+Oc5jflqNXZn6iWp5dHIQ+510Dmap4PBVH05KiLve/Z+hbEq
+	ZMeG6OuIvPpBNLEIooF4fD+uCaUAwC2PDxvsGGnZnTBBH26CPrL7jpBou2RQx8w/HIcNhJK/Fgs
+	bvFZqef87YXFd96nAM=
+X-Received: by 2002:a05:6830:254b:b0:7d1:95c7:f4cf with SMTP id 46e09a7af769-7d726f5d3dfmr5412200a34.14.1772929632320;
+        Sat, 07 Mar 2026 16:27:12 -0800 (PST)
+Received: from smtpclient.apple ([2600:381:5b21:b563:c85:2e20:1125:49a6])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7d728d438f2sm3969976a34.29.2026.03.07.16.27.11
+        for <ernest@strauh.al>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Mar 2026 16:27:11 -0800 (PST)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (1.0)
+Subject: Re: Dinner tmrw
+X-Apple-Notify-Thread: NO
+X-Universally-Unique-Identifier: 794A65C0-3538-47E1-BBE4-050F30B118BD
+From: Brandon Crookshanks <brandon@prepare2rise.com>
+In-Reply-To: <13F33FEA-677F-4692-B78F-9D0692BD4CD0@strauh.al>
+Date: Sat, 7 Mar 2026 16:27:00 -0800
+X-Apple-Message-Smime-Encrypt: NO
+Message-Id: <4C0C8389-F8D7-474D-B849-C3EE550BCFA2@prepare2rise.com>
+References: <13F33FEA-677F-4692-B78F-9D0692BD4CD0@strauh.al>
+To: erneststrauhal <ernest@strauh.al>
+X-Mailer: iPhone Mail (23D127)
+X-Proofpoint-GUID: ccZMaLawDkmzBcTQyNuE4OnaHT5vEInX
+X-Proofpoint-ORIG-GUID: ccZMaLawDkmzBcTQyNuE4OnaHT5vEInX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA4MDAwMiBTYWx0ZWRfX1G1YocZGdMax
+ c4JpTJW9YXMrosAAwV3PfFV2qh5ucGpt5OgGjGkYUsg9xZn8Aa3wR9glhcupP4+DAblPe+4jrdg
+ u7GQLwJYREgHJ1KIZZPYypw8ZBkJIib8wJ4E7Ig0FZYbMygP6//VzzXCWPmmWY4QD5ktzdBkJS1
+ LWJ69DkQ7B37OQ8XpXscn2RMANYS+lmuYSCIlnfD+HDsnWxRbRnsEwUOtjwpYBscJ4fcCfL98c1
+ mkPEyyXWSjwUhGB/2e9RQ9zEb4Nf4UiaPz4HnD75qarI8QTcmSGRQYwHveBSynrpy0vN4+6X0lO
+ UMX50bi+eFb4eVGeL1EhxaGiEzDsHX/VEb5PkD+MbavCzDxTiyry9WcBF/D/Wk=
+X-JNJ: AAAAAAABM4TFlC+n6KGCpOUCLmr2AFB+xYCegG4/Yew5pQ1nm2qNoUZq+potQVPM/XB0PuP2P2+93xtUg86/LI7nv1npxW+xIf7EFSbfea5H7AORX5nf5Bc8AmkxEa7E8ZktsnOXQ4WqBtU7wJvNHDe++SBchAn/3+rR/eY2Mr1Tj8usijRYvyd53gOq1CuGN93GP8njgYLq6DDdti6GZkmLZXaHuDhGLfQRJAA6aPdcIPl/zfHbvu4dLsCeulQ7WnpvEKZciglzgVg3LnuVtZKIhD0JQrmnChFR8hvP+xMnPtOx6AmxO7I0W9oP6rR8+gVk4AcCWBw6gd/57HflQCEeR5nrKJxLxhhq9b7PC4Dq/vEUuNJWvIDe/9hmApnBJkN+3k8ke56pneYsqxsyFbGDiI6AZfbs3WNl/pbPfuNFOLcMOCQ7g9ArQ64dbJezmUKEl4kgTsgILjF2JCB3Nvrqtvk4VfBVGeB37Gxw2XK8ICEXMiq85a2Ctj5qRWMIEDgJkdehG0XPJrmI+ZjYEUeputc0aF+Sg+v8RGLfXsiQKlrzDfq6YTJLLrcT9TXoztkeQOlOOHResQ2X67nnNzj4/uH3xNx65mjJQgYlt6hVsSOlJh4Utagw0hPIzdUUCUe6jMik+FsyMXnYcuov6sKpW5ecNTLzM418VuNZj9/ZOwj/M8G0IP+i8VkulTPDMNa+oW+XMweIfNiwGNaLuVtQFmDQVo9OVXRBY9PxakrVIRxCqoRmNgFHDYKRMhx6AkY26IHzv4motprQSkBwH4FgSJCC3Y5jnOPtzE4fqIZraaB1bBjpN2u3PYY/lJbI7Q==
+X-Authority-Info-Out: v=2.4 cv=ArvjHe9P c=1 sm=1 tr=0 ts=69acc266
+ cx=c_apl:c_pps:t_out a=T0mU/zd77MEem+zjWCBf6Q==:117 a=xqWC_Br6kY4A:10
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=3Ehdl_PnrTUA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=r9OMnD7i88e92jsdYy8A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-07_08,2026-03-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ bulkscore=0 lowpriorityscore=0 mlxscore=0 mlxlogscore=673 spamscore=0
+ adultscore=0 suspectscore=0 phishscore=0 clxscore=1030 classifier=spam
+ authscore=0 adjust=0 reason=mlx scancount=1 engine=8.22.0-2601150000
+ definitions=main-2603080002
+X-JNJ: AAAAAAAB11hW2N7iLyivGDDhr74aBsKdGud3i/VxDwR+hQmV5stxxxbGQluDl1vRLKMTEZTPrU7rTIOUZcBO0Xj4KenoLoxs4aK6JfFRnBf/FUHDdxioH2EW/irBemqc1ccEmqAa3oC+Zrw3n7fIYnn4w2Da/kBBA/OguJGJuT9+uFTtkfsiNG1VNIUc6iG1ZgOwU1AQMuHuZUPn7YK0QZwjo+gbR+fNkJ2jWdpuIVAXYgGua7XwaMPo62eGUlouiW+DJ7OaGzheFWrpjnM28xtkRR/BWIY41SjPVWXwg6Cz1qot1GYI4FO61arslrjYde6Dd6nPTZUhfkRPr/QJvQV06gunyeVm3MTa5B3rSnVThe3oxj4UGgXV/4AFktyrwo1wKO3Gk8LmhbuaaWQeMShMy5GFh4ZQgMIBA+yj4DXVnzjeHVHqD1SULG1f06Kun12f/IWdHnWgPv23Bguu92BxDvSquZvzH9ocMh1bsYWWkQlLRtJUWABePYYDgR0mU+pg2CNxyG9Z3mNfpiSm3N7lWwDyre3zOvDVAjtJKFzbkb4IMrjIsWs5xqgVeioWQZEuHYJd021epU7qWM5++H/wRgYzg7P44Sc/W3bh7TnfMW8jnUMGZrSe4nM=
+
+Just saw this. Appreciate the invite. Out of town today
+Sent from my iPhone
+
+> On Mar 6, 2026, at 13:49, erneststrauhal <ernest@strauh.al> wrote:
+>=20
+> =EF=BB=BFhey brandon, always great seeing you at peet=E2=80=99s
+>=20
+> mark just invited me and my girlfriend to dinner with him and his date and=
+ he said it=E2=80=99s cool if you want to join us
+>=20
+> bring a wife/lover/gf if you are so inclined
+>=20
+> it=E2=80=99ll be at charm thai at 7 pm
+>=20
+> all the best,
+> ernest
+

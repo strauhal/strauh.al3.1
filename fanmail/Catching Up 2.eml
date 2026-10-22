@@ -1,0 +1,138 @@
+Return-path: <12ryanpierson8@gmail.com>
+Original-recipient: rfc822;ernest@strauh.al
+Received: from p00-icloudmta-smtpin-us-east-2d-100-percent-16 by p162-mailgateway-smtp-c45f594ff-vpdf6 (mailgateway 2606B152)
+	with SMTP id ac4533fe-1ba6-4974-9318-bfe21f50f806 
+	for <ernest@strauh.al>; Sun, 8 Mar 2026 19:30:26 GMT
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: MOVE_TO_FOLDER/INBOX
+X-Apple-UUID: ac4533fe-1ba6-4974-9318-bfe21f50f806
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	by p00-icloudmta-smtpin-us-east-2d-100-percent-16 (Postfix) with ESMTPS id 3BADDC000AB
+	for <ernest@strauh.al>; Sun,  8 Mar 2026 19:30:24 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQFUVUKE0oWX1gHVQoPB0UCBltbQVNZSQYBTEFBRhIcDQdQBwAHGQhZUxAGFghPOFdbAxwVSBQXXRYEEUQBGhlZWkwWFgtXClMLBwcXAwQMcEUWBxgTH1ZRWkIdHAoYRV1XCxlUChFJHVBWTVcBGBdXWgdbGgkaWEBCEEgUBx4UHVoERFQAQ0AeUQ0aHgoSVlNZD1UdAkofXVcLGVcFGBUQWwsRRFo0OXsEEjEyJBNJYmQARk8DMCBiRAwqDSkRDgl5VkQ3H0YrXmYxQQFRJy4IHSwiESdPCHF2DxQQClkfXVcLGVcFGBUO
+X-ICL-Score: 2.33303322433
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=pass; id=mx.google.com; r1=-22; r2=1
+Authentication-Results: arc.icloud.com; arc=pass
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=gmail.com
+X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=afoub7cD
+Received-SPF: pass (spf.icloud.com: domain of 12ryanpierson8@gmail.com designates 209.85.167.48 as permitted sender) receiver=spf.icloud.com; client-ip=209.85.167.48; helo=mail-lf1-f48.google.com; envelope-from=12ryanpierson8@gmail.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of 12ryanpierson8@gmail.com designates 209.85.167.48 as permitted sender) smtp.mailfrom=12ryanpierson8@gmail.com
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-59dea72099eso5505167e87.0
+        for <ernest@strauh.al>; Sun, 08 Mar 2026 12:30:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1772998222; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Wy0gGnxArPj4XgKcw+tCDcuR1fNqLofiBjt2UfZwylGdILSrS0ijLU33EuYrUy20EO
+         OUlatIdx+6FmLuXGgT6eIY8qABTTTCGS4hn33e2dYVMsngTycfUqITjPkevyYVvTqM30
+         J3z1BGAFHCJFO/1MVdBBsSp0hUWMdTK+mn5R68r9Qp80nEZOlVv+xrIGnhB6mfDzUkpg
+         BKOQlBIJC3ELaT+AkLK0QrCGMw7hc9xKaMFDG4MI6V1ZUmd65dG5B5v9w0R02EAhdiHI
+         kLNvWyLwIzN6jUYo+ddIU4L0mxO8GMcEj/zfsly74RtTs90w7a0HSJlxc1PHXEK7rEOz
+         qa6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=6TMZ27LJHCSG6cNjDBNF/nrs0AUoML0Du7x1LYpaKjc=;
+        fh=7IE/ytSGXT6hWg5MYW09AQztlqLXR7gnnHXGJUZJaFM=;
+        b=Z54FHirxFJuLoOGrymHeXfe0+l1IznI8qXLVBzJKuUf1op+hs8ekCSJvU3eQsxmUVL
+         6Npez3CcfG2UHoj8EXa8clsLMOUGI5ypCZX75481F2sK1+lSbWU8U70Dbo+wBrxbNoLY
+         mggpnxk+Bkk7tOZK4VuCcFg3SiP1j5ekKbphDFSWa+DVjeeGe33oIguz7/HIJotuVQbf
+         /yiMujOdU89WgCOBUCnNps1symIB1s+moyUwU4aI4fpXHkx5nEt7Bw6UEPgGaJm1xfpG
+         E553NQHuaQK3Zq2z+vQrkBj5C9Joz6F7mjE/BuIdW8nriAeg4IJhfSY/nBcGXqcIN82r
+         34eQ==;
+        darn=strauh.al
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1772998222; x=1773603022; darn=strauh.al;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=6TMZ27LJHCSG6cNjDBNF/nrs0AUoML0Du7x1LYpaKjc=;
+        b=afoub7cDZdxBQih+/SNWUapdgF4yMsq1FXAQoMKpOZ+un07V9Eao2TzbeLYhZSXqcI
+         YITklrhnF+aZnfR11Oq1TAAWL0eYVk1tYkk6q+OfK06bZ3WvLLzgkSEuV16tyRfwihTV
+         nGhKHj3kJx1WW6zYS+zcDjsN76Urq2mTdVCJQaqdpTJvm/apgdmvlGyw8Wrz1Pjtq8qK
+         G9px9HBdFN+gloCUrncRFwiqLwv5Vb2XlrNiMtNoSsIVKBQ4ZPxFIqNPsSrmyLYTjGax
+         QUhDpmPUpC1fPVYIC66HjgXmmx5L3gVU71mH3XyCOv9y7d8mQw0wRJlY7WcyyQ/16v+6
+         FEXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772998222; x=1773603022;
+        h=to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=6TMZ27LJHCSG6cNjDBNF/nrs0AUoML0Du7x1LYpaKjc=;
+        b=X3o+qeXatYkrA/BXslVsOVS7P1YLGXMCVclXfH4fzCSM5qLIpT1Ey/wk8Qa0xSIRUr
+         UlpKK3LFz0qSA5dOBrJstBjYyVm9HUh04Oaby3Li7AbRQVBFAB83/1nkC003Bo4gq7di
+         WNoTju36jnnWmK2lCBKk9+Cys/DwC62Ydjnj30vfOfqksKdgla11qW4KPHX2rXMa1HCk
+         OMXBRhKSAUXgHmthBaJVag6rT1SOQ0KylYB/BDZofcvG6xLa8Ey33uJ4d2GQ3dFF1bUS
+         BZjzBHaSEIDBczVF5JUEOlD2gfZYL8tX6eGmaPxBvTTWAyNTQpgGTn47f63OEMcOxZDp
+         2QBg==
+X-Gm-Message-State: AOJu0Yztk8INsfZeAxfeOYLpMu8/xWe8U41ohYcP7DfDOf8rNZ3V4IJS
+	CwXJQTxzuZoATl0a6gtdfB9OkFHAP1PDulUI1wf1zqmWdzbIRv37gend9l8sIqn6U/UIbmFTs0r
+	ND1dn2dNjNpEKNWABssvEYOIhJEAB/t3Pb07SCGI=
+X-Gm-Gg: ATEYQzzL6E6sojwzeQwP3hUvzuqb0x1ddLKCt0F3u0oCCcHAbdL6sf3OEifByzf/xcn
+	Bofa7eGxa5OhmwzWJn8UN6LjXcbPHWZYYEKBtAo7GK5inoTs2ILiRnV7hPwWfgDXvQQY6iqB7/F
+	uhkvoTTsU53eUsvh/WhIbsjnMg4w/MdQ7TxiS+LIROr8WLj9OJ8tHQf6Jl2StzSLdkNGotVOJVB
+	S7MHYEAHwhfY1OqKTYz74Bcyt0YGHD+pqpw8lOgyILega1bebQiJOQI3CuL0tYaKmb1QU+1dtLK
+	LQtNdIeYtYP9seMANQaL//be/yi8ZJR8TaIDrIlqZzO/1gQIxnCY
+X-Received: by 2002:a05:6512:3409:b0:5a1:23fe:b04c with SMTP id
+ 2adb3069b0e04-5a13ccb9aa1mr2653122e87.18.1772998222339; Sun, 08 Mar 2026
+ 12:30:22 -0700 (PDT)
+MIME-Version: 1.0
+From: Ryan P <12ryanpierson8@gmail.com>
+Date: Sun, 8 Mar 2026 12:30:10 -0700
+X-Gm-Features: AaiRm535A1RGcG7xdvJB95pd6sgb5yPy1T3fZ8Jt2LhmJXVBvLsvBRu5OLaARlM
+Message-ID: <CAK2pDKBd1RRb36eGXRrn_tOfv9O41Ny1SnPS4x7PV8+NWhA8pA@mail.gmail.com>
+Subject: Catching Up
+To: ernest@strauh.al
+Content-Type: multipart/alternative; boundary="0000000000003ae677064c885184"
+X-MANTSH: 1TFkXGxkRCllEF2xffRhYAVBkR1xQEQpZTRdkRURPEQpfWRccHxEKX00XZEVETxE
+ KWUkXHh5xGwYSHXcGHh4GGgYaBgcYGQYacRoQGncGGgYaBhoGGgYaBhpxGhAadwYaEQpZXhdsb
+ HkRCkNOF2hrb2Vyf3BPGU1kXmhTX2hbWmsZS0JFB2QZbRpQH3lnEQpYXBcZBBoEHx4FGxoaBB0
+ aBBsTEgQbHBAbHhofGhEKXlkXTR4ZZlkRCk1cFwceHBEKTFoXaGlNe2sRCkxGF01rEQpDWhcYG
+ hMEEh8EGxwdBB4SEQpCXhcbEQpCXBcbEQpeThcbEQpCSxdjU2NrexNYfhpfXhEKQkkXY1Nja3s
+ TWH4aX14RCkJFF2seE29SZUVgZVltEQpCThdjU2NrexNYfhpfXhEKQkwXZx1aSHhdbnllSXkRC
+ kJsF2dNXEVzTlpsSxsFEQpCQBdubER6HxscR05SWREKQlgXZH5zHB9aZGZeYEcRCk1eFwcbEQp
+ aWBcYEQpwaBd6WlkZTF1NHUNzfxAHGRoRCnBoF2gbXRJIYGR5RkxYEAcZGhEKcGgXYHxhaGhhG
+ E1pfk0QBxkaEQpwaBdnbW1OYgUTfnNZRhAHGRoRCnBoF2FTQ0l+QRxzWUBuEAcZGhEKcGgXYH4
+ FTkleWXl6aVIQBxkaEQpwaBdlGmkaeEl+BVhgWxAHGRoRCnBoF2JfWWMaEmVpc0BnEAcZGhEKc
+ GwXbUBeUlJ8SXoFaHsQBxkaEQptfhcHGxEKWE0XSxE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA4MDE4MCBTYWx0ZWRfXwRhFL83HgYQV
+ 5f4VhM8ROMsqoSutwx09MbyDXwQ4cUNCYET16KVKnvpuCWwTfrB22UUHKv1QRjyibgK8UuJ5tTz
+ TyB5yhEkf4Tb/jez8AqxAkFSFCTWJj3k1leKYID4yrK5iEakPGJB1WwPQJ/rphuhWY2dDCN2tVa
+ xM7+OU3/Kivu6GA5N9EfFHgzRsy4HjjgB7niquskeq//xYB4UCuh57v3WBA5bKcRgANaOADiVKX
+ 8iPIu39im+EpKoMx/kkKXliUALqvzuwi0DAvkTLy1/tXcz19B6mXlOgPRiDrq0me1vvWLsCwx7K
+ jwNpQMCVNQv3GrRikDB
+X-Proofpoint-ORIG-GUID: BAEOXUZe3gNtByuBqpA3aho-N3G0z5SM
+X-Proofpoint-GUID: BAEOXUZe3gNtByuBqpA3aho-N3G0z5SM
+X-JNJ: AAAAAAABIu+gGGF6MnEZIuIbUTprC+yUW8azCNowyRsjtsBFNP2XWQACLEt7yRCkivmqwLg314u21S4T3OlYdPn1YDTfDCvTLoXeeDMoF40ot2qFfqQ3NOHXf3/FbI72aErScnyJqD+Tr6G1BRmLWuJ05655BXHNql5ppUOmCkLvPsaPkwqc2rw3z4WFzvSX3KEe2+bjk7N/VlJU7RHBiLNkPKyYAtIo6CNr1mBbFDM3+OGaaa2Gj3+yJdYQ022Vg+UdSEqjv+NbgHUPJKULccyV983icxvdeeN3s34DDmk+NsGgPxmFWmQqeh4A/WG1jd2K83MuQs57gCf04FGbBNZm56JgPmCqlycaC2HusoE4fpVTBF4rSbRzWRFGSYXbiJCrpLVFdlc0QZfVSz0FV9S0j94h0FuCBOtlipK5SoGTR/HLKUy4eDk5FuiMjtUvO9QBxstg3oQoz5ZBJVlFzViHifNxoc+/4oowoOzcq4S5p+2dueQUasXhl1mW21qX08b5PHexDJsEn2atHG0MD8zi7dBJ8AJtyAxnWvOAQZi7w5aolBCEh5ADrRrrppO5VXZdtSwWSUa/wKrAhe7ctgMfZgLVVouIgB+IeU6Il0+W0bMlLu4xeIuV3oiB/s24Ee2rjLz+nkr7gSRVnUQYWdyEgCWzPaDMXiwJ+BEoAvYawzSBnqsnTg1khzalNm9GR4JIehjxo+rnCRuQDMqg+rXbZB3/G8Md9phIXuYFI4B8g7zRsXLGj1912Cm9u3GGRN7LN2qHCF4TmyClkNICGFHxVng2E9fYKDaZ1vE=
+
+--0000000000003ae677064c885184
+Content-Type: text/plain; charset="UTF-8"
+
+Hey Ernest!
+
+     It's Ryan, from West Campus. I was listening to NIN Pretty Hate
+Machine earlier and it reminded me of you. I was happy to see your website
+is still up, it's good that you didn't stop creating things.
+
+    How has everything been? I'm sorry that I fell out of contact with you;
+I have been struggling with various things, and I became sort of reclusive.
+I'd love to catch up sometime, whether it be online or even in person. You
+were always really funny and not afraid to say what was on your mind.
+
+   I look forward to hearing from you man.
+
+--0000000000003ae677064c885184
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hey Ernest!<div><br></div><div>=C2=A0 =C2=A0 =C2=A0It&#39;=
+s Ryan, from West Campus. I was listening to NIN Pretty Hate Machine earlie=
+r and it reminded me of you. I was happy to see your website is still up, i=
+t&#39;s good that you didn&#39;t stop=C2=A0creating things.<br><br>=C2=A0 =
+=C2=A0 How has everything been? I&#39;m sorry=C2=A0that I fell out of conta=
+ct with you; I have been struggling with various things, and I became sort =
+of reclusive. I&#39;d love to catch up sometime, whether it be online or ev=
+en in person. You were always really funny and not afraid to say what was o=
+n your mind.<br><br>=C2=A0 =C2=A0I look forward to hearing from you man.</d=
+iv></div>
+
+--0000000000003ae677064c885184--

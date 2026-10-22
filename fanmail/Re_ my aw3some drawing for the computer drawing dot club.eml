@@ -1,0 +1,221 @@
+Delivered-To: estrauhal@gmail.com
+Received: by 2002:a05:7110:1547:b0:2fe:ef9:d03e with SMTP id cy7csp17064geb;
+        Tue, 17 Mar 2026 17:35:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=4; AJvYcCXYNeqiA9UdVJOF0b0GyKYrQpylOVjMzcWk6KlYqLBpZxfAoOP1jnK1bx2u6SAJLm/+J0NX1G9PSZo=@gmail.com
+X-Received: by 2002:a0c:f104:0:b0:899:ed40:464d with SMTP id 6a1803df08f44-89c6b590f5fmr23149716d6.29.1773794148342;
+        Tue, 17 Mar 2026 17:35:48 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1773794148; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=FoLfNqJWCjoyVjH1pegGpquY3Hqwp2NesgGir/7zx+jdUpqUKI3iXMjSqAt3zY4qNw
+         Gqq7RB2HwCSamWDfG2Q/0n3UA8O2G7N8McZU939SqdE9ntQb2cRGmwZlhHhoOJoh5CZU
+         /GrFI13wrepaZpiXtxAkC2ocv9oORtqYebMNVZgxvKWe/XziC/FfMZJEsWm+//H77fNh
+         /aTO80JtaktRxAHOcc7MiOhLWV/ns9vQkZiFCmY6NUrn9WzhEAlFU+IW+jT8XN2iRkva
+         O6s0f9C77qtoAg4LeKW1x89tNNMy1j+WUGq1AvqXHFqyKKJak70OqastahxqXcndpbho
+         5TVQ==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature:original-recipient;
+        bh=DiQSMnP5ZYwELs2nsG5QyOf9hMFIBb+F/Hvf27hfNQg=;
+        fh=iTsocPkwoAf4/iJQxuzV1A+HgP4OJVqjQr8y/x+9YpU=;
+        b=KFHdLxIE9l35nhteAYx4fxTZXfkKROL74mcTc9YgSMihqTZ9Qz6/sfJHBTn2uY8XaN
+         WK9rUwp1Ctvw4u1LQNuGYW+GKdOgKznOG8SKaWx6Hem7Qeo/K7/J33XW66ZZkuU2eyKZ
+         Z5UuKlr4NR3FTGjayOglW81QeCI/DroMpJFNrziqF8T/JJ4bparTIftFNmZ/IkJKcVff
+         UbUSWX2AeqPPIuy+Cjat7wqhmjPHYjH5b1QUjJz9q6nz/QiKVXpeYo5LwpIJyTMC+gt1
+         /ZdXnDRIoPcTqGwzv68VusVBs1rWoDrC7xAbLiocJxqSFTCppwc2fuDIXZnim2GwY/lY
+         GF8g==;
+        dara=google.com
+ARC-Authentication-Results: i=3; mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=a101wOE9;
+       arc=pass (i=2 spf=pass spfdomain=gmail.com dkim=pass dkdomain=gmail.com dmarc=pass fromdomain=gmail.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.91.97 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=neutral header.i=@gmail.com
+Return-Path: <ernest@strauh.al>
+Received: from outbound.ci.icloud.com (ci-2001j-snip4-4.eps.apple.com. [57.103.91.97])
+        by mx.google.com with ESMTPS id 6a1803df08f44-89c6ba49d9asi13923746d6.510.2026.03.17.17.35.48
+        for <estrauhal@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Mar 2026 17:35:48 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ernest@strauh.al designates 57.103.91.97 as permitted sender) client-ip=57.103.91.97;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=a101wOE9;
+       arc=pass (i=2 spf=pass spfdomain=gmail.com dkim=pass dkdomain=gmail.com dmarc=pass fromdomain=gmail.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.91.97 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=neutral header.i=@gmail.com
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-9 (Postfix) with ESMTPS id 5D3B018000B3
+	for <estrauhal@gmail.com>; Wed, 18 Mar 2026 00:35:45 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; cv=pass; d=icloud.com; s=arc-0513; b=REUX2GOpeVx7aFkGdtfMX++xC+oSSquDL4FvK5UpJSCjtaq6J30HiyL9dYewnWvjds2gXeE2mqD+Vl9MNQOUyvxg1Vet5q8zr9tr1Z8HzwA8b3fvfqXmunK+YcCdDdwFXyXQNodkDJaAc0T0VE/9rp4U70qwqZ98+K4ruyIXRYBxRVnnLlNQZH9v1z++FutoRZf82S6BHUYHZTqVZ1EOg9I5HFW99FrWWaHuBVWK3yr/1D3FeW3kEXSFHGKQRS2D+aRyJQVMzqNwzL81Iy14GBzIypxfQ7YqPyIEiePYDpHFQm4vbOygEmEkvs/vLoagKXaXxXlCHn/Q0CFWCKNkWw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=arc-0513; h=from:to:subject:message-id:date:mime-version:content-type:dkim-signature; bh=DiQSMnP5ZYwELs2nsG5QyOf9hMFIBb+F/Hvf27hfNQg=; b=mj5i3H77VedVMwkXAPlqwKY1dCJZCN6ZjZRd6W8/3nXhyG+PSHsEAHkPmL/JDyqgzsUkIbuGzoQOm+5UUy//AivVobKh47Ug41kyewk1/yHHSMM477foDwLoVjse6T0JdYlJmT450mqfqqg6Lx/r4V4bf2K41mN9zDfPa0qtmcrTDzMHPq3PYE38/sljDP3ZuqC88DyI7VfJPMhFKD+6veA1uvhS6jdN63cBp8aqRogxmY4KEcWBM+6nbGpZmZxmuoLepY92HKZdTiHSTedw9iBW7tFLlnrFm6KfTMeOdD+CyW6o+VvNV5WblvOYaZg23iLgREJBFWsR1/25r14VOw==
+ARC-Authentication-Results: i=2; arc.icloud.com; arc=pass; dmarc=pass header.from=gmail.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=a101wOE9; spf=pass (spf.icloud.com: domain of kaleidobolainas@gmail.com designates 209.85.167.47 as permitted sender) smtp.mailfrom=kaleidobolainas@gmail.com
+Received: from unknown (unknown [10.168.160.104])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-9 (Postfix) with SMTP id D399718001C5
+	for <estrauhal@gmail.com>; Wed, 18 Mar 2026 00:35:44 +0000 (UTC)
+Received: from p00-icloudmta-smtpin-us-west-3a-60-percent-35 by p162-mailgateway-smtp-77874766c6-gd84v (mailgateway 2610B131)
+	with SMTP id f861b3ca-4014-4b2c-b176-578e1fb6e5f0 
+	for <ernest@strauh.al>; Wed, 18 Mar 2026 00:35:44 GMT
+X-Apple-Action: FORWARD/estrauhal@gmail.com
+Original-Recipient: rfc822;ernest@strauh.al
+x-apple-request-uuid: f861b3ca-4014-4b2c-b176-578e1fb6e5f0
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+	by p00-icloudmta-smtpin-us-west-3a-60-percent-35 (Postfix) with ESMTPS id 8BF3AC000A4
+	for <ernest@strauh.al>; Wed, 18 Mar 2026 00:35:42 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQFUVUKE0oWX1gHVQoPB0UCBltbQVNZSQYBTEFORhIcDV0DGRwPExdSWQ4UEAgWC3BRDxQQClkbX1tCEx1bEBVRXw5bGgkaWEJVXxALCBILRHYRAQsHAhAeVw5VEQMbFw1bAxwVSxseARsEQU5IEBdfUQ4QVwUYFRBGFgdECxYRXBsOE0hLEUwHGAUaFgEbHR5VDRhZAhNFV1sDHBVIFBddFg8cHVtLO3F3UxdOUzQLSVgMFi8lTh17DwhYL01BRUJ1UwwMVB8PAUYAOkFRODMIXBIcEzwjM2pnIhgYDxtWV1sDHBVIFBddCA==
+X-ICL-Score: 2.33303322433
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=pass; id=mx.google.com; r1=-22; r2=1
+Authentication-Results: arc.icloud.com; arc=pass
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=gmail.com
+X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=a101wOE9
+Received-SPF: pass (spf.icloud.com: domain of kaleidobolainas@gmail.com designates 209.85.167.47 as permitted sender) receiver=spf.icloud.com; client-ip=209.85.167.47; helo=mail-lf1-f47.google.com; envelope-from=kaleidobolainas@gmail.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of kaleidobolainas@gmail.com designates 209.85.167.47 as permitted sender) smtp.mailfrom=kaleidobolainas@gmail.com
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5a13323ba85so7286494e87.3
+        for <ernest@strauh.al>; Tue, 17 Mar 2026 17:35:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773794140; cv=none;
+        d=google.com; s=arc-20240605;
+        b=in0ViaDW+2tnjgEHr5/Ognm987PfK/nUGU1qftGWymdzLU+HDKIsgJRYUvKZR8kNiV
+         DqXCiFvUfj4Le/6pgGS9TB8AgpLcL7G+VKiI5eGUB7f5mJM7welgW+vl5gq4sg0b4E+0
+         bxZgkotXviuQRE3F6G+MY6+CArTezwy0oo+M0sGGBOFC6RQOsPk0ja66IkbO4qeQ+wrR
+         nTu+HYYBAUzzmPf4XqhUQrU4t09gFIcQd44rJvW068xelgfdzCccnSKzCaJM4qxrOBHs
+         pYNm3yBmFNtKpaC9A/KM1sXvUPMdVnzgLpHOpqY8WWurXM9JqC9iT0i7o136OAgPiq0A
+         Omxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature;
+        bh=DiQSMnP5ZYwELs2nsG5QyOf9hMFIBb+F/Hvf27hfNQg=;
+        fh=iTsocPkwoAf4/iJQxuzV1A+HgP4OJVqjQr8y/x+9YpU=;
+        b=Kt00Dj/PrP2O7JRkJ0lsWeGgHFHaimeid4AxlTE8ZGK8ywuZ0PUGcC5BcZufetM13c
+         zzr+JSDPKmYGxWUqqVxur4a1Mb7wshkJzZVQWLmXfyylJHTtvNAh5nIxPqXrdIlBQJ+d
+         yVp87n8mkelAUtkVmd78kCpfuNLq8QUxanMdEhNLVIgZCNuIkoxEzzxfFCoIJuLCwm5e
+         cwHlV4tpJtLEhDrpkb95pRBU4z8XC6EgE3WJt6XPPNq3ggITAgSKppIHDuHuHviK/stV
+         CttO2rak2uhMFY2JknWji1UEqeSF2jpuP8lt/M4uqLPH6dfAARKFrunJngcSac0MaQSh
+         nVYQ==;
+        darn=strauh.al
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1773794140; x=1774398940; darn=strauh.al;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=DiQSMnP5ZYwELs2nsG5QyOf9hMFIBb+F/Hvf27hfNQg=;
+        b=a101wOE912cbiAkF9ji6vnWikuBzA+413TjeeZmaxYmnEKZ9l06K3Ts72AvOnsVh+H
+         KTbHyFTi7fFWl8HyYfaMOimZ2vlr6KEvAzcMwrUg4aPxaQ3WnMctalbOO1FuG0SKKo+V
+         ps/+d8iFh5xhlq0ivwQKt1+0rlBBmAAp572PyprhCOgmnW/7h0JNGO3ZBx1akluUk18J
+         PK7IQMWU7+dspyWlX6OHyIz7e7E8u66Wr+rgzL5PrK7AymCZjzv21BgpC0G9Px8q4SRk
+         YZSqveosrvLTobPIwMR//HU2yR+aG8qTilFGVaJiWdoja+VaZiZMBR+b3kUio/kSDym+
+         coaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1773794140; x=1774398940;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=DiQSMnP5ZYwELs2nsG5QyOf9hMFIBb+F/Hvf27hfNQg=;
+        b=tCf7h/QShVKWXqJVYgs2+t8y2TdtNwi/F2bikq0T0hmcvoBQm08Qd+/Da0IZ5MkeqB
+         s+agYpc9BK4bQmCv9VeYtU5GbQQnrIu0aBXwMdwcTXgpnVq2lQ6L3+0awJBzZJaOtJ43
+         PUNAtn1bka9ma5LkpHhGZoDUuP/QRll53RuKJHyqJxr3am09TZVlXLaWZZ0XdLYwLdqU
+         OFoDH/zvEQ/BeGm4bmbo4Mb3GipVC3FzcEWeZkKo6TqqLXy5KZ8tFI/WtGMtAmvE+Cks
+         BhjQtCVw2VFMg4oA9pmmn5U8dVaOJIcRKS0gwgTa/21g0snSYHA+twbxX420l3N/4k9s
+         5xcQ==
+X-Gm-Message-State: AOJu0Yw/8+v9q2bpVjtV5BbYoERYI20itvnQtUZaagSKbvyHBVHzc8bD
+	r6I+0Yd9vHuO6eMRb+PX6ACY5Bx/RWbFYF1B7Bq1PvqGAdNZSK8eUtJcf5Yo+DcOso3+7JXy6Fd
+	8cAxI454wuSVsOiGX8jiT5RTyGWNskV8HAboX
+X-Gm-Gg: ATEYQzxBMF8hcfP0YSXMxRwnhWysTog6Vl6c47FLu7+89hE1pX27wbXPDk555HzfcVX
+	+5sCIe4IbboTfSTC2HLxhutRUqCA5mZ8u9S759Y8GfEIszlPpsBkpqCztlBAerXBYktJP4alNYg
+	1fHA1kAUedyduN/b+hVMzh5B9XkVPm0o3LAvcV4V1qLZdSf6NJuvAUvmuv0KBsZGo8Zm/MQJSXU
+	+TixNuRIoR3b//GE5dhhxJ8Vi66IwNvG5u36A5qQVl/4j19B/cTXnIicstTrUJPcnKhC996Uue4
+	dMFjnusGh2zlspVJIkl3584k4PaMMA1zAWJl2IKJ1w==
+X-Received: by 2002:ac2:4e8d:0:b0:5a1:18e9:a361 with SMTP id
+ 2adb3069b0e04-5a2796ae06fmr429563e87.32.1773794139169; Tue, 17 Mar 2026
+ 17:35:39 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAA1b75BqJhfm3gRb=-AXMHfctB6TFdF1WP-ZWNCWNab2biUDDA@mail.gmail.com>
+ <181FC1E5-B83A-4ACC-B8BF-5EAE54A07EE0@strauh.al>
+In-Reply-To: <181FC1E5-B83A-4ACC-B8BF-5EAE54A07EE0@strauh.al>
+From: Kaleido Bolainas <kaleidobolainas@gmail.com>
+Date: Tue, 17 Mar 2026 21:35:27 -0300
+X-Gm-Features: AaiRm50ZK1LXESpfkT4kQjPxQQ592VVy3nu2XRYnuhIg__XVZfJxVm4XndyHRGQ
+Message-ID: <CAA1b75CsynncVC9eK9j-V+6=rC1yu2hw1pbO87OK8jpijZTKZQ@mail.gmail.com>
+Subject: Re: my aw3some drawing for the computer drawing dot club
+To: erneststrauhal <ernest@strauh.al>
+Content-Type: multipart/alternative; boundary="00000000000091e857064d41a1c3"
+X-Proofpoint-ORIG-GUID: LjZex9t73iCfpX-sb2zruizllc-S4zO2
+X-Proofpoint-GUID: LjZex9t73iCfpX-sb2zruizllc-S4zO2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE4MDAwMyBTYWx0ZWRfX2tQTFLHTVUTY
+ gdGqYG/OocMpBjqGon0PIVez+9FSzpkFWv8OidIrNYFp9NfvB/mi54/LhGAB4ha1aO3aEGcq9Yu
+ jacMZ1R/aKVCFZr2g5UgGXX3cW18kPE461nNX3VGpUbtlBr5o8339X/4VOLyTVHzOVENFLP+v9x
+ s350jD28T/P11Y5HG6yPWcTvP2Y5oC8PRvjFSmdAUsDSxE3z3MnniTP5umTvf+6M3Fp1Ng/ChFe
+ VuvBSDJ7qRDLVzReZq1oQdeMWOlzaOtkksuL6qK7QLDWUmqPmwKToC8XrFOKzp4Lves3JwjaCw/
+ Be0uSk2q4zXuKOnImh7Z1L7v2Vdh8JgUrfowifgBD5DO8kJNoLAqG0yKZyZ4OU=
+X-Authority-Info-Out: v=2.4 cv=ReOdyltv c=1 sm=1 tr=0 ts=69b9f361
+ cx=c_apl:c_pps:t_out a=T0mU/zd77MEem+zjWCBf6Q==:117 a=Yq5XynenixoA:10
+ a=x7bEGLp0ZPQA:10 a=FBNNrCs4CRAA:10 a=95EFz5htlIgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=pGLkceISAAAA:8 a=xgm3yvSPSSfoaHdY8BQA:9
+ a=QEXdDO2ut3YA:10 a=xnft05qThRzBCSH0wE8A:9 a=7ZQawRH7MzZjbvjV:21
+ a=lqcHg5cX4UMA:10 a=Uz9EnhuHEG25YKoRyM-d:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-17_05,2026-03-17_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ adultscore=0 mlxlogscore=662 bulkscore=0 lowpriorityscore=0 suspectscore=0
+ malwarescore=0 mlxscore=0 clxscore=1030 spamscore=0 classifier=spam
+ authscore=0 adjust=0 reason=mlx scancount=1 engine=8.22.0-2601150000
+ definitions=main-2603180003
+
+--00000000000091e857064d41a1c3
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Many thanks.......Have a nice day!!!!!!!!!!!!!!!!!!!!
+
+On Tue, Mar 17, 2026 at 6:14=E2=80=AFPM erneststrauhal <ernest@strauh.al> w=
+rote:
+
+> that is indeed an aw3some drawing for computerdrawing.club
+>
+> your feline character somehow makes me feel welcomed and threatened at th=
+e
+> same time
+>
+> best,
+> ernest strauhal
+>
+> > On Mar 16, 2026, at 5:24 PM, Kaleido Bolainas <kaleidobolainas@gmail.co=
+m>
+> wrote:
+> >
+> > He is defending his chair
+> > <my_drawing.png>
+>
+>
+
+--00000000000091e857064d41a1c3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Many thanks.......Have a nice day!!!!!!!!!!!!!!!!!!!!</div=
+><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" clas=
+s=3D"gmail_attr">On Tue, Mar 17, 2026 at 6:14=E2=80=AFPM erneststrauhal &lt=
+;<a href=3D"mailto:ernest@strauh.al">ernest@strauh.al</a>&gt; wrote:<br></d=
+iv><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
+er-left:1px solid rgb(204,204,204);padding-left:1ex">that is indeed an aw3s=
+ome drawing for computerdrawing.club<br>
+<br>
+your feline character somehow makes me feel welcomed and threatened at the =
+same time<br>
+<br>
+best,<br>
+ernest strauhal<br>
+<br>
+&gt; On Mar 16, 2026, at 5:24 PM, Kaleido Bolainas &lt;<a href=3D"mailto:ka=
+leidobolainas@gmail.com" target=3D"_blank">kaleidobolainas@gmail.com</a>&gt=
+; wrote:<br>
+&gt; <br>
+&gt; He is defending his chair<br>
+&gt; &lt;my_drawing.png&gt;<br>
+<br>
+</blockquote></div>
+
+--00000000000091e857064d41a1c3--
+

@@ -1,0 +1,144 @@
+Return-path: <krshoemake@gmail.com>
+Original-recipient: rfc822;ernest@strauh.al
+Received: from p00-icloudmta-smtpin-us-west-1a-100-percent-10 by p162-mailgateway-smtp-77874766c6-gvg4c (mailgateway 2610B131)
+	with SMTP id 93029111-9259-4bd3-97ae-26e413bd588f 
+	for <ernest@strauh.al>; Tue, 17 Mar 2026 20:10:12 GMT
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: MOVE_TO_FOLDER/INBOX
+X-Apple-UUID: 93029111-9259-4bd3-97ae-26e413bd588f
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	by p00-icloudmta-smtpin-us-west-1a-100-percent-10 (Postfix) with ESMTPS id D5CF6C4652B
+	for <ernest@strauh.al>; Tue, 17 Mar 2026 20:10:08 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQFUVUKE0oWX1gHVQoPB0UCBltbQVNZSgIHTEFMRhIcDV0QBhEJEhVRXQc1HgsWEVwYARoURhEcDVEPFBAKWRtfW0IHGlsSCl5TEQE5FQMKUUMKWxgKVxBVWg1IFAceFB1BEERUAENNHlENGh4KElZTWQ9VCRIFRV1XCxlUEQVJHVBWQFcBGBdXWgdbGgkaWFRSXxIUBx4UHlUNGFkLHhwNCiE0PRcFElpCBQchEwEMCGw9JEtbMTJ3YzotS1AkCQEHVBYLNQcPd2YQJRoSQy5kezoEOCYaGVlaTBIUBx4UHlUNGEc=
+X-ICL-Score: 2.33303322433
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=pass; id=mx.google.com; r1=-22; r2=1
+Authentication-Results: arc.icloud.com; arc=pass
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=gmail.com
+X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=IXRi3Q7c
+Received-SPF: pass (spf.icloud.com: domain of krshoemake@gmail.com designates 209.85.221.45 as permitted sender) receiver=spf.icloud.com; client-ip=209.85.221.45; helo=mail-wr1-f45.google.com; envelope-from=krshoemake@gmail.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of krshoemake@gmail.com designates 209.85.221.45 as permitted sender) smtp.mailfrom=krshoemake@gmail.com
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-439b2965d4bso4354581f8f.2
+        for <ernest@strauh.al>; Tue, 17 Mar 2026 13:10:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773778206; cv=none;
+        d=google.com; s=arc-20240605;
+        b=cv+vBofgzSUPHb4QJRPgoxzmbYGDQr4rUpWptZVZTuORi2oEQEnWntutlteel6sKQn
+         zLOtUFwSQstyMKBLn6WVlnKZx5INqkIaHp9Ftu0d6+DgIBqfo4D4xkTBJfietZwUXOF+
+         bmZhCaL7bTOHLxVRx5oA8riGgF0bkgsQRvugh7U13g1ChQWrdWFhijsfaL9FfCPYQH9L
+         SjKM+BNTR9U+xBFdSu5nuX0mrtduSorI/0auCfULVppGU4q8MSBDj/w5cnZ2JRXGAtM1
+         cBoXXvush3blJymBme3/tieEBp2IN6L/Of6JYDmZDyvvz6OU8/U2Z+ZQaFV6yznBY730
+         AgkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=FTENCovQTLpKcMVYHoReXNz1gs2eUpP1vQunR6PNYmQ=;
+        fh=7IE/ytSGXT6hWg5MYW09AQztlqLXR7gnnHXGJUZJaFM=;
+        b=iG6RA+1OckgggF2++oGylUjfxGW/HDVCicGzQpq+Eu9aSDlhAiUdk4DKz2wD1IOoGC
+         EoXTY9ZSniMOED/dITNkDtw7Lx9CUkOo4H8t+iDVTRsmIRK1GWmMa6W2regcT8dR1DGM
+         GieIL3sh3ERfb9RQnopE28eZ1EhZHe9OgxH8WtwVqPhgt+TL0CfdekLFCt83TBLMaHKh
+         FlskHdreiIAL++f2brelAAvlp9lEDZnpt+vEyJgyd4AcMgofNt+wKBeEaBJ/2kO6REWu
+         GbqcIZy9OENvfWt8uG9msDNJmkdylQ+hNsNERfpVsNwsTvEONs65Q9XhmqRTLFs42ewa
+         1b1w==;
+        darn=strauh.al
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1773778206; x=1774383006; darn=strauh.al;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=FTENCovQTLpKcMVYHoReXNz1gs2eUpP1vQunR6PNYmQ=;
+        b=IXRi3Q7cnvb+OTHttXtivI8psIFmmvibkzEBvGVVAw6aKXXtlhHBj3+b+/0WspMgS3
+         tM/G22OfAOOfgwCrp2AUJXxtxN9TW4TamZfz4MOMWhQTt9y09DX4KMdNKN6eeelWPtnX
+         U6y49RF9+GeF21nJdNqy+IssGFoDfOP1q9iIPVOra7RrPYTTDjOKl6vYAA++UgihJwHG
+         l5X5jgP4krJr4yTiHPRhmQu5EyO6XpIEAURxxSB6G32i+v29+iHWcyOloTdDQHg3yVZc
+         +tRkYNHguYrvkMXFBBxViv3G88s6E8kcGaCeWDDAhk5jSjq/Ri92QtWgSHW/nKBP7R4w
+         NfFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1773778206; x=1774383006;
+        h=to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=FTENCovQTLpKcMVYHoReXNz1gs2eUpP1vQunR6PNYmQ=;
+        b=D6fTz7yIeYnXOpryvvAukyStJhrO/K1u18OPr2Xi82teiMGyx9HkhSAt9d+8fs++tQ
+         7oq6FR3oXbLfu1xOwoHbAxlTJ6tou5BDJxm0AaXB/uZhhhElQFBglQZ0zvMYm0jZ8jdr
+         +RBfh9TURRZ5CHj66cEsvJM2Opcfme9oYbPgUinrDM73kROlwRz+E37jZXQWDQ650sk9
+         7tRevJS/Xml7h8ljvFEM3DSkVmkLuWezy1Cxl6BO/OtU1EgB660/jdm5P0FKuL4xUMrt
+         dvgnFttzyhXmd9yoWjeqEJRgI/MbbIbfE5pMyUMa8yNPqG5kBqXDqd4ZJZGvwy7I9TZP
+         9xog==
+X-Gm-Message-State: AOJu0Yzd91eZaad8BnwYD8DK38Y1pHAM3GBpr65athwYN3m9jmWMGCXa
+	PWBwbOyAx2mNXq2z2qSoVvy/g4YuOERt9JTRDpOZgK1yxW8uL0f8O5eGYiGRO7+WHpWxhsbYpCk
+	YkRaSKt7AiFRiSRZGjjUop58aipn/2ySTbQ==
+X-Gm-Gg: ATEYQzwQ9VJmVVTlPut2rK00wxZpSXLnjuuM2lO68QTeabGgIztt380R+iIvXygvjYA
+	fmkOKk/t7c0QjUH3YgaeoqmiCJ9LBouMDQawSV5RfhPEcJB63lNOdQecezS9gwcx/gQtakEJI94
+	rPVF858R+N1OKFCNrcKdJX7u7xCMsKrYGyhXX8shMYjTv3nLCp7WrZJ63v4oa5OuPzrhGTph2I2
+	COSjcDzOUMKHfsFaFQKxpFZDPdlzYWNtDl36uvqq1awih2wRcJJHMZXwleh6XgzTJt/kLjgh54h
+	Yk/+3x+fFyPOYLJgtzlb8GBXMnHz7N6yicoQHA==
+X-Received: by 2002:a05:6000:24c9:b0:439:fbbc:d593 with SMTP id
+ ffacd0b85a97d-43b527c549bmr942662f8f.27.1773778205755; Tue, 17 Mar 2026
+ 13:10:05 -0700 (PDT)
+MIME-Version: 1.0
+From: Kace Shoemake <krshoemake@gmail.com>
+Date: Tue, 17 Mar 2026 15:09:49 -0500
+X-Gm-Features: AaiRm504Vb3Zl3sAVHXREwmzwgg1aXBemnCpQg1RqLNurXmJqohFZi3c_ys5VWY
+Message-ID: <CADqrjjtgrXuvt8Z_Q2=FJGUXX26Sq116crSpwGPrPct4VTMXqA@mail.gmail.com>
+Subject: Broken Link :)
+To: ernest@strauh.al
+Content-Type: multipart/alternative; boundary="000000000000dd4cfc064d3debf3"
+X-MANTSH: 1TFkXGBoSEQpZRBdhaAFuWVN6TFp8ZREKWU0XZEVETxEKWUkXGnEaEBp3BhsSEnE
+ bHxoQGncGGBoGGhEKWV4XbGx5EQpDThd4Q0NkcBsHfmttU2l+XxMeRhpnG39dXFoTXEdOYE9fS
+ BEKWFwXGQQaBB8eBRsaGgQdGwQbHBoEExoQGx4aHxoRCl5ZF00dG0cSEQpNXBcbExoRCkxaF2h
+ pTU1rEQpMRhdNaxEKQ1oXGBoTBBIfBBgYGwQeHxEKQl4XGxEKQlwXGxEKXk4XGxEKQksXY1Nja
+ 3sTWH4aX14RCkJJF2NTY2t7E1h+Gl9eEQpCRRduTB1EWXBnGWddeBEKQk4XY1Nja3sTWH4aX14
+ RCkJMF25nTmhTfU5IYEJnEQpCbBd6TEtwHm8dQ2hlYBEKQkAXYBxyTF5FfFtQGQERCkJYF2R+c
+ xwfWmRmXmBHEQpNXhcbEQpaWBcYEQpwaBdnSVlucl1eek1BTBAZGhEKcGgXa3lPTgFrWmB9GWQ
+ QGRoRCnBoF2htZGYcXW8ff29NEBkaEQpwaBdiHVJFcmgFQGFleBAZGhEKcGgXZmBoentYWGtJQ
+ HgQGRoRCnBoF2xdUmhgcnt4X28dEBkaEQpwaBdjBVlGZEVQSxpTRxAZGhEKcGgXbmhSTxxMT2x
+ GeQEQGRoRCnB/F2lHWHJFW3N5ZgFwEBkaEQpwXxdiE11jUAUbW2cbTxAZGhEKcH0XYhNdY1AFG
+ 1tnG08QGRoRCnB/F2hcRkceG25dYGZvEBkaEQpwfRdoXEZHHhtuXWBmbxAZGhEKcH0XYhNdY1A
+ FG1tnG08QGRoRCnBsF2duRFlCZmZzZ3pYEBkaEQptfhcbEQpYTRdLEQ==
+X-Proofpoint-GUID: RiiNZ1-TAGyCTu94l0M1Uwvp9vmdJeub
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE3MDE3OCBTYWx0ZWRfXxpTmRRRCFVfH
+ AperUYiScbPRwQlyLsbbMRtPOoKIaefCE83vf7JRU8AVcykgRMomu20Dd4QwihHFBW9UD5bAZEH
+ ywvuk5TpeCBgk34B8VdpzdTk+FHINkDwYHGiimAXpx9gLR+SWcoc90jP6i7mhKnqD0drPdWfbjc
+ BHdfvGMOMxf+O/B9HzncTHo9faByA1t4OrUUz0f10vEjU4cU/wpOYa8sSEbHjqFEVMfz1SrNlT1
+ Dh3WIAw4tF62WnTueyVNFhqjIEAirP3Tj1ghWCi71k+C59RTg2Mvu1Y9RWotvC13fmWyUHmKI/l
+ DwNd3V3ZBUkofEUGeAY
+X-Proofpoint-ORIG-GUID: RiiNZ1-TAGyCTu94l0M1Uwvp9vmdJeub
+X-JNJ: AAAAAAABwWPMO9AcDWr7MAwo+tjWcNZR7a1VVdWH974erPVfFNy+O3KE9uf+eTm8sgIJ/0iECPMlqDUc2dAS9nifj+xJi5UZT9en8l8x8HJGqHDatLDPVV+rGoMK1W+XmtTKvoCI8VpuAOe/KQcfwto9cDU5sMiqISU6F2H/4OsuUcjhwHEBjyyjOfoMPx8Xaa+KCUTYUPBez0qB2tC8sBl6jpkJ3doEUhR/Gt7EGSbKjvVx1gR7cqGTngF0MJCkreKQs6phVIfcxQXFXCNNE2ys5cZklRWB+rpIzPs1FLB12knSg1GKgIjgPwZFenCj9jHsHVYZw97dGCNQQiHDSc91QQe1vRsD9O2O78kHtkAc/bo5t39hs9sVVtMJsnmDszDonjxr9yv9biRLaQsghAxJYbo9Ona/vgM7RBBr1aema/qW+BMNn7f0HgQGOqEC6/V0kaW6NCWVLxWp0MkkxVya9tal1CRN1+FDVtXGauCBbrKra7ocKApEXiK4Wi7OnraJwGIiXRLxYrwxn3W/dROfm6NjehExZmyfa2xwcuDf5/nU3ZFu4h/ddkdRJexKqmTY/1nlRDIz7jXlg1Ee1mxEEdASGNt5emN/R90ORFpr2nrbmOreeDEDRtJpkKiI+5iZKJ8mYetC7KTzLo4T4l2X/k90NwuK04ZUPN1xrDeUdU2Ur46oXglYjCYgC5IRcGyxOwrICFs6N67A2/7nFAn+WN7JKw4sg2za6Z3m/8AMObmhCMb+iOi1MfxyytTbVgl28bJJi3jRzODaOHyWZ0upocSHqxJDb7SOvajjZjbdWQfuvf25GKpxxy9gNbrxlN04rdlHIIs1H6iIRRgvQwjNRb8=
+
+--000000000000dd4cfc064d3debf3
+Content-Type: text/plain; charset="UTF-8"
+
+Hil friend! LOVE and so deeply appreciate your strauh.al site more than I
+have words for! It feels so pre dead-internet. I noticed the links for the
+Torah and Vedas are both broken and was wondering if we could get thos
+eback up by any chance, as my partner studies religious texts and this
+would be INCREDIBLY for their studies. Cheers, and thanks so much! What a
+rad project, seriously.
+
+-- 
+Kacey Shoemake | She/They
+Graphic Design + Creative Direction
+
+*(636) 541-8847*
+*www.kcshoemake.com <http://www.kcshoemake.com>*
+
+--000000000000dd4cfc064d3debf3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hil friend! LOVE and so deeply appreciate your <a hre=
+f=3D"http://strauh.al">strauh.al</a> site more than I have words for! It fe=
+els so pre dead-internet. I noticed the links for the Torah and Vedas are b=
+oth broken and was wondering if we could get thos eback up by any chance, a=
+s my partner studies religious texts and this would be INCREDIBLY for their=
+ studies. Cheers, and thanks so much! What a rad project, seriously.</div><=
+div><br></div><span class=3D"gmail_signature_prefix">-- </span><br><div dir=
+=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div =
+dir=3D"ltr"><div><div dir=3D"ltr"><div><span style=3D"font-family:arial nar=
+row,sans-serif">Kacey Shoemake | She/They<br>Graphic Design + Creative Dire=
+ction<br><i><b>(636) 541-8847<br></b></i></span></div><i><span style=3D"fon=
+t-family:arial narrow,sans-serif"><b><a href=3D"http://www.kcshoemake.com" =
+target=3D"_blank">www.kcshoemake.com</a></b></span></i><br></div></div></di=
+v></div></div>
+
+--000000000000dd4cfc064d3debf3--

@@ -1,0 +1,165 @@
+Return-path: <kaleidobolainas@gmail.com>
+Original-recipient: rfc822;ernest@strauh.al
+Received: from p00-icloudmta-smtpin-us-west-3a-60-percent-35 by p162-mailgateway-smtp-77874766c6-gd84v (mailgateway 2610B131)
+	with SMTP id f861b3ca-4014-4b2c-b176-578e1fb6e5f0 
+	for <ernest@strauh.al>; Wed, 18 Mar 2026 00:35:44 GMT
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: MOVE_TO_FOLDER/INBOX
+X-Apple-UUID: f861b3ca-4014-4b2c-b176-578e1fb6e5f0
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+	by p00-icloudmta-smtpin-us-west-3a-60-percent-35 (Postfix) with ESMTPS id 8BF3AC000A4
+	for <ernest@strauh.al>; Wed, 18 Mar 2026 00:35:42 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQFUVUKE0oWX1gHVQoPB0UCBltbQVNZSQYBTEFORhIcDV0DGRwPExdSWQ4UEAgWC3BRDxQQClkbX1tCEx1bEBVRXw5bGgkaWEJVXxALCBILRHYRAQsHAhAeVw5VEQMbFw1bAxwVSxseARsEQU5IEBdfUQ4QVwUYFRBGFgdECxYRXBsOE0hLEUwHGAUaFgEbHR5VDRhZAhNFV1sDHBVIFBddFg8cHVtLO3F3UxdOUzQLSVgMFi8lTh17DwhYL01BRUJ1UwwMVB8PAUYAOkFRODMIXBIcEzwjM2pnIhgYDxtWV1sDHBVIFBddCA==
+X-ICL-Score: 2.33303322433
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=pass; id=mx.google.com; r1=-22; r2=1
+Authentication-Results: arc.icloud.com; arc=pass
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=gmail.com
+X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=a101wOE9
+Received-SPF: pass (spf.icloud.com: domain of kaleidobolainas@gmail.com designates 209.85.167.47 as permitted sender) receiver=spf.icloud.com; client-ip=209.85.167.47; helo=mail-lf1-f47.google.com; envelope-from=kaleidobolainas@gmail.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of kaleidobolainas@gmail.com designates 209.85.167.47 as permitted sender) smtp.mailfrom=kaleidobolainas@gmail.com
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5a13323ba85so7286494e87.3
+        for <ernest@strauh.al>; Tue, 17 Mar 2026 17:35:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773794140; cv=none;
+        d=google.com; s=arc-20240605;
+        b=in0ViaDW+2tnjgEHr5/Ognm987PfK/nUGU1qftGWymdzLU+HDKIsgJRYUvKZR8kNiV
+         DqXCiFvUfj4Le/6pgGS9TB8AgpLcL7G+VKiI5eGUB7f5mJM7welgW+vl5gq4sg0b4E+0
+         bxZgkotXviuQRE3F6G+MY6+CArTezwy0oo+M0sGGBOFC6RQOsPk0ja66IkbO4qeQ+wrR
+         nTu+HYYBAUzzmPf4XqhUQrU4t09gFIcQd44rJvW068xelgfdzCccnSKzCaJM4qxrOBHs
+         pYNm3yBmFNtKpaC9A/KM1sXvUPMdVnzgLpHOpqY8WWurXM9JqC9iT0i7o136OAgPiq0A
+         Omxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature;
+        bh=DiQSMnP5ZYwELs2nsG5QyOf9hMFIBb+F/Hvf27hfNQg=;
+        fh=iTsocPkwoAf4/iJQxuzV1A+HgP4OJVqjQr8y/x+9YpU=;
+        b=Kt00Dj/PrP2O7JRkJ0lsWeGgHFHaimeid4AxlTE8ZGK8ywuZ0PUGcC5BcZufetM13c
+         zzr+JSDPKmYGxWUqqVxur4a1Mb7wshkJzZVQWLmXfyylJHTtvNAh5nIxPqXrdIlBQJ+d
+         yVp87n8mkelAUtkVmd78kCpfuNLq8QUxanMdEhNLVIgZCNuIkoxEzzxfFCoIJuLCwm5e
+         cwHlV4tpJtLEhDrpkb95pRBU4z8XC6EgE3WJt6XPPNq3ggITAgSKppIHDuHuHviK/stV
+         CttO2rak2uhMFY2JknWji1UEqeSF2jpuP8lt/M4uqLPH6dfAARKFrunJngcSac0MaQSh
+         nVYQ==;
+        darn=strauh.al
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1773794140; x=1774398940; darn=strauh.al;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=DiQSMnP5ZYwELs2nsG5QyOf9hMFIBb+F/Hvf27hfNQg=;
+        b=a101wOE912cbiAkF9ji6vnWikuBzA+413TjeeZmaxYmnEKZ9l06K3Ts72AvOnsVh+H
+         KTbHyFTi7fFWl8HyYfaMOimZ2vlr6KEvAzcMwrUg4aPxaQ3WnMctalbOO1FuG0SKKo+V
+         ps/+d8iFh5xhlq0ivwQKt1+0rlBBmAAp572PyprhCOgmnW/7h0JNGO3ZBx1akluUk18J
+         PK7IQMWU7+dspyWlX6OHyIz7e7E8u66Wr+rgzL5PrK7AymCZjzv21BgpC0G9Px8q4SRk
+         YZSqveosrvLTobPIwMR//HU2yR+aG8qTilFGVaJiWdoja+VaZiZMBR+b3kUio/kSDym+
+         coaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1773794140; x=1774398940;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=DiQSMnP5ZYwELs2nsG5QyOf9hMFIBb+F/Hvf27hfNQg=;
+        b=tCf7h/QShVKWXqJVYgs2+t8y2TdtNwi/F2bikq0T0hmcvoBQm08Qd+/Da0IZ5MkeqB
+         s+agYpc9BK4bQmCv9VeYtU5GbQQnrIu0aBXwMdwcTXgpnVq2lQ6L3+0awJBzZJaOtJ43
+         PUNAtn1bka9ma5LkpHhGZoDUuP/QRll53RuKJHyqJxr3am09TZVlXLaWZZ0XdLYwLdqU
+         OFoDH/zvEQ/BeGm4bmbo4Mb3GipVC3FzcEWeZkKo6TqqLXy5KZ8tFI/WtGMtAmvE+Cks
+         BhjQtCVw2VFMg4oA9pmmn5U8dVaOJIcRKS0gwgTa/21g0snSYHA+twbxX420l3N/4k9s
+         5xcQ==
+X-Gm-Message-State: AOJu0Yw/8+v9q2bpVjtV5BbYoERYI20itvnQtUZaagSKbvyHBVHzc8bD
+	r6I+0Yd9vHuO6eMRb+PX6ACY5Bx/RWbFYF1B7Bq1PvqGAdNZSK8eUtJcf5Yo+DcOso3+7JXy6Fd
+	8cAxI454wuSVsOiGX8jiT5RTyGWNskV8HAboX
+X-Gm-Gg: ATEYQzxBMF8hcfP0YSXMxRwnhWysTog6Vl6c47FLu7+89hE1pX27wbXPDk555HzfcVX
+	+5sCIe4IbboTfSTC2HLxhutRUqCA5mZ8u9S759Y8GfEIszlPpsBkpqCztlBAerXBYktJP4alNYg
+	1fHA1kAUedyduN/b+hVMzh5B9XkVPm0o3LAvcV4V1qLZdSf6NJuvAUvmuv0KBsZGo8Zm/MQJSXU
+	+TixNuRIoR3b//GE5dhhxJ8Vi66IwNvG5u36A5qQVl/4j19B/cTXnIicstTrUJPcnKhC996Uue4
+	dMFjnusGh2zlspVJIkl3584k4PaMMA1zAWJl2IKJ1w==
+X-Received: by 2002:ac2:4e8d:0:b0:5a1:18e9:a361 with SMTP id
+ 2adb3069b0e04-5a2796ae06fmr429563e87.32.1773794139169; Tue, 17 Mar 2026
+ 17:35:39 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAA1b75BqJhfm3gRb=-AXMHfctB6TFdF1WP-ZWNCWNab2biUDDA@mail.gmail.com>
+ <181FC1E5-B83A-4ACC-B8BF-5EAE54A07EE0@strauh.al>
+In-Reply-To: <181FC1E5-B83A-4ACC-B8BF-5EAE54A07EE0@strauh.al>
+From: Kaleido Bolainas <kaleidobolainas@gmail.com>
+Date: Tue, 17 Mar 2026 21:35:27 -0300
+X-Gm-Features: AaiRm50ZK1LXESpfkT4kQjPxQQ592VVy3nu2XRYnuhIg__XVZfJxVm4XndyHRGQ
+Message-ID: <CAA1b75CsynncVC9eK9j-V+6=rC1yu2hw1pbO87OK8jpijZTKZQ@mail.gmail.com>
+Subject: Re: my aw3some drawing for the computer drawing dot club
+To: erneststrauhal <ernest@strauh.al>
+Content-Type: multipart/alternative; boundary="00000000000091e857064d41a1c3"
+X-MANTSH: 1TFkXGBoRCllEF25CY3xhcwV9S2hmEQpZTRdkRURPEQpfWRcbHhkRCl9NF2RFRE8
+ RCllJFx8ecRsGGxoddwYeGQYaBhoGGR0GGnEaEBp3BhoGGxoGGgYaBhoGGnEaEBp3BhoRClleF
+ 2xseREKQ04XbGRhUmZoZHNYZ2lPTRhEGGZ8f0FPf1luUk1GeEZPXkwRClhcFxkEGgQfHgUbGho
+ EEhgEGx8SBBgTEBseGh8aEQpeWRdNHR9MHxEKTVwXHR4RCkxaF2hNa2trEQpMRhdiTWsRCkNaF
+ xgaEwQSHwQbHB0EHh0RCkJeFxsRCkJcFxsRCl5OFxsRCkJLF2NTY2t7E1h+Gl9eEQpCSRdjU2N
+ rexNYfhpfXhEKQkUXYhIYXFJkHmxDXUcRCkJOF2NTY2t7E1h+Gl9eEQpCTBd6Em1hQm5sTF1mZ
+ REKQmwXY1tga2BuWWBGXVwRCkJAF3p8b2kdQAV5aFpmEQpCWBdkfnMcH1pkZl5gRxEKTV4XBxs
+ RClpYFxgRCnBoF2h6T1NhE257cHpYEAcZGhEKcGgXZgFjHh1PG3BSSW4QBxkaEQpwaBdtZVNpY
+ nNsQxJifBAHGRoRCnBoF2ZmaH9beFh8GHloEAcZGhEKcGgXZk97BQFHeRhPZnIQBxkaEQpwbBd
+ rWUl5AXkeR2RPGBAHGRoRCnBMF29zWHlPbm0FawV7EAcZGhEKbX4XBxsRClhNF0sR
+X-Proofpoint-ORIG-GUID: FNKxLBNYrMCeg2n2LVUkeUsDxglRletf
+X-Proofpoint-GUID: FNKxLBNYrMCeg2n2LVUkeUsDxglRletf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE4MDAwMyBTYWx0ZWRfX5czMo75Deqip
+ ZNSlQry0LNOIQ8jMq48Ft/e891/i3VAuOqDhHbgDDen8GLEYP/CnGLBTXpCy4PcgU5Slqi0zixw
+ V/tUsqZHM1H+Vpp4atcf4Yx9v19IDZkjl89l0gWDrJMnWyI+S3w1nry7meFIEVk5SVtrGeTYtLr
+ QXvsNBN9ODUJZuk3HrciHzlcjbtAHxOa/9y73JXjag6ihauSHxwW9SeVpqGgMaFnhEZAdoAEAK6
+ Wz1MENjKRztlNOS6N9VbrjaCnV5rrBcngQ36MKmkM5Zv7Lb+ryAn3FtaxtsbTHKzzZjoZohXmmj
+ GGZ9tg6pThv8ChfJZ1g
+X-JNJ: AAAAAAABPw7ePPIlB1G2eWogT/CGL9ai6lBV9HOxFP2unzR18CQ7iTZ3RSRWO70fpNm4RdGBHIaCJXddLUvLe8r34TwYrRc+WnmO2HrMyaIuD5KpIiYukX4r8LgOaRFpzEzaN8w6VIOgEKgAzfZPrXL1RuWuSxraSKrAVim9sXygMb8/KH3rsoo6FxMh6ivmi0VgQ4BmYfPvmED6cp1P2UCtgTV2hGM2sC5/OTb2yBaMc3f56rLgZ6Enui/F95EQJpOBGUjKRz5Zvd5d+3eHv+A7kNTHBBHyn8SxoIQWC/td9/kVHcLwV9CPZozqa8Gx+wOTLPl+eBZR3FQ1HqtrKcjFcbMkpkqZmFreYqknsZFAu85NOYWY+g6g0kvAYkJ0cw2XdSgtDp0wMKe6H1o9pHIFAiDIC/yi/aDBd3OQj0wJVdyut23FWFh/6GEGJUHUEfViyOuAUYtZZ/qpfGhZtDW/n3irrJJwCPWosDGYav2kQKjwkqAf6h8q5MfB6BgWvSiW7z2ySedZRM7tugzGc9l8tXJA52H67BOvWgmECstniVUZe9ebWqDzL7kd4VjPQWSeVGlreqxq/z6CDdD8/xo6eMY06GfW0FS/u2nzUMhxhN09569k0pNdQT0mcoHgXKUXZh25IXkKYkuv59lsmBG4oB9NLk8H3qiPcQrjjTSfogIyBFSE9nY0yD6iJ4iQq7sG2kIgVf8Pktb8RsdDDKpFkFCLd48NwaNdRwlcURdvlV6ZyALCo9f75IgPOf/UAZE8QjMs5yg+HX1ZMqSMm1nzKvuJBiG1cXfBEiEuO91ic15a+nLCYbCndU8Q4UUzOhrJZ3X1qw==
+
+--00000000000091e857064d41a1c3
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Many thanks.......Have a nice day!!!!!!!!!!!!!!!!!!!!
+
+On Tue, Mar 17, 2026 at 6:14=E2=80=AFPM erneststrauhal <ernest@strauh.al> w=
+rote:
+
+> that is indeed an aw3some drawing for computerdrawing.club
+>
+> your feline character somehow makes me feel welcomed and threatened at th=
+e
+> same time
+>
+> best,
+> ernest strauhal
+>
+> > On Mar 16, 2026, at 5:24 PM, Kaleido Bolainas <kaleidobolainas@gmail.co=
+m>
+> wrote:
+> >
+> > He is defending his chair
+> > <my_drawing.png>
+>
+>
+
+--00000000000091e857064d41a1c3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Many thanks.......Have a nice day!!!!!!!!!!!!!!!!!!!!</div=
+><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" clas=
+s=3D"gmail_attr">On Tue, Mar 17, 2026 at 6:14=E2=80=AFPM erneststrauhal &lt=
+;<a href=3D"mailto:ernest@strauh.al">ernest@strauh.al</a>&gt; wrote:<br></d=
+iv><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
+er-left:1px solid rgb(204,204,204);padding-left:1ex">that is indeed an aw3s=
+ome drawing for computerdrawing.club<br>
+<br>
+your feline character somehow makes me feel welcomed and threatened at the =
+same time<br>
+<br>
+best,<br>
+ernest strauhal<br>
+<br>
+&gt; On Mar 16, 2026, at 5:24 PM, Kaleido Bolainas &lt;<a href=3D"mailto:ka=
+leidobolainas@gmail.com" target=3D"_blank">kaleidobolainas@gmail.com</a>&gt=
+; wrote:<br>
+&gt; <br>
+&gt; He is defending his chair<br>
+&gt; &lt;my_drawing.png&gt;<br>
+<br>
+</blockquote></div>
+
+--00000000000091e857064d41a1c3--

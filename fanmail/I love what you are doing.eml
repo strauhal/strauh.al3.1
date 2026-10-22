@@ -1,0 +1,140 @@
+Return-path: <wade@peatross.net>
+Original-recipient: rfc822;ernest@strauh.al
+Received: from p00-icloudmta-smtpin-us-east-1a-10-percent-8 by p162-mailgateway-smtp-77874766c6-jj5sx (mailgateway 2610B131)
+	with SMTP id cd9b6cc7-ee82-4f35-955f-1a72db928b3b 
+	for <ernest@strauh.al>; Wed, 18 Mar 2026 03:29:58 GMT
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: MOVE_TO_FOLDER/INBOX
+X-Apple-UUID: cd9b6cc7-ee82-4f35-955f-1a72db928b3b
+Received: from mail-10626.protonmail.ch (mail-10626.protonmail.ch [79.135.106.26])
+	by p00-icloudmta-smtpin-us-east-1a-10-percent-8 (Postfix) with ESMTPS id 7A489C000AC
+	for <ernest@strauh.al>; Wed, 18 Mar 2026 03:29:55 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQEUFUKE0oWX1gHVQoPB0UHD0xESlNZSQAATEdPRhIcDUEDERwmBx1RQhAaChVZFlVCQhMdWwcdUUIQGgoVWRZVQkIHGlsSCl5TEQE5FQMKUUMKWxgKVxBVWg1IFAceFB0HUkNLUFkIQlkWGhcLFhFcGAEdWRYDCg1bAxwVS0ZIBgRUWwkUGAxfWA8UEApZG1gWBhFEFhIZREQNBgpIGR1EFg8cHVtLNXFRJywxMxIVX10LTRNeJx5KYDIYSCMnEQBBO1gWMRYdSU4kNB4CADtgUgYqMSIRDWVeKTk0CEY0YHQIHzEgO0hTVCwRLhMzNEBgDTshLw8NWHopMikcNSFhQjQeNitOH2R1BBc0KxM8UWdfNQkDFgxCWREGVwgSDA4=
+X-ICL-Score: 2.33303322422
+Authentication-Results: bimi.icloud.com; bimi=none
+X-ARC-Info: policy=fail; arc=none; r1=-20; r2=0
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=peatross.net
+X-DMARC-Policy: v=DMARC1; p=quarantine
+X-DMARC-Info: pass=pass; dmarc-policy=quarantine; s=r1; d=r1; pdomain=peatross.net
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=peatross.net header.i=@peatross.net header.b=Z1X7wRaJ
+Received-SPF: pass (spf.icloud.com: domain of wade@peatross.net designates 79.135.106.26 as permitted sender) receiver=spf.icloud.com; client-ip=79.135.106.26; helo=mail-10626.protonmail.ch; envelope-from=wade@peatross.net
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of wade@peatross.net designates 79.135.106.26 as permitted sender) smtp.mailfrom=wade@peatross.net
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=peatross.net;
+	s=protonmail3; t=1773804592; x=1774063792;
+	bh=Z8q6ABpYNnTrSxmKZJRfhxucZVLoa0UxYHVxJvtFoqk=;
+	h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Z1X7wRaJgdqiGqAaHWPTSelq7ZHbb6ZQHVyUQxoJeGvAfc3AY4Inw560MC8UVKGHz
+	 EyFIE9JuD9pwKNeHr0MUtnSpdt1AHhmbnyvnRjdM2kxAjSCrFe6kHhRuXOsAwrOVsh
+	 htJQ+FGLeH8hnYcRIzEHoFspOqfBpMO0+VMuy9/kp6cSO91cHjDwPzok+QLB8mS71e
+	 aZZvYAubbpCzNKkETzqjGXF9GcMM6SfzAkl5kgQiruj7X97jd7ZsiVDImLWEMT6KoN
+	 gVQywCPjGCl2o+JuXgtC8lYtR8JLXo3OF4rsPbgC4JPhl3KRsgfnjNABwojO0MmAaA
+	 gRZN2wbvs7uwg==
+Date: Wed, 18 Mar 2026 03:29:49 +0000
+To: "ernest@strauh.al" <ernest@strauh.al>
+From: "Wade (peatross.net)" <wade@peatross.net>
+Subject: I love what you are doing
+Message-ID: <MAgEYHUemoki8j8PfzVPm1EPi0wY-oWaeyxFAgdwCPdd_HDfuUhKLMn1LPBjjHFL0cbNdWuDLpVoNXIxuhLKGPzBYQtVkOM9gTCfbMMdDaQ=@peatross.net>
+Feedback-ID: 128015908:user:proton
+X-Pm-Message-ID: 5ab88aeb9c20645e17addcbdb7cac73ca414e20e
+MIME-Version: 1.0
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------d1fa3257866c8404499459db3b745743124f0683d820fcc202cf74f04d5bdc99"; charset=utf-8
+X-MANTSH: 1TFkXGBEKWUQXZX9jbgFgQUkaQX8RCllNF2RFRE8RCl9ZFxsbEQpfTRdkRURPEQp
+ ZSRcfHXEbBhsbHncGGxoeBhoGGgYHHxoGGnEaEBp3BhoGBxsaGgYaBhoGGgYacRoQGncGGhEKW
+ V4XbGx5EQpDThdsbAd1EmBkUxofWG5AUx4Zfh51cE1tWmhpfHlgS2ZGQxEKWFwXGQQaBB8eBRs
+ aBBscGAQZGgQeEBseGh8aEQpeWRdNHRJuexEKTVwXBxgTExEKTFoXbGlNb28RCkxGF01rEQpDW
+ hcdEwQbGR8EGxocBBgcEQpCXhcbEQpEXhcYEQpCXBcbEQpeThcbEQpCSxdlZk5EQlxQaVgFehE
+ KQkkXZWZOREJcUGlYBXoRCkJFF3oYe2hNe0hPelptEQpCThdlZk5EQlxQaVgFehEKQkwXY0VQc
+ 2JMZQFdXh8RCkJsF2t4XxpQenlzS1tOEQpCQBdra3tvbXpbemBJExEKQlgXZH5zHB9aZGZeYEc
+ RCk1eFwcbEQpaWBcbEQpwaBdiQRN8eBh8QGMBcxAHGRoRCnBoF3pcTBJeXllcbml8EAcZGhEKc
+ GgXZXt7GmdtQHBgZWcQBxkaEQpwaBdubgVhHxleG2gTfxAHGRoRCnBoF2RiAXt4bWRNRRwaEAc
+ ZGhEKcGgXbVpEGBljbBITex8QBxkaEQpwaBdocEQdW1pJS0VHfxAHGRoRCnBoF2tzZHobY05JR
+ RsfEBgdEQpwaxdoRFxfYWF/ZURzRxAHGRoRCnBLF2JpchNYXVxnbVNzEBIaEQpwaxdhEwVsQB1
+ JR2BjfRAHGRoRCnBsF2YFZ29NQmZJZEIBEAcZGhEKbX4XBxsRClhNF0sR
+X-Proofpoint-GUID: FF-_8JNy05rDjy43T4_ZgGpBCVSJaLli
+X-Proofpoint-ORIG-GUID: FF-_8JNy05rDjy43T4_ZgGpBCVSJaLli
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE4MDAyNiBTYWx0ZWRfX2ibN97x7lNC4
+ l2t/WNxTG2wOfb8jxnV9z3YoxP8NYnmM4ZyTBa9tpC73iSp/Xb44XsDOrD6BquEw8KQ2FAifUic
+ S+rdsF8vooiPbczOdlOyg85pO5j9l0TSXltr7osj3KSzTys8mjclH2PfbSQr5ZeuafYITtxdIS4
+ 9pOjOHv1c/2jH2ZrXNRm9zTDGybCXwLsi68nKURw39SXJPmLrXJNJ7pu3x3yp9PnSUtVm6EmVd+
+ lzQbh9D/hfI9zCQNxx6HWXQHSFJnCiyIBY9lX2DgmelM/Od33FsYnj8gM3X10ujoFJGSNa957UE
+ 1szyJkouX4j60kkWFyL
+X-JNJ: AAAAAAABx8WPO91eK11utLI00pn7fgCo7ZV90gLBngYbkkV3CgNwcFpIQsqvz9eYQc9ZI9keV3uspj2FQ3JSbr4a3PQw7Dia0FOfQu5adX7tywdLCdx0/X7M6g4nz9z9nJ0uf9X+WyunKmv7CFdaFhqAvfDU/ybCXT3mD426OtkQZI3c/Ay5TeAkoGunrqRRwLHfRRjGyNRoXKzkgUSWYolAFKTcFRc/5ShDTX8fv9ZK4Hf0EhU3jROM0efTN/LNoHR8c9+goJCiQZh4ka7G07TivPKPJxBsX/QLJ82kU9sLs2i18EDT7iDSyX+13TKpAfoMyeicPfYnFC8xnkfDVi6+DtHq+PXegFXUpn9X+6TLeW3sNhi9Ry19/GJbbR/Df1+/XeQlmNuxEhNxh7mosUoxnrUCP4HPh2993qQ4hxus6pB1DhxN49D4X7r2ilBsF4v9fa49m/8H5lRmztgf4BYPm5t6DMwu4KjhPulsEev5Nu9UvoOJpRcy1ZOG+k9ENuOxdGokvrvG910O26rKykdmEBs2UqP3gQKsEpnAhcNStL1iuq1+ZkPkp5VqQX/qlUHl4xXqrd9dIegvB8YammiXM7vxwgsUGoZcaL5+Is5zznWP1erLkmG2Xc4NVkzCHE9UQWB5ogPEGNF4S26hSZsV08PHtcC2V9kbUD+vAcFoKEwifHFUSuaR4knrTykwW/DPhfy61ONY0VWdZcRrF9+OkMvbFLY1DyfpJ0ZdGAuSINBYZooRDKYPBzn4nTtLUhoM2ejPZrMaZOY4GauQxr5Ntr9v6Xffi4dJ6/Pv5D/yw0oEF8djrNC0JiNIR8/wT7rqVO2it9pTM6EV2Fy14uCaQ8tt7Ik8v3RprVnCGRyeYRFDRmtNYlr1HJGngIF5SC1J5eWoqugih+lhAMVu2pRDAhp69a82XctcdScBgqigUGiF14u6y2B4E+hNMKs=
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------d1fa3257866c8404499459db3b745743124f0683d820fcc202cf74f04d5bdc99
+Content-Type: multipart/mixed;boundary=---------------------3090396ba1b6603cfa33e3be22ce7309
+
+-----------------------3090396ba1b6603cfa33e3be22ce7309
+Content-Type: multipart/alternative;boundary=---------------------7c1dd727d08e4d26c0c148d7ae5445ea
+
+-----------------------7c1dd727d08e4d26c0c148d7ae5445ea
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
+
+Hello, I found your page from a 4chan ad. I just wanted to reach out to le=
+t you know I think your website is amazing and a breath of fresh air in th=
+e modern age of the internet.
+
+I'm considering making a personal website of my own for personal programmi=
+ng projects and art similar to how your page is structured. Would it be al=
+right if I use some of your archived (non original art) from your github?=C2=
+=A0
+
+
+-   Wade
+-----------------------7c1dd727d08e4d26c0c148d7ae5445ea
+Content-Type: multipart/related;boundary=---------------------52e26e70fc8b79bf7164dafc4edc1957
+
+-----------------------52e26e70fc8b79bf7164dafc4edc1957
+Content-Type: text/html;charset=utf-8
+Content-Transfer-Encoding: base64
+
+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0
+cHg7Ij5IZWxsbywgSSBmb3VuZCB5b3VyIHBhZ2UgZnJvbSBhIDRjaGFuIGFkLiBJIGp1c3Qgd2Fu
+dGVkIHRvIHJlYWNoIG91dCB0byBsZXQgeW91IGtub3cgSSB0aGluayB5b3VyIHdlYnNpdGUgaXMg
+YW1hemluZyBhbmQgYSBicmVhdGggb2YgZnJlc2ggYWlyIGluIHRoZSBtb2Rlcm4gYWdlIG9mIHRo
+ZSBpbnRlcm5ldC48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2Vy
+aWY7IGZvbnQtc2l6ZTogMTRweDsiPjxicj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTog
+QXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsiPkknbSBjb25zaWRlcmluZyBtYWtp
+bmcgYSBwZXJzb25hbCB3ZWJzaXRlIG9mIG15IG93biBmb3IgcGVyc29uYWwgcHJvZ3JhbW1pbmcg
+cHJvamVjdHMgYW5kIGFydCBzaW1pbGFyIHRvIGhvdyB5b3VyIHBhZ2UgaXMgc3RydWN0dXJlZC4g
+V291bGQgaXQgYmUgYWxyaWdodCBpZiBJIHVzZSBzb21lIG9mIHlvdXIgYXJjaGl2ZWQgKG5vbiBv
+cmlnaW5hbCBhcnQpIGZyb20geW91ciBnaXRodWI/Jm5ic3A7PC9kaXY+PGRpdiBzdHlsZT0iZm9u
+dC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7Ij48YnI+PC9kaXY+
+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0
+cHg7Ij48dWwgZGF0YS1lZGl0aW5nLWluZm89InsmcXVvdDtvcmRlcmVkU3R5bGVUeXBlJnF1b3Q7
+OjEsJnF1b3Q7dW5vcmRlcmVkU3R5bGVUeXBlJnF1b3Q7OjJ9IiBzdHlsZT0ibWFyZ2luLXRvcDog
+MHB4OyBtYXJnaW4tYm90dG9tOiAwcHg7Ij48bGkgc3R5bGU9Imxpc3Qtc3R5bGUtdHlwZTogJnF1
+b3Q7LSAmcXVvdDs7Ij48c3Bhbj5XYWRlJm5ic3A7PGJyPjwvc3Bhbj48L2xpPjwvdWw+PC9kaXY+
+CjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiBBcmlhbCwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAx
+NHB4OyIgY2xhc3M9InByb3Rvbm1haWxfc2lnbmF0dXJlX2Jsb2NrIHByb3Rvbm1haWxfc2lnbmF0
+dXJlX2Jsb2NrLWVtcHR5Ij4KICAgIDxkaXYgY2xhc3M9InByb3Rvbm1haWxfc2lnbmF0dXJlX2Js
+b2NrLXVzZXIgcHJvdG9ubWFpbF9zaWduYXR1cmVfYmxvY2stZW1wdHkiPjwvZGl2PgogICAgCiAg
+ICAgICAgICAgIDxkaXYgY2xhc3M9InByb3Rvbm1haWxfc2lnbmF0dXJlX2Jsb2NrLXByb3RvbiBw
+cm90b25tYWlsX3NpZ25hdHVyZV9ibG9jay1lbXB0eSI+CiAgICAgICAgCiAgICAgICAgICAgIDwv
+ZGl2Pgo8L2Rpdj4K
+-----------------------52e26e70fc8b79bf7164dafc4edc1957--
+-----------------------7c1dd727d08e4d26c0c148d7ae5445ea--
+-----------------------3090396ba1b6603cfa33e3be22ce7309--
+
+--------d1fa3257866c8404499459db3b745743124f0683d820fcc202cf74f04d5bdc99
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wrsEARYKAG0Fgmm6HBQJEAE+IiSzcDjiRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmdZmTzNp8NGWQ9cJWdIeFz64Q7NMFPBL2RHtaiS
+FMbUIxYhBH7GDfgJBOj93IYAkAE+IiSzcDjiAAC9+QEA0g12li92fXP29iag
+tGfqvwCfIl8fxFhppzaqTOj55pYBAJ5Ul3VUw7OmB9EtuV8OgOAIWfDpJEIl
+QJ/rYcUNBXcF
+=fh1/
+-----END PGP SIGNATURE-----
+
+
+--------d1fa3257866c8404499459db3b745743124f0683d820fcc202cf74f04d5bdc99--
+

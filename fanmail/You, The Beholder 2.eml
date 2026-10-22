@@ -1,0 +1,79 @@
+Return-path: <ballcorebusiness@proton.me>
+Original-recipient: rfc822;ernest@strauh.al
+Received: from p00-icloudmta-smtpin-us-west-1a-100-percent-18 by p162-mailgateway-smtp-5d9b797f55-ht66n (mailgateway 2544B77)
+	with SMTP id 42653d5f-88f2-420f-a7d8-63837a432abc 
+	for <ernest@strauh.al>; Mon, 24 Nov 2025 22:12:00 GMT
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: MOVE_TO_FOLDER/INBOX
+X-Apple-UUID: 42653d5f-88f2-420f-a7d8-63837a432abc
+Received: from mail-4325.protonmail.ch (mail-4325.protonmail.ch [185.70.43.25])
+	by p00-icloudmta-smtpin-us-west-1a-100-percent-18 (Postfix) with ESMTPS id CF839C0013E
+	for <ernest@strauh.al>; Mon, 24 Nov 2025 22:11:57 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQEUVUKE0oWX1gHVQoPB0UBDldbTlZZTAMYUEBZAxNFUlcOGRoJBR1SQxEcFwMEC3BGEBoNCRlWXVNCEx1bBwpfQg0bVwsSWEJVXxALCBILRHYRAQsHAhAeVw5VEQMbFw1bAxwVS0NLAgNMBQsJAxdeWwMcFUgUEBBGFgdECxYRXBtWRktTWQhCWRYaFwsWEVwYAR1ZAhNFQEQNARYIWRVVFg8cHVtLEWhiDUcqJEITewAtOyg+HitgTxc5OAIPOgVnBAFLEDJAAmwaHgtXODwdAA4ALB8cQQFQDxYcJD8LUkAvHk8oFBdad1NYABIAF1lFCEU+FzInYGY7LA80DjdeUU8EFAkoMnduIB5PEDoXAlVfNQkUGAxfWEwYHFg=
+X-ICL-Score: 2.33303322423
+Authentication-Results: bimi.icloud.com; bimi=declined
+X-ARC-Info: policy=fail; arc=none; r1=-20; r2=0
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=proton.me
+X-DMARC-Policy: v=DMARC1; p=quarantine; fo=1; aspf=s; adkim=s;
+X-DMARC-Info: pass=pass; dmarc-policy=quarantine; s=s1; d=s1; pdomain=proton.me
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=proton.me header.i=@proton.me header.b=T5/fCdZs
+Received-SPF: pass (spf.icloud.com: domain of ballcorebusiness@proton.me designates 185.70.43.25 as permitted sender) receiver=spf.icloud.com; client-ip=185.70.43.25; helo=mail-4325.protonmail.ch; envelope-from=ballcorebusiness@proton.me
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of ballcorebusiness@proton.me designates 185.70.43.25 as permitted sender) smtp.mailfrom=ballcorebusiness@proton.me
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=dur3gt7qsbauhcfvfbaxhnrfcm.protonmail; t=1764022315; x=1764281515;
+	bh=PzTuZbyWsdnVzJ/UM6Ra8k5EYIwS6tsqUDOyRO0NSFE=;
+	h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=T5/fCdZsc96BGmEoOz07cDxQPcef53YbSDxyqbPC5cDP3exHbQaUwSSxtLMBj6lnu
+	 0bDZjyispyjEZD9th+ZYlct70BL3Bjsb81j50wNaXacjB9cIMhteEMy6+dTb2trh/v
+	 IV1ULSnYo83CYM/ST9L9Rt9+/XEZ2k+Y2dPzhV7kiYFrRll9kEEP4uBKXKzA2pdJc+
+	 4Uw4fyIgDOOdzXGeegzYNpwo4erHpX+Hx3lhgl1j8Bj7Z6sMJA1d+0jW9qAmSqqxns
+	 FQEtbYMOETL7XX8NoZ8k+6Wu9mLXCaMSqhh5N4p/eEgXXExPUKcRgj0QyWI2tqtv8m
+	 RFRQPB3zm/uTw==
+Date: Mon, 24 Nov 2025 22:11:52 +0000
+To: "ernest@strauh.al" <ernest@strauh.al>
+From: ballcorebusiness <ballcorebusiness@proton.me>
+Subject: You, The Beholder
+Message-ID: <iXTo2SB5kK6ONQXiSPyuLAdxB5Qft2vE82Zxkr1OD-6luUyk91fmceBHsbvMk6NcojA1-ytwoisj0GqE_PPYYvRyOng-qmo_JGXBk6vMo2c=@proton.me>
+Feedback-ID: 163625030:user:proton
+X-Pm-Message-ID: 7e5e3b674464858aca8e427df565d9149af3d3d5
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="b1=_6QH5Uy0E3gSH9YiskkSkvCUigKvlrLY4aErNHYNSc"
+X-MANTSH: 1TFkXGx0RCllEF2xDWllGZHJsUGdBEQpZTRdkRURPEQpfWRcSExEKX00XZEVETxE
+ KWUkXGBtxGwYeG3cGGxsSBhoGGgYHHxoGGnEaEBp3BhoGGgYaBhoGGgYacRoQGncGGhEKWV4Xb
+ Gx5EQpDThdEB0x5aWJBaB56XwdFY3Jme3VtTW57RlwcfU8SdU5LEhEKWFwXGQQaBB8eBRsaGgQ
+ dGwQbHBoEExsQGx4aHxoRCl5ZF019RFBgEQpNXBcHGx8cEQpMWhdoaU1rbxEKTEYXTWsRCkNaF
+ xsSHwQdGgQeGQQYHxEKQl4XGxEKRF4XGBEKQlwXGxEKXk4XGxEKQksXZnAFe0xkaUJheBsRCkJ
+ JF2ZwBXtMZGlCYXgbEQpCRRduQhNuZUVrGQF+ZREKQk4XZnAFe0xkaUJheBsRCkJMF29iZml8f
+ B1hWGl6EQpCbBdnRR9GGUNiU3gYAREKQkAXengbfntbbUNgen0RCkJYF2R+cxwfWmRmXmBHEQp
+ NXhcHGxEKWlgXGBEKcGgXbVtsHFhjRlJ8SXsQBxkaEQpwaBdkTmBhcnobE3h7GRAHGRoRCnBsF
+ 3p9TxpPAWBZXkxLEAcZGhEKbX4XBxsRClhNF0sR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTI0MDE5MyBTYWx0ZWRfX3B7e5wwSy1z1
+ Lek2At2fH/cfY2dQ0afxrP56lacCV1qqjepEBy8E9Q12wIz7BKDXlBHh5kSjlU6O6Yqgh1TgFuZ
+ bgRG+rGcdwV+w9f7jPf2NF5B/KHHl8gKWBBX1j7Rr6VS3x0SVrkbc/I+W4FDbSzffIcL5LkiNKc
+ ctDjUm0P9q0y3UtGhTHFseNkkC0+VO0nXubqOpH6p22cC7oURSey6dlb9t688IYKXTaRjhlE7k+
+ iyrYU/xZjdJI+ucjxCljKT3pmIahhzouzSy5bG/txY0DpQiTSwKlgkAJF+Bm7EKQu3j8M06Pg=
+X-Proofpoint-GUID: n-fSCHkB4Pu-oIXLQ_GgDQlv6We8_da8
+X-Proofpoint-ORIG-GUID: n-fSCHkB4Pu-oIXLQ_GgDQlv6We8_da8
+X-JNJ: AAAAAAABAx3+BZwgOOIZ1v+caw5qs7rId63AOJruzJCYoXqhywPjHFYLFcEgVy7+uYOmgHQf1fOSXBkJSQmFbFo7s83nmzY3U+NCFBgsEsHI5tCYunNuIVZH64IbfMPnyK1xg+m6MY67scdGLW6saIbxtxvbq7b3AHxlThn/ZoJAmkP1VRJ7zMduR+EHXgmA56IzYYzYrmMz49uyqwv75msX14CsxUU+QcKyeUZNSaCjS6OpcL7kcKH0extMu2GiRpjiURVOdDk8L/Ley2RmILocWC4QCJtCImrM0+/CyLraYdRM+woD7zzJG7W9huZ43SJiWvXVQljq6TVfzI2+fny5jsAQa+mvAvsrC1cPqEbCkhivQ0veEUBubJXwLZwGFcvVQb3pDZEOaEdkKNbRIrjANRM7WLjslugBEjWu2Mocrb9VrXzlfyrAui87+sV3ukpZvGsTe8BqObzJooe6wqCGMQQtj+mZ665G4jYYnPlAUGAEjfxGKtOI1i79Ol1/vsXkJY7PR/SPUNN+Az+vApbRk7hALHPzcyHoMncHhIMiUWJDW0HuKYjaz3NnCK+FYGix2bGoxHvdgL0c8V3EgdGJCXHaB8ZcR8oZ/dxMLhKtrCFVaapmHDDY9URlP1h27CRhU7AXMeuPyymoaodM98u4bJP93mdocUYerWxTsODX9GIECk5Tk7AMnX8A3sw/SEsgRYLc3ti9ZasqTbniXzusUgmlyvFkDaUkl31qajAqxNDKQqmps0kOmCtgnsdypF0I4Wo1tbjk0hIdAUuzNSkrR5G1UY0oKPKyIJkZPw==
+
+--b1=_6QH5Uy0E3gSH9YiskkSkvCUigKvlrLY4aErNHYNSc
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+IllvdSwgVGhlIEJlaG9sZGVyIiBieSBKYXNvbiBSZW5lIEdhcmNpYQ==
+
+--b1=_6QH5Uy0E3gSH9YiskkSkvCUigKvlrLY4aErNHYNSc
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0
+cHg7Ij4iWW91LCBUaGUgQmVob2xkZXIiIGJ5IEphc29uIFJlbmUgR2FyY2lhPC9kaXY+PGRpdiBz
+dHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7IiBj
+bGFzcz0icHJvdG9ubWFpbF9zaWduYXR1cmVfYmxvY2siPg0KPC9kaXY+DQo=
+
+
+--b1=_6QH5Uy0E3gSH9YiskkSkvCUigKvlrLY4aErNHYNSc--
+

@@ -1,0 +1,153 @@
+Delivered-To: estrauhal@gmail.com
+Received: by 2002:a05:612c:2032:b0:553:bfa2:dfff with SMTP id ff18csp2532872vqb;
+        Mon, 17 Nov 2025 13:35:57 -0800 (PST)
+X-Forwarded-Encrypted: i=3; AJvYcCUl3iq5gPViu7O5dRkri86/E9/vNuYdGO6Mxwmv4PHr2VshNdOJv/td3CMYZop87WzGqhnDLnfaArg=@gmail.com
+X-Google-Smtp-Source: AGHT+IHGhWC/vCSydHAMF6BtSTzVoLwgXo5xWDBQ3mvNV4nAOvCP6xgQjOiNrzGy9yl0ElXrS/0n
+X-Received: by 2002:a05:620a:7084:b0:8b2:e986:2704 with SMTP id af79cd13be357-8b2e9862b74mr813571285a.6.1763415357229;
+        Mon, 17 Nov 2025 13:35:57 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1763415357; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=eBkURUOQHGY3kysyOJmEK8+D8NFIA2KbZoKdVNac7L6Xl/a8F5WZGOsqzxpJ9/MvH6
+         bwGXbol1yy9q/e1PqBn99WtYyCs597qXArxXH2KqReGm2sJzSPRVKVb/Io/KtWwMTpZl
+         fml23u+4e+6yARAerJygxgLmZnhWVNwIevuC2HtxccQpiq7XFTsGMJ02+IHwdjX/Xccb
+         W/6kKhls5Oz+kC/vcOLVdjRdYYTh3bkVX6PXXu3MhVhasOz8grc+hbX7zK2Hc6h1DvDe
+         xQv1nBIFK0gkh+wK81OC5MXSUlhlo3q2XalelaPe4DuR7ksiew3/NfRpV79FFaZDLaIW
+         PtGg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature
+         :original-recipient;
+        bh=5STPNDpCn7XMYNrLNZhGLxr7bEalpisnQhgi3z8froY=;
+        fh=7IE/ytSGXT6hWg5MYW09AQztlqLXR7gnnHXGJUZJaFM=;
+        b=Xovh67XSKMLgaAfJfc1lrxlNv2cppkC7kPQeK4LYiHW3kS6MTAyktisRR7KVY7lJg3
+         FGZDvauW8QA0vaYq7dscvXGQVovcDULV75+srTCooDBCHYACrSyvzDoXebN+m3/PLs0H
+         hlpvmayzwwuB+yEVRvxDv+fAJZMcfrQJdCKwRs8fBIkrICBZkIcp7u91lmoa5yJ+/j4H
+         vIC8c4fnGZdatK2cb/nZBfu6wErE0Na893WYXIsy7PRpM7Hp1Y3JEMlQOXtuz/8+JMww
+         +ImIGd66VMCZ+80iMYOGHOA7dfN3Xhu1kA5Bdd40TidcSDk3+MRJxVBxW1zIIq3vW9Sd
+         42YQ==;
+        dara=google.com
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=IpcbrpY6;
+       arc=pass (i=1 spf=pass spfdomain=gmail.com dkim=pass dkdomain=gmail.com dmarc=pass fromdomain=gmail.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.89.33 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Return-Path: <ernest@strauh.al>
+Received: from outbound.ci.icloud.com (p-east1-cluster4-host3-snip4-10.eps.apple.com. [57.103.89.33])
+        by mx.google.com with ESMTPS id af79cd13be357-8b2e95a1a1dsi150325185a.402.2025.11.17.13.35.57
+        for <estrauhal@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Nov 2025 13:35:57 -0800 (PST)
+Received-SPF: pass (google.com: domain of ernest@strauh.al designates 57.103.89.33 as permitted sender) client-ip=57.103.89.33;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=IpcbrpY6;
+       arc=pass (i=1 spf=pass spfdomain=gmail.com dkim=pass dkdomain=gmail.com dmarc=pass fromdomain=gmail.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.89.33 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-11 (Postfix) with ESMTPS id DD06D18002B6
+	for <estrauhal@gmail.com>; Mon, 17 Nov 2025 21:35:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; cv=none; d=icloud.com; s=arc-0513; b=jqKGq2bybiUc1Jg2QfoS5Ozqjp57zFFip3u80L0Cfys5VDD/lf4CkRhkrzbUIr0aCJDb+Waznc2HMeiwDz+cMb4xU6V31j560yzhuuRXNMxhLeOA+sO+iPD4blraMy8PNlh9aNnXIWdQnNQQbC2Uf602t0PIQITFkfcanlmIQZwfQcMsvRek+ZWG6d6YOLvmOYamyMTMAAE3gA39xAdzT/kIiXad2hWOVbfL41JFS348AfK/qsDHNjQE9l73Cl4dFyouDz75I+a5xII4Qd3wDCaLOvlOwaqN5hhxA6GmkpIQmsvVJmS2UXlAmH4yyUtCgzIB9ACIxco2O4Nz08S5Eg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=arc-0513; h=from:to:subject:message-id:date:mime-version:content-type:dkim-signature; bh=5STPNDpCn7XMYNrLNZhGLxr7bEalpisnQhgi3z8froY=; b=J7pAqlnxzFUT15b6VOjWgOfuulXKJVLaTxsGS+OyYSMWSpnEg/msEvayidKwksirHtFqi8zxJP7/PDpx8A/ebj8Qm0ogkRTjUcPAOpoVYne4CRNyg85ctB7AnVFKbk7W8fkpGlTvmfuola6JviDArw/PWYp9vgVGjWDcyMhko4wx8wUDUBx+jHlAUPanqXqj1kYYLvGF44xYejhxHtB/LEp+pz1QAM/hgRESYsSFUlXNxJRq47VcZcYef/dK4qU03TUqX75bIwmt826S8zM05xc8pRt0dsSwS+CuA9bQ7KTXGV44XBeQY+oymuFf6ijUwrXD0sIFQrP+KsXhm8iX5w==
+ARC-Authentication-Results: i=1; arc.icloud.com; arc=none; dmarc=pass header.from=gmail.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=IpcbrpY6; spf=pass (spf.icloud.com: domain of daniel.j.collin@gmail.com designates 209.85.218.44 as permitted sender) smtp.mailfrom=daniel.j.collin@gmail.com
+Received: from unknown (unknown [10.168.160.104])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-11 (Postfix) with SMTP id 714211800154
+	for <estrauhal@gmail.com>; Mon, 17 Nov 2025 21:35:54 +0000 (UTC)
+Received: from p00-icloudmta-smtpin-us-central-1n-100-percent-8 by p162-mailgateway-smtp-85f55459c5-m6p2j (mailgateway 2544B77)
+	with SMTP id e9e67426-43a4-465d-b726-e6e24f04fe6b 
+	for <ernest@strauh.al>; Mon, 17 Nov 2025 21:35:54 GMT
+X-Apple-Action: FORWARD/estrauhal@gmail.com
+Original-Recipient: rfc822;ernest@strauh.al
+x-apple-request-uuid: e9e67426-43a4-465d-b726-e6e24f04fe6b
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	by p00-icloudmta-smtpin-us-central-1n-100-percent-8 (Postfix) with ESMTPS id E1253C00134
+	for <ernest@strauh.al>; Mon, 17 Nov 2025 21:35:51 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQEUVUKE0oWX1gHVQoPB0UCBltbQVNZSgEOTEFNRhIcDVIDGxADG1ZaGAEaFQoeFnBRDxQQClkbX1tCEx1bEBVRXw5bGgkaWEJVXxALCBILRHYRAQsHAhAeVw5VEQMbFw1bAxwVSxISARsEQU1IEBdfUQ4QVwUYFRBGFgdECxYRXBsHH0hLEUwEGAUaFgEbHR5VDRhZAhNFV1sDHBVIFBddFg8cHVtLO3F8IB0IBz0eXXUMPUA/OwByXRMtSyUUCEMOViYsNxA0U0EyQDw/Ti1jVDAcNFY4HR13IhgYDxtWV1sDHBVIFBddCA==
+X-ICL-Score: 2.33303322423
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=none; r1=-20; r2=0
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=gmail.com
+X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=IpcbrpY6
+Received-SPF: pass (spf.icloud.com: domain of daniel.j.collin@gmail.com designates 209.85.218.44 as permitted sender) receiver=spf.icloud.com; client-ip=209.85.218.44; helo=mail-ej1-f44.google.com; envelope-from=daniel.j.collin@gmail.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of daniel.j.collin@gmail.com designates 209.85.218.44 as permitted sender) smtp.mailfrom=daniel.j.collin@gmail.com
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-b736ffc531fso578372666b.1
+        for <ernest@strauh.al>; Mon, 17 Nov 2025 13:35:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1763415349; x=1764020149; darn=strauh.al;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=5STPNDpCn7XMYNrLNZhGLxr7bEalpisnQhgi3z8froY=;
+        b=IpcbrpY6N7ApsLF+YUpS8PhFNorOYumv4yGGozvg1pb2IbOSwamKmUs5IeS9aeTCNF
+         Ogakp4dKkOoTvNKpdr56LM2sati8nmLW1dd8Dy6aR7PXG5ei3haZmL51HbpaeiRinWyY
+         GWzEtCjDfONEDSdZW1bdchbMdw9INLBaUxGj3HXQv+YXRTUVkWZCUCuY7LuFBupdHVBM
+         SGdzHzyzC//ZPpxMk5k0ruYLYQD10Sf1UHkmtGe06ErT666sGN6Z4Sq7pJ+aDoh2kSSq
+         cDJtTfqPeWCZkssK2Cc19gPWSSFanYgA7Y7CLJ1dX2rccNMRhiMw18Wo5ewy+lDTHUoH
+         Pn6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763415349; x=1764020149;
+        h=to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=5STPNDpCn7XMYNrLNZhGLxr7bEalpisnQhgi3z8froY=;
+        b=uvHlpag4cQ25xjfcdwFoeFWHr9S7xlNoMwtPACX6e71eV6YJ42vZrvU2DcOlgda0a3
+         d7RO6FXeElnUbT/EgvW3N+fWTFxCLuE0Ub7bE9LwTTwvjzSVZFGMV6frWKjI8L9GH/yl
+         t9Y1sQoIFCmPq0Z/TPV3C9yIVArZs4XWj5SWKuoih0XlZ7D2oUV8NbZIGvHu+UEyrhJw
+         y89XpNYAnxj2f0+ZeFi48mUJ4e+ISL2udOHkXNuh9FQgB/o9nsls6dy17ZVte98Ro8I+
+         7h0ZGXSTtZhSu84NA4Zw+SLmfceanSgBtJKWRC8195EMjYwgqYM0ZTVsyx1SGiF0t/n8
+         z+2Q==
+X-Gm-Message-State: AOJu0Ywz3Y03YbRSOPKEPVdIh9VOLTRFs0vwhu7capKNwIGyCtKYv2sY
+	zo9SoCNaOA/xTAVFtgvL37IkQuwwcRkvjkR5xsL21nh7ZbaVPdiVFlcU9dY02bdyI66J6fQ3YfU
+	+dPQyWv2kHE65g49DyHWUVXUtRfeU8VT5xYJD
+X-Gm-Gg: ASbGncsqRecTog08pMf80Q70lU9tcuNOWj4kBviEvGYPdg1gozbpPxYeKtxpQCELZ8V
+	3dqmtiBKz5qjR2zx/X0CURtMGJCWEpdZUDhvHP7ReA/akO8o5oPIYiqoFuI0OaEn9+N4lv/v5re
+	pT5s74654NZ5tseSjlVuN/HvHctk5i/wHQsAc54iVgZ98yGC6Cc2LAk1q3ztAZY7Jyt/DqVlzqJ
+	tqzfU2LBjBMPhF98cneKiPfwCw6uBeLLSPQQc8oj2x9F2n/Ekhpa5ggLRSp8NG77FDdzMVMSbI6
+	Etu5Feg=
+X-Received: by 2002:a17:906:24d9:b0:b73:9fea:331c with SMTP id
+ a640c23a62f3a-b739fea3914mr401089466b.47.1763415348994; Mon, 17 Nov 2025
+ 13:35:48 -0800 (PST)
+MIME-Version: 1.0
+From: Daniel Collin <daniel.j.collin@gmail.com>
+Date: Mon, 17 Nov 2025 22:35:38 +0100
+X-Gm-Features: AWmQ_blP5f-X9VhyN5KnQdxWouo_1M8uQ64U6ZD0GyDxqSYjpUqjz3HnpSbYhdY
+Message-ID: <CAJBhqaJfmCnH9YLxBkqX2Ccps84SUQgLcwP5EY9USbRiM0Oe-A@mail.gmail.com>
+Subject: Love your archive
+To: ernest@strauh.al
+Content-Type: multipart/alternative; boundary="00000000000077e6640643d12163"
+X-Proofpoint-GUID: MXuR0k9_hEWmwrGqET0BplfGwi5efMI5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTE3MDE4MyBTYWx0ZWRfX6tGnNHraFzaJ
+ cr8WlHzs6tP5MaHiLnxv+JvGFFrEf+Je1xBodWbVIARtDvwU7kJJqQhCtW7qn0+z3XGkK4bNgLr
+ 93yDqpO52pGjc+1wJSL9E1v/Q9GNEKhBHPFUeaUR/hOyFvKLxY3tZMYbMc/dg5fwVJ2e/Cp96ML
+ 7ddSF/wT9YW0m0eDCDezhWz/+leo48pqBgmSKqoRWP7/5BYjjj4i9CyDERWvvvqUjroRr/x6c0k
+ rHHRvGTCvBRzaBoy0k0i0X0Roy7i43jFcVZKjOJVcbul1x8U82wsnAaYp/XD/sni3YGXw/HwBxe
+ +yuTOJZySRDtVcKblo+
+X-Proofpoint-ORIG-GUID: MXuR0k9_hEWmwrGqET0BplfGwi5efMI5
+X-JNJ: AAAAAAABebr1G9IfqrxxBBcRsOGRxVV9L4IhMI/1gLx1nDGaEnJTmiMwAeMyWwa5e9RvE7JaKZ+HOnBPyUUreqyGSrRv1E5Q76DODAsyDcE6hGCcIF/UKtB2bs8B6CQNW8iZhYh4YK5XNpSatxMpAisojRmlr6ac7aXOXvJbyG1rY/x4XK8m0UZijcGVBDlME+fgZa/ZapCy2ccZG5zMoPuT3NlkuF7lHE1SaP9TPc9ylYXbXWRNvQ6pCvg1GzlXG1Sfkt/8M+eIvufeLzydHwTfulczBH8tCqmgHzGffVwjFV5NXVx1cPiw0RvHnid3geFPd8izxPV4VZ/BLrqyQMYB7B2yOgtkiUw3UrEg2zOn7EKp/0eWAJmcDUkzu1BO/5YrsSxvzB+A6u20milYvefgiV0zsniS8SmTO7RcyWMhruEzRlEQjdCK7ODSpicv14iYEU/dniTXt2o1O3ltyHdY3W3fYV67Fq44P6SBir1Q1EK6TOYNL3scBT3QKafAhJDjk4wEsWwMS7ae0hKOnGUvfFfJ0jrFk3fuMKsjM65mq2NpEbDn4QUltxqjSDRZ37SsA9h126fq7qefuDaY9FlbjaGjLli+sG3vxXiAlm8KJebZALPKxzHIxz8NjoIBvEYsaRZlSPDhBkMN3mf+EikJNlBkgS6azOpLPSMp5XBLiCwN8H1tfDt7EKXS/1E48AIjEfiXECCVpiAo7ZAdjajECNHFoZ2dbfaBiOnHs8t3XDgjnbDiuIf3hBjhTg31+/Pxppp+v30s03gl8A==
+X-Authority-Info: v=2.4 cv=AoTjHe9P c=1 sm=1 tr=0 ts=691b953a cx=c_apl:c_pps
+ a=T0mU/zd77MEem+zjWCBf6Q==:117 a=6UeiqGixMTsA:10 a=x7bEGLp0ZPQA:10
+ a=IQlXgBKfCEQA:10 a=95EFz5htlIgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=gpZa2RNyc1TslF4DTSIA:9 a=QEXdDO2ut3YA:10 a=6VxgH9rkS-kMYQXPNiQA:9
+ a=Uz9EnhuHEG25YKoRyM-d:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-11-17_04,2025-11-13_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=17 mlxscore=17
+ phishscore=0 malwarescore=0 clxscore=1030 bulkscore=0 suspectscore=0
+ mlxlogscore=69 spamscore=17 adultscore=0 classifier=spam authscore=0 adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511170183
+X-JNJ: AAAAAAABa+PV85EWUgiA34ja5mQILSK8I1GwHLiNtZFPTAtK8f3xJ8XrS3Gmb9mXgUo4TbYYl0Jl2YpKNIHiPeyoWMvnhgXlwn7B72SUmaK5DKFU8rxgcKy7EPkG6WO2mIQvNaE54EtVhp2/vfP6GSYeXWcbJZBTHP+YlZ060yy0osr6FKqC5IM2bUE3h6VsNIeqzZwRW4S7iJ3TvHYllXHdfJX3okrfQR/1cIqYg/EGe+PvGdBHR+IXUNb89jCaPk3i9pjEDv6dOgZmGiuWvt+sOgKBpdyH8kTU6IW68ozSQ/yVkVVYKLQ9iPyL9N2OD0Eci+egkmoxf3QC3wNY4P7DpMDgFNF8tu33o85hBSbrTQhZFBa7ZaQnEKnqXOkJkKCUEzwkzq5Q6aNBDx+iCZGIF+dq5nqVd7/ZCvOU1MxaDlub7OQxA45DsMGywI2QGFUac89bfnTGPsfgFb4im1ID85hqTbGrb/7xOYe/132NjWQMgWMFvr2hYRV3n+wVKFI5qxqQ+WsZoXSx8C4UPsqoue2y+eWIYAcSlDg57KHqrew9KTEBPygQZgosndrhJ576VqDCI8Hhi80/GFhx2uyVyA1GY19sSe1pfoFT6ruX
+
+--00000000000077e6640643d12163
+Content-Type: text/plain; charset="UTF-8"
+
+Saw the banner on 4chan. Just want to say this is IT. Keep doing your thing
+
+--00000000000077e6640643d12163
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Saw the banner on 4chan. Just want to say this is IT. Keep=
+ doing=C2=A0your thing</div>
+
+--00000000000077e6640643d12163--
+

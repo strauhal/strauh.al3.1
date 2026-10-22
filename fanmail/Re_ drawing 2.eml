@@ -1,0 +1,145 @@
+Return-path: <eichuwu@gmail.com>
+Original-recipient: rfc822;ernest@strauh.al
+Received: from p00-icloudmta-smtpin-us-east-1a-60-percent-20 by p162-mailgateway-smtp-5d9b797f55-54hpd (mailgateway 2544B77)
+	with SMTP id 38bba136-7830-4ef6-a27d-eb577b2113a1 
+	for <ernest@strauh.al>; Sun, 30 Nov 2025 21:40:47 GMT
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: MOVE_TO_FOLDER/INBOX
+X-Apple-UUID: 38bba136-7830-4ef6-a27d-eb577b2113a1
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+	by p00-icloudmta-smtpin-us-east-1a-60-percent-20 (Postfix) with ESMTPS id 056C9C0012E
+	for <ernest@strauh.al>; Sun, 30 Nov 2025 21:40:43 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQEUVUKE0oWX1gHVQoPB0UCBltbQVNZSQIOTEROVVcdVAsHHBoOAg9FdgUYGA8bVlNZD1UfAkofXVcLGVcFGBUQRAFIHBQZHUNCIgYNFBYNWBgDGVkOEhRfCw8UEApaAUcHTxNIUURWV1kNEhUDWRtfW0IFDRRKFVFfDlgAEUZVVgdVRlcBGBdXWgdbGgkaWFRSXxIUBx4UHlUNGFkLHhwNCiE0N14mKQFYJjoRPz0Cc3shBks0Oh9vVA0/Mg4vN310UEQdPC8pBl8hFjE+RUhjeQMmHiYaGVlaTBIUBx4UHlUNGEc=
+X-ICL-Score: 2.33303322423
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=none; r1=-20; r2=0
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=gmail.com
+X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=fMj1kRYC
+Received-SPF: pass (spf.icloud.com: domain of eichuwu@gmail.com designates 209.85.128.173 as permitted sender) receiver=spf.icloud.com; client-ip=209.85.128.173; helo=mail-yw1-f173.google.com; envelope-from=eichuwu@gmail.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of eichuwu@gmail.com designates 209.85.128.173 as permitted sender) smtp.mailfrom=eichuwu@gmail.com
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-78802ac2296so29360237b3.3
+        for <ernest@strauh.al>; Sun, 30 Nov 2025 13:40:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1764538842; x=1765143642; darn=strauh.al;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=2J4inrwIXl2LXtnPWWKXXukLRd14mBtkeyXsojzit3s=;
+        b=fMj1kRYCEsXgxR3eY4iXKMT79rQ/wty8kGid1pOudaB5ssxyAj9YVd7DyHSLIy1L8W
+         386bHol0k8NK6q4CorPvDo5MAKD09GgCb8qw0OiVG8RDrZ2F1wGCwNnw+Aann4upvMr1
+         CKQt/6iSqDb/pHj3jJP6sSdI9Zf/ieyhdIeCr3u/O6P5W6H7CBsyeBTEME9/7fvV2gJG
+         g3LvNW5BWpFsecTU2f9yThKips2BEe9KnYaSceSo7wqUTJNUIJNAYK3j+zHkSB9R5jQE
+         /4teoBmAXhbdxeJlkwxDMtW5BXwWwTzGtZtpST01khAY+3Cc4Gs36OqH7GEQnX0dKtIf
+         uRSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1764538842; x=1765143642;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=2J4inrwIXl2LXtnPWWKXXukLRd14mBtkeyXsojzit3s=;
+        b=Yr+dzb+DTseBXzm8eeafmFTOQVBeOHOoBJsCKRYHyqWHcO3/j47HVHfGLppSaf7/mL
+         /iLDKolusQAG4WE3E4plv00/y3/XTuxEll+4Fft4DOVgLLAG4JRJB7JVKhsD286r54mE
+         PjY2x5UJSZnMWAnSz/z3GNkb8kWusM7Z63dh3Hv+pSchYhEmBcK6BCToXUlh/s168hPn
+         OfohST4BCswd66V4tJegpAAqXwLseXRWl6TeQXcTTCCWCXg+4NNnRGXrfxy7DdfbSqRo
+         Wv+r95hY4hV5CyIacT7PjKbAQ5dTClHiLFo62U55aefEd3ZOMQIDFX19Ifw2TYHZPfqu
+         W/Zg==
+X-Gm-Message-State: AOJu0YygyNAWsJUYDkCtzNQagPIef9l+FORn2X+QQwo+wWT+hu0T0K8M
+	UAlITp+KsYcUipGmKw5siZCdjK5nYiaZ4VugKFdhr3MQkL1zmFNaOjW9k/yzioMv4C0Yj930dk+
+	/kBM1Z9edbAYvZw5dOB1+RmIQdkaMZrqAQrTh
+X-Gm-Gg: ASbGncvPrMBxnc5iSifaCVRHeaaT2kPwn7yB5/uS8p4wa1tcwcvMA3UD3uzWKy0r2fc
+	QmeeMeAVMgKdgPHzmdJ02I/MK0k37r9pyJxMVKmU05VmyJgH445bc/XpNj/frWr4B23dr6OQnFy
+	QL+6qiZlaTNjRmNgr88RG4cGRRPN+xzLmX81z98vXhfc0+oO72b1MBloI8vfAeNSjKK1S11CfQX
+	4h5H8rrk6LmmSM13qKnInCzm8cepwXoSQkiUFMOu0MN1n454wifDeemI7vUY7jxY0zpzIyL6bPb
+	dMf2d0ifUP94aQVNvgHFurJioWPJ
+X-Google-Smtp-Source: AGHT+IEJK9Nwdr2J+RqXHuP611dc7ZCvgvYangL+OoL8585G+inBKILEYy2cp6gg+Issw3jKp6Z1n9/EaOIuJmJjX7Y=
+X-Received: by 2002:a05:690c:62c1:b0:78a:859c:63b2 with SMTP id
+ 00721157ae682-78a8b4c7b6emr307860227b3.30.1764538842452; Sun, 30 Nov 2025
+ 13:40:42 -0800 (PST)
+MIME-Version: 1.0
+References: <CAN8QQ1k=w3ZKFraLJMDJ+ya_Oh2-e3PnZEXj+qF+ePzz+vR5tA@mail.gmail.com>
+ <821AADB7-5704-43C1-AC68-E2B0990932F8@strauh.al>
+In-Reply-To: <821AADB7-5704-43C1-AC68-E2B0990932F8@strauh.al>
+From: awoomi <eichuwu@gmail.com>
+Date: Sun, 30 Nov 2025 13:40:31 -0800
+X-Gm-Features: AWmQ_bmbeJZ41l-ev27Geuj3BGsFsAZWlYXquLSfjK82R5v5djXLn5kzMC_8RtU
+Message-ID: <CAN8QQ1nDOhYJzCMCs2RMg_boJKhXOMB21dZXQ6iCcHX20SOaSg@mail.gmail.com>
+Subject: Re: drawing
+To: Ernest Strauhal <ernest@strauh.al>
+Content-Type: multipart/alternative; boundary="000000000000e5948b0644d6b691"
+X-MANTSH: 1TFkXGBoRCllEF2ZGfV9rbX0abWMdEQpZTRdkRURPEQpfWRcbHxgRCl9NF2RFRE8
+ RCllJFxkYcRsGHB53Bh8fBhoGGgYfHwYacRoQGncGGgYbGgYaBhoGGgYacRoQGncGGhEKWV4Xb
+ Gx5EQpDThdre11Tf1gaWB5SbWx4b09YfEV7XWxeXF9+GGdCWhprHBEKWFwXGQQaBB8eBRsaGgQ
+ SGAQeGAQYHBAbHhofGhEKXlkXTXNGHxkRCk1cFxsbGhEKTEYXYk1rEQpDWhcYGhMEEh8EGxgSB
+ BsdGREKQl4XGxEKQlwXGxEKXk4XGxEKQksXY1Nja3sTWH4aX14RCkJJF2NTY2t7E1h+Gl9eEQp
+ CRRdnQF94eF0eX0hhWREKQk4XY1Nja3sTWH4aX14RCkJMF2YBYHJvZ3hfAXoYEQpCbBdpUFBSb
+ V5Gf11nZREKQkAXYR9SW19gZmV/HEwRCkJYF2R+cxwfWmRmXmBHEQpNXhcHGxEKWlgXGBEKcGg
+ XZX5veX5FTWlFTGUQBxkaEQpwaBdnQEcZXkd7chNfUBAHGRoRCnBoF2d4fVJFbVhGARgdEAcZG
+ hEKcGgXemR7Hl5saWR4QFgQBxkaEQpwaBdpR0QYaHBhXW5dZxAHGRoRCnBoF2NvYnxzYGMdb2s
+ eEAcZGhEKcGgXb1lSfVgaRwUZT34QBxkaEQpwaBdifhtTHGxycGlJQxAHGRoRCnBsF2NZb2RQU
+ xlIbGVjEAcZGhEKcEwXZnptf35kexx4TVkQBxkaEQptfhcHGxEKWE0XSxE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTMwMDE4NyBTYWx0ZWRfXzxc9mQI6NUMI
+ 8zrG6EuDpV9/AOQgd/xXDNxdsI4Jx4EX284N9WD6kT6RIBJBaBMknd3v6z85evQkkWP1lV+iJm2
+ 6LCAxLZzp6vePecHtwWP+l1PuAoQ/nMhvzjXh/w4yz17CT5guAH9vlJo9/kqHncsN5RriHcgclK
+ 3sC7B51BbGpjFqowQXyyCSadFhe06aQl7qjNSKaodrMdoNTh2m6Y1BC1o4fvEYAGIujChJYRewy
+ ePIg46J+sukmf6U4839hY3wEDNPdu03jZhqEoLd8rKzGtPSIJib+6HwpN/MxPSp0yzFsi5QFM=
+X-Proofpoint-ORIG-GUID: AQwyUr0r4xGFREerVoQwFtvuT2Mhp0A6
+X-Proofpoint-GUID: AQwyUr0r4xGFREerVoQwFtvuT2Mhp0A6
+X-JNJ: AAAAAAABDwS5jEyyv8CwYQc9dRF7XZuRurC+gTYx93EZ+uGpn5RkyFh06SB7hlTx59SECtbjwh1z+1Eyux4h8bvBSRzTRCO5iDh8TKNwxx3m7BtsWAJc2qXGkk3JT0rzOpwFOGBYZuFTMN8SOHCoh+ISykQodyV8ql3riHndFcdBV+lqeFzKk2Fb/zQ3xjCWa2VXpw+MF/gAOEtuhq6Ow9twNUBoyACJtvl41poVPgV3MepJrwli1Hpap+LqMEYz84r2HeeliNHfoqBox+xXmoV0a88BpcvwUfgjUzym1DBp9WIntwQGeK3yISIE+HS0Z/wrX5b9KfDIOgRRbLao305H68QwAOa7bVYlG4cQyrdLXsKRM3VHIS737nAqbdozuVsYEAtqwHc/gG55CZPbvVqmH2QruPrnCzythfCPJJfXnDu0mLvg4FgxbCB5HdLdKZCupI63KKS7kh/YVYKyDYIUC+oVjoUFAINiFv6CIleKObV+JJzdYf2B3vULhzIhfwYVVeNlymEb3RltBu2cE1I1MBMgfxjUuKXQdALAAApJ+HLhkzTUYrs3ZTReFTGJkXDYdnFDVaZMTcj/qRXQpfiNMG3HYcJaMYlAwLQLv+lXAgq9bE1XeAfTZ/5uBURu49Fch8FWG+6CK9VjBwfaZDFGASfVJd7vmBUrNEUtqEM/FI0sv9pkz0JIq3k3lIXLDt3OmFTVEaU2eA+Ehd0oCriATBeEy6rFmObc27Hjn6QBAaVUm4qP
+
+--000000000000e5948b0644d6b691
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+it makes me so happy to hear you both liked my low effort drawing
+let her know i find her drawing of mine absolutely adorable, it made me
+smile :>>
+
+On Sun, Nov 30, 2025 at 12:33=E2=80=AFPM Ernest Strauhal <ernest@strauh.al>=
+ wrote:
+
+> what a wonderful drawing, i will add this to the showcase when i get back
+> to my computer :)
+>
+> i showed your drawing to my lover and she liked it so much she did a stud=
+y
+> of it
+>
+> all the best,
+> ernest
+>
+> > On Nov 30, 2025, at 11:28 AM, awoomi <eichuwu@gmail.com> wrote:
+> >
+> > =EF=BB=BF
+> > greetings ernest....... here is my drawing for ur collection
+>
+
+--000000000000e5948b0644d6b691
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">it makes me so happy to hear you both liked my low effort =
+drawing=C2=A0<div>let her know i find her drawing=C2=A0of mine absolutely a=
+dorable, it made me smile :&gt;&gt;=C2=A0</div></div><br><div class=3D"gmai=
+l_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Sun=
+, Nov 30, 2025 at 12:33=E2=80=AFPM Ernest Strauhal &lt;<a href=3D"mailto:er=
+nest@strauh.al">ernest@strauh.al</a>&gt; wrote:<br></div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
+b(204,204,204);padding-left:1ex">what a wonderful drawing, i will add this =
+to the showcase when i get back to my computer :)<br>
+<br>
+i showed your drawing to my lover and she liked it so much she did a study =
+of it<br>
+<br>
+all the best,<br>
+ernest <br>
+<br>
+&gt; On Nov 30, 2025, at 11:28 AM, awoomi &lt;<a href=3D"mailto:eichuwu@gma=
+il.com" target=3D"_blank">eichuwu@gmail.com</a>&gt; wrote:<br>
+&gt; <br>
+&gt; =EF=BB=BF<br>
+&gt; greetings ernest....... here is my drawing for ur collection<br>
+</blockquote></div>
+
+--000000000000e5948b0644d6b691--

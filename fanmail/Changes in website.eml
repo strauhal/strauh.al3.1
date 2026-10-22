@@ -1,0 +1,118 @@
+Return-path: <providencejustice42@gmail.com>
+Original-recipient: rfc822;ernest@strauh.al
+Received: from p00-icloudmta-smtpin-us-west-2a-60-percent-21 by p162-mailgateway-smtp-6b8d4bb5b9-6xd4j (mailgateway 2544B77)
+	with SMTP id b34a56e2-c85a-47c3-be55-79cf322ce854 
+	for <ernest@strauh.al>; Tue, 6 Jan 2026 20:00:01 GMT
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: MOVE_TO_FOLDER/INBOX
+X-Apple-UUID: b34a56e2-c85a-47c3-be55-79cf322ce854
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	by p00-icloudmta-smtpin-us-west-2a-60-percent-21 (Postfix) with ESMTPS id 99A78C00199
+	for <ernest@strauh.al>; Tue,  6 Jan 2026 19:59:59 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQEUVUKE0oWX1gHVQoPB0UCBltbQVNZSgIHTEFPRhIcDUYQGg8PEx1eVQcfDBUDEVNTVkc5ARoZWVpMFhYLVx5UCwUYGA8bVlNZD1ULBUodQlgHBg0mBAxCVxcdVwcbWFhTDhpECxYRXBsVB0hLEUwGGAUaFgEbHR5VDRhZFgMKDVsDHBVLAAoBGwRBT0gQF19RDhBXBRgVEFIGSB4LFhFcGAEaFEYaEVQLXjY4IgE1V2wJDQ0TJAl+fDstSBxEH0BwNSQ+XgFBCHUTMw8uHBdvAzoTPT8xCVR8U0YIETcVUV8OWx4LFhFcGAEaFFg=
+X-ICL-Score: 2.33303322423
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=none; r1=-20; r2=0
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=gmail.com
+X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=i6PhUS1S
+Received-SPF: pass (spf.icloud.com: domain of providencejustice42@gmail.com designates 209.85.221.46 as permitted sender) receiver=spf.icloud.com; client-ip=209.85.221.46; helo=mail-wr1-f46.google.com; envelope-from=providencejustice42@gmail.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of providencejustice42@gmail.com designates 209.85.221.46 as permitted sender) smtp.mailfrom=providencejustice42@gmail.com
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-430f9ffd4e8so21109f8f.0
+        for <ernest@strauh.al>; Tue, 06 Jan 2026 11:59:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1767729597; x=1768334397; darn=strauh.al;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=ihM5faDR/u26N/R+fLf1dLd6qcrZ0UaE0L3fq9TBtp8=;
+        b=i6PhUS1S33XhvcuhDA2to/7u+NZrxBYrmru0b2zInIKgAdAfoW9abqzl5HfqtOmmau
+         HJh9GPWew4UB5x1B4JZDqxxfQZIs6eGj+pTOw3wKVQs53UNpKF9KQkVTxMnLzlzR6L/X
+         89uAo0kv9sshWXfXps0FiJdjgWSNepJbzDXNi+KDE8LTz0Z0d+nY/7yRg5VrIQeDsSeU
+         3MY3tHMnJ0MSgbMpe80jANasp+XrM2nD2TSqF7mJ3FPXPZtvyvEMq/qr7Ry6/A1sRr8G
+         ZGhptYHYis5a4HmsAy9pTFI4HTWGptoGdSt4Lb+Lj37PDJmqTJ2MPwnyWfr0xYnzLlM0
+         GS9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1767729597; x=1768334397;
+        h=to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ihM5faDR/u26N/R+fLf1dLd6qcrZ0UaE0L3fq9TBtp8=;
+        b=U4NUVciDGdpRB4X6sWy12vuzmIudjJ2/8yRNI/Dw7LIFSKV3o/Pxkmw9BZG3fA2plN
+         J7XGWHy8UY5JvPflfSA4uft+L98gzHr6Qp6qGjH31ize6GbZhHorETgxklSTA6lbx02i
+         KmCZsmO95ejDFZ5uiHpTTYh1yAo4VdVBrAAWQS0aQVHKZPoOxNh/QITEhhZ7xd4Qh7Il
+         sYuXRsh4MVtb7n9Y1p26f3FxILJNGAZPYNWL3lDblSGAoUcWHXGztUdLcve9rRL3hpEh
+         XTjHKNYZKlWeKo6jjKoV5+LXz8TEXzD53IyXX+Ow/peMQ6n946D6qigWKw1eHheVZTvh
+         sCEA==
+X-Gm-Message-State: AOJu0Yy2BdvmFp1vbXPAShB/apuoI9KQpgNpYkqa8kjUvNzH7931JIAZ
+	5G5PvxP+0gGnbtZbABjCKyRTPzLIXacwQjR1rHop4WrWHxI3cqAW9rfiqyGMagrCnAzkrC8gYfW
+	60vDtnjs3SCWnfkzeYrAtOXJ7mPiSmjQRc6gA
+X-Gm-Gg: AY/fxX5ilm4aKWNN3cCHPCAVe2re6ILaIoZNENFk59wGhFSe8mFwLO/Nr9jbfWdCNXP
+	KuLexDbv7FVAC5NxlVnOPp09HOoZTBTcPAL+0LX3wSxZ4963NwyrW6Ssx3tiUbb758XDpUMqzy8
+	Tm++T7KKc2vpKvcns7XicIvZUnDyMtIm09UXoSOPu4RgKpfD5mH7RNr0rTmefa6v0XW1iI7WEX/
+	5HztY1DR9O/iOjYLCGIiaZIsnanbWnYxnqBwDN6zjXEK83gd0WBLW8IXJeafL9w/Z/hVI5t
+X-Google-Smtp-Source: AGHT+IG9xW7+gAHpSk/PQaKYglIIqZLUMBdJlSWCP/GJqtvQFbE1fV8hSPlm82mDxX6rtwHMCDS65dGuC9iBsxJeNCY=
+X-Received: by 2002:a05:6000:4287:b0:430:f74d:6e9f with SMTP id
+ ffacd0b85a97d-432bcfd37b3mr5162193f8f.14.1767729596488; Tue, 06 Jan 2026
+ 11:59:56 -0800 (PST)
+MIME-Version: 1.0
+From: Raul Duke <providencejustice42@gmail.com>
+Date: Tue, 6 Jan 2026 14:59:44 -0500
+X-Gm-Features: AQt7F2oLOKXuvdMJtZgfuCmH9190wi2qEbhq7oZn1Ebl1BkD2Whem9kPa7MaJ5U
+Message-ID: <CADvMgZkxtuSqNJYX1z3gpFWQG8v98CqFvHko_5XfDYFqdJ13qw@mail.gmail.com>
+Subject: Changes in website
+To: ernest@strauh.al
+Content-Type: multipart/alternative; boundary="000000000000a85edb0647bd9eaf"
+X-MANTSH: 1TFkXGBoRCllEF2VAGFwdZmsBZhhLEQpZTRdkRURPEQpfWRcbGxIRCl9NF2RFRE8
+ RCllJFx4acRsGHRN3BhweBhoGGgYbHgYacRoQGncGGgYaBhoGGgYaBhpxGhAadwYaEQpZXhdsb
+ HkRCkNOF2hgfnhQXVBdfFtLbRtEEl1mTWlcaU0eGXxLEkhmTEtiEQpYXBcZBBoEHx4FGxoaBBI
+ YBBsfEgQZGhAbHhofGhEKXlkXTUFdH0gRCk1cFxgSEQpMWhdoaU1raxEKTEYXTWsRCkNaFxgaE
+ wQSHwQYGBsEHhwRCkJeFxsRCkJcFxsRCl5OFxsRCkJLF2NTY2t7E1h+Gl9eEQpCSRdjU2NrexN
+ YfhpfXhEKQkUXbEkSHExMfUtNHVoRCkJOF2NTY2t7E1h+Gl9eEQpCTBdoTnByH1scWB5dRxEKQ
+ mwXZU5NAVxTEkJIQVwRCkJAF2xNWGcaRX1LXFxkEQpCWBdkfnMcH1pkZl5gRxEKTV4XBxsRClp
+ YFxgRCnBoF2BTZRNaTURiUH0YEAcZGhEKcGgXaU1tWAF6eEcaRmQQBxkaEQpwaBdvWWZwbxtve
+ mxdfhAHGRoRCnBoF2F/bUlQGl8bGUNaEAcZGhEKcGgXaXBNWgVceGxYZ2sQBxkaEQpwaBdmRE4
+ Se05oeURsQhAHGRoRCnBoF2tof1BnG2dMQxN6EAcZGhEKcGgXaVBsbFNPBWkSYlAQBxkaEQpwb
+ BdrEwFsclpfbUwZZRAHGRoRCm1+FwcbEQpYTRdLEQ==
+X-Proofpoint-GUID: BJTRzwzwVqaG1n8wLgCvCg43Va8bLfaH
+X-Proofpoint-ORIG-GUID: BJTRzwzwVqaG1n8wLgCvCg43Va8bLfaH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTA2MDE3MyBTYWx0ZWRfX+BRnKMltL/DA
+ DSzQrlJExXWnACAQ3quAr0EUC1ux2WYO5T4Mihjv04GgwZGdUY3cRBBTm63g4DZI6XBAT6MgY7D
+ 9bdO6N/GpuS6SSFAbNDrt2/mgQcj29zj7lcwsVoV8C7d73wm2Js7akHAprY6ChKhcx9n7FWnVFy
+ b78oLRIioAblV9O7vmVkM6+mRtbTgliYvDxzoOi07q9OII41kSWDrRn/9g264RuYCGQZsq9onI3
+ 2q2YNqTFvYg4JkAIbPfotSt6o5l/1vBn5Pu3P+qMOSdazYH23hDBSatTjEaNMf7o+2X8gN7MY=
+X-JNJ: AAAAAAAB6pMiEYJRpxnHNEeI/xmOR389WyXljRfc1bOSWH4OycBSxcN/HkDTwFxVYGmmz9CsY00SuH4vVULQkfORmH2PqFnV+Q3grm29xYaOJRnDCmuPX3xRgtvmdbIg5PT5cF8lmj7CRzqLns/O7FHam+pWloQf+IRsMKr7OBhpITU+L4eN9uWpsGqbtyDTwwBN2q4WOvfPpDSSjvTNUMvaP9ZwiGUURqU15UuAW7yk9XmvWVa8DZh8QrIXDw4vswl7P3y9k1EInmq3l1pQC1ZKNPUC+gh6aQUPxeipsXNZCi9LR5Ud+U5NXWdvJfymrteIFPF394wMfjQi6GLo2QNQMMZAXddHfRY5O+GiKr8reKqn+ubP7SVvj8KvVT5F8shnHJvrrUPWfBV49/iz3pKz4BoSAvwfAa+DQE1FZV3qIbzqlWBam26uN8+4TECzH34At9MWt/MwVKp24xBwG3j1mig2/vDnzQfhWi5g2MrLfa8yVKQ1be7l3XrJop0ddnepBL6wdPaZaxQffWxYLynR8y1AZM6u2kmw+O9QPO0lkefJSUHR7Af+X1OZYHLLkeM+udZb3tuiZh2ITZzA+WjP6T7rziHMwu7q/kWmTYC6B56rvcB946JEkeYRD01QLVNNWLO/VdkEzQcBuFSRXjkQM/nNMbVbGH57wPcqZA2r1yfZeeLP3M9EyDn3aJZvAOltJrswQGOpMW8m1hgPElXhVKw/LLNVRGoY4J+YLnabQoQJ0nHRQYuc4vpM+8+W6TsV
+
+--000000000000a85edb0647bd9eaf
+Content-Type: text/plain; charset="UTF-8"
+
+  Dear Webmaster,
+
+I can say this is the coolest website out there. I can't say I like the art
+being arranged in linear fashion. Links like Art, More  Art and Even more
+fine art were some of my favorites.
+I thought it was a nice juxtaposition to see some art from 1654 next to
+some fabulous sci-fi peice from 1970.
+
+Anyway that's the two cents of someone on the internet.
+
+
+Thank you kindly,
+
+                 Raul
+
+--000000000000a85edb0647bd9eaf
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">=C2=A0 Dear Webmaster,<div><br></div><div>I can say this i=
+s the coolest website out there. I can&#39;t say I like the art being arran=
+ged in linear=C2=A0fashion. Links like Art, More=C2=A0 Art and Even more fi=
+ne art were some of my favorites.</div><div>I thought it was a nice juxtapo=
+sition to see some art from 1654 next to some fabulous=C2=A0sci-fi peice=C2=
+=A0from 1970.</div><div><br></div><div>Anyway that&#39;s the two cents of s=
+omeone on the internet.</div><div>=C2=A0 =C2=A0=C2=A0</div><div><br></div><=
+div>Thank you kindly,</div><div><br></div><div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Raul</div></div>
+
+--000000000000a85edb0647bd9eaf--

@@ -1,0 +1,107 @@
+Return-path: <localareaman@proton.me>
+Original-recipient: rfc822;ernest@strauh.al
+Received: from p00-icloudmta-smtpin-us-west-3a-100-percent-8 by p162-mailgateway-smtp-64bdd8cd9-rrv6n (mailgateway 2530B71)
+	with SMTP id 99fc7942-0da8-4806-a517-3c253cb9fcd2 
+	for <ernest@strauh.al>; Mon, 11 Aug 2025 16:57:58 GMT
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: MOVE_TO_FOLDER/INBOX
+X-Apple-UUID: 99fc7942-0da8-4806-a517-3c253cb9fcd2
+Received: from mail-24428.protonmail.ch (mail-24428.protonmail.ch [109.224.244.28])
+	by p00-icloudmta-smtpin-us-west-3a-100-percent-8 (Postfix) with ESMTPS id 8F09BC000ED
+	for <ernest@strauh.al>; Mon, 11 Aug 2025 16:57:55 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQEUVUKE0oWX1gHVQoPB0UBBltbS1RDVgICVltLXlcdVAsOGhoHGxlCUwMYGAg3CEJZFhoXSBodEFAGSAkUGAxfWEwYHEYFGw1TEBscFQM4Q0IQFAwOWRlcFgoQFQlKFVFfDlhLUkNKCBgSBxYSGBZdVwsZVwUfWEBCEEgUBx4UHQRWQUteWQhCWRYaFwsWEVwYAR1ZAhNFQEQNARYIWRVVFg8cHVtLLEBUNDwUDQ4aX1UKFAosIxRWDhczDQAZGUFENwIfDgccBgASFC0sRDdCBCE0QBw0OWEbUiwjMTgCYn82Iwg2BxZoTxRHHjETD0lSUDoKKwY0flIRIjdUAwp8BAYdQFAbCmJ1KRQoPy0hAUFfNQkUGAxfWEwYHFg=
+X-ICL-Score: 2.33303322423
+Authentication-Results: bimi.icloud.com; bimi=declined
+X-ARC-Info: policy=fail; arc=none
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=proton.me
+X-DMARC-Policy: v=DMARC1; p=quarantine; fo=1; aspf=s; adkim=s;
+X-DMARC-Info: pass=pass; dmarc-policy=quarantine; s=s1; d=s1; pdomain=proton.me
+Authentication-Results: dkim-verifier.icloud.com;
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=LzUCyqdI
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of localareaman@proton.me designates 109.224.244.28 as permitted sender) smtp.mailfrom=localareaman@proton.me
+Received-SPF: pass (spf.icloud.com: domain of localareaman@proton.me designates 109.224.244.28 as permitted sender) receiver=spf.icloud.com; client-ip=109.224.244.28; helo=mail-24428.protonmail.ch; envelope-from=localareaman@proton.me
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1754931473; x=1755190673;
+	bh=fdMFWAguHauUWBRWousA0JaQQKFwdhOeFB4ynA6DitI=;
+	h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=LzUCyqdIeqPiFuZhPlcse1AyHzdGmrm0wNDWHYMmCVR55JNk+aLYB1xh9ktmA7Ft0
+	 AXWnS7Z+6AqoN9WoaR0n6+nv4BzXvFwUWjbAAJRGe/h0kGmZHOMa704WFK6osPDtO1
+	 9SUWwp+V8zE06EcmbAx7rGIArv82bgJq53WV4pzcFppgHM7yQFDJIgJrrpqTSwpuyy
+	 rPYG+iCcFMWPs542snivNfxdzRZAd+C1VLncZqshulpq9XnorpbhsTEMfdT1JGZrRs
+	 ccblhW6fSPgGqRgRsIPg8fG+X6Vk4THUpccXXy40hwW0POpamV1D4/BAkDvyB+ORqb
+	 XVqqUcrFb7KMg==
+Date: Mon, 11 Aug 2025 16:57:47 +0000
+To: "ernest@strauh.al" <ernest@strauh.al>
+From: LOCAL AREA MAN <localareaman@proton.me>
+Subject: saw your ads, clicked the about page
+Message-ID: <TpbVImkybochasJTlf8uFtfnaqrUwfhpd66paTJ3Or2CA9zCAQ-0YZWOzRITVqPpnXyv2gWdwyd2OsMqLNdsWN2trL2dh96lrRCKaQYZY1w=@proton.me>
+Feedback-ID: 151803528:user:proton
+X-Pm-Message-ID: 2cbf3bfa22b78ef17909d45c956fbbc68af8510e
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="b1=_SsnK1ddwp6Zr85pJdju0UN9HPJQFPsBQ6TiqDjwL8OM"
+X-MANTSH: 1TFkXGBoRCllEF29dTGBoGkZmT0xhEQpZTRdkRURPEQpfWRcYGh4RCl9NF2RFRE8
+ RCllJFxgbcRsGHht3BhsbGQYaBhoGGxoaBhpxGhAadwYaBhoGGgYHGRoGGgYacRoQGncGGhEKW
+ V4XbGx5EQpDThdLHUxhWWJjfFNYTUd7Y2RjbXV9H2ZLQHBTRVJdYkwZWBEKWFwXGQQaBB8eBRs
+ aGgQSGAQeGAQYHRAbHhofGhEKXlkXTFASfVwRCk1cFxgYGREKTFoXeGlNa2sRCkVZF28RCkxfF
+ 3oFBQUFBQUFBQVDEQpMRhdNaxEKQ1oXGxoTBBgYHgQYHh4EGBIRCkJeFxsRCkReFxgRCkJcFxs
+ RCl5OFxsRCkJLF2ZwBXtMZGlCYXgbEQpCSRdmcAV7TGRpQmF4GxEKQkUXaF5SeHhpYRkaXB0RC
+ kJOF2ZwBXtMZGlCYXgbEQpCTBdvX3t7RGBpZBNYHhEKQmwXbVtieEZTXl1aHE0RCkJAF21EYX9
+ ef24bU11+EQpCWBdkfnMcH1pkZl5gRxEKTV4XBxsRClpYFxwRCnBoF2tyfAVdZ2VpcFldEAcbE
+ hEKcGgXYkhuUnN8QEdSZmYQGAQeEQpwaBdsTWV4TEhbYU9zXBAHGRoRCnBoF2RncB9+ZX5gQ0F
+ zEAcZGhEKcGgXbkMSTGt7UE1belMQBxkaEQpwaBdrXGB9GR1ZGW4bGxAHGRoRCnBoF2N/SQV5B
+ XJyflwcEAcZGhEKcGgXbH5heFhFe0lES1wQHQQTEQpwfxdkfnJzUGJCYBNMHBAbHxEKcF8XZGd
+ mWXlvRBxGH3sQGxkRCnB9F2kbTh0bZh1wbFtAEBseEQpwXxdleFBEGQF8fVpHThAbHhEKcH0XZ
+ XhQRBkBfH1aR04QGx4RCnBsF2l7TXxnGx5nXVhaEAcZGhEKbX4XBxsRClhNF0sR
+X-Proofpoint-GUID: a7fKsHIVyrgmQINIG_W5LajZyoxwHf3r
+X-Proofpoint-ORIG-GUID: a7fKsHIVyrgmQINIG_W5LajZyoxwHf3r
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODExMDExMCBTYWx0ZWRfX6qP7uRzqxloz
+ t+j6e0R03NGB2Gkr0RRDgxGBn+x25ADb0irkCEMa9c0iHflDOzPebaJsJo/7R2moxwkoRfQpyln
+ +W6eplAz8FAl6P2HJ9Hyoldsr/l2e+v9i5ZRe+ivJS2UFTUu43yDOBPwvXiSjk86BuUY1r/woQW
+ dtn4GLhAD5htmuFRYGyUhukmU+PPoxaGPtAy7zK/Glhxmb414Son9tQpYspzJMBZc+hkTbBa8Oe
+ lIJhcW/s6tup7r3zU5Q2/cW1fu41ek08U/6PUp1xnyzSh9N8/G71h5II4BBEgxgCVS7aci8yQ=
+
+--b1=_SsnK1ddwp6Zr85pJdju0UN9HPJQFPsBQ6TiqDjwL8OM
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+YW5kIHlvdSBzYWlkIHRvIGVtYWlsIHlvdSBpZiB3ZSB3YW50ZWQsIHNvIGhlcmUgSSBhbSwgZW1h
+aWxpbmcgeW91LiBlbmpveWluZyB5b3VyIHNpdGUgc28gZmFyLiBob3cgbXVjaCBkbyB0aGUgYWRz
+IGNvc3QgeW91IHBlciBtb250aD8gd2h5J2QgeW91IHN0YXJ0IGFkdmVydGlzaW5nIHRoZSBzaXRl
+IHRvIGJlZ2luIHdpdGg/IGFueSByZXNwb25zZXMgc28gZmFyPwoKYWJvdXQgbWU6IFJpZ2h0IG5v
+dyBJIHNlZSBhIGNyb3cgZWF0aW5nIGEgcGl6emEgY3J1c3Qgb24gdG9wIG9mIGEgc3RyZWV0bGln
+aHQuIEkgYW0gdHdpdGNoeSBhbmQgdW5ldmVuIGZyb20gdG9vIG11Y2ggNEYtTVBILiBJIHdhbnQg
+dG8gZXNjYXBlIHdvcmsgYW5kIGZpbmlzaCByZWFkaW5nIHRoZXNlIGVzc2F5cyBvbiBNYWNiZXRo
+IEkgZ290IGZyb20gbGliZ2VuLiBNaWdodCBtYWtlIHJpY2UgYW5kIGNoaWNrcGVhIGZvciBkaW5u
+ZXIuCgpTZW50IHdpdGggW1Byb3RvbiBNYWlsXShodHRwczovL3Byb3Rvbi5tZS9tYWlsL2hvbWUp
+IHNlY3VyZSBlbWFpbC4=
+
+--b1=_SsnK1ddwp6Zr85pJdju0UN9HPJQFPsBQ6TiqDjwL8OM
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0
+cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwg
+MjU1KTsiPmFuZCB5b3Ugc2FpZCB0byBlbWFpbCB5b3UgaWYgd2Ugd2FudGVkLCBzbyBoZXJlIEkg
+YW0sIGVtYWlsaW5nIHlvdS4gZW5qb3lpbmcgeW91ciBzaXRlIHNvIGZhci4gaG93IG11Y2ggZG8g
+dGhlIGFkcyBjb3N0IHlvdSBwZXIgbW9udGg/IHdoeSdkIHlvdSBzdGFydCBhZHZlcnRpc2luZyB0
+aGUgc2l0ZSB0byBiZWdpbiB3aXRoPyBhbnkgcmVzcG9uc2VzIHNvIGZhcj88YnI+PGJyPmFib3V0
+IG1lOiBSaWdodCBub3cgSSBzZWUgYSBjcm93IGVhdGluZyBhIHBpenphIGNydXN0IG9uIHRvcCBv
+ZiBhIHN0cmVldGxpZ2h0LiBJIGFtIHR3aXRjaHkgYW5kIHVuZXZlbiBmcm9tIHRvbyBtdWNoIDRG
+LU1QSC4gSSB3YW50IHRvIGVzY2FwZSB3b3JrIGFuZCBmaW5pc2ggcmVhZGluZyB0aGVzZSBlc3Nh
+eXMgb24gTWFjYmV0aCBJIGdvdCBmcm9tIGxpYmdlbi4gTWlnaHQgbWFrZSByaWNlIGFuZCBjaGlj
+a3BlYSBmb3IgZGlubmVyLiZuYnNwOzwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiBBcmlh
+bCwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxNHB4OyI+PGJyPjwvZGl2Pg0KPGRpdiBzdHlsZT0i
+Zm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7IiBjbGFzcz0i
+cHJvdG9ubWFpbF9zaWduYXR1cmVfYmxvY2siPg0KICAgIDxkaXYgY2xhc3M9InByb3Rvbm1haWxf
+c2lnbmF0dXJlX2Jsb2NrLXVzZXIgcHJvdG9ubWFpbF9zaWduYXR1cmVfYmxvY2stZW1wdHkiPg0K
+ICAgICAgICANCiAgICAgICAgICAgIDwvZGl2Pg0KICAgIA0KICAgICAgICAgICAgPGRpdiBjbGFz
+cz0icHJvdG9ubWFpbF9zaWduYXR1cmVfYmxvY2stcHJvdG9uIj4NCiAgICAgICAgU2VudCB3aXRo
+IDxhIGhyZWY9Imh0dHBzOi8vcHJvdG9uLm1lL21haWwvaG9tZSIgdGFyZ2V0PSJfYmxhbmsiPlBy
+b3RvbiBNYWlsPC9hPiBzZWN1cmUgZW1haWwuDQogICAgPC9kaXY+DQo8L2Rpdj4NCg==
+
+
+--b1=_SsnK1ddwp6Zr85pJdju0UN9HPJQFPsBQ6TiqDjwL8OM--
+

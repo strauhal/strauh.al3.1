@@ -1,0 +1,106 @@
+Return-path: <ernest@strauh.al>
+Original-recipient: rfc822;ernest@strauh.al
+Received: from p00-icloudmta-smtpin-us-west-2a-100-percent-30 by p162-mailgateway-smtp-6b8d4bb5b9-6xd4j (mailgateway 2544B77)
+	with SMTP id 9ac1101c-d922-4a8d-934a-b5f400760845 
+	for <ernest@strauh.al>; Wed, 28 Jan 2026 20:16:08 GMT
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: MOVE_TO_FOLDER/INBOX
+X-Apple-UUID: 9ac1101c-d922-4a8d-934a-b5f400760845
+Received: from outbound.mr.icloud.com (p-west2-cluster1-host6-snip4-7.eps.apple.com [57.103.68.60])
+	by p00-icloudmta-smtpin-us-west-2a-100-percent-30 (Postfix) with ESMTPS id EE3EAC00194
+	for <ernest@strauh.al>; Wed, 28 Jan 2026 20:16:04 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVBFSlVHSgQEUFUKE0oWX1gHVQoPB0UFAUxESVVZTggYVEVZAxNFVUQMEAoSNwtERAMAEUgWFBBQBkgKEgUZRV5MFBVGBRsNUxAbHBUDOENCEBQMDlkZXBYKEBUJShdFQgAaDAgTVl1ETBwaChgNVBgBGhRGBwxCCxJYDgMEDAIbARkMFQMdQgdPHRYVA04dRQwcCVJaTx5TEgZXBwcIXFNMFhYLVxxUCxEBCwcCEB5XDlUUDxNFDHQjR0glQDkIG1MwTFdaTAl3V1g4IkFAHQRVTUBRTjlyDlZGSCYEDEJXFx1XBxtG
+X-ICL-Score: 2.33203302422
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=none; r1=-20; r2=0
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=none header.from=strauh.al
+X-DMARC-Policy: none
+X-DMARC-Info: pass=none; dmarc-policy=(nopolicy); s=u0; d=u0; pdomain=strauh.al
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=strauh.al header.i=@strauh.al header.b=EQvgfJ1h
+Received-SPF: pass (spf.icloud.com: domain of ernest@strauh.al designates 57.103.68.60 as permitted sender) receiver=spf.icloud.com; client-ip=57.103.68.60; helo=outbound.mr.icloud.com; envelope-from=ernest@strauh.al
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of ernest@strauh.al designates 57.103.68.60 as permitted sender) smtp.mailfrom=ernest@strauh.al
+Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-2a-60-percent-7 (Postfix) with ESMTPS id 1121A180045E;
+	Wed, 28 Jan 2026 20:16:02 +0000 (UTC)
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=strauh.al; s=sig1; t=1769631364; x=1772223364; bh=G3h91WXRea8K4Bv5qi49EbO+MTOAdw9bIVa5O9+AUBU=; h=Content-Type:From:Mime-Version:Subject:Date:Message-Id:To:x-icloud-hme; b=EQvgfJ1hjhxf6ZXhsHI/ogChPW0oL7zDGBMNkAuSr0cjiIQV8c4GQHCMB+OypvYYWYa/SVc5F/TIyMKsk9JnAS8HnUw03MdCfTqWDijEvMb1xgCHQNxR/miQ2hLWCpcxHpFYYN05rGqKgFCd33VjFEXPAQVsYm3aBUNzW0xFSJ1fvGj8p0S0oTNAa907q8DnJWjYfs8hWBrRtZnon3AsnNcGdTrB/OyRReQRIm1OEhBn3fsUVFFzWAtVRxXic4jPg3jXmJMjasCD41WyCASBX+wa2I9ZGASvbmJ/tEm0yd9/aFi4twhPdOwKqoZ+jSGZ8yvsqA3/Hv+LHiJAljq76g==
+mail-alias-created-date: 1654889807805
+Received: from smtpclient.apple (unknown [17.57.152.38])
+	by p00-icloudmta-asmtp-us-west-2a-60-percent-7 (Postfix) with ESMTPSA id EB9331800143;
+	Wed, 28 Jan 2026 20:16:01 +0000 (UTC)
+Content-Type: multipart/alternative; boundary=Apple-Mail-D762DA61-B4F7-48CD-B5E9-93BACCDAF5E4
+Content-Transfer-Encoding: 7bit
+From: erneststrauhal <ernest@strauh.al>
+Mime-Version: 1.0 (1.0)
+Subject: Re: Submission
+Date: Wed, 28 Jan 2026 12:15:43 -0800
+Message-Id: <BA21C7A8-1E51-49A5-AD68-278979AB8431@strauh.al>
+References: <654048404.433397.1769567187643@mail.yahoo.com>
+Cc: ernest@strauh.al
+In-Reply-To: <654048404.433397.1769567187643@mail.yahoo.com>
+To: Camden Snider <camdensnider1@yahoo.com>
+X-Mailer: iPhone Mail (20G75)
+X-Proofpoint-GUID: ZNE1V3RE2dtVGuoY-apv1Uehwri9IBOC
+X-Proofpoint-ORIG-GUID: ZNE1V3RE2dtVGuoY-apv1Uehwri9IBOC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI4MDE2NyBTYWx0ZWRfXwXvP1ErSSy8L
+ s4U9qCuY25q3sTryum9vmkDiTtLbsJMEwp3tDqfj9mK031cRo01baZknXzhQf/H3Q01NnxBJ/m7
+ uOJ3wAX6BBoIFc81QpjVYFk+E62iLu1+lXZY4M6IDCYIs/FO1K5gE98FKjflhpUNCtSK6LaMxFk
+ oJ6QHGfjFBBVuiLovN09mMSKppOZEt4ga6zWzYS/EEp0dGYbTfOW0eGf9cMn1lqWtLK0pbbFcKj
+ QnXYx1hbgi1xDHaV7Zk7STPdcOETNCIkhDiSVx6X97Go/elO/TlaMyXuSI4b7KgVljtenZtesCl
+ GiiLxWFUZPTl6mKkFi5
+X-Authority-Info-Out: v=2.4 cv=fe6gCkQF c=1 sm=1 tr=0 ts=697a6e83
+ cx=c_apl:c_apl_out:c_pps a=9OgfyREA4BUYbbCgc0Y0oA==:117
+ a=9OgfyREA4BUYbbCgc0Y0oA==:17 a=vUbySO9Y5rIA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=CjxXgO3LAAAA:8 a=LarGO7j9MbgvXzkduFcA:9 a=QEXdDO2ut3YA:10 a=zli3jezywJgA:10
+ a=pHRne2i3wjXeTPjaIScA:9 a=-8NgrEf-Qqp02yYa:21 a=_W_S_7VecoQA:10
+X-JNJ: AAAAAAAB0N1ltLmisdq9RExUyKpNIkYd7b/ayVtxY0zL6xzHyVaH4MYq+kfyPXIdbPkHC2CG46YB2HeZ5r4ZR0ST56l9RXlk9ufVuery+J0wPRsJ+WuyOct3HSbQ5v+GA3PBHKpmXaGU0fzHn5bd3lqBB3cl8M1MRx/UcpaH+fs0U9txXo/t0jShB8crVR8Tt3mRSk+W1XiNCmWIudtHJc7b3+4QecbUQAh2ki3rT+VwwvwNdC0pkw0l3/YIgo+bT4t0/Z57l4jIYD2tBwSbgfkvOqhUmKMazTgBGB62SoLewzyebjJiIgKNnIs/W5efXd4/5wskzHnh0bYPJf1YLBoQ3CV0WqYw35IXFJ/SdxEMkjyxziqwKY0RTRsD3tIEpEwMokNUiZ9tbA9If9MSnfmCsFtl08NtbvXXtHTSF7uIeUOAPxhDyhZsVD4zlh0lzO2ezlsI8nup3J1XCRZpcEqoGIhf8RofGn5M0dP/Hab40j2MZhm4aVcjcrwRL+NgVo6uNBMuZ1pPW04KMTSQqs+X3WgOLrfhawRVdyvYkK2H8N76p16sKNCMOdT1kS+xQPZMgob2h/wg0orlFGZ2DbyK3XLiZz8=
+X-MANTSH: 1TFkXGxoaHBEKWUQXaVtZRR8SHkkcG38RCllNF2JLRxEKWUkXEQpZXhdsbHkRCkN
+ OF3Bkbxt8GXhvGE5efG1fRXMHS1pcG39PQl1YQxNjaGVpEQpYXBcZBBoEHx4FGxoaBBIYBB4YB
+ BgTEBseGh8aEQpeWRdNWWhnTREKTVwXBxIRCkxGF2xNaxEKQ1oXHx0EGxoZBBwSBBwaEQpCXhc
+ bEQpESRcbEQpCXBcbEQpeThcbEQpCSxdrcxwcfE5vcmhnUBEKQkkXa3McHHxOb3JoZ1ARCkJFF
+ 2J6YG9pT01TaE0cEQpCThdrcxwcfE5vcmhnUBEKQkwXZH5zHB9aZGZeYEcRCkJsF2R5WB5LTlB
+ LYgFEEQpCQBd6SFpafn1oAQEaGhEKQlgXZH5zHB9aZGZeYEcRCnBnF2JzUlpuT2FiensbEBoRC
+ nBoF2JAXWxweGdJXAFTEBoRCnBoF2VwXWBsGExBXHBHEB8eEQpwaBdpaWtBbGlgXVhEQhAaEQp
+ waBdhcEB5GHNMQXl+bxAaEQpwbBdjUxhLe2Nla2BlcxAaEQpwQxdpS3NleGx8HBl+bxAbHhEKb
+ X4XGhEKWE0XSxE=
+X-JNJ: AAAAAAABhQu8gWheqejr3UeqACn86yCKSrjY9lD9RP3W2tp+F18DqrdOtfmTsTg3ZIO3YTrBtvKJxNDa76dy0+jUbytcMDQd4FmW5EeUlg4krj/uLiK8s/VnAphIBqCZqc5RVW8qsZ2WegywEp6L1nslldUohVuJ/bfW0p+1Bh/5c4PMSF8A38ZpR+U2r3xMcIgOZgn1v6Q4XSbkQDvQjx5TJQATDl+ZFmPV2bfCMkNdlmkzWx+PtNZAxO0cMKVR5o5NkHTU6alJv1+nQXp0eWzEwFqeVn/6IOch/xKopCAbjGAf9Lxn/5m7RArZ9dedI8tU9u235EagPppjogTUk2B77yJqpa6g5hJHXHd/UTTD3tQuYMUg9IC0TlmW6Ct3z4htDmNj0YRGHjcm/odiCEFG1U+BWwIXx5iUICE7PMneh4BJT6E4CNklgZxWbMRNb7R8GdWIKSnh8ECvSYxoM79ZZgqvmNrdQYBourlrJ19Cd9aP5/Grn7tzP3B03H3o1f0USfnunMtq8EEElBEcwoag50PQuOfIx96SbSCQS1xLmhT1Sx2K95ZlF3vC13jio5Umdpn1q0pbGuLFkAL/GzYtKrc/qEr5uJvqVfRL/DiwV/tLA+x00dwnn0WiGmnm3K1H4LtmfZS+R0s2A8prlI0d4LeTbW6LBjgDrrWKF29rOgHXDtB6ApRb+jEVVutGC3lYdBSzAj4xEClUZgqkcipMzmVxIxdd
+
+
+--Apple-Mail-D762DA61-B4F7-48CD-B5E9-93BACCDAF5E4
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+thanks for the compliment!  i think you forgot to add your image though
+
+best,
+ernest=20
+
+> On Jan 27, 2026, at 6:26 PM, Camden Snider <camdensnider1@yahoo.com> wrote=
+:
+>=20
+> =EF=BB=BF
+> Camden -- "Billy Graham"
+>=20
+> Found your site via 4chan. Wow, what a neat site!
+
+--Apple-Mail-D762DA61-B4F7-48CD-B5E9-93BACCDAF5E4
+Content-Type: text/html;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
+utf-8"></head><body dir=3D"auto"><div dir=3D"ltr"></div><div dir=3D"ltr">tha=
+nks for the compliment! &nbsp;i think you forgot to add your image though</d=
+iv><div dir=3D"ltr"><br></div><div dir=3D"ltr">best,</div><div dir=3D"ltr">e=
+rnest&nbsp;</div><div dir=3D"ltr"><br><div dir=3D"ltr"></div><blockquote typ=
+e=3D"cite">On Jan 27, 2026, at 6:26 PM, Camden Snider &lt;camdensnider1@yaho=
+o.com&gt; wrote:<br><br></blockquote></div><blockquote type=3D"cite"><div di=
+r=3D"ltr">=EF=BB=BF<div class=3D"yahoo-style-wrap" style=3D"font-family:Helv=
+etica Neue, Helvetica, Arial, sans-serif;font-size:16px;"><div dir=3D"ltr" d=
+ata-setdir=3D"false">Camden -- "Billy Graham"</div><div dir=3D"ltr" data-set=
+dir=3D"false"><br></div><div dir=3D"ltr" data-setdir=3D"false">Found your si=
+te via 4chan. Wow, what a neat site!<br></div></div></div></blockquote></bod=
+y></html>=
+
+--Apple-Mail-D762DA61-B4F7-48CD-B5E9-93BACCDAF5E4--

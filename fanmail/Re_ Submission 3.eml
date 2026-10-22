@@ -1,0 +1,157 @@
+Delivered-To: estrauhal@gmail.com
+Received: by 2002:a05:612c:47a3:b0:568:670e:d867 with SMTP id ly35csp93988vqb;
+        Wed, 28 Jan 2026 12:16:12 -0800 (PST)
+X-Forwarded-Encrypted: i=3; AJvYcCVLGqb28XEOmpXn2NmNM7CymzR6Wb/t5l66jCeyvvfiekiyDv6BS3VAs/COXOxqrETEWjgB3bRwHZs=@gmail.com
+X-Received: by 2002:a05:620a:1a1d:b0:8c7:9e6:3a7e with SMTP id af79cd13be357-8c70b738193mr815248985a.0.1769631372122;
+        Wed, 28 Jan 2026 12:16:12 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1769631372; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=YL4jxJ5m+K3NxPsmzFlav4RK+wGqrJoXqXlwMYZ/b25XxSeG3THjnGq1z+H9IYl25J
+         qodizybVHxiRhSuHGf2nXHfXYHIanTkxZ/hg2MuRfmmFbGkzpvN0/5HOfMm9rI0Bbm6F
+         t1Lbvg6pPjse2/9vFLYsykdpT6PaZ7GAAr67jhVJJfiszpY15qszJNF+WnCZ32ymFb3z
+         GspZY8knfVrL+vd+Bq6XwykhsCxQJjugJblCS9XbXagmS70swS04OUByRUZG1fXaablL
+         UCxrQWHvZJid0iXGF5jwexLawFzTyohNSBj9qnfiuA47NAeIzMOd71RWS37k5Ca04BfS
+         YLpQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
+         :from:content-transfer-encoding:mail-alias-created-date
+         :dkim-signature:original-recipient;
+        bh=G3h91WXRea8K4Bv5qi49EbO+MTOAdw9bIVa5O9+AUBU=;
+        fh=XD9cvEK3q60UG+7mFYsGigd3O0H5yOm3RE8UqQN/Sso=;
+        b=hrMi3osYdwDUfSxJXW1b/mi9ePGp3BVYrgSOPDGfN4ikuFcy7v8Ddb1rigzJBd1NOn
+         LFppeMYrGlKJHb9/Zy9v/tbOKRhV9n2A7QChqj3oMm6MUPAJzWqQ3zB6TtPMt1txKZvN
+         EsPHsr22/9tA84yiI+z5PpuAlrBuJDkqJETc1i4wWZgtR/ijIB0ItyzaKwr2Yjw/Fu5d
+         2EApg5/YVlCjeYLRqAldKxJ9w5njjiIti104A5ysju7Y7X8i33xOIV+2exAEtuToccq6
+         PMhtk+N/ehyLzNS6AoHCTwyjZjB3BesS7Lx/87zCdJ202bW4pXZIKzu9AC/SgybNvUlw
+         wymw==;
+        dara=google.com
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@strauh.al header.s=sig1 header.b=EQvgfJ1h;
+       arc=pass (i=1 spf=pass spfdomain=strauh.al dkim=pass dkdomain=strauh.al);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.88.81 as permitted sender) smtp.mailfrom=ernest@strauh.al
+Return-Path: <ernest@strauh.al>
+Received: from outbound.ci.icloud.com (ci-2007h-snip4-8.eps.apple.com. [57.103.88.81])
+        by mx.google.com with ESMTPS id 6a1803df08f44-894d36f5d21si34012356d6.8.2026.01.28.12.16.11
+        for <estrauhal@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Jan 2026 12:16:11 -0800 (PST)
+Received-SPF: pass (google.com: domain of ernest@strauh.al designates 57.103.88.81 as permitted sender) client-ip=57.103.88.81;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@strauh.al header.s=sig1 header.b=EQvgfJ1h;
+       arc=pass (i=1 spf=pass spfdomain=strauh.al dkim=pass dkdomain=strauh.al);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.88.81 as permitted sender) smtp.mailfrom=ernest@strauh.al
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-1 (Postfix) with ESMTPS id D834118004C8
+	for <estrauhal@gmail.com>; Wed, 28 Jan 2026 20:16:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; cv=none; d=icloud.com; s=arc-0513; b=O4NhdjQr1VcsDbnJlA5YExNEpCLpi6nUvGTQaQKy6LORfb3FFP66m1XkDcDNLR4Nw9IpWNH59Jre9vXXjPKAt3kQW6tqdMfI2FmpBrInk8zuEctSnZ+6cTyQ2WLH8tfUGPGRaRLBwTH2jEayKozfHKSBeYNW+mEFfFErzkJcSxcyNvp/nnU3qgkgBhCxrzyirSe7dKhHyY+TBgV4H7vNzawUx/awgp/FZHGhwjH66gfCR2Ox+6VY4KBciGQHwMINquXNPhP77gHnm6XT/6q4k4EtnmZNgjPSanjhTAl/QiQRMtKFiKvN1YNHWJdKxJnSfCcVf36FnGnNT4sredhJhQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=arc-0513; h=from:to:subject:message-id:date:mime-version:content-type:dkim-signature; bh=G3h91WXRea8K4Bv5qi49EbO+MTOAdw9bIVa5O9+AUBU=; b=vzJaOaaZ+qyODMCxaeMnFzFqfZPrHNPT0z63RFEsMWLE94U/LqMvLw+tF/Um0zNoAChDCq+846x7kD6z02SnmHcxXxkcwNLX2C+uXoRNOHM6+Ezi3xInTRUF70hfWEdqUtpNfuFR4srfmf6ORXPm9F4vuo6ID28RLXnwMA3BSPt65hZxN6UjhSHPLkV/FZR3Ubz8JS9ZkJmbP4WdM8pE16EYp/+NZZa/dehBhiXKjKJK+OX+DoDPwpLZr4qwqyL60chzrNZi6CETmFWwimHLhnXmApMnpwnQY5Xi2PzMPq8ulM0fYmiz4hXdX3RUoSLSJn+PgLfdmB0xXKGKMOKW0Q==
+ARC-Authentication-Results: i=1; arc.icloud.com; arc=none; dmarc=none header.from=strauh.al; dkim=pass header.d=strauh.al header.i=@strauh.al header.b=EQvgfJ1h; spf=pass (spf.icloud.com: domain of ernest@strauh.al designates 57.103.68.60 as permitted sender) smtp.mailfrom=ernest@strauh.al
+Received: from unknown (unknown [10.168.160.104])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-1 (Postfix) with SMTP id 2DD8918004EE
+	for <estrauhal@gmail.com>; Wed, 28 Jan 2026 20:16:08 +0000 (UTC)
+Received: from p00-icloudmta-smtpin-us-west-2a-100-percent-30 by p162-mailgateway-smtp-6b8d4bb5b9-6xd4j (mailgateway 2544B77)
+	with SMTP id 9ac1101c-d922-4a8d-934a-b5f400760845 
+	for <ernest@strauh.al>; Wed, 28 Jan 2026 20:16:08 GMT
+X-Apple-Action: FORWARD/estrauhal@gmail.com
+Original-Recipient: rfc822;ernest@strauh.al
+x-apple-request-uuid: 9ac1101c-d922-4a8d-934a-b5f400760845
+Received: from outbound.mr.icloud.com (p-west2-cluster1-host6-snip4-7.eps.apple.com [57.103.68.60])
+	by p00-icloudmta-smtpin-us-west-2a-100-percent-30 (Postfix) with ESMTPS id EE3EAC00194
+	for <ernest@strauh.al>; Wed, 28 Jan 2026 20:16:04 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVBFSlVHSgQEUFUKE0oWX1gHVQoPB0UFAUxESVVZTggYVEVZAxNFVUQMEAoSNwtERAMAEUgWFBBQBkgKEgUZRV5MFBVGBRsNUxAbHBUDOENCEBQMDlkZXBYKEBUJShdFQgAaDAgTVl1ETBwaChgNVBgBGhRGBwxCCxJYDgMEDAIbARkMFQMdQgdPHRYVA04dRQwcCVJaTx5TEgZXBwcIXFNMFhYLVxxUCxEBCwcCEB5XDlUUDxNFDHQjR0glQDkIG1MwTFdaTAl3V1g4IkFAHQRVTUBRTjlyDlZGSCYEDEJXFx1XBxtG
+X-ICL-Score: 2.33203302422
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=none; r1=-20; r2=0
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=none header.from=strauh.al
+X-DMARC-Policy: none
+X-DMARC-Info: pass=none; dmarc-policy=(nopolicy); s=u0; d=u0; pdomain=strauh.al
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=strauh.al header.i=@strauh.al header.b=EQvgfJ1h
+Received-SPF: pass (spf.icloud.com: domain of ernest@strauh.al designates 57.103.68.60 as permitted sender) receiver=spf.icloud.com; client-ip=57.103.68.60; helo=outbound.mr.icloud.com; envelope-from=ernest@strauh.al
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of ernest@strauh.al designates 57.103.68.60 as permitted sender) smtp.mailfrom=ernest@strauh.al
+Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-2a-60-percent-7 (Postfix) with ESMTPS id 1121A180045E;
+	Wed, 28 Jan 2026 20:16:02 +0000 (UTC)
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=strauh.al; s=sig1; t=1769631364; x=1772223364; bh=G3h91WXRea8K4Bv5qi49EbO+MTOAdw9bIVa5O9+AUBU=; h=Content-Type:From:Mime-Version:Subject:Date:Message-Id:To:x-icloud-hme; b=EQvgfJ1hjhxf6ZXhsHI/ogChPW0oL7zDGBMNkAuSr0cjiIQV8c4GQHCMB+OypvYYWYa/SVc5F/TIyMKsk9JnAS8HnUw03MdCfTqWDijEvMb1xgCHQNxR/miQ2hLWCpcxHpFYYN05rGqKgFCd33VjFEXPAQVsYm3aBUNzW0xFSJ1fvGj8p0S0oTNAa907q8DnJWjYfs8hWBrRtZnon3AsnNcGdTrB/OyRReQRIm1OEhBn3fsUVFFzWAtVRxXic4jPg3jXmJMjasCD41WyCASBX+wa2I9ZGASvbmJ/tEm0yd9/aFi4twhPdOwKqoZ+jSGZ8yvsqA3/Hv+LHiJAljq76g==
+mail-alias-created-date: 1654889807805
+Received: from smtpclient.apple (unknown [17.57.152.38])
+	by p00-icloudmta-asmtp-us-west-2a-60-percent-7 (Postfix) with ESMTPSA id EB9331800143;
+	Wed, 28 Jan 2026 20:16:01 +0000 (UTC)
+Content-Type: multipart/alternative; boundary=Apple-Mail-D762DA61-B4F7-48CD-B5E9-93BACCDAF5E4
+Content-Transfer-Encoding: 7bit
+From: erneststrauhal <ernest@strauh.al>
+Mime-Version: 1.0 (1.0)
+Subject: Re: Submission
+Date: Wed, 28 Jan 2026 12:15:43 -0800
+Message-Id: <BA21C7A8-1E51-49A5-AD68-278979AB8431@strauh.al>
+References: <654048404.433397.1769567187643@mail.yahoo.com>
+Cc: ernest@strauh.al
+In-Reply-To: <654048404.433397.1769567187643@mail.yahoo.com>
+To: Camden Snider <camdensnider1@yahoo.com>
+X-Mailer: iPhone Mail (20G75)
+X-Proofpoint-GUID: WcWLnGCErytLOmAiOuIH_ELqZcDzalke
+X-Proofpoint-ORIG-GUID: WcWLnGCErytLOmAiOuIH_ELqZcDzalke
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI4MDE2NyBTYWx0ZWRfX4B7yjY27NFjB
+ UZq3Xk5shk13iLOeVh7AgntWWDGxX4g46cr4BfyV4POlazWH5IlK9xzMmW5RlHzjLgBcDlWysoG
+ F0rUJFnAT6VEnCDoxKytPe1kRURGbKpsU3oDuDHiVbsAu4xIhA4Meau0I6bpU21+kueJZ3zAlfM
+ tGE0+1eU1ZO55WFMeysAEgRCSfkMGV6jFXHcXUxP2UpbzEvNbw24Vs56bFqNdlKHc+IvFavaMhy
+ bO1TCgNk0ExDnVyCq4F+bnBIW2Txqa7jaotHPq2YwkT8meLWJKCe9WPcARyO6EkGeWY2mnNXnVF
+ sgCC1hzR8Sdy1l8KBNW6Ox8FLKDe26uoqlo/Ndz+IZtiMO6hcWGy7LaJXY/0x4=
+X-Authority-Info-Out: v=2.4 cv=GMoF0+NK c=1 sm=1 tr=0 ts=697a6e89
+ cx=c_apl:c_apl_out:c_pps a=T0mU/zd77MEem+zjWCBf6Q==:117
+ a=9OgfyREA4BUYbbCgc0Y0oA==:17 a=vUbySO9Y5rIA:10 a=Xhd-GNKSG3cA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=CjxXgO3LAAAA:8 a=LarGO7j9MbgvXzkduFcA:9
+ a=QEXdDO2ut3YA:10 a=zli3jezywJgA:10 a=pHRne2i3wjXeTPjaIScA:9
+ a=-8NgrEf-Qqp02yYa:21 a=_W_S_7VecoQA:10
+X-JNJ: AAAAAAAB0N1ltLmisdq9RExUyKpNIkYd7b/ayVtxY0zL6xzHyVaH4MYq+kfyPXIdbPkHC2CG46YB2HeZ5r4ZR0ST56l9RXlk9ufVuery+J0wPRsJ+WuyOct3HSbQ5v+GA3PBHKpmXaGU0fzHn5bd3lqBB3cl8M1MRx/UcpaH+fs0U9txXo/t0jShB8crVR8Tt3mRSk+W1XiNCmWIudtHJc7b3+4QecbUQAh2ki3rT+VwwvwNdC0pkw0l3/YIgo+bT4t0/Z57l4jIYD2tBwSbgfkvOqhUmKMazTgBGB62SoLewzyebjJiIgKNnIs/W5efXd4/5wskzHnh0bYPJf1YLBoQ3CV0WqYw35IXFJ/SdxEMkjyxziqwKY0RTRsD3tIEpEwMokNUiZ9tbA9If9MSnfmCsFtl08NtbvXXtHTSF7uIeUOAPxhDyhZsVD4zlh0lzO2ezlsI8nup3J1XCRZpcEqoGIhf8RofGn5M0dP/Hab40j2MZhm4aVcjcrwRL+NgVo6uNBMuZ1pPW04KMTSQqs+X3WgOLrfhawRVdyvYkK2H8N76p16sKNCMOdT1kS+xQPZMgob2h/wg0orlFGZ2DbyK3XLiZz8=
+X-JNJ: AAAAAAABhQu8gWheqejr3UeqACn86yCKSrjY9lD9RP3W2tp+F18DqrdOtfmTsTg3ZIO3YTrBtvKJxNDa76dy0+jUbytcMDQd4FmW5EeUlg4krj/uLiK8s/VnAphIBqCZqc5RVW8qsZ2WegywEp6L1nslldUohVuJ/bfW0p+1Bh/5c4PMSF8A38ZpR+U2r3xMcIgOZgn1v6Q4XSbkQDvQjx5TJQATDl+ZFmPV2bfCMkNdlmkzWx+PtNZAxO0cMKVR5o5NkHTU6alJv1+nQXp0eWzEwFqeVn/6IOch/xKopCAbjGAf9Lxn/5m7RArZ9dedI8tU9u235EagPppjogTUk2B77yJqpa6g5hJHXHd/UTTD3tQuYMUg9IC0TlmW6Ct3z4htDmNj0YRGHjcm/odiCEFG1U+BWwIXx5iUICE7PMneh4BJT6E4CNklgZxWbMRNb7R8GdWIKSnh8ECvSYxoM79ZZgqvmNrdQYBourlrJ19Cd9aP5/Grn7tzP3B03H3o1f0USfnunMtq8EEElBEcwoag50PQuOfIx96SbSCQS1xLmhT1Sx2K95ZlF3vC13jio5Umdpn1q0pbGuLFkAL/GzYtKrc/qEr5uJvqVfRL/DiwV/tLA+x00dwnn0WiGmnm3K1H4LtmfZS+R0s2A8prlI0d4LeTbW6LBjgDrrWKF29rOgHXDtB6ApRb+jEVVutGC3lYdBSzAj4xEClUZgqkcipMzmVxIxdd
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-01-28_06,2026-01-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ adultscore=0 bulkscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ mlxscore=0 mlxlogscore=549 lowpriorityscore=0 clxscore=1030 classifier=spam
+ authscore=0 adjust=0 reason=mlx scancount=1 engine=8.22.0-2601150000
+ definitions=main-2601280167
+X-JNJ: AAAAAAABEmnpNRfI3x6N6htvR2CuOSWa6vsR0BJx6CvOIouaSTDT0kICAZWZwtbTs/EeC1AWvHS+iuRoHhmeZgGBe6L9SSiLfe6XfoVdHXdEhE0dZ8kXT+c/P6lJ/ZIvEXZAA3zhZyT9ogQQ5XF7/7kQm6ydUDozg/3A3x+HyhOyGWAovb4qCnqGI9CPUJ8kGdDSn2zjIzEk0KuiTfRdIR5ZcLGOJKgtT8jkuJorj3wKdcR/8Tvn4ICbgDbyIDLN/T3P0YeQ1U7/DgeCJ6vA9hKp05DpizX+748J/QEKGfnZ1V4bqfmSzLKSCVh8Y4vilA7nupCbPKX+pzAZ6tpJ0OTtzpTBTF0esbYVOw5tihRd/ayUjAJ5AGK8sTDewTK+Sde2kPeiAH4gvoi2dpDl7fAOgna+B7PQPI4M+rRr73x8TWAnOX+57TvVblzLzvMgebRfCd4G4sgOjy5VqK8cRmNWXzIfxaRs6j6eppZxXZPiAYlQvBqhSDk7xnHaeT6s2o464lck+rmJJRLODa0b6jjqWBAGznEjq5GZ++4PjyhTC9mqtnCBt6CrF8YzGAYlWVp7G58TdQ==
+
+
+--Apple-Mail-D762DA61-B4F7-48CD-B5E9-93BACCDAF5E4
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+thanks for the compliment!  i think you forgot to add your image though
+
+best,
+ernest=20
+
+> On Jan 27, 2026, at 6:26 PM, Camden Snider <camdensnider1@yahoo.com> wrote=
+:
+>=20
+> =EF=BB=BF
+> Camden -- "Billy Graham"
+>=20
+> Found your site via 4chan. Wow, what a neat site!
+
+--Apple-Mail-D762DA61-B4F7-48CD-B5E9-93BACCDAF5E4
+Content-Type: text/html;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
+utf-8"></head><body dir=3D"auto"><div dir=3D"ltr"></div><div dir=3D"ltr">tha=
+nks for the compliment! &nbsp;i think you forgot to add your image though</d=
+iv><div dir=3D"ltr"><br></div><div dir=3D"ltr">best,</div><div dir=3D"ltr">e=
+rnest&nbsp;</div><div dir=3D"ltr"><br><div dir=3D"ltr"></div><blockquote typ=
+e=3D"cite">On Jan 27, 2026, at 6:26 PM, Camden Snider &lt;camdensnider1@yaho=
+o.com&gt; wrote:<br><br></blockquote></div><blockquote type=3D"cite"><div di=
+r=3D"ltr">=EF=BB=BF<div class=3D"yahoo-style-wrap" style=3D"font-family:Helv=
+etica Neue, Helvetica, Arial, sans-serif;font-size:16px;"><div dir=3D"ltr" d=
+ata-setdir=3D"false">Camden -- "Billy Graham"</div><div dir=3D"ltr" data-set=
+dir=3D"false"><br></div><div dir=3D"ltr" data-setdir=3D"false">Found your si=
+te via 4chan. Wow, what a neat site!<br></div></div></div></blockquote></bod=
+y></html>=
+
+--Apple-Mail-D762DA61-B4F7-48CD-B5E9-93BACCDAF5E4--
+

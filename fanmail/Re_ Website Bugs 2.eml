@@ -1,0 +1,173 @@
+Delivered-To: estrauhal@gmail.com
+Received: by 2002:a05:7110:364b:20b0:329:a6c8:6b2a with SMTP id e11-n2csp890690gea;
+        Fri, 10 Jul 2026 00:38:42 -0700 (PDT)
+X-Received: by 2002:a05:690e:e8a:b0:667:c1cb:55d with SMTP id 956f58d0204a3-667c1cb0b1dmr2413146d50.88.1783669122221;
+        Fri, 10 Jul 2026 00:38:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783669122; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FELXjPTtHyfqxg+MUj+7N9VEh3ybISXjMG8PeIZ3uKH1OzSQZyiF1WNPIuZ4mpbAZS
+         n4CcMcvHNZ3fVVIii5x0D9mfcLptTPiI9hvaE6l3zHkzRSQQFwQCY91IjyYranJu0Dev
+         4GaXGuzzZzODKcdw5k4/VCnKXQlMJuj8dsQuE/GLNkyf4d8lCWghlq2s5qTlD831cman
+         lzVG3yuIcrysN/0bMkCHVRYQb4BtLpITM/QMYcUzXJPRVEeIvZVmXIS7Zi7siukmtpYd
+         1gHW6qBSn28F5zPeCd1U5sxJBZmt9nj2fgwuYyfONJe8XZJz1L4NLc+o08mMHwseTHTy
+         0pKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=references:to:cc:in-reply-to:date:subject:mime-version:message-id
+         :from:mail-alias-created-date:dkim-signature;
+        bh=k3kocLkzGiCDk3dnNdUMDnAasxRrzvVINVwIhpMKnzw=;
+        fh=duOK8IWMrzo3/65hx9rnnDWyY/jgQz0aNRwu7Ifz9jw=;
+        b=ry0T64KiEnqO6b02scgcgwCbz3zCfudBGUTDEBkgrCMJr2LEDyFbD+25pBy+57lUQI
+         jY13ENZdy/tIUwOsXQcXion3mlaJRISaY9XqTTvXW0fhstFNrnJ7HjPTeRPDHkn7ccuz
+         yB19hrxPSiMkNWqYWYGmaK9HvglbnXbnt6IG6r5DMooULJoWDRjQm5psMLyszyzwWibQ
+         GRegZf4NoZeq8JP+lrm4bentYFZHO+zcOHry8rCA+vhwdS4KWx5ApVRcWOUkzo8h3ZjJ
+         k5j1L1qUon3kZesXdo3QaVTXntlQ0X9wXi1iVRz2XpRi2GKBQzGHMkl4qrduoieYmboh
+         XKoA==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@strauh.al header.s=sig1 header.b=SUPAWU5a;
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.79.35 as permitted sender) smtp.mailfrom=ernest@strauh.al
+Return-Path: <ernest@strauh.al>
+Received: from outbound.st.icloud.com (p-east2-cluster5-host8-snip4-2.eps.apple.com. [57.103.79.35])
+        by mx.google.com with ESMTPS id 956f58d0204a3-66787827eeesi8942499d50.90.2026.07.10.00.38.42
+        for <estrauhal@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 10 Jul 2026 00:38:42 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ernest@strauh.al designates 57.103.79.35 as permitted sender) client-ip=57.103.79.35;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@strauh.al header.s=sig1 header.b=SUPAWU5a;
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.79.35 as permitted sender) smtp.mailfrom=ernest@strauh.al
+Received: from outbound.st.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-1a-100-percent-1 (Postfix) with ESMTPS id 8BD1B180142C;
+	Fri, 10 Jul 2026 07:38:39 +0000 (UTC)
+X-ICL-RepId: 019f4af6-d9c9-7d6a-add7-2e349261f86f
+X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQ5LHVQHRQZFF0kEXBcOVk1cCl0IRB9yA00KUhhfRVMcGR5XUEQfQBFMEB0MW0tAEwRKEwVSB11NVg1HD1geXBQXC0dDXgheH0wcHQ5YBhIATQoONgZZBV4JVgNDBTYSFF1FQBlFCkcYFxlfTVoCVk0FQQIrcS0DR3pVAF4DLR9EfEF2QHVcBEgUQQFbBygASQBOASkBK0EESxlGBRkKXk4ZDEodUlZRBUoMXABoD10dWBFd
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=strauh.al; s=sig1; t=1783669121; x=1786261121; bh=k3kocLkzGiCDk3dnNdUMDnAasxRrzvVINVwIhpMKnzw=; h=From:Message-Id:Content-Type:Mime-Version:Subject:Date:To:x-icloud-hme; b=SUPAWU5afmNKaR6xKmHwrWvB93gy8NRozL5y2Raxla8rgEUIkmMtohgjQ2+jKJYQEmmsMKBUH2L3mlSfXsp4YAYx2O8lJ/PmUS6lvoaN90r3XzOzmER0ggyklJe8CDfMF7c+5EXxGVWzGAwg5PHeDO66V7V6ePkJAjawPWXLjIqHWsipfRn2Kbs5H+mvc5mJ5o+nEtkPzfNsLejr2+PbWSXFTQyIZUNj0m/PErZGUfeEgBrqYLIJExfnKzqvHhEubgT3szFYyn2Add4Vfo546zETk+K4rC+sExLqe3o57TQX0Sj3ZVX+R1AZmaP2jo0aF39jVcwHPF9UL/x6eahm4Q==
+mail-alias-created-date: 1654889807805
+Received: from smtpclient.apple (unknown [17.42.251.67])
+	by p00-icloudmta-asmtp-us-east-1a-100-percent-1 (Postfix) with ESMTPSA id 1EBAE1801402;
+	Fri, 10 Jul 2026 07:38:37 +0000 (UTC)
+From: erneststrauhal <ernest@strauh.al>
+Message-Id: <91FFF17C-334F-4E9E-B768-9260C29962D6@strauh.al>
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_B115046C-7603-4D3D-A6E6-9711826C6559"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: Website Bugs
+Date: Fri, 10 Jul 2026 00:38:27 -0700
+In-Reply-To: <CCD989AF-C4C4-4E3F-B0DD-4B42C9CBEC37@gmail.com>
+Cc: Alexander Schweitzer <aschweitzer114@gmail.com>
+To: erneststrauhal <estrauhal@gmail.com>
+References: <CAPyxEwjkUQ1SGyXaBmivOQ4YRd3Ybap6gz46fkCEZbN00cwQdw@mail.gmail.com>
+ <CCD989AF-C4C4-4E3F-B0DD-4B42C9CBEC37@gmail.com>
+X-Mailer: Apple Mail (2.3864.600.51.1.1)
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDA3MiBTYWx0ZWRfX16hyZgQz+VFN
+ C0bseydTjE7euTYkBsf4tgBAwR0ZwyPQPARtfBdPT9S4bSGdy+cjYr+eIKBaLE+hIxc2PYizi0A
+ bmWSjfGW/AZpLBkAsBzswqrV6haYF3LqlDvpk+HMMH1/olkokSLr3RIri6FruoFCdxvZtfdRsLg
+ bo7CtC8wC+8teumru+v6tji80YWEBvvu5/5lM23a3/yqvBC0Po+SCIWxIncFMGz5NPeEtqJWr1j
+ KwISIHbPbX5bYVaIliMp4arljGcgQRcs2qCEDSvHM08XsDn3QkVmXeEsK0iO9NobTMVyJs6DcPi
+ RlXmqFESyb31WqnrU7q
+X-Proofpoint-ORIG-GUID: sf8248nWNmuIesjEsDoyib0P6uh1jtlq
+X-Proofpoint-GUID: sf8248nWNmuIesjEsDoyib0P6uh1jtlq
+
+
+--Apple-Mail=_B115046C-7603-4D3D-A6E6-9711826C6559
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
+
+hi alexander,
+
+just checking in with everyone who=E2=80=99s shown interest in =
+duplicating/modifying the site in some way=20
+
+made some pretty substantial additions and rearrangements to the site =
+recently (way more paintings and photographs added, photos has its own =
+webpage now)
+if you cloned strauh.al3.1, just fetch the update from github.  if you =
+downloaded strauh.al3.1 as a zip, highly recommend deleting it and =
+downloading the new version of strauh.al3.1
+
+all the best,
+ernest
+
+> On Mar 10, 2026, at 1:12=E2=80=AFPM, erneststrauhal =
+<estrauhal@gmail.com> wrote:
+>=20
+> Thanks Alexander!
+>=20
+> Those aren=E2=80=99t actually bugs haha, i just haven=E2=80=99t =
+written the code for those urls because i haven=E2=80=99t found those =
+religious texts yet.=20
+>=20
+>  if you find a copy of the entire guru or torah floating around, =
+please send it to me and i=E2=80=99ll add a wordmap=20
+>=20
+> best,
+> ernest=20
+>=20
+>> On Mar 6, 2026, at 6:58 PM, Alexander Schweitzer =
+<aschweitzer114@gmail.com> wrote:
+>>=20
+>> =EF=BB=BF
+>> Love your website! Thought I'd let you know the word charts for the =
+guru, torah, and vedas under "/religous_texts" are all pulling 404s.
+>>=20
+>> https://strauh.al/religious_texts/guru
+>> https://strauh.al/religious_texts/torah
+>> https://strauh.al/religious_texts/vedas
+>>=20
+>> --
+>> Sincerely,
+>> Alexander C. Schweitzer
+>>=20
+
+
+--Apple-Mail=_B115046C-7603-4D3D-A6E6-9711826C6559
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html aria-label=3D"message body"><head><meta http-equiv=3D"content-type" =
+content=3D"text/html; charset=3Dutf-8"></head><body =
+style=3D"overflow-wrap: break-word; -webkit-nbsp-mode: space; =
+line-break: after-white-space;">hi alexander,<div><br></div><div>just =
+checking in with everyone who=E2=80=99s shown interest in =
+duplicating/modifying the site in some =
+way&nbsp;<br><div><br></div><div>made some pretty substantial additions =
+and rearrangements to the site recently (way more paintings and =
+photographs added, photos has its own webpage now)</div><div>if you =
+cloned strauh.al3.1, just fetch the update from github. &nbsp;if you =
+downloaded strauh.al3.1 as a zip, highly recommend deleting it and =
+downloading the new version of strauh.al3.1</div><div><br></div><div>all =
+the best,</div><div>ernest</div></div><div><br><blockquote =
+type=3D"cite"><div>On Mar 10, 2026, at 1:12=E2=80=AFPM, erneststrauhal =
+&lt;estrauhal@gmail.com&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div><meta http-equiv=3D"content-type"=
+ content=3D"text/html; charset=3Dutf-8"><div dir=3D"auto"><div =
+dir=3D"ltr"></div><div dir=3D"ltr">Thanks Alexander!</div><div =
+dir=3D"ltr"><br></div><div dir=3D"ltr">Those aren=E2=80=99t actually =
+bugs haha, i just haven=E2=80=99t written the code for those urls =
+because i haven=E2=80=99t found those religious texts =
+yet.&nbsp;</div><div dir=3D"ltr"><br></div><div dir=3D"ltr">&nbsp;if you =
+find a copy of the entire guru or torah floating around, please send it =
+to me and i=E2=80=99ll add a wordmap&nbsp;</div><div =
+dir=3D"ltr"><br></div><div dir=3D"ltr">best,</div><div =
+dir=3D"ltr">ernest&nbsp;</div><div dir=3D"ltr"><br><blockquote =
+type=3D"cite">On Mar 6, 2026, at 6:58 PM, Alexander Schweitzer =
+&lt;aschweitzer114@gmail.com&gt; =
+wrote:<br><br></blockquote></div><blockquote type=3D"cite"><div =
+dir=3D"ltr">=EF=BB=BF<div dir=3D"ltr"><div>Love your website! Thought =
+I'd let you know the word charts for the guru, torah, and vedas under =
+"/religous_texts" are all pulling 404s.</div><div><br></div><div><a =
+href=3D"https://strauh.al/religious_texts/guru">https://strauh.al/religiou=
+s_texts/guru</a></div><div><a =
+href=3D"https://strauh.al/religious_texts/torah">https://strauh.al/religio=
+us_texts/torah</a></div><div><a =
+href=3D"https://strauh.al/religious_texts/vedas">https://strauh.al/religio=
+us_texts/vedas</a></div><div><br></div><span =
+class=3D"gmail_signature_prefix">-- </span><br><div dir=3D"ltr" =
+class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div =
+dir=3D"ltr">Sincerely,<div>Alexander C. =
+Schweitzer</div><div><br></div></div></div></div>
+</div></blockquote></div></div></blockquote></div><br></body></html>=
+
+--Apple-Mail=_B115046C-7603-4D3D-A6E6-9711826C6559--

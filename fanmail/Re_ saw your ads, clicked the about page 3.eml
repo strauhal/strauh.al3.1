@@ -1,0 +1,145 @@
+Return-path: <estrauhal@gmail.com>
+Original-recipient: rfc822;ernest@strauh.al
+Received: from p00-icloudmta-smtpin-us-west-2a-100-percent-13 by p162-mailgateway-smtp-64bdd8cd9-rk57v (mailgateway 2530B71)
+	with SMTP id 1800b77f-9b12-424a-8f81-66239f788ec7 
+	for <ernest@strauh.al>; Tue, 12 Aug 2025 20:46:49 GMT
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: MOVE_TO_FOLDER/INBOX
+X-Apple-UUID: 1800b77f-9b12-424a-8f81-66239f788ec7
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	by p00-icloudmta-smtpin-us-west-2a-100-percent-13 (Postfix) with ESMTPS id 6775FC0009E
+	for <ernest@strauh.al>; Tue, 12 Aug 2025 20:46:48 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQEUVUKE0oWX1gHVQoPB0UCBltbQVNZSgEGTEROUVcdVAsHBg0UFg1YVw41HgsWEVwYARoURhEcDVEPFBAKWRtfW0IHGlsSCl5TEQE5FQMKUUMKWxgKVxBVWg1IFAceFB1GBERUAEZPBxgFGhYBGx0eVQ0YWRYDCg1bAxwVSwceARsERE5RWR9fWQUZHEgUF10WBhFEARoZWVpMFhYLVxVZUl9JTVJHPAcFJEBUUkdMABtWQjxWWkAEc1pYSFdBS3MFJ0VMXkBLcFEPFBAKWRtfW1w=
+X-ICL-Score: 2.33303322423
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=none
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=gmail.com
+X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
+Authentication-Results: dkim-verifier.icloud.com;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hHKaeGIj
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of estrauhal@gmail.com designates 209.85.210.177 as permitted sender) smtp.mailfrom=estrauhal@gmail.com
+Received-SPF: pass (spf.icloud.com: domain of estrauhal@gmail.com designates 209.85.210.177 as permitted sender) receiver=spf.icloud.com; client-ip=209.85.210.177; helo=mail-pf1-f177.google.com; envelope-from=estrauhal@gmail.com
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-76bddb92dc1so7451296b3a.0
+        for <ernest@strauh.al>; Tue, 12 Aug 2025 13:46:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1755031607; x=1755636407; darn=strauh.al;
+        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
+         :from:content-transfer-encoding:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=jyl1NBIzD9iAAcRSlQd6mHjJcymcM0pmiSkD9/JPve4=;
+        b=hHKaeGIjUPdY5G7tKRjMXJB7VKl3p4+SjGhknPa3Uv2TSM1vqjVYvrE7sXiS3ddj9v
+         oyXPYURuLTnDyr+n204Tkc0K8PU/f00MqvoRf9getE8L3ND4XSCF1XMTGSvuCOAQcNwB
+         DHkhb9ikk3PP4KA5rbIfpUa70HV5TPQU4lu6B19GdiLi2MXlFaKZFYvtpcEMm/5mz1SQ
+         fMJrMCjM2DEATv1XgGTCki21XRb4D5eza7CXE53eSUYptco6RRuUvghvGeG1twKwIIV/
+         2OC6EczpTX/wSSjDgAdidzPszfeMfpo2NhtoChYlkjKd9nhZeYLl6YNEROngIO67lVJf
+         vcow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1755031607; x=1755636407;
+        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
+         :from:content-transfer-encoding:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=jyl1NBIzD9iAAcRSlQd6mHjJcymcM0pmiSkD9/JPve4=;
+        b=SM058IVyG7yuM4a4n9BlGKE/Q7fwVqXjhbmJFreEVmamb8vRTZdg7tyX3hxWWxqQQL
+         7j4ZueaSuu9avIt3T0OABx7qb8vrc3eq/UIQhIw2Z7QU2Ldk57fFUlaj++Lo83pEFO55
+         AFWAyrwKWeQER1rt7lqkBCvDcxpP2AqnyeAuHFzdCb7mVh647oD71ABOqn+xVtXWEffX
+         KcNLFH/gZXzQ2suWCYvRtGOD5uIWsRqxi3TJ4WI8DqTvUlRagxZcC6m8yFxDUQkh/WQM
+         mpbU3yddbyfEjIfYzSRQ5de5JDbpS2QKUwR0kB6V57VfLhpJNhokBE0chXnm5h3fR2OP
+         GBZw==
+X-Gm-Message-State: AOJu0Yx3H1U4JiHG2CSeXQrupGAntnaubdxrXKlX5KC5MqbGM/NlYHzP
+	5sHDecU61DItckaUkwgpQOOlGnuBw8Q1qpoQyjEJZj/2N90vVhrff5bmdsUSZQ==
+X-Gm-Gg: ASbGncuZljcUkkUY6Q/bMOwZ2iaSuZ0YYX6BIrgNuXLGJVsJN28LZ5aEs4AGWJa+Spn
+	qSEqLY0cwzvHiTSY+vX7kf8ThPbBfcXi7w7sKVWcQMw3tCtX2haCh2N7NNDHZswyt7QwEbWtB7x
+	VyUkQzQRU+j97+brrdQ3eceuArHm15s3RbPxRxdZe0Jl8nQHs7YVOtAjnocx2LeIlVSXlV+YQFP
+	9Zk77R9pXmKbNoBpQv5wj4KwB4/NFzaB6bElkE8uQodrqORdgWFuCSwfLGGhrk44BWeO4d+wxot
+	QgkJxGBkz/hS4Uc4kHCCu0LU0tdgkx7Uqo7Edk/ytT8GEHEXXiqZiJyBjDrtYjZ9L/8PuDq8K4B
+	7+uBtat9zFz8yVFfOLZCLb5etKybMYQwFn9jw6VyL+sZwzDNxgw==
+X-Google-Smtp-Source: AGHT+IG5+EtU62eTvWCCOcjNpUknyW/uH5vxi7/3O+YfAp3TNjVy0NNuZalGoZQrWaT65sUNoX4SUQ==
+X-Received: by 2002:a05:6a00:92a5:b0:749:b41:2976 with SMTP id d2e1a72fcca58-76e20ca11cfmr967589b3a.3.1755031606748;
+        Tue, 12 Aug 2025 13:46:46 -0700 (PDT)
+Received: from smtpclient.apple ([2607:fb91:1d3f:c879:dd2f:5519:d590:7f79])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-76bd78875cesm29083379b3a.15.2025.08.12.13.46.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 12 Aug 2025 13:46:46 -0700 (PDT)
+Content-Type: multipart/alternative; boundary=Apple-Mail-53B4A4DA-79D2-436F-9F67-6D85EEC17BBD
+Content-Transfer-Encoding: 7bit
+From: erneststrauhal <estrauhal@gmail.com>
+Mime-Version: 1.0 (1.0)
+Subject: Re: saw your ads, clicked the about page
+Date: Tue, 12 Aug 2025 13:46:35 -0700
+Message-Id: <440D73F5-4040-47E0-84E8-1163C3E05873@gmail.com>
+References: <TpbVImkybochasJTlf8uFtfnaqrUwfhpd66paTJ3Or2CA9zCAQ-0YZWOzRITVqPpnXyv2gWdwyd2OsMqLNdsWN2trL2dh96lrRCKaQYZY1w=@proton.me>
+Cc: ernest@strauh.al
+In-Reply-To: <TpbVImkybochasJTlf8uFtfnaqrUwfhpd66paTJ3Or2CA9zCAQ-0YZWOzRITVqPpnXyv2gWdwyd2OsMqLNdsWN2trL2dh96lrRCKaQYZY1w=@proton.me>
+To: LOCAL AREA MAN <localareaman@proton.me>
+X-Mailer: iPhone Mail (20G75)
+X-MANTSH: 1TFkXGBoRCllEF2tPbB0YfRpMBWlgEQpZTRdkRURPEQpfWRcbGBwRCl9NF2RFRE8
+ RCllJFxkdcRsGHRl3BhkTBhoGGgYbGhoGGnEaEBp3BhoGBx8aBhoGGgYaBhpxGhAadwYaEQpZX
+ hdsbHkRCkNOF0QSX2ViXUxAeh1bbBJfS1tDRRgTE1BTEllpcExIRm1OEQpYXBcZBBoEHx4FGxo
+ aBBIYBB4YBBkaEBseGh8aEQpeWRdMGn9QfhEKTVwXGRITEQpMWhdsaU1raxEKTEYXb2tra2xNa
+ xEKQ1oXGBoTBBIfBBgbGgQbHR0RCkJeFxsRCkRJFxsRCkJcFxsRCl5OFxsRCkJLF2NTY2t7E1h
+ +Gl9eEQpCSRdjU2NrexNYfhpfXhEKQkUXZmNYHGhEZV5QTlwRCkJOF2NTY2t7E1h+Gl9eEQpCT
+ Bdlbk0TBW9rHWlbXBEKQmwXZHlYHktOUEtiAUQRCkJAF2dNS3JBHXJHRW1pEQpCWBdkfnMcH1p
+ kZl5gRxEKTV4XBxsRClpYFx8RCnBoF2hwfFhoBUx5EkJiEAcZGhEKcGgXbkMSTGt7UE1belMQB
+ xkaEQpwaBdmbU1tT319SWliYhAHGRoRCnBoF2NNHBJhbEdeX3BsEAcZGhEKcGgXZH8bXGx+Hnl
+ 7XhIQBxkaEQpwaBdjf0kFeQVycn5cHBAHGRoRCnBoF25ZR2J7en5ZTGVBEAcZGhEKcGgXbH5he
+ FhFe0lES1wQGxMRCnB/F2R+cnNQYkJgE0wcEBgYEQpwXxdleFBEGQF8fVpHThAYHxEKcH0XZXh
+ QRBkBfH1aR04QGB8RCnBsF2NTGEt7Y2VrYGVzEAcZGhEKbX4XBxsRClhNF0sR
+X-Proofpoint-GUID: n8uOHwfjP7qF8uaqio299zy8sCZfblGd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODEyMDE5OSBTYWx0ZWRfXzQAFSZonlG4K
+ Ck3i5ZZOJlog5iKL0x7i/BU9y69YL58htCHccc6DxM1GbbvXEkuKStSH1FnZBSGbKY99QFWfZQ4
+ +Ks6Ugcy2nW1h0nhJkuETjb3TZVoWSVfZirqaZF7B4+6kEzeVlvxPI/Dl2Q5Y3KTekUWbodyPlY
+ Q5jVl09gwZ8txXZBvwTLGW4+tN8Vz6E63rKfh8ISYD+yZackWLuowGJ/6COnkFE6F4b0k/hXNdI
+ NrsHAJx5FNpMT5CVsYjxFNSYeZk2uZZ4undM9ABnoLyOhk9hKG5t5sGJdX/6W8zroORGi37pQ=
+X-Proofpoint-ORIG-GUID: n8uOHwfjP7qF8uaqio299zy8sCZfblGd
+
+
+--Apple-Mail-53B4A4DA-79D2-436F-9F67-6D85EEC17BBD
+Content-Type: text/html;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
+utf-8"></head><body dir=3D"auto"><div dir=3D"ltr"></div><div dir=3D"ltr">hi,=
+ glad you=E2=80=99re enjoying the site</div><div dir=3D"ltr"><br></div><div d=
+ir=3D"ltr">for ads=E2=80=A6 &nbsp;i think i threw $300 into my budget 6 mont=
+hs ago and forgot about it, still have around &nbsp;120 left in the budget.<=
+/div><div dir=3D"ltr"><br></div><div dir=3D"ltr">i decided to start advertis=
+ing the site on a handful of boards because a lot of the images on the archi=
+ve come from boards like /mu/ /lit/ /ic/ /wg/ and others. &nbsp;just wanted t=
+o complete the loop or show my gratitude in some convoluted way by advertisi=
+ng on those boards</div><div dir=3D"ltr"><br></div><div dir=3D"ltr">i=E2=80=99=
+ve gotten some interesting submissions but nothing too crazy</div><div dir=3D=
+"ltr"><br></div><div dir=3D"ltr">4f-mph huh=E2=80=A6 &nbsp;must be one of th=
+ose strange acronyms that appear on the /drugfeel/ threads. &nbsp;if you hav=
+e a good substitute for libgen, let me know since i have trouble accessing t=
+he site</div><div dir=3D"ltr"><br></div><div dir=3D"ltr">enjoy your dinner,<=
+/div><div dir=3D"ltr">ernest&nbsp;</div><div dir=3D"ltr"><br></div><div dir=3D=
+"ltr"><blockquote type=3D"cite">On Aug 11, 2025, at 9:58 AM, LOCAL AREA MAN &=
+lt;localareaman@proton.me&gt; wrote:<br><br></blockquote></div><blockquote t=
+ype=3D"cite"><div dir=3D"ltr">=EF=BB=BF<div style=3D"font-family: Arial, san=
+s-serif; font-size: 14px; color: rgb(0, 0, 0); background-color: rgb(255, 25=
+5, 255);">and you said to email you if we wanted, so here I am, emailing you=
+. enjoying your site so far. how much do the ads cost you per month? why'd y=
+ou start advertising the site to begin with? any responses so far?<br><br>ab=
+out me: Right now I see a crow eating a pizza crust on top of a streetlight.=
+ I am twitchy and uneven from too much 4F-MPH. I want to escape work and fin=
+ish reading these essays on Macbeth I got from libgen. Might make rice and c=
+hickpea for dinner.&nbsp;</div><div style=3D"font-family: Arial, sans-serif;=
+ font-size: 14px;"><br></div>
+<div style=3D"font-family: Arial, sans-serif; font-size: 14px;" class=3D"pro=
+tonmail_signature_block">
+    <div class=3D"protonmail_signature_block-user protonmail_signature_block=
+-empty">
+       =20
+            </div>
+   =20
+            <div class=3D"protonmail_signature_block-proton">
+        Sent with <a href=3D"https://proton.me/mail/home" target=3D"_blank">=
+Proton Mail</a> secure email.
+    </div>
+</div>
+</div></blockquote></body></html>=
+
+--Apple-Mail-53B4A4DA-79D2-436F-9F67-6D85EEC17BBD--

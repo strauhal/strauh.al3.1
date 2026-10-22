@@ -1,0 +1,100 @@
+Return-path: <camdensnider1@yahoo.com>
+Original-recipient: rfc822;ernest@strauh.al
+Received: from p00-icloudmta-smtpin-us-west-3a-100-percent-0 by p162-mailgateway-smtp-6b8d4bb5b9-9868z (mailgateway 2544B77)
+	with SMTP id eac1f871-dd17-476e-8bbc-3111753e10ac 
+	for <ernest@strauh.al>; Wed, 28 Jan 2026 02:26:35 GMT
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: MOVE_TO_FOLDER/INBOX
+X-Apple-UUID: eac1f871-dd17-476e-8bbc-3111753e10ac
+Received: from sonic319-24.consmr.mail.gq1.yahoo.com (sonic319-24.consmr.mail.gq1.yahoo.com [98.137.66.205])
+	by p00-icloudmta-smtpin-us-west-3a-100-percent-0 (Postfix) with ESMTPS id 65A23C000CC
+	for <ernest@strauh.al>; Wed, 28 Jan 2026 02:26:32 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQEUVUKE0oWX1gHVQoPB0UJDkxESlFZTgYYUEVMRhIcDVUDGB0DGQteXwYQC1c3AVFeDRpXBRgVEFAGSAAHHxdfGAEaFEYFGw1TEBscFQM4Q0IQFAwOWRlcFgoQFQlKC19YCxZKV05VAgJMFhYIBBVCGA8UEApZH0EHTAwYDhgXHlUNGFkWAwoNRQ0bEAVESQkbUEFXBRgWQ1sQWxQHHhQeURNEVx8WEF9ZTBYWC1ccVAsbFBEJGFZTWQ9VFA8TRQwAV0FJUk9MAAJMQUpVREEHGFNCT19CTgcHWkJPUkQ4XVcLGVcfFhBfWUwWFgtJ
+X-ICL-Score: 2.33303322423
+Authentication-Results: bimi.icloud.com; bimi=none
+X-ARC-Info: policy=fail; arc=none; r1=-20; r2=0
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=yahoo.com
+X-DMARC-Policy: v=DMARC1; p=reject; pct=100; rua=mailto:d@rua.agari.com; ruf=mailto:d@ruf.agari.com;
+X-DMARC-Info: pass=pass; dmarc-policy=reject; s=r1; d=r1; pdomain=yahoo.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=yahoo.com header.i=@yahoo.com header.b=FLLYMz0M
+Received-SPF: pass (spf.icloud.com: domain of camdensnider1@yahoo.com designates 98.137.66.205 as permitted sender) receiver=spf.icloud.com; client-ip=98.137.66.205; helo=sonic319-24.consmr.mail.gq1.yahoo.com; envelope-from=camdensnider1@yahoo.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of camdensnider1@yahoo.com designates 98.137.66.205 as permitted sender) smtp.mailfrom=camdensnider1@yahoo.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1769567190; bh=9ee5Wk78MGSq8cp1gJsj1OjTLUCdKUsgvEz1EPQWneY=; h=Date:From:To:Subject:References:From:Subject:Reply-To; b=FLLYMz0MbTFcSIs+UhtbJgqQ83PhTvJJxLCHgD361zV2DTtCFF7HEP7aaM0rokJOlb27gJ5rGk1yliG4B4DjfpLoEQMYCQoACdx3k//FB78FvNm8YY0vIFkdrcJDMWQQ+Sq6YYdbeBKR6UKEa1HeL8D4zO4D8LtkzhUMpYjSRYFyk2D4qgA5Rd+QC3/tGVEhYOzDOVvrIkiuviTs9veUcmYlVl0PrRIXwdB5t0+tcnArBpzYfUckXXva8oZ3PJBvTiUYbE+2JuuKyWbxX+1irIJG+z2Y+b7ivVB3A0E5Oh1wHOKtvwCxZ4dIZI/maSsk3LU6iF1SNdeWw8crmGxYKg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1769567190; bh=s81FFfOM3y35U2hPkaKzNWXZkmg9AdSr4JndSqfI9Xe=; h=X-Sonic-MF:Date:From:To:Subject:From:Subject; b=DaBuigveEXTtCfPJ4ZCnHbdqNm2tNX80IyaJDC08qRxLuzfvTjkxFokdl2vCH/57OF5Mucu1l+aThwamxkx/cyOA67Syaf80lAnVouwyBkdpxVRnTf6DH26lPqTp16paGLxJW1jZzvTjzSaWJbsmkHasLhxJf3G9ZrmGriVZYGmoGaUkmdzUgCf9+oTrJLCekJaa9eCgrR7v1nGmGaHMRx2JAk3/xtRnv0oPqtSiQ1nS+y5iKMBBtCCdWIGI5tOJK3anYCz274hAKqcjgu6Co+MFiY4g+h73GXMdMxpGPIfwUy9nM8dReaEpoQ9TYDG/mWX53ri5b/adQugyTIj++w==
+X-YMail-OSG: Oax1QwAVM1lQbGRO7V6eKb8YKyNevUhYZdqLSkaY4YkIpHWgCtAqOEhtbm6VKBG
+ UpBn11Erqc8zDuGFGJ9U1TUqfRziX0W3wnyoaMCJYcsKSOxFhUSbjffvX_9y2GpROaPqRwOuzbtR
+ Wv56pgVN4uwHTAj50MfmBNvM6bcu2fSrlKcNE0taQlp8GdMB3BVI4CezAjkdRGD2wF33hK0gnjhc
+ iUk5afF4iPV3lJW2FgLjSVTYjYqyVzNnCmreDwbJgxm0oVaQ.XXwItF4yZQ6jDt8wXl1TH4_G4zw
+ epA5XjHNnCxgy0jAjN6pjAsUrRraAaAobfTkjI2EtNTb6MSzAIvYEzkgFjNQkvm9wUyd9Jjul0PS
+ APsm9ZY55K80HsBtjUoD2vDSeLE9yQGrQBeLNrLiW4lk8wKJpC5iCfV4CGwc6ggNQeRmIdF9xwPA
+ e3vsQK.C5iiLxglqaoz4c2uckjZqLqC8dIGkn8M4UPUQh2BdvUxO9NKerHquOE_vYijtmE4X2piq
+ GBmY5jCCQZqE.aMZCc8S0e14Z.jAEGzbbJUCSAEGYlhVPs6JMlM9D3.cntWaPsct2abQ7rZZEqhH
+ lMwpper6hygWV.HEzj_KalviTafr8EJRdknmvVxDMgyJBOCTavu3mNBCUf4TUPD.dHVMYnbPjSvQ
+ yyAlQBbL6OXqXnJFeG7DdSyOrCY8l8ewQopk0_biGOd6Z2yr6m_lrL.vNfkyKap5d7SgMQ8fP7mO
+ LMd6O1WX53_liTcTZHXOa0jqMi_N2s7FjqwHCeEuzr4NvWuvZ.n0AGY2WMo3ZOxNWwvjTvuBdBoc
+ DyQxHinsJXnv8orebrSo9os_NfkqRuyQiBRXCPxAIR8.2kEBhQWDP8zzIipPmjstEe8nyE_7AOCO
+ ds22XhetF8mOiSu1diMtC5P3_VIr59NITFnXU5Of_VumO0vqw2dTw11IpSr3PNJEPFEYP9dL1syt
+ nPZwhCRTpSGMmIG10ZhDlXKKNEuv0nUBhPnnMOQRkuuZgaHYTUWiMKFbueS8kSYT_z4DNM5nOC7u
+ rHN3P_0o0LXuHOYiN8pOOesbAqD1wJRolpwSp0ryKQLM8M3ksiw1yiSDpcXkWPRHk3g7eYQttPJ2
+ rkl67.qk5K3aKbND9rlyo056VodXoHguVX.4evD3ZOzklpBXuQvxTXbg6SFD23TckxUUHfP8o.sO
+ MIRPD3f1_smAgSGuDJjNGHIaXCah5j5tH4tTFAUV1dHGaSgNpQ2KhsLhiuZcsfD1iymmr4H4PIKu
+ F5afhWQ7x8eg6nYNEfWWiMFmQU9TLxLNwoyJfLOBPM7QStDu4S41pWNTFBW8bFRofl6rWF2JY08g
+ IQ0mlhWNJ2WoBlt7m4eolqLsP4NswxMNor0ynFM8B.Z0TeFNFBfSMEuOSijRKNr5e9mrdKZ4fFtN
+ .u1.BFMhLLeooqk29cKfIKaTW2qZpgT0LgeqgJgmQskjJ3wQM_RQcV5m6_9oW_kRHqO_0j_xYmev
+ AC9sQWTtDDL1HGqVrHCuVBjd4O0j9f5BLj54kAgi.8MApFCKUcxqEXZc9MrEoFCoeot2HEtwatjI
+ kcW._99x3gNhwOMjR1RY3sq7fW17YNsGE3v9tqJgjPa7t2a5JLa4RJ3Et8sjBIYxarEXOdfrjEsu
+ 9JYwUYMAFC4gPYiHGspEwSzr1Npu8mxNsB5FABIvBkIY8EaNTNMhhfJfDJsyf4S.GyBM5kGrTlHR
+ WurVQVbk.QabmhRYgFV9kA1OIyA1iK.PkQ0ydUKNXlsq8tEL92oD6glIJ2ITh3nL2eSW7ux4myjZ
+ 6tmTW8lqLnPBC.ysg1WOpxFjfeKs1HlLUlmAUHG6p3.PaDWYugGOMJXWTFip4oL9DqJ9Jac5tROT
+ ln80IpWSVdBTnN1_8shHl7vjWSuJIhgHL1L8r3JYcky0KLg617t1TWqNnrGiqI_QSUhNG1wZB4IU
+ 3_E.CVodNg6XSgL1b_tOlVS5FihQj41rGF_tJ63Z1kTBGA0t3hT2CMK4NyIMIrzB7rk5y2ubisVq
+ ahCZ1GkHt8w1QhBCe3h_0KbqSomVltSsUWKbIG90.nZr5oufx4q3NTaiGct3X8RGJIBwFaJzE3Fg
+ pkXVWyikvH4LifOrsPx.OXbC.FLwT5M6nf4h3Bm65EEw_eI8hUWBgPV6x75WML3EQUJDc8DKolFQ
+ C6KyWFWMZF_cY20n7D0hhws73rJnvdNA3_2rQWrZYntRNTtj7T5rPEYIvWh8K9VxHTIv9SuP8EQM
+ NmW_wYIg5YTMqNRFkVZZGhUEgn4xaZvm_bf9SCePHX3X83kjoFRlXZygDi_5WA2vW
+X-Sonic-MF: <camdensnider1@yahoo.com>
+X-Sonic-ID: e2e38106-7e18-4050-8d99-ea7c312040cb
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic319.consmr.mail.gq1.yahoo.com with HTTP; Wed, 28 Jan 2026 02:26:30 +0000
+Date: Wed, 28 Jan 2026 02:26:27 +0000 (UTC)
+From: Camden Snider <camdensnider1@yahoo.com>
+To: "ernest@strauh.al" <ernest@strauh.al>
+Message-ID: <654048404.433397.1769567187643@mail.yahoo.com>
+Subject: Submission
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_433396_1021632445.1769567187642"
+References: <654048404.433397.1769567187643.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.24987 YMailNorrin
+X-MANTSH: 1TFkXGBoRCllEF2BkcxphGHtPa2ddEQpZTRdkRURPEQpfWRcbHxkRCl9NF2RFRE8
+ RCllJFx4ZcRsGEh93BhsbGwYaBhoGHxoGGnEaEBp3BhoGBx8aBhoGGgYaBhpxGhAadwYaEQpZX
+ hdsbHkRCkNOF2JlSxxyeEcTaHtjGXlib3hyB3IZeUJPSUJMbUkSYWhHEQpYXBcZBBoEHx4FGxo
+ EGxwYBBkaBB8QGx4aHxoRCl5ZF01YUkJQEQpNXBcbGhoRCkxaF29pTWtrEQpMRhdvTWsRCkNaF
+ xMSBBsZHQQcHAQYGh8RCkJeFxsRCkReFxgRCkJcFxsRCl5OFxsRCkJLF3pEHB1vRWxtRENmEQp
+ CSRd6RBwdb0VsbURDZhEKQkUXZB9nUltHXG9YWmIRCkJOF3pEHB1vRWxtRENmEQpCTBdmTHkaG
+ nhgT1oBHBEKQmwXZWVkRF4cUH55TE0RCkJAF2hDWn9gbkFtYV8SEQpCWBdkfnMcH1pkZl5gRxE
+ KTV4XBxsRClpYFxkRCnBoF2MSZUNMZRxbaE9nEBkdEQpwaBdrHkUdUmNDGBwSaRAHGRoRCnBsF
+ 2tiQElyeWtlfG9fEAcZGhEKbX4XBxsRClhNF0sR
+X-Proofpoint-ORIG-GUID: HOa6XRm9BQI3SHERX-X3ShechfGc8KBm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI4MDAxNyBTYWx0ZWRfXzCk9bpXrcleI
+ lc1tB+86HyeajJidJzTEvfeh2KpOn2Ni7DUmY8Dr5AtmEF4drgZ4a0wUqRkOg1G3VkW4+2KdTB3
+ iA9ye43PWL0px6WCxvQj3LaqmtSM5YzvLdJc0P0UbxheyM2K6Sl+/wPkLRazlBGFot+BrITZ/73
+ bqvf8hxuxkisOQrzESw/C++Ly1QL588spkR2qNEzLN6BwHq7TRiy2si8vNAfQefZpp5QmtNcZUk
+ CpPv2z+LzsYgXlvnboy0VZ06NpehHMicTIByyxbwSq8hRIuRnBobMYoYsbHx6ZzpUwXMmdh1HxN
+ RB5KsntTnqbjzbOTY2i
+X-Proofpoint-GUID: HOa6XRm9BQI3SHERX-X3ShechfGc8KBm
+X-JNJ: AAAAAAABd9P8/0WbsDCwSBm1iw4xTVC3bOJucljXK5mYm89LLaE4w11bG0TZGbqhqbbqb7E+Ipc4Gsb6YcAakIuMB0oSnPhLE8/x7FQF6cukgWyc1bI2QtJ6kccR7k1NhqHApNB1clQL/4KTzlB/X4nBh747lC1sarXvwDJMvbkRsUzyzWAHGZvlVIp+etPgGr3O/IlRuZcsZ/M/P/mxg0rQKlCMcyAHtS7p+TXwgMpnywCSEPbSoit7SvUa1M3V9/8RiW+61I59C+1vPE498gjpfGhxLik8WzWILCX6+jDhvP78bxU9jGbLbtOUsnMS3IGnEKb6h19Q7VsCNwad0YpOkCeZnW0pSFKQ9YDlo9k/6/lmOBKASDLIkgbdFq0CJFWayR5Ji1I+d3MvrC/ttWB5+rvr18oIOoHgPyRIlY2yHGDDCoRLeLeMQutxV0VY7alHKANgG1S6CTOzr/QxSqwH36mdSztCEedkcTy39oUj5hI8SChIAmAoXN1rQ9+qU0AActbDC5wziy94gvXOSiLMw59DKVwVnE5H4X3+Ya+Z27aNzu8leSTHTX5Qrms3Q2zAT8POWH0V7tzEPmFXaaEo1oC9K3hmAOgJSloixHOPaPaQ8tOTpGw4r1DtpUe9h9d8dwKUgc7OB5MbJfyK/i/JjYhvvkY8lgPko9JtyOkAP/UFM4xsOsHlWyf/aAzK
+
+------=_Part_433396_1021632445.1769567187642
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Camden -- "Billy Graham"
+Found your site via 4chan. Wow, what a neat site!
+
+------=_Part_433396_1021632445.1769567187642
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<html><head></head><body><div class="yahoo-style-wrap" style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:16px;"><div dir="ltr" data-setdir="false">Camden -- "Billy Graham"</div><div dir="ltr" data-setdir="false"><br></div><div dir="ltr" data-setdir="false">Found your site via 4chan. Wow, what a neat site!<br></div></div></body></html>
+------=_Part_433396_1021632445.1769567187642--

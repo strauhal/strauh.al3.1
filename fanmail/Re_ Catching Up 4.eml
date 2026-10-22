@@ -1,0 +1,187 @@
+Return-path: <estrauhal@gmail.com>
+Original-recipient: rfc822;ernest@strauh.al
+Received: from p00-icloudmta-smtpin-us-east-1a-100-percent-30 by p162-mailgateway-smtp-c45f594ff-zrq6b (mailgateway 2606B152)
+	with SMTP id 7ffedd85-6f26-4c3e-9434-8224e42a2f61 
+	for <ernest@strauh.al>; Sat, 14 Mar 2026 18:40:50 GMT
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: MOVE_TO_FOLDER/INBOX
+X-Apple-UUID: 7ffedd85-6f26-4c3e-9434-8224e42a2f61
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	by p00-icloudmta-smtpin-us-east-1a-100-percent-30 (Postfix) with ESMTPS id 0C99DC000CF
+	for <ernest@strauh.al>; Sat, 14 Mar 2026 18:40:48 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQEUVUKE0oWX1gHVQoPB0UHAkxES1NZQAIYVkNZAxNFVUUWBxgTHxlcdgUYGA8bVlNZD1UfAkofXVcLGVcFGBUQRAFIHBQZHUNCIgYNFBYNWBgDGVkOEhRfCw8UEApaHFwHTxNNUFkfX1kFGRxIFBddFhIBC1saGVlaTxEVV1oeBABMEhYJEBRVGAEaFEYTHA1RDxQQClkbX1tCGBACSkRzdyAzPVUyOR0FWkBBS0NMAA5PNEwiTlV0DlpFPFBDSHIOJjE5ARoZWVpMFhYLSQ==
+X-ICL-Score: 2.33303322423
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=none; r1=-20; r2=0
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=gmail.com
+X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=LsQeNSiq
+Received-SPF: pass (spf.icloud.com: domain of estrauhal@gmail.com designates 74.125.82.46 as permitted sender) receiver=spf.icloud.com; client-ip=74.125.82.46; helo=mail-dl1-f46.google.com; envelope-from=estrauhal@gmail.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of estrauhal@gmail.com designates 74.125.82.46 as permitted sender) smtp.mailfrom=estrauhal@gmail.com
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-128e4d0cc48so3684450c88.1
+        for <ernest@strauh.al>; Sat, 14 Mar 2026 11:40:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1773513647; x=1774118447; darn=strauh.al;
+        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
+         :from:content-transfer-encoding:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=cVHaxeNELO0OkcjEsKLPwiPaCjLLg3hMaiGBG4RLu4c=;
+        b=LsQeNSiq68nMQYNbrjiviyY9f/F12MeR2DZ0qjsx/CXBQRa7NxK+ezr9VC3SMo6i+8
+         dq7LF0deVIE49qA6hPWlmccanPTTeNiaua2GvVgLjp932tfeP93iAFJUJnks9cwxlu17
+         Op0hzv7nm9ZR3jeP7wZqtmJw14XYIeoiy7lv0NfnIZp2bTJaykPoEg3he6rWhZWmVLir
+         1hLS8HI4G8u/ZP7/St/WxgznOtv89jxpsDEqOM8XCJJY8/06WzYSgA23vjntvQbrU2ZR
+         +tTG5XWGSf4ikHCKMI1un1Yc212WwZO4ChWUCVEsw4s18aW16mK98qAROFbOLz9wtwe+
+         f0fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1773513647; x=1774118447;
+        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
+         :from:content-transfer-encoding:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=cVHaxeNELO0OkcjEsKLPwiPaCjLLg3hMaiGBG4RLu4c=;
+        b=e8gIvQ/Jk1Rv5bl1d0IeoJpURMkjy3rqryArG94Iwc+vQ1RIqteif28Z3kC1jsR85m
+         zFgeJcPllCBpj2bCy0mdEWwX/6bzmaY4fJBCBQfWq2LP42t6JjzHCtwSKJgH4yNgsdZm
+         gONcYiUcOnXWyQOsraH++N9bQpVRNeI1kwRB9hggoL3JCuZRijTXpyXUUriUZ0N29zOu
+         VBxkH8kQFHc7W8cey1O36U40v58BWaQ2QAMcYsDSwA6/ZhFB/5/gTtYpjCY0caVyiiCG
+         NIXwiq4L4mECqfgJrsTps/nBTPMfDyv7bpgEZUVA4VyrPf9xSo8fzc5Cow3l2UAjX0Ic
+         6x8Q==
+X-Gm-Message-State: AOJu0YyfUPA57zTakv7aapgK/k89W+y0R/tR/sxhIjMy91wJeSchqSHL
+	/AgCVNKO5xEl22I4XgfWfTJxLyhYUFzVMu7CLTwW+lWGJlrn0Tmf5/Ms
+X-Gm-Gg: ATEYQzyYOUh5DCg40ZPEOskK4ycthBPRTiguqgVlPxPZkBQKhljHQpuiBn2z2XrAH5a
+	EvgH6teyiwU7Bgz/029UICqXOpDJhT34l0gNjZDmKUT6Rk52f9g1EOiL+n4Jf5kKc87WsSHKupU
+	yH4qT1EAQTPOdTnrbbwnlbrbOLN0NvoFEi0uCTO2+0mFgydvUS09sU7guKQwcXzaV4RkIqSvAno
+	ssL/u9ajXsYntDPjX2PfjuGD2/AqYAZXEH2bgzcGzvYFBJtDA6t682VEvbXIN5qYcsHJRB1HNNi
+	cun9hZSOx2sevoFVDIJ//o2KAVBgj15XobVV/xT4X4vUvNHRE5fca+r7YitQy+zdBfPMNbDwVdD
+	PK6Wvka5G1GAT6R8QAdxp3zg+SmHJJnT/VH+0I6mD80+2+0EymfhJU5fLET53D/zvwWAaSYwOxj
+	ar/wvujNzZ01BSvJYJCBon6Mrr4ukPhhuMjbzpqcPUbvHVnw1s4L7eK8PG7w+t+tP3R4sVFeDA6
+	fvWSWAiUA==
+X-Received: by 2002:a05:7022:4587:b0:11b:b3a1:714a with SMTP id a92af1059eb24-128f3d96020mr3635771c88.12.1773513647256;
+        Sat, 14 Mar 2026 11:40:47 -0700 (PDT)
+Received: from smtpclient.apple ([2607:fb91:1da8:935c:28e6:8d90:c881:532f])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2beab3ccd6esm7733462eec.9.2026.03.14.11.40.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 14 Mar 2026 11:40:46 -0700 (PDT)
+Content-Type: multipart/alternative; boundary=Apple-Mail-ABBB665A-C262-4106-ADE9-A5C1DF7430F3
+Content-Transfer-Encoding: 7bit
+From: erneststrauhal <estrauhal@gmail.com>
+Mime-Version: 1.0 (1.0)
+Subject: Re: Catching Up
+Date: Sat, 14 Mar 2026 11:40:35 -0700
+Message-Id: <CABFD3EA-3858-4408-A5D9-D880E640B8DD@gmail.com>
+References: <CAK2pDKBp_=5+8vmHbZcFa1VFWCGCWmz5_C2uu8HzCTh-zmsuTw@mail.gmail.com>
+Cc: erneststrauhal <ernest@strauh.al>
+In-Reply-To: <CAK2pDKBp_=5+8vmHbZcFa1VFWCGCWmz5_C2uu8HzCTh-zmsuTw@mail.gmail.com>
+To: Ryan P <12ryanpierson8@gmail.com>
+X-Mailer: iPhone Mail (20G75)
+X-MANTSH: 1TFkXGBoRCllEF2tPbB0YfRpMBWlgEQpZTRdkRURPEQpfWRcbHx0RCl9NF2RFRE8
+ RCllJFxkZcRsGHBx3Bh4bBhoGGgYSGQYacRoQGncGGgYaBhoGGgYaBhpxGhAadwYaEQpZXhdsb
+ HkRCkNOF219RU1CZU91f3xscmhmfxJFU2x+WG1pb1plfnN7cFlCEQpYXBcZBBoEHx4FGxoaBBI
+ YBB4YBBgTEBseGh8aEQpeWRdNHBtoZxEKTVwXGxwdEQpMWhdDa3trEQpMRhdva2trbE1rEQpDW
+ hcdHgQbGB8EEhgEHhwRCkJeFxsRCkRJFxsRCkJcFxsRCl5OFxsRCkJLF2NTY2t7E1h+Gl9eEQp
+ CSRdjU2NrexNYfhpfXhEKQkUXZmNYHGhEZV5QTlwRCkJOF2NTY2t7E1h+Gl9eEQpCTBdlbk0TB
+ W9rHWlbXBEKQmwXZHlYHktOUEtiAUQRCkJAF2wdfmtYZ05bGGBmEQpCWBdkfnMcH1pkZl5gRxE
+ KTV4XBxsRClpYFxgRCnBnF3pfHVtlBR9hRlNAEAcZGhEKcGgXZx9ia1lFZG9+REIQBxkaEQpwa
+ BdnYB8cYktNYl5sbxAHGRoRCnBoF2tAGRt4eWBpZQFJEAcZGhEKcGgXa1lPbEETG2l6Z0IQBxk
+ aEQpwaBdpaGhpaU9NSEEfRRAHGRoRCnBoF2JiRlBnXxJwAVBhEAcZGhEKcGgXYlJOaW4SZHl8f
+ U4QBxkaEQpwaBduSU1ZX2YYXGEYARAHGRoRCnBsF2NTGEt7Y2VrYGVzEAcZGhEKcEwXb3NYeU9
+ ubQVrBXsQBxkaEQptfhcHGxEKWE0XSxE=
+X-Proofpoint-GUID: GWoghOe_UVFXBLU8oyFTrGCEpOTYQZsh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE0MDE0NiBTYWx0ZWRfX4tODN/HdknQH
+ xdG+OtumU+RILyUOWW8nMv/ybYK7j17zlXDK2CnSyM4+QZe5K6f/6eW3yJsPIoiwMuzV6LCL1IW
+ sAHTYsKpg1hbCP5LuZBZrfJz2A4lPrj/ga3oOlXA0o4g4uS1SwqL7259iorSixZrVqmnWvT89mr
+ xeMwgp8aya907+U9qESYQduKQnWPRIt6i/jSfdEO3fN55uTG98KMWu2p9I3lTQ5Gvw+oxWNHsJ2
+ VAdvrTsJcmmdep6cx7aMzROtBwJBBf+AmBlECQMvSf1988s3YTxA5BaNDwBV0P2+EUHreAboUOc
+ O2CVnLEEThVY66zy+o+
+X-Proofpoint-ORIG-GUID: GWoghOe_UVFXBLU8oyFTrGCEpOTYQZsh
+X-JNJ: AAAAAAABPRfAUrpNyMwnAqF0CcuiVVO+81b5OdxUa5wwSimMmAEGznONL6AZYf/8nreLA6Gn0fJbvQk49qiP9UQTxHNjF+evO84tjYR64qqNqqByYnGSQz/0boxKtn+2O1jnLa85fGGminU3Iv+ZjiyA7ryaoK10yo3+VVQGQ4pJZjhKvHXwXy2xu0C/cwANQ5qWlkBLNNEPQrqKYzyRWYNsy4o402ClT6FfKyt4pPrkhos8VTcPu8Y72XZoTOqNXbfBN/YBxEsIoFyf9oaCqlCM7l743HS6TiWfAaCyTr8m6Ntb3dZC6EOz9AKYjxEHkjbJS2NFM7rSMe9C0UQIhtfBf6Ft3toH0+7NWIaLoXpmIOU08X9NQAkcJxjW88kYJ7pE0ervb8/6l2Mm8nbry42C3N1ZPU4w5DDMk0DHiOOxMWqEtkrnTTNnanG2ABQrKaUdh4f4X+Rz6hQkBVdQhpbuaYhH57M2PgoHl47Vz6qTxOYzwwlwP5CobPhkZNAylro8FgntaYTdzjPFbPVl9ff08O46YTTTNqy9gfeM4vfqqEMa8dFzb50DXImEHfoBHFIdMMn0ssRAVIjgS7Z3GBlbHUSuMoVZmADWctrs8fUMM6WPA4Q84mmO8IbPxy8lhJvgGq7x2dwk4kc6iadSXJ6mKiVZ6PI0sH39nJB38dcUHN2SDJ2QViFmPG4zppfT0hBkJeS+V6yh2eQzr7sW5HaZG+m/nLh9pOm5IdmFirj89QsDrGgMfsuRwKjPZpD4a07K2IA3NxxxLu0Ml0BFCviMK8bVpWnxRQ==
+
+
+--Apple-Mail-ABBB665A-C262-4106-ADE9-A5C1DF7430F3
+Content-Type: text/html;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
+utf-8"></head><body dir=3D"auto"><div dir=3D"ltr"></div><div dir=3D"ltr">hey=
+ ryan, i texted your number but i think it might have gotten filtered&nbsp;<=
+/div><div dir=3D"ltr"><br></div><div dir=3D"ltr">i still feel like a beginne=
+r when it comes to playing or making music so my method so far has relied mo=
+re on luck than on skill</div><div dir=3D"ltr"><br></div><div dir=3D"ltr">as=
+ for words of encouragement, i think you=E2=80=99ll eventually be able to pi=
+ck yourself up, you=E2=80=99re still in your 20s lol. &nbsp;i=E2=80=99m laug=
+hing at myself though since i thought that there was nothing worth living fo=
+r two years ago</div><div dir=3D"ltr"><br></div><div dir=3D"ltr">let=E2=80=99=
+s meet up at temple (22nd and k) monday evening at 5pm</div><div dir=3D"ltr"=
+><br></div><div dir=3D"ltr">best,</div><div dir=3D"ltr">ernest&nbsp;</div><d=
+iv dir=3D"ltr"><br><blockquote type=3D"cite">On Mar 9, 2026, at 8:48 AM, Rya=
+n P &lt;12ryanpierson8@gmail.com&gt; wrote:<br><br></blockquote></div><block=
+quote type=3D"cite"><div dir=3D"ltr">=EF=BB=BF<div dir=3D"auto"><div>Thank y=
+ou so much for the thoughtful response. It immediately made my morning ten t=
+imes better.<div dir=3D"auto"><br></div><div dir=3D"auto">&nbsp; &nbsp;I am s=
+till living in Sacramento, my family and I go to Temple all the time so that=
+ would be perfect. I have a completely open schedule, any day and time will w=
+ork.</div><div dir=3D"auto"><br></div><div dir=3D"auto">&nbsp; &nbsp;My phon=
+e number is +1-916-837-4947. We can schedule something over text.</div><div d=
+ir=3D"auto"><br></div><div dir=3D"auto"><br></div><div dir=3D"auto">&nbsp; &=
+nbsp;Being a music teacher sounds like a lot of fun; I'll definitely have a l=
+ot of questions about that. I started trying to pick guitar back up because I=
+ wanted to play my favorite Radiohead songs, and to be able to have a means t=
+o play melodies that I randomly come up with throughout the day; it's made m=
+e realize how insanely technically&nbsp; complex music composition is. I'm h=
+oping that learning from other musicians on physical instruments will transl=
+ate over into working on a digital audio workshop.</div><div dir=3D"auto"><b=
+r></div><div dir=3D"auto">&nbsp; &nbsp;I think the last time that we spoke, i=
+t was around the time that you got accepted to the Art Institute (at least I=
+ think it was SAIC). That's awesome that you stuck with it and got your degr=
+ee, I'm curious to hear how it compared to school in SF.</div><div dir=3D"au=
+to"><br></div><div dir=3D"auto">&nbsp; &nbsp;Genuinely, thank you for the wo=
+rds of encouragement. I don't hear people tell me that I'll be able to pick m=
+yself up very often. I'm not proud of who I've met myself become, so it mean=
+s a lot to me right now to read that.</div><div dir=3D"auto"><br></div>Good t=
+o hear from you again, let's hang out soon.<br><br><div class=3D"gmail_quote=
+ gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Sun, Mar 8,=
+ 2026, 10:56 PM erneststrauhal &lt;<a href=3D"mailto:ernest@strauh.al">ernes=
+t@strauh.al</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D=
+"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">hey ryan!<br=
+>
+<br>
+really great hearing from you;&nbsp; i get a lot of emails from strangers co=
+mplimenting the website, i wasn=E2=80=99t expecting to get an email from an o=
+ld friend<br>
+<br>
+everything is good, went to chicago to get an art degree, came back and am c=
+urrently working as a music teacher.&nbsp; no need to apologize for falling o=
+ut of contact, i climbed out of a pit myself last year and i know you=E2=80=99=
+ll eventually climb out too<br>
+<br>
+let=E2=80=99s catch up over coffee in sacramento sometime.&nbsp; i hang arou=
+nd the midtown area a lot, we can go to temple coffee or concept coffee if t=
+hat isn=E2=80=99t too far of a trip for you<br>
+<br>
+warmly,<br>
+ernest strauhal<br>
+<br>
+&gt; On Mar 8, 2026, at 12:30 PM, Ryan P &lt;<a href=3D"mailto:12ryanpierson=
+8@gmail.com" target=3D"_blank" rel=3D"noreferrer">12ryanpierson8@gmail.com</=
+a>&gt; wrote:<br>
+&gt; <br>
+&gt; Hey Ernest!<br>
+&gt; <br>
+&gt;&nbsp; &nbsp; &nbsp; It's Ryan, from West Campus. I was listening to NIN=
+ Pretty Hate Machine earlier and it reminded me of you. I was happy to see y=
+our website is still up, it's good that you didn't stop creating things.<br>=
+
+&gt; <br>
+&gt;&nbsp; &nbsp; &nbsp;How has everything been? I'm sorry that I fell out o=
+f contact with you; I have been struggling with various things, and I became=
+ sort of reclusive. I'd love to catch up sometime, whether it be online or e=
+ven in person. You were always really funny and not afraid to say what was o=
+n your mind.<br>
+&gt; <br>
+&gt;&nbsp; &nbsp; I look forward to hearing from you man.<br>
+<br>
+</blockquote></div></div></div>
+</div></blockquote></body></html>=
+
+--Apple-Mail-ABBB665A-C262-4106-ADE9-A5C1DF7430F3--

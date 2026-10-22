@@ -1,0 +1,129 @@
+Delivered-To: estrauhal@gmail.com
+Received: by 2002:a05:7110:a0ab:b0:329:584c:a208 with SMTP id o11csp1540486gee;
+        Tue, 30 Jun 2026 14:24:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=3; AHgh+RoqdfG7bFYAWq/tehxkiUd3a0DycPpfvP3vYyM9yOuvzjmx9BgktReQiDtt78ZqZVxYhwooxaWX9Ak=@gmail.com
+X-Received: by 2002:a05:6214:4e04:b0:8ee:6e1e:e38e with SMTP id 6a1803df08f44-8f2d13426acmr30825706d6.34.1782854688846;
+        Tue, 30 Jun 2026 14:24:48 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1782854688; cv=pass;
+        d=google.com; s=arc-20260327;
+        b=gpZR2XGgf7bMNc7vTkM4EVbFesGngmMzh0gOYQRp/xZzJARdLOxXS4fM85lzwjLVbm
+         jiyBPIygYsdvE6fJ3XzD9wmaLQrkaZ9aN9m9A4+p+RzWuyldfb7f18ZdMOxKg+ynEis9
+         hyrgBUU8Bun0fIJvpVlPeH5QZ74SrPU5K7s8DLFiQFba52fbVCI22IF6gt+VzgnCPkcC
+         4Y0m6/BIs+g6x66STiaGsnNbZsjejq31RPr1AiTxS7b5/VLNAlfnprgdSR4ZuYSBypOd
+         jlNMmQ8PPPQehL88w5UeetoNAb6yJOKQ+sJWBc3+5MBXP5ibtCHwk86BntZRFekNGINM
+         oBdA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:in-reply-to:references:message-id:date:subject:mime-version:from
+         :content-transfer-encoding:dkim-signature:original-recipient;
+        bh=b3BcchRMtlPkW1+CnGIg7jtd28xrPnE1TgZ6doHdNe8=;
+        fh=iTsocPkwoAf4/iJQxuzV1A+HgP4OJVqjQr8y/x+9YpU=;
+        b=gowWuKppy41AE/CISMdFDijxR+P2PiOG3tlD6dfD73ublq7Fo8weCXNd8AblPaUd8O
+         7vBl44iyXZYjiSjyrwTcwc5W1HADwchR3CLgQS0ot4bnEuSTx4jbcDF+JdYe7OpK7Pz5
+         OkQu/A/xLcOXLwDrJ+WjI+ADwd34lP1M0O8MGpcMUlM/kmrsSp3CKCQ1Ki2x5g8wKiE3
+         l6WunWo5QivQsopBIw7I86lu7ezxkQe2VHlisuEbZdagXrFdlAVU83NcoVUsTkQWy6wB
+         taR3Iw9VYg0eV6tYQ+Qvn2XpsUeHhOnGSbHrJuXgBhd4TdsnOQeU7U4unxM1jk9Ar+E8
+         d2oA==;
+        dara=google.com
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@icloud.com header.s=1a1hai header.b=sOWg+hfh;
+       arc=pass (i=1 spf=pass spfdomain=icloud.com dkim=pass dkdomain=icloud.com dmarc=pass fromdomain=icloud.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.89.189 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=icloud.com
+Return-Path: <ernest@strauh.al>
+Received: from outbound.ci.icloud.com (ci-2005f-snip4-8.eps.apple.com. [57.103.89.189])
+        by mx.google.com with ESMTPS id 6a1803df08f44-8f200f6abc8si43701576d6.530.2026.06.30.14.24.48
+        for <estrauhal@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Jun 2026 14:24:48 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ernest@strauh.al designates 57.103.89.189 as permitted sender) client-ip=57.103.89.189;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@icloud.com header.s=1a1hai header.b=sOWg+hfh;
+       arc=pass (i=1 spf=pass spfdomain=icloud.com dkim=pass dkdomain=icloud.com dmarc=pass fromdomain=icloud.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.89.189 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=icloud.com
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-10 (Postfix) with ESMTPS id C73121800103
+	for <estrauhal@gmail.com>; Tue, 30 Jun 2026 21:24:47 +0000 (UTC)
+X-ICL-RepId: 019f1a6b-9c18-7245-b460-358a374a2f2e
+X-ICL-Out-Info: HUtFAUMEWAJACUgBTUQeDx5WFlZNRAJCTUwWWANYHFxQXBwOCEUFVwNNOEAZRQpHGBcZX01RDw8ZWhRcGFNFUR9UWEEOCloSGFwUXFBYHkYSVg1dCRkIW15QG18CQg8cE1YVEx1DGQ8rCEoEQwdFAl4LJRMJU1ZbE1UXRgkZCF0dGRVaCQpXCkYLSAJbdl8fQApJCkADKnFIFEBwLARGCjQISnUudS0GQQs5cwRUB10FXVZQAlpVEgRACFZQUQRAB1gKVw==
+ARC-Seal: i=1; a=rsa-sha256; cv=none; d=icloud.com; s=arc-0513; b=pFl9nP9nBny2qH2t+F5Y04bTlQwvd2NRC51yc+9Zi+UNrcFyZnhScl+NzYnLoEqN/c1xO+askUAsTkBItz4jIeB8/ijAcD9StG9D5eDaDMj2FqzE9m21RmTXiMZh9mAGJMzh4MXy0i0FTAH8/alayri3pCq+LmRTKC7R2VB3p+PehhwsgeSGItvwU2gjSIyvhJnmi/qX3+/WlYDpr014rFQJ0tfyueS1+Re4ZyfBRWGdi9G/13Y5tsf3frX0S+/ShrqbI+d3ziPrTbDcXUoERvmJAb/f6SN8MYVY9AWo+f2pnJfsIPFwaXb2QeCUnEU+aJwriM1LNtAXGM/bXY6djw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=arc-0513; h=from:to:subject:message-id:date:mime-version:content-type:dkim-signature; bh=b3BcchRMtlPkW1+CnGIg7jtd28xrPnE1TgZ6doHdNe8=; b=VKi0Hgo4B6nv0vhNhaknxz6NHONhNVEBrn0i5k/deQW4q1oDrcfHghppEzrMkwu7ygItrTvX2ncaj8pKvKk1ffBASLdGTPc+rIi3b77KOPj/oH6WqZcdxFd/c7H2WlMBnTFMlbWMzcj1PYsbFQsiVPHrdQN+IFrttnEL7CHfwEMJgvDFBK+uLW8+vzopJBf/Il3G6Y34T81Yeym1hMYauCSj0A7uiOQ7GoVfaDezfdeI03G8Vc5E9W00udOyJXjo8qY1CRtdlyL7k7WgqHBghahoPjlxNs2LTJ70TWMlnz10hIktkrDPnXSA9IbVzNuuwin+fr8ldl41x0t35cwSGA==
+ARC-Authentication-Results: i=1; arc.icloud.com; arc=none; dmarc=pass header.from=icloud.com; dkim=pass header.d=icloud.com header.i=@icloud.com header.b=sOWg+hfh; spf=pass (spf.icloud.com: domain of ethansquire7@icloud.com designates 57.103.87.53 as permitted sender) smtp.mailfrom=ethansquire7@icloud.com
+Received: from unknown (unknown [10.168.160.104])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-10 (Postfix) with SMTP id 6F13818000AA
+	for <estrauhal@gmail.com>; Tue, 30 Jun 2026 21:24:47 +0000 (UTC)
+Received: from p00-icloudmta-smtpin-us-central-1n-60-percent-38 by p162-mailgateway-smtp-668d4bbf6f-dl2hb (mailgateway 2624B114)
+	with SMTP id eac93b8b-584b-46f1-b8b5-4b9386abc6a3 
+	for <ernest@strauh.al>; Tue, 30 Jun 2026 21:24:47 GMT
+X-ICLOUD-MAIL-BWL: 1
+X-Apple-Action: FORWARD/estrauhal@gmail.com
+Original-Recipient: rfc822;ernest@strauh.al
+x-apple-request-uuid: eac93b8b-584b-46f1-b8b5-4b9386abc6a3
+Received: from outbound.qs.icloud.com (qs-2001e-snip4-11.eps.apple.com [57.103.87.53])
+	by p00-icloudmta-smtpin-us-central-1n-60-percent-38 (Postfix) with ESMTPS id 3A3DBC00204
+	for <ernest@strauh.al>; Tue, 30 Jun 2026 21:24:44 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVESgQEUVUKE0oWX1gHVQoPB0UFAUxESVVZQAcYV0ZZAxNFVUIKFBcVBg1ZRAdCOQ8UFF9DBlsaCRpYVlJfHBoKGA1UGAEaFEYFGw1TEBscFQM4Q0IQFAwOWRlcFgoQFQlKF0VCABoMCBNWQUVMHBoKGA1UGAEaFEYHDEILEwZUVEdIAVNPBhcPB0wdB1NbHBYEVlFGEhkcSBQXXRYGEUQPFBRfQwZbGgkaWF1fBkhFXkFKAAdUNE1LR0sBD09BOCVPVQh1I0ZUXjNJAnAhNz9SRkpxdgsWFQkCHB5VDRhH
+X-ICL-Score: 2.33303332423
+Authentication-Results: bimi.icloud.com; bimi=declined
+X-ARC-Info: policy=fail; arc=none; r1=-20; r2=0
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=icloud.com
+X-DMARC-Policy: v=DMARC1; p=quarantine; rua=mailto:d@rua.agari.com; ruf=mailto:d@ruf.agari.com;
+X-DMARC-Info: pass=pass; dmarc-policy=quarantine; s=r1; d=r1; pdomain=icloud.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=icloud.com header.i=@icloud.com header.b=sOWg+hfh
+Received-SPF: pass (spf.icloud.com: domain of ethansquire7@icloud.com designates 57.103.87.53 as permitted sender) receiver=spf.icloud.com; client-ip=57.103.87.53; helo=outbound.qs.icloud.com; envelope-from=ethansquire7@icloud.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of ethansquire7@icloud.com designates 57.103.87.53 as permitted sender) smtp.mailfrom=ethansquire7@icloud.com
+Received: from outbound.qs.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-2d-60-percent-4 (Postfix) with ESMTPS id E98F91800141
+	for <ernest@strauh.al>; Tue, 30 Jun 2026 21:24:42 +0000 (UTC)
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1782854683; x=1785446683; bh=b3BcchRMtlPkW1+CnGIg7jtd28xrPnE1TgZ6doHdNe8=; h=Content-Type:From:Mime-Version:Subject:Date:Message-Id:To:x-icloud-hme; b=sOWg+hfhc4rncKUrxt3zB2zoH44epAqEGr/KTDU2sfrWZs1y6Dnhv/x4U/Eesu74SoAQosnA19wQp1gifsOFgeCK0wLz74rKrgbCAen3eNAdIFdQwmXiH8QNdmFNHgmNNhytYupYHwXtUZdVJqLdtb9uIH8oZwIJoKpbcb9AI3R0Sp0Wy8j5bp8Ei7AdLukqouAFS6dKjbwiD43mjwgmoKoUJ9JDtwcOsz7y2eKhxiQQd46p16dG/oPJ+IfSBUF/ClVg8sirA7DqTc5YJ4IkTE+HZ9BmohnbLg51jSBIbjKxrxyVfI+qpATKzOWdXXRKdA7uF7kMYftYZeDQo60kkQ==
+Received: from smtpclient.apple (unknown [17.57.155.37])
+	by p00-icloudmta-asmtp-us-east-2d-60-percent-4 (Postfix) with ESMTPSA id 4F4BD1800124
+	for <ernest@strauh.al>; Tue, 30 Jun 2026 21:24:42 +0000 (UTC)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: ethansquire7@icloud.com
+Mime-Version: 1.0 (1.0)
+Subject: Name change request Re: An outdated reference (comic?)
+Date: Tue, 30 Jun 2026 22:24:30 +0100
+Message-Id: <862016A4-0319-4AC8-8CA3-8D12FCBF412A@icloud.com>
+References: <A95E479E-3535-4937-BA76-2E09AB11F92A@strauh.al>
+In-Reply-To: <A95E479E-3535-4937-BA76-2E09AB11F92A@strauh.al>
+To: erneststrauhal <ernest@strauh.al>
+X-Mailer: iPhone Mail (23F77)
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDIwOCBTYWx0ZWRfX3QWUwv5qj0jm
+ lb5/b2vJg+sfM+BVG+OoMbSzJvkuYcjM9HlWzqgUz+FCJrL5F9wN6UlYvnUj89ifOwFBzRnazOO
+ FrsERXllZD8yaa/R0Y30J+KBsrsRq8P8HT5QZZxLGSIJ0r9aAUM7os7Q61MFqY0CtCzJlP3faQI
+ h0NrFhNHK5ah5avS2kHhP7YggFZdHluK8OB886xkXBqzWFsPptRwGa/D98XPmQi0LFZ/4wm2oYd
+ gwT7sBx7ApkQvQEFAl0vDyBoqb0/V+ltU1BpfLzXjgsDXWTgvx+CDbU20pKrQS4ddvpiJV+yem8
+ 9ohwKl8cGt601Dg4BLw
+X-Proofpoint-ORIG-GUID: OUbkD94-aubuyVyNc4DJX-hURb4ZR9ln
+X-Proofpoint-GUID: OUbkD94-aubuyVyNc4DJX-hURb4ZR9ln
+X-Authority-Info: v=2.4 cv=BbDVE7t2 c=1 sm=1 tr=0 ts=6a44341d cx=c_apl:c_pps
+ a=9BuPX/1jeS9E2XiFCPIa2g==:117 a=bsP7O+dXZ5uKcj+dsLqiMw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=x7bEGLp0ZPQA:10 a=Hh8Jy8mEwkEA:10
+ a=d55fECZfmm4A:10 a=v3ZZPjhaAAAA:8 a=my8t99znLw9iBpmTNskA:9 a=QEXdDO2ut3YA:10
+
+No worries about your time! Congrats on the wedding! Hope everything=E2=80=99=
+s well for you too. I just wanted to ask if my name credits could be changed=
+ on the drawing club from Ethan Squire to Ethan Greene?I=E2=80=99ve changed m=
+y surname recently.
+
+Thanks,
+Ethan
+
+> On 29 Jun 2026, at 07:33, erneststrauhal <ernest@strauh.al> wrote:
+>=20
+> =EF=BB=BFhaha i love asdf
+>=20
+> sorry it took me so long to respond, i got married this month so life is m=
+oving pretty fast
+> hope all is well
+>=20
+> best,
+> ernest
+>=20
+>> On May 19, 2026, at 9:31=E2=80=AFAM, ethansquire7@icloud.com wrote:
+>>=20
+>> <my_drawing (2).png><my_drawing (1).png>
+>=20

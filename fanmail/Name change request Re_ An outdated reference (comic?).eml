@@ -1,0 +1,92 @@
+Return-path: <ethansquire7@icloud.com>
+Original-recipient: rfc822;ernest@strauh.al
+Received: from p00-icloudmta-smtpin-us-central-1n-60-percent-38 by p162-mailgateway-smtp-668d4bbf6f-dl2hb (mailgateway 2624B114)
+	with SMTP id eac93b8b-584b-46f1-b8b5-4b9386abc6a3 
+	for <ernest@strauh.al>; Tue, 30 Jun 2026 21:24:47 GMT
+X-ICLOUD-MAIL-BWL: 1
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: WL/INBOX
+X-Apple-UUID: eac93b8b-584b-46f1-b8b5-4b9386abc6a3
+Received: from outbound.qs.icloud.com (qs-2001e-snip4-11.eps.apple.com [57.103.87.53])
+	by p00-icloudmta-smtpin-us-central-1n-60-percent-38 (Postfix) with ESMTPS id 3A3DBC00204
+	for <ernest@strauh.al>; Tue, 30 Jun 2026 21:24:44 +0000 (UTC)
+X-ICL-RepId: 019f1a6b-909c-7b07-a67c-998f9dba4f6b
+X-ICL-Info: GAtbRVYDBVFFSlVESgQEUVUKE0oWX1gHVQoPB0UFAUxESVVZQAcYV0ZZAxNFVUIKFBcVBg1ZRAdCOQ8UFF9DBlsaCRpYVlJfHBoKGA1UGAEaFEYFGw1TEBscFQM4Q0IQFAwOWRlcFgoQFQlKF0VCABoMCBNWQUVMHBoKGA1UGAEaFEYHDEILEwZUVEdIAVNPBhcPB0wdB1NbHBYEVlFGEhkcSBQXXRYGEUQPFBRfQwZbGgkaWF1fBkhFXkFKAAdUNE1LR0sBD09BOCVPVQh1I0ZUXjNJAnAhNz9SRkpxdgsWFQkCHB5VDRhH
+X-ICL-Score: 2.33303332423
+Authentication-Results: bimi.icloud.com; bimi=declined
+X-ARC-Info: policy=fail; arc=none; r1=-20; r2=0
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=icloud.com
+X-DMARC-Policy: v=DMARC1; p=quarantine; rua=mailto:d@rua.agari.com; ruf=mailto:d@ruf.agari.com;
+X-DMARC-Info: pass=pass; dmarc-policy=quarantine; s=r1; d=r1; pdomain=icloud.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=icloud.com header.i=@icloud.com header.b=sOWg+hfh
+Received-SPF: pass (spf.icloud.com: domain of ethansquire7@icloud.com designates 57.103.87.53 as permitted sender) receiver=spf.icloud.com; client-ip=57.103.87.53; helo=outbound.qs.icloud.com; envelope-from=ethansquire7@icloud.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of ethansquire7@icloud.com designates 57.103.87.53 as permitted sender) smtp.mailfrom=ethansquire7@icloud.com
+Received: from outbound.qs.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-2d-60-percent-4 (Postfix) with ESMTPS id E98F91800141
+	for <ernest@strauh.al>; Tue, 30 Jun 2026 21:24:42 +0000 (UTC)
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQpJHVQDRQBEF0kAVBcOVk1cDFsMWRhDBVAKVlp3AlEcVg1XQ1QEX1BfHA4EVAddBV1WUAJaS0ATBEkTBVIHXU1WDUcPWB5cFBcJQENeCF4fTBwdDlgGEgBNCg42BlkFXglWA0MFNhIUXUVaDlsERxQXG1wAFwZbFAREC1sFWwNGeEweXQRaC10NOXBVGlNxMQpVCykGWXQzez4HXAUqchlaFFwYU0VRH1RGExlOG1dNUBtfAkIP
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1782854683; x=1785446683; bh=b3BcchRMtlPkW1+CnGIg7jtd28xrPnE1TgZ6doHdNe8=; h=Content-Type:From:Mime-Version:Subject:Date:Message-Id:To:x-icloud-hme; b=sOWg+hfhc4rncKUrxt3zB2zoH44epAqEGr/KTDU2sfrWZs1y6Dnhv/x4U/Eesu74SoAQosnA19wQp1gifsOFgeCK0wLz74rKrgbCAen3eNAdIFdQwmXiH8QNdmFNHgmNNhytYupYHwXtUZdVJqLdtb9uIH8oZwIJoKpbcb9AI3R0Sp0Wy8j5bp8Ei7AdLukqouAFS6dKjbwiD43mjwgmoKoUJ9JDtwcOsz7y2eKhxiQQd46p16dG/oPJ+IfSBUF/ClVg8sirA7DqTc5YJ4IkTE+HZ9BmohnbLg51jSBIbjKxrxyVfI+qpATKzOWdXXRKdA7uF7kMYftYZeDQo60kkQ==
+Received: from smtpclient.apple (unknown [17.57.155.37])
+	by p00-icloudmta-asmtp-us-east-2d-60-percent-4 (Postfix) with ESMTPSA id 4F4BD1800124
+	for <ernest@strauh.al>; Tue, 30 Jun 2026 21:24:42 +0000 (UTC)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: ethansquire7@icloud.com
+Mime-Version: 1.0 (1.0)
+Subject: Name change request Re: An outdated reference (comic?)
+Date: Tue, 30 Jun 2026 22:24:30 +0100
+Message-Id: <862016A4-0319-4AC8-8CA3-8D12FCBF412A@icloud.com>
+References: <A95E479E-3535-4937-BA76-2E09AB11F92A@strauh.al>
+In-Reply-To: <A95E479E-3535-4937-BA76-2E09AB11F92A@strauh.al>
+To: erneststrauhal <ernest@strauh.al>
+X-Mailer: iPhone Mail (23F77)
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDIwOCBTYWx0ZWRfX5A51MRLpeLhd
+ UkZI4HeqZh8ebrMzXGf+o4HMGWv9QPN305/V6sA60OOCugfBOHiJMWSgqm32nqinnyTlBfH7lmw
+ h7IGAdMxofOklBX3aDuKKAbXnjRsXHvER8X7FsCQccoxdPBJ0nXPxAnOSYPZuu1CHz+ClFrxsTQ
+ LScImteIG9iys9M384zSPmEz6f1FXJw6sKXHl/r5S+E74Qylj0Vv0Aojfd6piv5+PId5t0ecTXh
+ Ubx1k71qKRDFIRYtKkI3fDzAZl+hVBMsbuNOy00to4/xdJOTSzRtM9CUkhnbYKqX4vbPoiB1peA
+ 2JCdfLsCQd+i6FSOWab97gTol8U7NflPUrvbOnZ4hB88BofJLciG48R2FC6SFy25vjk7vPD8MYJ
+ +i6B9vSYRmtN+Hdt1YES9imnQ+bzyCjGWxnIC5xJZlTI32kTtII=
+X-Proofpoint-ORIG-GUID: LWpKJcE_hIn9yEnC-DCBHkbDKeCGMuCp
+X-Proofpoint-GUID: LWpKJcE_hIn9yEnC-DCBHkbDKeCGMuCp
+X-MANTSH: 1TFkXGxoaGhEKWUQXaFwTSEl4GXB7fBMRCllNF3pPWFlFREtGa0ZGRV0RCl9ZFxk
+ eGBEKX00XZEVETxEKWUkXHR9xGwYbHxp3Bh4cBhoGGgYHGxoGGBoacRsaGhAadwYaBhoGGRoGG
+ gYaBhpxGhAadwYaEQpZXhdsbHkRCkNOF2Z9WmFgSW91QmNEE1NvRGkHbmloYkFIbmFPaW1nX2l
+ aEQpYXBcZBBoEHxIFGxoaBB0aBBsTEgQbHxAbHhofGhEKXlkXQk9OQx4RCk1cFwcYGhEKTFoXa
+ EVrQWsRCkVZF29raxEKTEYXYk1rEQpDWhcfHQQbGhkEEh0EHxkRCkJeFxsRCllFFxkRCkVJFxs
+ RCkVmFxsRCkJcFxsRCl5OFxsRCkJLF2tFGlJQHkNcWVxoEQpCSRdrRRpSUB5DXFlcaBEKQkUXZ
+ xNQQlMYUGJ+aGURCkJOF2tFGlJQHkNcWVxoEQpCTBdnE1BCUxhQYn5oZREKQmwXZxNQQlMYUGJ
+ +aGURCkJAF2lPfXpEaE9FaG16EQpCWBdkfnMcH1pkZl5gRxEKTV4XGxEKWlgXGBEKcGgXa1hmb
+ HtgS1Jdf0AQGRoRCnBoF2FEYlxMWB0FXH9lEBkaEQpwaBdsWXpMHk9lZRp5TxAZGhEKcGgXa3h
+ ueHATcn1EUgEQGRoRCnBoF2RTekEaRkJSTm58EBkaEQpwaBdrZ1Jlb14eXmIfSBAZGhEKcEwXb
+ 3NYeU9ubQVrBXsQGRoRCnBDF2l9SGV4Yh1+aG4dEAcbEQptfhcbEQpYTRdLEQ==
+X-Authority-Info: v=2.4 cv=BbDVE7t2 c=1 sm=1 tr=0 ts=6a44341d cx=c_apl:c_pps
+ a=9BuPX/1jeS9E2XiFCPIa2g==:117 a=bsP7O+dXZ5uKcj+dsLqiMw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=x7bEGLp0ZPQA:10 a=Hh8Jy8mEwkEA:10
+ a=d55fECZfmm4A:10 a=v3ZZPjhaAAAA:8 a=my8t99znLw9iBpmTNskA:9 a=QEXdDO2ut3YA:10
+X-JNJ: AAAAAAAB6dc39gbHiKXpO05YKDAI5JsMyLP3IXTTAI8rEYb0iagpyUOY59rEwEcIwThk0/7glgn85r2BuBxIBIaLAKmh/M535EhJFfWlBHSg22h1479rXX8adVwgGg6HfWdo8wX6MDHTImJzCpolDK7lQ5aBxyhIZ2m8t7BMadqg7YJNYI7Sl6aAd/zaCOxFHlHfU4JMBdrjdztFwyokaT5K06sq6m7fWMT58kKmD41SR2qGxG4luvdUVyaXqbPETMFv20Fq/3Ue7TE41PAcVkFzqt/7Q44Xad9Wx+iFFxft5NF2VrMh2N/wqStVcHQOqni8NLR1d2OOoqd1bME5IIPUVA225y+z4sGtTedRbivsF6wKEujPOswN3U+KTBHNxs5Y2p+4qCD2ilgMOhy22XwuNi/NRYOjLmv0QAtzNZC8X1mQL4TO/ojQ+J/9UNzLOpFFA4DM7hwbh+zjgJXKYb21x8Mh1BPUGqDlT3G1ifJt+IvgzrTONhq21DLTE9iHS2v9oJEcBakc9yAombjEb3aPquv/CmHh/qATjPjjK0J0JmRT+w9kpppC2GcNkn+6ORi7MJW+upzeyuAoGY0WYp/rlzOUoE8dRMunGk20fSm4XoO9oyFuwwFzmqyhJydilz6Hg87TSzw7KGkgJywNZkY/PuebWJoZvL2LbMd44hBGop+l7Ep1XE4QST1KzmQTMpHHQ0mMj+DkgfnTLxv4e+aOsvq0uVTozsgkjtm2wH3hg8P4xdTziXoBHxEtt6YRln27ZWDA5YQlo7/Ap9l2EvD3FIN8F6iHLqwJzFbcpTjIkdnQb/2usWGEvt0HmxWExGkpOTd3FbyzF4gERbdOoaz3Eks0DGYoer+OnOoVby5yKu/T9YmGhR9tGKo=
+
+No worries about your time! Congrats on the wedding! Hope everything=E2=80=99=
+s well for you too. I just wanted to ask if my name credits could be changed=
+ on the drawing club from Ethan Squire to Ethan Greene?I=E2=80=99ve changed m=
+y surname recently.
+
+Thanks,
+Ethan
+
+> On 29 Jun 2026, at 07:33, erneststrauhal <ernest@strauh.al> wrote:
+>=20
+> =EF=BB=BFhaha i love asdf
+>=20
+> sorry it took me so long to respond, i got married this month so life is m=
+oving pretty fast
+> hope all is well
+>=20
+> best,
+> ernest
+>=20
+>> On May 19, 2026, at 9:31=E2=80=AFAM, ethansquire7@icloud.com wrote:
+>>=20
+>> <my_drawing (2).png><my_drawing (1).png>
+>=20

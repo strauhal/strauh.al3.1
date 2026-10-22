@@ -1,0 +1,165 @@
+Return-path: <estrauhal@gmail.com>
+Original-recipient: rfc822;ernest@strauh.al
+Received: from p00-icloudmta-smtpin-us-west-3a-100-percent-1 by p162-mailgateway-smtp-c45f594ff-rsdh6 (mailgateway 2606B152)
+	with SMTP id 787872dc-22f2-4140-9876-bd0938cb0976 
+	for <ernest@strauh.al>; Tue, 10 Mar 2026 20:12:24 GMT
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: MOVE_TO_FOLDER/INBOX
+X-Apple-UUID: 787872dc-22f2-4140-9876-bd0938cb0976
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	by p00-icloudmta-smtpin-us-west-3a-100-percent-1 (Postfix) with ESMTPS id 5A7B1C00113
+	for <ernest@strauh.al>; Tue, 10 Mar 2026 20:12:21 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQEUVUKE0oWX1gHVQoPB0UHAkxES1NZQAIYU0JARhIcDVMRAQsHAhBRWiISFAceFB5VDRhZABNFV1sDHBVIFBddFhAWRAMFFlVFFjUKEgUZRV5MFBVGHx1cWV8YGA8bVVRPU1gfV0BBHlENGh4KElZTWQ9VCRIFRV1XCxlUAg5JHVBTQkBIEBdfUQ4QVwUYFRBSBkgeCxYRXBgBGhRGGhFUC142OiJOQAl3JFg6UjRMHQInRj9LNUh0ck9BO1JFOwl1IDA6VUA4V1sDHBVIFBddCA==
+X-ICL-Score: 2.33303322423
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=none; r1=-20; r2=0
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=gmail.com
+X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=luPPAPyR
+Received-SPF: pass (spf.icloud.com: domain of estrauhal@gmail.com designates 74.125.82.179 as permitted sender) receiver=spf.icloud.com; client-ip=74.125.82.179; helo=mail-dy1-f179.google.com; envelope-from=estrauhal@gmail.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of estrauhal@gmail.com designates 74.125.82.179 as permitted sender) smtp.mailfrom=estrauhal@gmail.com
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-2be1d9c356cso8587578eec.0
+        for <ernest@strauh.al>; Tue, 10 Mar 2026 13:12:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1773173540; x=1773778340; darn=strauh.al;
+        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
+         :from:content-transfer-encoding:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/3PbIezIW3qaa+nI4muNi4Nn++oswRsI9k72OQxRSmY=;
+        b=luPPAPyR3o8fmZ0041bjuKfisAuuBPXhB1eWGP+C7xnhk7MdzBKN7VHJEsTqbuojgL
+         2qyFD7iTrKy3hU+P598jS74x+whoZUWK8zUQSpFNCSYdIf1g7cdIidtf9g7V94Pa2WD3
+         6lYbXrOS62pSPc4XcLPw8xtVolIt0ecqQxclQFL5PtMzI7zDysjtFfx14JEbwEBnAUz2
+         LtuNOhH2PZ+eieUEywQ9JBAubGlZTbMQFq6TLGvs2t1uA0d8sdRtzC1K6jpWpstgXuX/
+         w/O26LtjQxl8QNdUpl0XJUyoGdXI67UmmbX4AzKiVGpXlBywW11zRPPWQpGQR5ci/ArK
+         4eIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1773173540; x=1773778340;
+        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
+         :from:content-transfer-encoding:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=/3PbIezIW3qaa+nI4muNi4Nn++oswRsI9k72OQxRSmY=;
+        b=cT4DBQ8Y4pC9VChpMQzrYXnmORIqV3XQ6/u40fTogVmKwa9EZCARNLCwPl80wxhVgq
+         APRjuFZ5LQjChrnq3Qt/FufQ/AgiU8g1thXRDXNfiYa03xDeJDWzpqgCvs40o2f504VB
+         l2Pzz6yCsWeUhvaSem8CCx5igsWK+8Sexv+TSHC/nIzJHDWEM5YXhkIjjfP0u52zqy1w
+         g6V1dpYwvG7FjouEkAmyi5LoTVSUwHnZGijOdhp+L/wk/oNVp64SqsegVx7t/DTRn+h6
+         jXT0PMEbtSOWgoTHBk5SyiRTO/JSSJTeaV9BevBt6qJkfh4A09jnzSgAdGgjah4FPsFn
+         9Fmg==
+X-Gm-Message-State: AOJu0Yw0IF0AkntbXrveT9GkBrCOEIuqqg2KncIzTtRJZnZRq5vctRlG
+	g4zq5+vnyZ0DUBIXdTcSSyCSh1c6/mWM1sUl69vvEYTw2GTwqxmWdtemcwNH3Q==
+X-Gm-Gg: ATEYQzxE6aJKWkqvuJntpTB1ufg8v/acFhgQGJCPNgOgbjTIjbFG+ekcXiuaFIr1hPf
+	nAiLcMZpWJK9F+NPYPbAtDtbiqR6KZ2UQ/+WA1GSvKDFVud8DEH9yjCY29ln5koT92m6DPH6AP6
+	sYHWSsR7Y8OSKjSSIQLaFA9PspQbGZ25elwAxJzxSv53tlA9okjWFHJ9KFAMUMDnThZs565ee65
+	MzrirR+9heOb5flMquWMTA7plyWl9TIWziK5TTI/winr6BQ1M+FB8enhI9S7ARaZguobuicNXNa
+	fvM99mFuLfUb1G50sBBZPvOYBEpiHj5s4+/nAq3RBLn5X92pybu7wyRCv64EWE2TdZDZ6HtSiJ7
+	1xpfJBySbJjvEoWmoh2f2KTa1jGFDu3J42FKiD7cgTccrOdL2sEPOmzdjVn1r24XBhsqMKVe870
+	e9vpNmonlXCBDaYjgG3WNZpqOIJqqBmMYbKykiYfhUDZr54dmd21nYPxBC6p1RFwH8a7Ho+niUO
+	WNMNAUCV/HHJzQN8Cb1
+X-Received: by 2002:a05:7300:bc0c:b0:2be:6f6:a39f with SMTP id 5a478bee46e88-2be4e05be8bmr7726882eec.26.1773173539726;
+        Tue, 10 Mar 2026 13:12:19 -0700 (PDT)
+Received: from smtpclient.apple ([2607:fb91:79a3:4986:b1c8:c806:7101:db77])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2be4f80d72esm16386942eec.4.2026.03.10.13.12.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Mar 2026 13:12:19 -0700 (PDT)
+Content-Type: multipart/alternative; boundary=Apple-Mail-30D8B3B2-7112-4E5B-8604-7AEF72AC5E1C
+Content-Transfer-Encoding: 7bit
+From: erneststrauhal <estrauhal@gmail.com>
+Mime-Version: 1.0 (1.0)
+Subject: Re: Website Bugs
+Date: Tue, 10 Mar 2026 13:12:08 -0700
+Message-Id: <CCD989AF-C4C4-4E3F-B0DD-4B42C9CBEC37@gmail.com>
+References: <CAPyxEwjkUQ1SGyXaBmivOQ4YRd3Ybap6gz46fkCEZbN00cwQdw@mail.gmail.com>
+Cc: ernest@strauh.al
+In-Reply-To: <CAPyxEwjkUQ1SGyXaBmivOQ4YRd3Ybap6gz46fkCEZbN00cwQdw@mail.gmail.com>
+To: Alexander Schweitzer <aschweitzer114@gmail.com>
+X-Mailer: iPhone Mail (20G75)
+X-MANTSH: 1TFkXGBoRCllEF2tPbB0YfRpMBWlgEQpZTRdkRURPEQpfWRcbExkRCl9NF2RFRE8
+ RCllJFx4dcRsGEx53Bh4cBhoGGgYbGhoGGnEaEBp3BhoGGgYaBhoGGgYacRoQGncGGhEKWV4Xb
+ Gx5EQpDThdwYH18UEhFUmVFQkFNUk5tQm1CbkJbeEFjfBx9EhwbHxEKWFwXGQQaBB8eBRsaBBs
+ cHwQYGAQYHxoQGx4aHxoRCl5ZF00fQgVrEQpNXBcYHBIRCkxaF2hpTWtrEQpMRhdva2trbE1rE
+ QpDWhcdHgQbGB8EEhgEGx0TEQpCXhcbEQpESRcbEQpCXBcbEQpeThcbEQpCSxdjU2NrexNYfhp
+ fXhEKQkkXY1Nja3sTWH4aX14RCkJFF2ZjWBxoRGVeUE5cEQpCThdjU2NrexNYfhpfXhEKQkwXZ
+ W5NEwVvax1pW1wRCkJsF2R5WB5LTlBLYgFEEQpCQBdtGGNNRnNsR3MYbBEKQlgXZH5zHB9aZGZ
+ eYEcRCk1eFxsRClpYFxgRCnBnF2RBYhNPZGRrSE5BEBkaEQpwaBdlcGdPHWtSawFibBAZGhEKc
+ GgXYXhjW0VEbHNIYn4QGRoRCnBoF2NjXHhpYBhiEn5JEBkaEQpwaBdrEl9BbRMZYnoBfxAZGhE
+ KcGgXZ0JmU3IdWXxjW3sQGRoRCnBoF2YYYmkSAVMFE3IYEBkaEQpwaBdjf3htQn0fGmVfHxAZG
+ hEKcGgXY1lPawFsHRhzaXsQGRoRCnB/F2JGRlxhRFBBWxh/EBkaEQpwXxdtHWZnZ39zHERkWBA
+ ZGhEKcH0XbRh4SV1IHVBZWnIQGRoRCnBfF2Uaa3BoGlh8U2RtEBkaEQpwfRdifm96ZEFyZEJmE
+ hAZGhEKcF8XYUlrXV4aXFxFc34QGRoRCnB9F25ZTHNtfk99EnNvEBkaEQpwfRdtGHhJXUgdUFl
+ achAZGhEKcH0XYn5vemRBcmRCZhIQGRoRCnB9F25ZTHNtfk99EnNvEBkaEQpwbBdjUxhLe2Nla
+ 2BlcxAZGhEKbX4XGxEKWE0XSxE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEwMDE3NiBTYWx0ZWRfX9HoJJvWzjr4g
+ 46F+IrlKogAK+hrPC7Aa927ogsQDYZNEDFQoK/Q/okaqSVAE9QeZPVjWsjLGe2p8xkm+Gp+gwrT
+ qZmyfPZ1rmzgELGfSe3hJmkKNWGfLls/fQGj6JbR1iZKceUqCvmZ1/N4OdGZ2jduMoyQrDE9mJn
+ ecUIZdBYY1b/IZv3Csl/NWIdGyyf5fxvUEzK0mPCLzrTORbZpi7QWrOWCsp19cJw48oJX+iFJ6p
+ AcHKM95hk4ZteaRLPIjDrWtVIgwuI5o/f52uQP9ifT4gN3dg/f4ILKxZV6YnWWmgZRMu8rFFtp/
+ k110XNGL10oZETdCTrW
+X-Proofpoint-GUID: ZJWVzboxOohkgxdGhGhDhqRkIV6W8615
+X-Proofpoint-ORIG-GUID: ZJWVzboxOohkgxdGhGhDhqRkIV6W8615
+X-JNJ: AAAAAAABaI3dNkFNSkxVqcMI41bp8PcHIue0No4+oBtdMRrVISUZP8ZXgmQ76xDTXu/U2yUJRLn9krF33Q8EQivb4dDyBaSqJnjzYcjtO3/yeGNAP3PJZ86jDGdTvJcpbiZv6asTP+y2mxcAOZtULgE6Pb2Lo6bJt/TkQL+Pk7QV/hfhhruNGsiKn6T1erR0EWPxwWZPVmHsSlPrkz8dp5nGUhHzt00qqAwpTnprok4H8ILiF0DQ51VVDd3AY+2hQa0j0EO28fPPF8uhTSzcR17iCv2ZF+5RiMuBXE9qxsoQ05m5gcRXG30aegBhyCq1WVRWc3dkFk27cH8tNDsWXMozoqBibZvagX2lJNkvm+G/XafF8xaVx1qxMMTdvjhMCDDiQK03R6asVNDwxk8SXMhkZn7FJ0Gyt+v6BV6oYBNy74n2+0GXtMPmvdTjROoMwKriiUV9r6BvjbdbMzKpKzHSc1dYr9Y4vCouZa8gXV1RhuNzGXomp4+EI2zcH49U7+fa9ZSGk1do3ycC6s1Xid6slHsE/lYgvWWTDOA3HOC710CbUB2AzqsqtZ3ojyInAFcqkSg2jYcqou+VAN2D1yeGSAhMtdSIYYmcSlsQjWvMUfs0Kd/FUXe2+zP4k9i5LD2wA18Hx4W8Z8U2GrFz0org60/w/wY2p3fOQxSpYi/bufnAOLzM+k1gCaOLEu9CYL2dMNtKeBVtJ6gSGeWipJ6ulO2v99Ri49gugmvLKm5P1NjWqQbTSU8BCJF0clMLO1weB44/mjj2wmTGU8YloEgH2HjIQKbIuH9U6d//t7gWFPzkxdpv1L1qV0r6eIn1GK5SOe0X0NC8F637TVU=
+
+
+--Apple-Mail-30D8B3B2-7112-4E5B-8604-7AEF72AC5E1C
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Thanks Alexander!
+
+Those aren=E2=80=99t actually bugs haha, i just haven=E2=80=99t written the c=
+ode for those urls because i haven=E2=80=99t found those religious texts yet=
+.=20
+
+ if you find a copy of the entire guru or torah floating around, please send=
+ it to me and i=E2=80=99ll add a wordmap=20
+
+best,
+ernest=20
+
+> On Mar 6, 2026, at 6:58 PM, Alexander Schweitzer <aschweitzer114@gmail.com=
+> wrote:
+>=20
+> =EF=BB=BF
+> Love your website! Thought I'd let you know the word charts for the guru, t=
+orah, and vedas under "/religous_texts" are all pulling 404s.
+>=20
+> https://strauh.al/religious_texts/guru
+> https://strauh.al/religious_texts/torah
+> https://strauh.al/religious_texts/vedas
+>=20
+> --=20
+> Sincerely,
+> Alexander C. Schweitzer
+>=20
+
+--Apple-Mail-30D8B3B2-7112-4E5B-8604-7AEF72AC5E1C
+Content-Type: text/html;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
+utf-8"></head><body dir=3D"auto"><div dir=3D"ltr"></div><div dir=3D"ltr">Tha=
+nks Alexander!</div><div dir=3D"ltr"><br></div><div dir=3D"ltr">Those aren=E2=
+=80=99t actually bugs haha, i just haven=E2=80=99t written the code for thos=
+e urls because i haven=E2=80=99t found those religious texts yet.&nbsp;</div=
+><div dir=3D"ltr"><br></div><div dir=3D"ltr">&nbsp;if you find a copy of the=
+ entire guru or torah floating around, please send it to me and i=E2=80=99ll=
+ add a wordmap&nbsp;</div><div dir=3D"ltr"><br></div><div dir=3D"ltr">best,<=
+/div><div dir=3D"ltr">ernest&nbsp;</div><div dir=3D"ltr"><br><blockquote typ=
+e=3D"cite">On Mar 6, 2026, at 6:58 PM, Alexander Schweitzer &lt;aschweitzer1=
+14@gmail.com&gt; wrote:<br><br></blockquote></div><blockquote type=3D"cite">=
+<div dir=3D"ltr">=EF=BB=BF<div dir=3D"ltr"><div>Love your website! Thought I=
+'d let you know the word charts for the guru, torah, and vedas under "/relig=
+ous_texts" are all pulling 404s.</div><div><br></div><div><a href=3D"https:/=
+/strauh.al/religious_texts/guru">https://strauh.al/religious_texts/guru</a><=
+/div><div><a href=3D"https://strauh.al/religious_texts/torah">https://strauh=
+.al/religious_texts/torah</a></div><div><a href=3D"https://strauh.al/religio=
+us_texts/vedas">https://strauh.al/religious_texts/vedas</a></div><div><br></=
+div><span class=3D"gmail_signature_prefix">-- </span><br><div dir=3D"ltr" cl=
+ass=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr">=
+Sincerely,<div>Alexander C. Schweitzer</div><div><br></div></div></div></div=
+>
+</div></blockquote></body></html>=
+
+--Apple-Mail-30D8B3B2-7112-4E5B-8604-7AEF72AC5E1C--

@@ -1,0 +1,194 @@
+Delivered-To: estrauhal@gmail.com
+Received: by 2002:a05:7110:1315:b0:2ef:922:58bc with SMTP id i21csp787868gee;
+        Sun, 8 Mar 2026 12:30:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=4; AJvYcCUdAhbGk1jNRlKXF4SAas/hrRFXzbo+tzjbGcQPz6aMSdpjHMRUYTqys86VIqUV5zCR80qBkrXFxQM=@gmail.com
+X-Received: by 2002:a05:622a:1aa0:b0:4ed:b363:2c2 with SMTP id d75a77b69052e-5090b65f82fmr59180011cf.62.1772998230446;
+        Sun, 08 Mar 2026 12:30:30 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1772998230; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=UT/MbVsX7Cd5Tw4JWanBxLiH8BTgsDNGOuaBTxFHLy0hthhK+MBxhZZzJxfIhk9PUA
+         me3HQwDkxLlXRXaJMDZGJNA8jIy4t04KLiFERXZK+erQfDJqkFCXUiHjaoX/FbnnhkWx
+         kosOrSZpE/Dp7WJ08WdieLXmmFEjfFyKX0Z6u7rjQTt4FcowpvIZTsvWqARvO358AqNV
+         ISqVUUzUJzbbkMUFC549otGA0TRS7ms9ukh44eZn/y+pYjCi6aFK5lH1DfXL9O1xcBp/
+         SAF3IJDEcV4lxalgNbgW7J50QP5qCEI5xNoadkEGI6K64oit4M6pL9pZ4zyyevpoz/NH
+         L9gw==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature
+         :original-recipient;
+        bh=6TMZ27LJHCSG6cNjDBNF/nrs0AUoML0Du7x1LYpaKjc=;
+        fh=7IE/ytSGXT6hWg5MYW09AQztlqLXR7gnnHXGJUZJaFM=;
+        b=cPP+/IIUhz841QAoiOq61OJ57wyq274Y/hljOKAcqDDhUxn7VM6LX7QcGP9JcRlBMo
+         LgOnRKtwpxbeC56qf/kZTXNJcBQmbuDiEAIpUq9GhsspXQxapYomnpI03Xgas2qtRKx9
+         IqCfFhTtIR/Fmtw175TpBN2daqxiUGo2cKGK/roSJLofGgOhT05J1q/YsjWL0vbKFHA1
+         rE4xwAtnFhhD7Afm2+TkSLMh1OGaJyKB59wLRkBf+xifjRZkbp2DkILzcq2UL0nbSBkP
+         ugC9S6KBABd2k0X/vzxr0ENekepZYFNb+V6KsHCV6KeHDZBkd8OEW+NDFXmvXfaBVx+p
+         OFfA==;
+        dara=google.com
+ARC-Authentication-Results: i=3; mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=afoub7cD;
+       arc=pass (i=2 spf=pass spfdomain=gmail.com dkim=pass dkdomain=gmail.com dmarc=pass fromdomain=gmail.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.91.188 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=neutral header.i=@gmail.com
+Return-Path: <ernest@strauh.al>
+Received: from outbound.ci.icloud.com (ci-2003f-snip4-7.eps.apple.com. [57.103.91.188])
+        by mx.google.com with ESMTPS id d75a77b69052e-5090ce8bd27si35699131cf.239.2026.03.08.12.30.30
+        for <estrauhal@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Mar 2026 12:30:30 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ernest@strauh.al designates 57.103.91.188 as permitted sender) client-ip=57.103.91.188;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=afoub7cD;
+       arc=pass (i=2 spf=pass spfdomain=gmail.com dkim=pass dkdomain=gmail.com dmarc=pass fromdomain=gmail.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.91.188 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=neutral header.i=@gmail.com
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-20-percent-0 (Postfix) with ESMTPS id 3C6161800169
+	for <estrauhal@gmail.com>; Sun,  8 Mar 2026 19:30:27 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; cv=pass; d=icloud.com; s=arc-0513; b=H6/+173/vlXkMHTZ9tFjSMSew2rr2Oa0HqvGT+ZbTEJBGf/u16FQssIpUdEKy9kUjThebGsvoHeQKRtOxv1j6HLIlKKveJefyNkd1gegrV8d/nkWycEc51XTGb7T6WX05Nun2Z3StVLiKnOLKV8vL+tVwveHOGktt50QwLoppLAnUdtH6qxP8bsPAt+qcbRAXdNjxfBiad/4HgPc3iSasxuSYPHgtV8hwrclK5BDYpwLLJaRZOrrWuFX3PIoF+9pnMpcxSpM3ED/yc7nwCRbyUGYam81tYhYrrjJqGKHwaDhcd9J7pJat4ibNSqD+IN1ATGgVQiXwH9IjwcpMw46uA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=arc-0513; h=from:to:subject:message-id:date:mime-version:content-type:dkim-signature; bh=6TMZ27LJHCSG6cNjDBNF/nrs0AUoML0Du7x1LYpaKjc=; b=Fb3qb/6cccXXitmiFNO16tZgY2canowPgLgfTEUmASzkBGl1zAQq2Ec1TFkzwa9JIpQkTiySknhj/o3h6/E5TRcf3kOi1Gjsisn9iwKGP5VqeCcWpvgxTj5F3Lu5aXkrhqvkJXF5pmJdDCOEIqbDUOYgYrwxsX6eKzTeL7mtNUI7cZuVLVr7Ci4tteP/nDknOfvlySyGZQeui2czx3z29laD48DKb9RHzo/IslM4V4zo/iYTaSZHh+YYYpHx+xz2DUenVHY+VT5NTsxqdz2Ew8CeBfgHuAYY1A5iuCjGglXUzPCy6dSkbJFjUDWru+mPEZ5ktcXZo3gIX+CB1WZOxQ==
+ARC-Authentication-Results: i=2; arc.icloud.com; arc=pass; dmarc=pass header.from=gmail.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=afoub7cD; spf=pass (spf.icloud.com: domain of 12ryanpierson8@gmail.com designates 209.85.167.48 as permitted sender) smtp.mailfrom=12ryanpierson8@gmail.com
+Received: from unknown (unknown [10.168.160.104])
+	by p00-icloudmta-asmtp-us-central-1k-20-percent-0 (Postfix) with SMTP id AF7B91800149
+	for <estrauhal@gmail.com>; Sun,  8 Mar 2026 19:30:26 +0000 (UTC)
+Received: from p00-icloudmta-smtpin-us-east-2d-100-percent-16 by p162-mailgateway-smtp-c45f594ff-vpdf6 (mailgateway 2606B152)
+	with SMTP id ac4533fe-1ba6-4974-9318-bfe21f50f806 
+	for <ernest@strauh.al>; Sun, 8 Mar 2026 19:30:26 GMT
+X-Apple-Action: FORWARD/estrauhal@gmail.com
+Original-Recipient: rfc822;ernest@strauh.al
+x-apple-request-uuid: ac4533fe-1ba6-4974-9318-bfe21f50f806
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	by p00-icloudmta-smtpin-us-east-2d-100-percent-16 (Postfix) with ESMTPS id 3BADDC000AB
+	for <ernest@strauh.al>; Sun,  8 Mar 2026 19:30:24 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQFUVUKE0oWX1gHVQoPB0UCBltbQVNZSQYBTEFBRhIcDQdQBwAHGQhZUxAGFghPOFdbAxwVSBQXXRYEEUQBGhlZWkwWFgtXClMLBwcXAwQMcEUWBxgTH1ZRWkIdHAoYRV1XCxlUChFJHVBWTVcBGBdXWgdbGgkaWEBCEEgUBx4UHVoERFQAQ0AeUQ0aHgoSVlNZD1UdAkofXVcLGVcFGBUQWwsRRFo0OXsEEjEyJBNJYmQARk8DMCBiRAwqDSkRDgl5VkQ3H0YrXmYxQQFRJy4IHSwiESdPCHF2DxQQClkfXVcLGVcFGBUO
+X-ICL-Score: 2.33303322433
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=pass; id=mx.google.com; r1=-22; r2=1
+Authentication-Results: arc.icloud.com; arc=pass
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=gmail.com
+X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=afoub7cD
+Received-SPF: pass (spf.icloud.com: domain of 12ryanpierson8@gmail.com designates 209.85.167.48 as permitted sender) receiver=spf.icloud.com; client-ip=209.85.167.48; helo=mail-lf1-f48.google.com; envelope-from=12ryanpierson8@gmail.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of 12ryanpierson8@gmail.com designates 209.85.167.48 as permitted sender) smtp.mailfrom=12ryanpierson8@gmail.com
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-59dea72099eso5505167e87.0
+        for <ernest@strauh.al>; Sun, 08 Mar 2026 12:30:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1772998222; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Wy0gGnxArPj4XgKcw+tCDcuR1fNqLofiBjt2UfZwylGdILSrS0ijLU33EuYrUy20EO
+         OUlatIdx+6FmLuXGgT6eIY8qABTTTCGS4hn33e2dYVMsngTycfUqITjPkevyYVvTqM30
+         J3z1BGAFHCJFO/1MVdBBsSp0hUWMdTK+mn5R68r9Qp80nEZOlVv+xrIGnhB6mfDzUkpg
+         BKOQlBIJC3ELaT+AkLK0QrCGMw7hc9xKaMFDG4MI6V1ZUmd65dG5B5v9w0R02EAhdiHI
+         kLNvWyLwIzN6jUYo+ddIU4L0mxO8GMcEj/zfsly74RtTs90w7a0HSJlxc1PHXEK7rEOz
+         qa6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=6TMZ27LJHCSG6cNjDBNF/nrs0AUoML0Du7x1LYpaKjc=;
+        fh=7IE/ytSGXT6hWg5MYW09AQztlqLXR7gnnHXGJUZJaFM=;
+        b=Z54FHirxFJuLoOGrymHeXfe0+l1IznI8qXLVBzJKuUf1op+hs8ekCSJvU3eQsxmUVL
+         6Npez3CcfG2UHoj8EXa8clsLMOUGI5ypCZX75481F2sK1+lSbWU8U70Dbo+wBrxbNoLY
+         mggpnxk+Bkk7tOZK4VuCcFg3SiP1j5ekKbphDFSWa+DVjeeGe33oIguz7/HIJotuVQbf
+         /yiMujOdU89WgCOBUCnNps1symIB1s+moyUwU4aI4fpXHkx5nEt7Bw6UEPgGaJm1xfpG
+         E553NQHuaQK3Zq2z+vQrkBj5C9Joz6F7mjE/BuIdW8nriAeg4IJhfSY/nBcGXqcIN82r
+         34eQ==;
+        darn=strauh.al
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1772998222; x=1773603022; darn=strauh.al;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=6TMZ27LJHCSG6cNjDBNF/nrs0AUoML0Du7x1LYpaKjc=;
+        b=afoub7cDZdxBQih+/SNWUapdgF4yMsq1FXAQoMKpOZ+un07V9Eao2TzbeLYhZSXqcI
+         YITklrhnF+aZnfR11Oq1TAAWL0eYVk1tYkk6q+OfK06bZ3WvLLzgkSEuV16tyRfwihTV
+         nGhKHj3kJx1WW6zYS+zcDjsN76Urq2mTdVCJQaqdpTJvm/apgdmvlGyw8Wrz1Pjtq8qK
+         G9px9HBdFN+gloCUrncRFwiqLwv5Vb2XlrNiMtNoSsIVKBQ4ZPxFIqNPsSrmyLYTjGax
+         QUhDpmPUpC1fPVYIC66HjgXmmx5L3gVU71mH3XyCOv9y7d8mQw0wRJlY7WcyyQ/16v+6
+         FEXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772998222; x=1773603022;
+        h=to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=6TMZ27LJHCSG6cNjDBNF/nrs0AUoML0Du7x1LYpaKjc=;
+        b=X3o+qeXatYkrA/BXslVsOVS7P1YLGXMCVclXfH4fzCSM5qLIpT1Ey/wk8Qa0xSIRUr
+         UlpKK3LFz0qSA5dOBrJstBjYyVm9HUh04Oaby3Li7AbRQVBFAB83/1nkC003Bo4gq7di
+         WNoTju36jnnWmK2lCBKk9+Cys/DwC62Ydjnj30vfOfqksKdgla11qW4KPHX2rXMa1HCk
+         OMXBRhKSAUXgHmthBaJVag6rT1SOQ0KylYB/BDZofcvG6xLa8Ey33uJ4d2GQ3dFF1bUS
+         BZjzBHaSEIDBczVF5JUEOlD2gfZYL8tX6eGmaPxBvTTWAyNTQpgGTn47f63OEMcOxZDp
+         2QBg==
+X-Gm-Message-State: AOJu0Yztk8INsfZeAxfeOYLpMu8/xWe8U41ohYcP7DfDOf8rNZ3V4IJS
+	CwXJQTxzuZoATl0a6gtdfB9OkFHAP1PDulUI1wf1zqmWdzbIRv37gend9l8sIqn6U/UIbmFTs0r
+	ND1dn2dNjNpEKNWABssvEYOIhJEAB/t3Pb07SCGI=
+X-Gm-Gg: ATEYQzzL6E6sojwzeQwP3hUvzuqb0x1ddLKCt0F3u0oCCcHAbdL6sf3OEifByzf/xcn
+	Bofa7eGxa5OhmwzWJn8UN6LjXcbPHWZYYEKBtAo7GK5inoTs2ILiRnV7hPwWfgDXvQQY6iqB7/F
+	uhkvoTTsU53eUsvh/WhIbsjnMg4w/MdQ7TxiS+LIROr8WLj9OJ8tHQf6Jl2StzSLdkNGotVOJVB
+	S7MHYEAHwhfY1OqKTYz74Bcyt0YGHD+pqpw8lOgyILega1bebQiJOQI3CuL0tYaKmb1QU+1dtLK
+	LQtNdIeYtYP9seMANQaL//be/yi8ZJR8TaIDrIlqZzO/1gQIxnCY
+X-Received: by 2002:a05:6512:3409:b0:5a1:23fe:b04c with SMTP id
+ 2adb3069b0e04-5a13ccb9aa1mr2653122e87.18.1772998222339; Sun, 08 Mar 2026
+ 12:30:22 -0700 (PDT)
+MIME-Version: 1.0
+From: Ryan P <12ryanpierson8@gmail.com>
+Date: Sun, 8 Mar 2026 12:30:10 -0700
+X-Gm-Features: AaiRm535A1RGcG7xdvJB95pd6sgb5yPy1T3fZ8Jt2LhmJXVBvLsvBRu5OLaARlM
+Message-ID: <CAK2pDKBd1RRb36eGXRrn_tOfv9O41Ny1SnPS4x7PV8+NWhA8pA@mail.gmail.com>
+Subject: Catching Up
+To: ernest@strauh.al
+Content-Type: multipart/alternative; boundary="0000000000003ae677064c885184"
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA4MDE4MCBTYWx0ZWRfX5qD7Y1QzAKNe
+ Ioi3I3r7U5ng9HSMFf4Ng6jzf5UPknhbtLPJHoLIZdYH9+K1+7Xq9TTxw/4H+rWG3RDAtfs2X0Q
+ yr4XaA76Z3OBX5WxoGQ2fOuqM6V8lppDAYU0K05tIyiArTQiN8/n09xrHsJkD46/7RBRv63Uit0
+ D8LMmwC/imWxj0wuD/zPUd5XUf0scBkaoqD6JasouYP7ano7l/OTubAsXNkc8Pnq8ZVdfHIerJl
+ BVulLO6wnM9dAh8+7kohqk78GY8EYlznbzbuE6cmCyxsLNJhNnClHuZaAn+tp6Y5ce4FHhbSxTp
+ jMLIBn2xpEYvMZC/6yBd8fr4shgxJwuZdRkynOcXMB/TjCB5LRVDxXHuleAv7Y=
+X-Proofpoint-ORIG-GUID: VmrTFTNly-IUZIZcNocBA1gsJqRCH2nw
+X-Proofpoint-GUID: VmrTFTNly-IUZIZcNocBA1gsJqRCH2nw
+X-JNJ: AAAAAAABIu+gGGF6MnEZIuIbUTprC+yUW8azCNowyRsjtsBFNP2XWQACLEt7yRCkivmqwLg314u21S4T3OlYdPn1YDTfDCvTLoXeeDMoF40ot2qFfqQ3NOHXf3/FbI72aErScnyJqD+Tr6G1BRmLWuJ05655BXHNql5ppUOmCkLvPsaPkwqc2rw3z4WFzvSX3KEe2+bjk7N/VlJU7RHBiLNkPKyYAtIo6CNr1mBbFDM3+OGaaa2Gj3+yJdYQ022Vg+UdSEqjv+NbgHUPJKULccyV983icxvdeeN3s34DDmk+NsGgPxmFWmQqeh4A/WG1jd2K83MuQs57gCf04FGbBNZm56JgPmCqlycaC2HusoE4fpVTBF4rSbRzWRFGSYXbiJCrpLVFdlc0QZfVSz0FV9S0j94h0FuCBOtlipK5SoGTR/HLKUy4eDk5FuiMjtUvO9QBxstg3oQoz5ZBJVlFzViHifNxoc+/4oowoOzcq4S5p+2dueQUasXhl1mW21qX08b5PHexDJsEn2atHG0MD8zi7dBJ8AJtyAxnWvOAQZi7w5aolBCEh5ADrRrrppO5VXZdtSwWSUa/wKrAhe7ctgMfZgLVVouIgB+IeU6Il0+W0bMlLu4xeIuV3oiB/s24Ee2rjLz+nkr7gSRVnUQYWdyEgCWzPaDMXiwJ+BEoAvYawzSBnqsnTg1khzalNm9GR4JIehjxo+rnCRuQDMqg+rXbZB3/G8Md9phIXuYFI4B8g7zRsXLGj1912Cm9u3GGRN7LN2qHCF4TmyClkNICGFHxVng2E9fYKDaZ1vE=
+X-Authority-Info-Out: v=2.4 cv=Dcoaa/tW c=1 sm=1 tr=0 ts=69adce53
+ cx=c_apl:c_pps:t_out a=T0mU/zd77MEem+zjWCBf6Q==:117 a=Yq5XynenixoA:10
+ a=x7bEGLp0ZPQA:10 a=qoJ7Nb1HgEsA:10 a=95EFz5htlIgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=158PCU8vsxzIGfST4nAA:9 a=QEXdDO2ut3YA:10
+ a=6MzZDMhd6XlyuDbrCggA:9 a=Uz9EnhuHEG25YKoRyM-d:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-08_05,2026-03-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ adultscore=0 clxscore=1030 malwarescore=0 spamscore=0 mlxlogscore=292
+ suspectscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0 classifier=spam
+ authscore=0 adjust=0 reason=mlx scancount=1 engine=8.22.0-2601150000
+ definitions=main-2603080180
+X-JNJ: AAAAAAABJhwmZax288jsYsgyARAn1rcgFVFKKsMsWFAbzMfkb4L8hQzKOggd87SMChIdTu9i/xBcPWwtooz9rF4jVvT+IxqE3yyOk6FkMqcWuXMD9yYLidD1jzbhw/G6RztkabzqlRxdqRqjIcJX9DaJGj2VXA8AMEb9jdsloR0PxdINi2iAPWN+I29lPl63iQ8B+tcztHvE6/97iqN60I5CxuZVaOy19SkKoIC6pbrdD6Tbf3r7MEzbp1ebDo/bhs+zMHymlB1WeRGipquoJH1bSwrO3DX0A6zL0YgM9umDEGc+iyatH3ijejnz5ydOfcxa3TGXem2rAVrmgXpIrS0MLHKrwKpdV22+CnU6SN5cXbEHFvvb/9Fjpx9u0yHyxzoQNHG/pWhUWteF0cA7OvvCqV69pGZzoU0KGiRYLmKgEjwb9aXhfcek7JQ3sYQTC4eRDCW8kNOj3T2I+iM+69kbQRSSA08bvArCxINYJsgHIkgPS5WI8vfnP5/mVKqBAeDMmkbeVwY9yD+V4O6y39nkNG9s2W9B0Khf0NelaHsRbUKu1KGaepnLxgpAKtfVEi1kbD6SKKjQ6/ilg4Rc82DCPjlyCMuhNLR2rYMVaR4Ff5V5ar69rUmvIVza01I=
+
+--0000000000003ae677064c885184
+Content-Type: text/plain; charset="UTF-8"
+
+Hey Ernest!
+
+     It's Ryan, from West Campus. I was listening to NIN Pretty Hate
+Machine earlier and it reminded me of you. I was happy to see your website
+is still up, it's good that you didn't stop creating things.
+
+    How has everything been? I'm sorry that I fell out of contact with you;
+I have been struggling with various things, and I became sort of reclusive.
+I'd love to catch up sometime, whether it be online or even in person. You
+were always really funny and not afraid to say what was on your mind.
+
+   I look forward to hearing from you man.
+
+--0000000000003ae677064c885184
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hey Ernest!<div><br></div><div>=C2=A0 =C2=A0 =C2=A0It&#39;=
+s Ryan, from West Campus. I was listening to NIN Pretty Hate Machine earlie=
+r and it reminded me of you. I was happy to see your website is still up, i=
+t&#39;s good that you didn&#39;t stop=C2=A0creating things.<br><br>=C2=A0 =
+=C2=A0 How has everything been? I&#39;m sorry=C2=A0that I fell out of conta=
+ct with you; I have been struggling with various things, and I became sort =
+of reclusive. I&#39;d love to catch up sometime, whether it be online or ev=
+en in person. You were always really funny and not afraid to say what was o=
+n your mind.<br><br>=C2=A0 =C2=A0I look forward to hearing from you man.</d=
+iv></div>
+
+--0000000000003ae677064c885184--
+

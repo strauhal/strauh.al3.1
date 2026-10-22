@@ -1,0 +1,115 @@
+Return-path: <beecoolaaa@gmail.com>
+Original-recipient: rfc822;ernest@strauh.al
+Received: from p00-icloudmta-smtpin-us-east-2d-100-percent-38 by p162-mailgateway-smtp-77874766c6-b724r (mailgateway 2610B131)
+	with SMTP id 7c2e5311-b43d-4828-8f58-22c663a2b4ed 
+	for <ernest@strauh.al>; Wed, 18 Mar 2026 05:30:46 GMT
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: MOVE_TO_FOLDER/INBOX
+X-Apple-UUID: 7c2e5311-b43d-4828-8f58-22c663a2b4ed
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	by p00-icloudmta-smtpin-us-east-2d-100-percent-38 (Postfix) with ESMTPS id F12D9C000E9
+	for <ernest@strauh.al>; Wed, 18 Mar 2026 05:30:42 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVHSgQFUVUKE0oWX1gHVQoPB0UCBltbQVNZSgEOTEFORhIcDVQHEBoJGBRRVwM1HgsWEVwYARoURhEcDVEPFBAKWRtfW0IHGlsSCl5TEQE5FQMKUUMKWxgKVxBVWg1IFAceFB1TCERUAENPHlENGh4KElZTWQ9VCRIFRV1XCxlUAx1JHVBWQlcBGBdXWgdbGgkaWFRSXxIUBx4UHlUNGFkLHhwNCiE0Uis0RW95BR0gFDQIU1sSNyFXRAhkYBQcKQM1HmVlGBQWJDo0WgQSAQ9eJw17ZiYfOCYaGVlaTBIUBx4UHlUNGEc=
+X-ICL-Score: 2.33303302433
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=pass; id=mx.google.com; r1=-22; r2=1
+Authentication-Results: arc.icloud.com; arc=pass
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=gmail.com
+X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=NXSX0wh+
+Received-SPF: pass (spf.icloud.com: domain of beecoolaaa@gmail.com designates 209.85.218.47 as permitted sender) receiver=spf.icloud.com; client-ip=209.85.218.47; helo=mail-ej1-f47.google.com; envelope-from=beecoolaaa@gmail.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of beecoolaaa@gmail.com designates 209.85.218.47 as permitted sender) smtp.mailfrom=beecoolaaa@gmail.com
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-b98069e41b0so649166b.1
+        for <ernest@strauh.al>; Tue, 17 Mar 2026 22:30:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773811840; cv=none;
+        d=google.com; s=arc-20240605;
+        b=G9aWg6F7A6CZs28ZwxssSWw6oVhRjK6JfkDjAdwVyn8RDerpStS3WzHFIaU42nJIf2
+         yDQKOSxK/wzclZdpdhB6PEx1XHrH44cKTWIfNhdYeoy14fQ/zdCo0g6op4nAF7kJJwVg
+         4fIc4a1ygGELkTw/9mTs//LiqP+V2whGnqnv+4ChL/9lcroSXVQBPuSRJGjPPYcy1uKI
+         LER7NXyX7hIok2NW3vDyJxiOfJFefYEwE4k0kVOWWb6VPteBarGbwHKRq9R58bMXdpka
+         4E97RqCfMaicIwCbaxMSEddiDib4gwM2J2rDmCek/zpmks5WSZqV5hlmoh+QZH41cUYJ
+         wWqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=uUwq50dCSIwMWYlANUi2ey6/WBGb03I2pnCEHSLJyd0=;
+        fh=7IE/ytSGXT6hWg5MYW09AQztlqLXR7gnnHXGJUZJaFM=;
+        b=CAIr/Ub5VA94bHZLFfi4OXVa87FYhwG6/e3O8YT4rIJ2pKdoPLPeuHxBae9sO/ALG0
+         8iBDEgBrGV0K79/7kOo0CqvSPo1f9zHt3LB8HH1r/5s6RUZvNyO8nFpR8TJyZXtvtyOV
+         nXaaeBv2EJi2srgYF6GMzbhpQXC0okCLpR3afKOF9yyPyY//XTYbGC8p5Nd4oiH58s2T
+         aVWeZoKWX7r8wB/zMLCOsbZXlTAQnvpDbeSS7mhTdIyD/yEBLRZ8y0DN4uSpoJNL0XEg
+         Vs4VlSXkAgf0+UGVHnaX+ANKu7f4gAegdR282Bah/2BdhibAJA8QKykZUgaKzJQT6I0x
+         Gt8g==;
+        darn=strauh.al
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1773811840; x=1774416640; darn=strauh.al;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=uUwq50dCSIwMWYlANUi2ey6/WBGb03I2pnCEHSLJyd0=;
+        b=NXSX0wh+36sy/JXFolFr4WJSewwXnvsItDpOR7JyWKev0LYMKFuU/OrJgvgqU62SJX
+         B5fu/vdKs3PzIq/ec5ZtY4Fm5YOrXKyfAi3NpJ8MyyMCsoFDbLhxqlVWLawnFTrze9oM
+         5BCQU+ldK8e0PbYIhYx3wyPzCY4IY5zSYbWUQdf14KBTJUaR+Q6JpXYM9y3JyOLLhth6
+         /4eIm3KtbVAs49f5uk0IswYEijjI7ti3MCgUNS8j4RmxQ6d/YlRyw1/s1cTXQhQsO4lG
+         QqY0niZ6BiY1BzSXnnFOgGs4jjBl8IKJV+WxTIZys9xrvARDRHGnoEO+W/xa9oKUKliU
+         XyHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1773811840; x=1774416640;
+        h=to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=uUwq50dCSIwMWYlANUi2ey6/WBGb03I2pnCEHSLJyd0=;
+        b=cEJinqUYGUKSTHLxKmhJJpJYsHfrv3NkyiAvE16SkUeOJ0b7wasl2Lm5OXKG8nq/lh
+         hikD36/ebFKYJn4DKVEPMbKNGIoWPsUG3ypj6e6LhVTv/rfhR8KsGJPCoV/+6HPmQXky
+         kG3MaZkcJPYfLLbtPKgwGoNMeVf5cATrdgYuzPLCkBPBC8t/+dtDX2AA3cWsm7C2ownc
+         QEZ4upKWpCKMFdqvefA7TaNuyfUPK+AopDa9ybtIF9YrSg2SeevBQXIF1WUqtEDBSroQ
+         RhObkvwFt3RD5iriMpAI2a8LtMeQboDFYtZj9uZwIgUcTDIrsinxoc76Z/R6rgG/SDu6
+         mI9w==
+X-Gm-Message-State: AOJu0YyrDIbsvch53gIh7woNZplTbpr8zZiHvXCjOvDQ/Pt7q2mdc26V
+	wg664c92XPACiBPjQux+TBWZFHWtLGiEjGNzyep8DtS1T9owi8w9hvZt0tKuucCSIV2YUWL0TzX
+	/mZEtmwt226IQC4XSvc0SLOdjMnphTjSipKOm
+X-Gm-Gg: ATEYQzzA3Fah3e/s5Nt4ww4euAytlJmTv7sz7RVxTqWTPV/xHMVU4/hg1VDjxYfLsbl
+	c2nmWD/NLCt8Nb/I2d5CxfaGACKd3tevKbpxQaOkMPvmY1um1bCWRhuDk5Bh/hJvsvOkuL33wB1
+	+t73RIEqecuE9dShcLimRSHZ7hregsaiDRFpd7TiCwbcsUTDMyhxT7Rw+feN2bpnbz1q1ebizFM
+	khJ5zo9ckH6DPV3L2S2KsPmhR+xKRme1pXE4oVdQ7a1WkfZECcfs5D/tqcLuXJqad5pUDosFLLR
+	YTLlvCnJL+nVMfajPCpB0hFqMVJvD4Vgpr0PRfEwCyyCtLwaCrWbLfGp6E2zmnzBkrxKky8=
+X-Received: by 2002:a17:907:9452:b0:b96:dce1:2f52 with SMTP id
+ a640c23a62f3a-b97d6d9a2c5mr373734466b.19.1773811840062; Tue, 17 Mar 2026
+ 22:30:40 -0700 (PDT)
+MIME-Version: 1.0
+From: bebe Coco <beecoolaaa@gmail.com>
+Date: Wed, 18 Mar 2026 01:30:18 -0400
+X-Gm-Features: AaiRm53YHGs9rTnZmiStaK2Hic-2l07PG0YJRajMUkm5c2V48FW2CAP4XqxGbc4
+Message-ID: <CA+MC=_OghYrCpcmpBX13pTVviPeBfUSzaoBMLj2ptv8PuKPDjA@mail.gmail.com>
+Subject: 
+To: ernest@strauh.al
+Content-Type: multipart/alternative; boundary="000000000000a0158e064d45c08d"
+X-MANTSH: 1TFkXBxsRCllEF2tDWEhwGVhfR2xtEQpZTRdtWE9TEQpZSRceGHEbBhIZdwYYGQY
+ aBgcYH0AGBxgcBhpxGhAadwYaBhoGGgYHGx8GGgYacRoQGncGGhEKWV4XbGx5EQpDThccG1hEX
+ FoZZERkeQdPbXAaQxxbTH9fUmAaUkcHbE9tZhEKWFwXGQQaBB8eBRsaBBscHwQYGAQYHh0QGx4
+ aHxoRCl5ZF00dExpPEQpNXBcHHxkRCkxaF3hpTXhrEQpFWRdoEQpMXxd6BQUFBQUFBQUFUhEKT
+ U4XaWsRCkxGF01rEQpDWhcYGhMEEh8EGBsSBB4dEQpCXhcbEQpCXBcbEQpeThcbEQpCSxdjU2N
+ rexNYfhpfXhEKQkkXY1Nja3sTWH4aX14RCkJFF2JNSH8FenMZHUhYEQpCThdjU2NrexNYfhpfX
+ hEKQkwXbU4ZXkUaXG5fYGMRCkJsF21mQnhCZVteeBtbEQpCWBdkfnMcH1pkZl5gRxEKTV4XBxs
+ RClpYFxgRCnBoF2lGWHJEf1hAYQUaEAcZGhEKcGwXb2lee31OE2BDemIQBxkaEQptfhcHGxEKW
+ E0XSxE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE4MDA0NCBTYWx0ZWRfX+jEjSLzzFMYK
+ o/XfpBgnnQgJHRFasZRIZ47/Ihtwo1XY+yaqx6IgpXzCLcW19p+8aR7I2AneO8LIk3TB2YWL6tr
+ NMFKAc616AZNE9fJVm6g8WFA5tZHIi0OLANk4jj0DpcqYHxR/NJ1hMOMnPPnm5ohdbQIHzGofNA
+ s99xrdeSRKLi8OAZXdx40WIUpDWkMOsHFKDG1RPXCadTs7V6dIHKBLC3M6XRDrW9KYuIkHeKYSc
+ +BWCfd7G72va+0zkinKzhqSa/ytdFFjuGq2hhKyaUNBUfZP4h839y3Wrn+7lupk2fLhmmv+SfAu
+ cvvLK2Qe7Y0l7Ad1kFw
+X-Proofpoint-ORIG-GUID: 61rnvp3NnNS-eGZ0i6qfUuxJ0xm-FeGL
+X-Proofpoint-GUID: 61rnvp3NnNS-eGZ0i6qfUuxJ0xm-FeGL
+X-JNJ: AAAAAAAB0mEIyI5o56ICvNigv7XYCCMlwpEVUHhq09Fj5i4i1h4MwcS7JcByjNTjHEUUUVVKxfZIUDa65UtqagzyHoV62krZg/wtiOkp/QCaL6qRlyTMFV9Gn+HhXPAu/pyIHlIZMwMlCpGEdOAujj0SoFXge9wtBTTVFRqKoYPqRnRLoVejgBGVuxTPdi5EpGzKat5aVH7Rzaudwm/uOqsoNN9IYMEhQzthPirABrYMpIgb4+xXsyz2yXbE1A0OINGsqVVRUol+WTbmqbDZ2Au3YcRevNznowhB5emJYYyyF7w40WH138mp/S4yZgpO3PHK6hj+NJh+VkLyGO045ldCLF/jU2FnWA6AFKoi4Sn1DGZ7KaUvIyvo4MFE1/AUiruhIXdzuoEzAW0MgVwDgpdhbtaMuJ+hCWRjkM8GWZhHxBf875eXRj+EVPTSROWIwrA4zXZAy+cls6M8T7ilarHL7lxrAQfcm4kMN0JZuq8EtTKE6N6RIuDrolt9UjN+PkrgiPhRxU2wvd1lBJYaNNbF2PKrCAldEI71635bPQh08Pvu+JlaC8McDWCniqKFt5N0Mqp7vknID/NzMH3tS/2Sc8jRPKM7BXvLLgV6+Dp6vsFH5QkQTf102XZBjWjJGXWLUBCZ/MmyJyA2uQ9rHvIgA26WHsT87JpI10lGp5+Vnhi/9+cxwfDtNAQZjZ9DUvJlJBrYctbnwbkBe1Z9D7p8x/xtr3+WTQkIgkLkiioAHJME5SHWTUyilb/pSEiOvLd/7qj1m8p0RgMsRtfqtkmlN36KhTvxI3qpZFfyOcv0nQ==
+
+--000000000000a0158e064d45c08d
+Content-Type: text/plain; charset="UTF-8"
+
+hi
+
+--000000000000a0158e064d45c08d
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="ltr">hi<div><br></div></div>
+
+--000000000000a0158e064d45c08d--

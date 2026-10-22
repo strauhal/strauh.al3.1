@@ -1,0 +1,290 @@
+Delivered-To: estrauhal@gmail.com
+Received: by 2002:a59:d6ce:0:b0:56e:60d5:810c with SMTP id df14csp1487747vqb;
+        Mon, 16 Feb 2026 13:02:23 -0800 (PST)
+X-Forwarded-Encrypted: i=4; AJvYcCWYqZ1+ToZK4RR72akI1Mu0C8RAayci+7/8n7p2WcdJwksyeJtGIvsaIWGKUNIE3elnXmbgdFpmu3U=@gmail.com
+X-Received: by 2002:ad4:5de9:0:b0:895:4855:83f4 with SMTP id 6a1803df08f44-8973f2af6c2mr140692966d6.16.1771275742910;
+        Mon, 16 Feb 2026 13:02:22 -0800 (PST)
+ARC-Seal: i=3; a=rsa-sha256; t=1771275742; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=Cc50j7h8/MnP301Pp1MNu9L3pfXY0oOcM7IsbBOkI9LF9baZ+H96R/As4NjgEEvVfF
+         B8D4ugXB5QicXFsGsjIeobcWkhUwLCs465A/pcIEWRT9MO/heGeeA9DAvqNpjwP7hff+
+         1zejGF78hlRyVCni73O4pQhkGIfRXuE8LSdkuPoErrY32+9dbC7AIhqLQQjl44NXUeud
+         6s6A2y7kmcT6LQp4jMAGgAhL6nLwiEV6qq7qVjVt1/uwxr94U0t7eoMIjnokS8gcgl+0
+         +80ZBqSSWhLw1tSW/IVRxCZfnSYEV2xAmNOlRnPabRlXMxfwamovm8J+XMumq2DQXz11
+         CI8A==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature
+         :original-recipient;
+        bh=8xW51DwRgjvAgi0uwVyl24wytVAkgWsS6zhzOHIKQME=;
+        fh=7IE/ytSGXT6hWg5MYW09AQztlqLXR7gnnHXGJUZJaFM=;
+        b=CNKhNnTR27KebF7BAMQBntDUbZTQ6+51OgFiW4GKRf9Q26x/ciMFbnzkmt8vPf0tFF
+         SEOnlz2zn+sj5mEz3Nhq2qYpazWnRwYXNCqryyCi8nYnmnICjwQK9tiPBffXKwmiNfUI
+         uSaOjpjybg1CtBXuSKAupgbr6PVAtkNh1lazNiFhxz7Vp9ihKetxwKX0cT9Sbqku2hMz
+         3Z9zJ10iL184GgKD7McubsH8jj6ZhvfmCBV3RAf/RExBtUFIoo8EY5FMwgp2zkxS7aEA
+         IRsJf289irHaS8ysmpx2lyn+pz4dvHfi3GjDyxQhuSRsPY+h9CNzLerdomnvQ7W8JjE1
+         WnqQ==;
+        dara=google.com
+ARC-Authentication-Results: i=3; mx.google.com;
+       dkim=pass header.i=@prepare2rise.com header.s=google header.b=YGJWakfe;
+       arc=pass (i=2 spf=pass spfdomain=prepare2rise.com dkim=pass dkdomain=prepare2rise.com dmarc=pass fromdomain=prepare2rise.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.89.43 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prepare2rise.com;
+       dara=neutral header.i=@gmail.com
+Return-Path: <ernest@strauh.al>
+Received: from outbound.ci.icloud.com (ci-2004d-snip4-11.eps.apple.com. [57.103.89.43])
+        by mx.google.com with ESMTPS id 6a1803df08f44-8971cda2a3esi171725196d6.235.2026.02.16.13.02.22
+        for <estrauhal@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Feb 2026 13:02:22 -0800 (PST)
+Received-SPF: pass (google.com: domain of ernest@strauh.al designates 57.103.89.43 as permitted sender) client-ip=57.103.89.43;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@prepare2rise.com header.s=google header.b=YGJWakfe;
+       arc=pass (i=2 spf=pass spfdomain=prepare2rise.com dkim=pass dkdomain=prepare2rise.com dmarc=pass fromdomain=prepare2rise.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.89.43 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prepare2rise.com;
+       dara=neutral header.i=@gmail.com
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-1 (Postfix) with ESMTPS id 88492180013D
+	for <estrauhal@gmail.com>; Mon, 16 Feb 2026 21:02:19 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; cv=pass; d=icloud.com; s=arc-0513; b=afcQaldOE5wCMO1tRVPqfgl4vcOl4pFXRePFd9fyrBmKxkEKImEspa2M4P2NaQ9Cs5iBC3KKTX1DSD5DC6ppztQ+GPm7Wq44GnsaChiVPpGDuUTqcnx20ixRXS6ND+qedpXwRm1njf4LZLTvIqhNq+LnUUAcqekPpaMZtCV72myaIHZ+DfT2PIapwA+CNtI6KO0J9elHFVvf/UqQiyA9mIyGoZqvG/u1blcZesbdXaWlmjF+mLr6Da1DF1fMDozWQ9an6aD/N2RjSS6DGn+TxmhV6aZrMl2bEPQw8jHzVInl7yylzPd1LxnjKoJk5k02No6KcLj7d2byHG8zSJdAqA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=arc-0513; h=from:to:subject:message-id:date:mime-version:content-type:dkim-signature; bh=8xW51DwRgjvAgi0uwVyl24wytVAkgWsS6zhzOHIKQME=; b=JuPAZXWWyydc8xwmyKp28B0zYJkitrsBweqbgxfpJKBJlOfJTwMNKITJM0J/HQOREd+P/zAPCfbliCxTAH82Yk7qH0O2h2++Qu26uOTUuPUXRhznn/Ajub3NPkB6LYRoYnEeD/25Hz4nuWS932W4zGZT9eLUJdM/MOSDcz0ASh5uEXtUmIbowBIMCjZK1HXEigGrDzuhTOWehyJuQ9DXFQXqrJMbuz8kAlbnAc9FGXNWvPEs8lCjrkHru7XJMrYWY6xaP01kzTwVE02PUneyLcyHC2w6LlfD3L3noPh0e8vi4xV3eQ1DZiNw84pA7LxdiTa4rqTWU0fkaSxyMzpT4A==
+ARC-Authentication-Results: i=2; arc.icloud.com; arc=pass; dmarc=pass header.from=prepare2rise.com; dkim=pass header.d=prepare2rise.com header.i=@prepare2rise.com header.b=YGJWakfe; spf=pass (spf.icloud.com: domain of brandon@prepare2rise.com designates 209.85.160.196 as permitted sender) smtp.mailfrom=brandon@prepare2rise.com
+Received: from unknown (unknown [10.168.160.104])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-1 (Postfix) with SMTP id BB7441800319
+	for <estrauhal@gmail.com>; Mon, 16 Feb 2026 21:02:18 +0000 (UTC)
+Received: from p00-icloudmta-smtpin-us-east-2d-100-percent-15 by p162-mailgateway-smtp-6b8d4bb5b9-jhncb (mailgateway 2544B77)
+	with SMTP id 48963b7e-a2a6-4c6f-8f3b-a84098bbe611 
+	for <ernest@strauh.al>; Mon, 16 Feb 2026 21:02:18 GMT
+X-Apple-Action: FORWARD/estrauhal@gmail.com
+Original-Recipient: rfc822;ernest@strauh.al
+x-apple-request-uuid: 48963b7e-a2a6-4c6f-8f3b-a84098bbe611
+Received: from mail-qt1-f196.google.com (mail-qt1-f196.google.com [209.85.160.196])
+	by p00-icloudmta-smtpin-us-east-2d-100-percent-15 (Postfix) with ESMTPS id C16BBC0029F
+	for <ernest@strauh.al>; Mon, 16 Feb 2026 21:02:13 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQFUFUKE0oWX1gHVQoPB0UCBltbQVNZSQYGTERAUFcdVAsABxgIExdedhIHHBYWClUEEBwKA1kbX1tCEx1bBwpVRgMHHFQFEUNTTBYWC1cKUwsHBxcDBAxwRRYHGBMfVlFaQh0cChhFXVcLGVQXA0kdUFNMT0gQF19RDhBXBRgVEEYWB0QLFhFcGxMBSEsRSQkATBIWCRAUVRgBGhRGExwNRhAQCQcFHQJECwYcSBQXXRYPHB1bSztxfQ8SG1AGCndjBQAzKwU5d3ktISAoOAIHdDNBFzkQOUJdDC88By5IWXAXAwxSMTBjZyIYGA8bVldbAxwVSBQXXQg=
+X-ICL-Score: 2.33303322432
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=pass; id=mx.google.com; r1=-22; r2=1
+Authentication-Results: arc.icloud.com; arc=pass
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=prepare2rise.com
+X-DMARC-Policy: v=DMARC1; p=none;
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=prepare2rise.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=prepare2rise.com header.i=@prepare2rise.com header.b=YGJWakfe
+Received-SPF: pass (spf.icloud.com: domain of brandon@prepare2rise.com designates 209.85.160.196 as permitted sender) receiver=spf.icloud.com; client-ip=209.85.160.196; helo=mail-qt1-f196.google.com; envelope-from=brandon@prepare2rise.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of brandon@prepare2rise.com designates 209.85.160.196 as permitted sender) smtp.mailfrom=brandon@prepare2rise.com
+Received: by mail-qt1-f196.google.com with SMTP id d75a77b69052e-5033387c80aso68163921cf.0
+        for <ernest@strauh.al>; Mon, 16 Feb 2026 13:02:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1771275730; cv=none;
+        d=google.com; s=arc-20240605;
+        b=N/mOHB0crXtnetTFweHqom18lgmHf0v4IlFniZ2dWmV4qGtMd9xeps0tnvfSE88rAt
+         iKUwrx4/UiujWIb51UU0EKGJweO6xq7nuY8wNE3aV28xdu4BhJu/XtwpcyIgIVhgDXhA
+         cSk6S+A2mmErxXEXorQTbcZfF19G9zxa5NHE6bOXFeNTk9rjqBQ2+cH1GBv2oHf68jXZ
+         Q3pYnis98aWriz5AJUIA25WA8+nrbxgDS9xWdDjUrwjsfgbSgST2NPyDGWU05aPE4x27
+         oj7yegkNPqeRFcZXUmicPEF1s8B6MEXW9tt7hPnrJBLkjL6lP5Ga5YsTcf7U7Fwsjw3x
+         So9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=8xW51DwRgjvAgi0uwVyl24wytVAkgWsS6zhzOHIKQME=;
+        fh=7IE/ytSGXT6hWg5MYW09AQztlqLXR7gnnHXGJUZJaFM=;
+        b=A+r4NwZ69530UxAYLeCCDhFqU0rJtnez4uumRpox6TLxRD8TvjJ/0Cb1uu1zR3T95V
+         bMtjRel9ujqjRz39jMQUz7FycP61Wy2p0k0234lzV+OyvUooSNn4hzdyjAxsew3IXUFI
+         yDCFSJSZHtXXQNAB8jHv+aAFB44nzVSxe5Uo2+Ik89wFRWrJpih1VJocvUz/7dHtBTeo
+         vMrV4LFyIJUy63b6J/2O2NyEJ8XjaFakR1lpfC4Z2PRTnSuehbgGlg/PTEtaBvReyXje
+         u2UxBaIQVY+/8Rz83QNHNtl0/2FLhQh7/YQ2VeFN86KAyV2B7FiW4BtNDOrDnAN2I6H5
+         T9sw==;
+        darn=strauh.al
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=prepare2rise.com; s=google; t=1771275730; x=1771880530; darn=strauh.al;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=8xW51DwRgjvAgi0uwVyl24wytVAkgWsS6zhzOHIKQME=;
+        b=YGJWakfe+mREyZhDSYJ3ibFmlzhwDNEeUC1M+hZyJXPBbpeZknfdH8Q9QvO04Rg4B6
+         IfjN0kA/OoQla1mhRXu7dXcakCz2FNE4lH61BJhANtGvmFuoXyGZPN1BGeMl0N6AyO6P
+         zqvG2fLRqoYHUIhLooOO59K7reBEIU+STINMc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1771275730; x=1771880530;
+        h=to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=8xW51DwRgjvAgi0uwVyl24wytVAkgWsS6zhzOHIKQME=;
+        b=ciEUO8ZX9kQrywJwYR0zdJizDCDrrI8DokZJ3EsEiCCtSO5tjgo1VhzXqcO0kgU/1d
+         DQ05ZGlNOXMbol1wOX8mSVSC3zZm9hQSO356X4DS9ys0YD59+gA/UbP1vkSoclhK2h1D
+         ZGLEjynAw9zSZoRm2SVfu5YorBW0AS52YbRBSTKwpL1Xqci1hQQtigOQoIKxxK7EStn5
+         0TYenxy/mljTfksKW99Rw/fXwjgGp3IDlFhP3bJLvrNIJpIGhXM3AjD3tOkCw1350cjy
+         kHT0oEyIds4OT7FUEIGRXkn0SGK6Px5UPu6GM24P5Oklsn0jyJL/jvUH6cJb1U3gs5dH
+         OcTQ==
+X-Gm-Message-State: AOJu0YwMNu3No4yvvdzkrJWWfR9qTlZ46idwmdP+Svea+luVWMyqNuXk
+	ub69FJscFFuG5L1JlCNMmG5UChkVOW0qOX/Hpvy//tBvY8mS+TxugMmURUHfYZ50fXWycl1iBi/
+	Uz/m7/fAdCJ46LPXlbau1wlUzRJ+o0DcYX8Gp9TQxKKnJJO10fUt5WLquBykB
+X-Gm-Gg: AZuq6aI8MtqWP4dupPqKI7ozljx53UCfzrXskfbjAco6MziyPfTY1DUuNqFvJOmQmku
+	ShlQ1ZoN8DbjCb3211F2U6TFsmLy5mpJuDep5ZGfEDoak+Qdbz8HgRZXS4xxw9IZyi3/eaFkcV6
+	N8QQr3JR9S660+Y+N+khp0zaMKS3b388mzDUHEvuvCmynf5TCxv2Q1PRPxPhnUZQEVAnSr1azxs
+	1M/LiT2xqmSO/U3dahzUflJdVSOX7tCDrouFu+IVLm5OFt97rocQoxhJiwtu/Hvd4qmqsXofYXC
+	3tjvXKVXzlltzujb8rFCVkWgZsXLJfnaLP3Rdil5Tw==
+X-Received: by 2002:ac8:5a54:0:b0:506:22a1:5b7 with SMTP id
+ d75a77b69052e-506b272dd8dmr152230551cf.31.1771275729567; Mon, 16 Feb 2026
+ 13:02:09 -0800 (PST)
+MIME-Version: 1.0
+From: Brandon Crookshanks <brandon@prepare2rise.com>
+Date: Mon, 16 Feb 2026 13:01:58 -0800
+X-Gm-Features: AaiRm52KeNUIXPsPk4S4z1w6atI2Lv6ewPFBR6C9BivePFsiDfzF5G9hOaSSscw
+Message-ID: <CAKmgb6qrGUguJMrAGOOTYNOz7BQ4n_gArknZEaY0iFuvu4FHSQ@mail.gmail.com>
+Subject: Pleasure to Meet you (Peets)
+To: ernest@strauh.al
+Content-Type: multipart/alternative; boundary="000000000000a90e5a064af744a8"
+X-Proofpoint-ORIG-GUID: zK58PMC4BRTZsyHLx8xeN1XxPdYntQyG
+X-Proofpoint-GUID: zK58PMC4BRTZsyHLx8xeN1XxPdYntQyG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjE2MDE4MCBTYWx0ZWRfX9IkRBG/tZ815
+ yRShIyDVlfRmxoA8rmhgZeTQTc+3h1Z55P5w6/KgCNmylJFsc61S2cqz7wb/G262Sy7uIZ3eUDF
+ jbZLDnuborRVhxVQQyrpGzkQxjoxHN+vuqniehJKkc3ymU7CVpFmLZ8N3VGFNfVH3SwElN63+Nh
+ i+UzgSpuOsJYYNgTftGSiaQYq7jRS10r3jPS7BedE947uM5vMXeqGL+EAMVM1/JBAetSHhbTLvz
+ LCBPgW6qDfS7iWwIfQxH5UGcNxo5/DXSBruAbb9dFP8/qNZpoTmH928p7MYcmhDGf9PFG8RSYyK
+ dhiaGJw7IqNCSYP8MD3cBlHMdGTblT9LpKkxXOWT46diZXh+W4EzjFBcIUqi/g=
+X-JNJ: AAAAAAABsNdc6ofACxdhC4c/KcYVwe27gC9TqJnwdwH5ISlbkHGWMWPki38+YwuhkzGl1hB7BqJxjWFzlOOjNnlbT61WSZx7WVVryf8BAa6lybBnE8+Hz3xREn3sG0U+yDvp+K1KLbauFCjmJVu646rwcBF/D6KJfXo8pA3t1RaK4kwqG4JVLt2LdxpZIpafY/45nQQiov7SF4ej4KjnoeZyG6Ov2VTWfxaDExzFbe4/zBkvLPU48onfkrBL4uuEhgl8aqoTinrj41dsFZVDHWKv7nHDNIqGONv9DxxAtDMn/E170mE3hZ1ipX5MhuIsnS+Joy2vXWS8EM90XqmpPfrzajr6f+jmi3zLBAYTGTGvSNujufNqC0PZGJfxTiv2iJyaEE7MNzGBKtLA5qI9FjVqgdVCqWFhJzamjT4k8C71l2lrR1ra/vm/ZKwty1DlH9H1BML9CxjlYUn7t/pgAv2LepOa2QkjE+DPIV5caF8tmU0axsD0cloyMPpZzQG7auwcHGTgM86H9gzj2UOIAXZlypFLiHKfjO9ynmqyvpAnIDgX2RqMf5hBVlDUrNHFmAlzruUOm5qCi751z3h5WneIbWb2Aq1mPRDGrjRt5efDL7rEuLZW3/kjOJRCvBYleuFzK4ZSXEmisk4ut7e1unX8ml35o6JjyNdvuXiM11VoQaff6YVO2Kc0vkxKUX0zh0Co+lEDrEBateMRnEeHRdOQBwC2E9wvHFnEHRjCxWOo4nnI5st8R9XrG4eMvDZXaFL53Gh901tfRvfwEc7P0+gKMnpdeApxiCuJG7QqekupFFdIgmQZ241u49Icf0oB5wevi2w5KV+ip6ffyJ64ONRCZ/qQJus=
+X-Authority-Info-Out: v=2.4 cv=WJByn3sR c=1 sm=1 tr=0 ts=699385db
+ cx=c_apl:c_apl_out:c_pps a=T0mU/zd77MEem+zjWCBf6Q==:117 a=HzLeVaNsDn8A:10
+ a=3Ehdl_PnrTUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Mpw57Om8IfrbqaoTuvik:22
+ a=GgsMoib0sEa3-_RKJdDe:22 a=S0GtPEJHAAAA:8 a=IDGG5-EUAAAA:8 a=BkpHzsgbAAAA:8
+ a=jU4qhlNgAAAA:8 a=3j4BkbkPAAAA:8 a=vnREMb7VAAAA:8 a=5nU7xOV5QIA7Lzr2gnsA:9
+ a=QEXdDO2ut3YA:10 a=Z6W84Hv9AAAA:8 a=nHmeYInUBvX3hq-6MEEA:9
+ a=SCur7glBbnaKt24z:21 a=lqcHg5cX4UMA:10 a=T4MN6MjHYVWx-CuyBXkR:22
+ a=bmmzkLxkDsWBqcrcnnnQ:22 a=yzENr7gOgpk2OR6HqXp9:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-02-16_07,2026-02-16_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=416
+ adultscore=0 bulkscore=0 clxscore=1030 lowpriorityscore=0 mlxscore=0
+ malwarescore=0 phishscore=0 spamscore=0 suspectscore=0 classifier=spam
+ authscore=0 adjust=0 reason=mlx scancount=1 engine=8.22.0-2601150000
+ definitions=main-2602160180
+X-JNJ: AAAAAAABWSS7zLCpC6Ur5PvAzGYWFI+BV+kuvYLpHJsoIFxq5CzNspikbbDpeJEfadIwE396UQ3haycemPMG6koq43leiPe9KHsb5KDECSszkdkgzgvcQCu3U57noxyUjMFtYCbzO2776MXmAO7poGWiqFX+rYU99pgcfyRnBeLtIU3CfLkUDxsLKUiEuiDmTAJ07PH6mCaFOi2HTkSzvNUZ9c6t8gGtOL85N++gYo/I9OvycqRmTUQM3GGib/2F5XtNumBDU4/XNOn+AuLiagVp7cRVU2wiRpsjegXUu3Y08pn/Z4RI7dOeKn1jVizOVrzpzIY/LO3Bh240OReHsTTnaGVKccHmylnqk/IDizMn3GzztaqpzCxJpqA9EeFZ9JsslNinh82jGvBHtUZTH9pjwTnS2QfluSr4eD7549K50vgqQnD0pqV4HrHUMDQ1bGK1oA03fd/CEEyLJKoH04pzNuPvA8LBmdcXxQoHjoNWwtZO6/E3tHCjNYk49UYd2faaaML+CtRrFXupZyIaBtlhR08ep24Xl+HZPiDj+QtuourMdEkXzW8CcOJrE0DPfYGJ7khB1eY8fkyJR9RnCi3qLJSAVBj4BcVls+71Glo09MAGjakRGW5NCNuYuXgHUIuheEaOCnVSG4eqBaiJEWk=
+
+--000000000000a90e5a064af744a8
+Content-Type: text/plain; charset="UTF-8"
+
+Nice to meet you again Ernest.
+
+
+
+-- 
+Brandon Crookshanks
+Co-Founder
+Prepare2Rise
+1.951.906.5157
+brandon@prepare2rise.com
+<https://meetings.hubspot.com/crookshanks>
+
+
+<https://prepare2rise.com/>
+<https://www.instagram.com/prepare2rise/>
+<https://www.linkedin.com/in/brandoncrookshanks/>
+<https://www.facebook.com/prepare2risecoaching>
+<https://www.youtube.com/@prepare2rise>
+
+--000000000000a90e5a064af744a8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><font color=3D"#000000" face=3D"Inter, sans-serif" si=
+ze=3D"1">Nice to meet you again Ernest.=C2=A0</font></div><div><font color=
+=3D"#000000" face=3D"Inter, sans-serif" size=3D"1"><br></font></div><div><f=
+ont color=3D"#000000" face=3D"Inter, sans-serif" size=3D"1"><br></font></di=
+v><div><br></div><span class=3D"gmail_signature_prefix">-- </span><br><div =
+dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><d=
+iv dir=3D"ltr"><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" styl=
+e=3D"border:none;border-collapse:collapse;color:rgb(0,0,0);font-size:10px;f=
+ont-family:Inter,sans-serif"><tbody><tr style=3D"border:none;border-collaps=
+e:collapse"><td style=3D"border:none;border-collapse:collapse;line-height:1=
+6px"><table cellpadding=3D"0" cellspacing=3D"0" style=3D"border:none"><tbod=
+y><tr style=3D"border:none;border-collapse:collapse"><td valign=3D"top" ali=
+gn=3D"left" style=3D"border:1px solid rgb(226,226,226);border-collapse:coll=
+apse;padding:15px;border-radius:5px"><table width=3D"100%" border=3D"0" cel=
+lspacing=3D"0" cellpadding=3D"0" style=3D"border:none;border-collapse:colla=
+pse"><tbody><tr style=3D"border:none;border-collapse:collapse"><td align=3D=
+"left" valign=3D"middle" style=3D"border:none;border-collapse:collapse"><ta=
+ble width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=
+=3D"border:none;border-collapse:collapse"><tbody><tr style=3D"border:none;b=
+order-collapse:collapse"><td style=3D"border:none;border-collapse:collapse"=
+><a><img src=3D"https://app.customesignature.com/upload/signature/10037/100=
+37.png" width=3D"45" style=3D"display:block"></a></td></tr><tr style=3D"bor=
+der:none;border-collapse:collapse"><td style=3D"border:none;border-collapse=
+:collapse;padding-bottom:10px"><table border=3D"0" cellspacing=3D"0" cellpa=
+dding=3D"0" style=3D"border:none;border-collapse:collapse"><tbody><tr style=
+=3D"border:none;border-collapse:collapse"><td style=3D"border:none;border-c=
+ollapse:collapse;padding:15px 0px 0px"><table border=3D"0" cellspacing=3D"0=
+" cellpadding=3D"0" style=3D"border:none;border-collapse:collapse"><tbody><=
+tr style=3D"border:none;border-collapse:collapse"><td align=3D"left" valign=
+=3D"middle" style=3D"border:none;border-collapse:collapse"><span style=3D"f=
+ont-weight:bold;font-size:20px">Brandon Crookshanks</span></td><td align=3D=
+"left" valign=3D"middle" style=3D"border:none;border-collapse:collapse;padd=
+ing-left:5px"><img width=3D"15" height=3D"15" src=3D"https://app.customesig=
+nature.com/images/verify.gif" style=3D"display:block"></td></tr></tbody></t=
+able></td></tr><tr style=3D"border:none;border-collapse:collapse"><td style=
+=3D"border:none;border-collapse:collapse"><span style=3D"font-size:12px">Co=
+-Founder</span></td></tr></tbody></table></td></tr><tr style=3D"border:none=
+;border-collapse:collapse"><td style=3D"border:none;border-collapse:collaps=
+e"><span style=3D"font-weight:bold;font-size:12px">Prepare2Rise</span></td>=
+</tr><tr style=3D"border:none;border-collapse:collapse"><td style=3D"border=
+:none;border-collapse:collapse"><a href=3D"tel:1.951.906.5157" style=3D"col=
+or:rgb(0,0,0);font-size:12px" target=3D"_blank">1.951.906.5157</a></td></tr=
+><tr style=3D"border:none;border-collapse:collapse"><td style=3D"border:non=
+e;border-collapse:collapse"><a href=3D"mailto:brandon@prepare2rise.com" sty=
+le=3D"color:rgb(0,0,0);font-size:12px" target=3D"_blank">brandon@prepare2ri=
+se.com</a></td></tr><tr style=3D"border:none;border-collapse:collapse"><td =
+style=3D"border:none;border-collapse:collapse;padding:5px 0px 0px"><table c=
+ellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"border:none;border=
+-collapse:collapse"><tbody><tr style=3D"border:none;border-collapse:collaps=
+e"><td style=3D"border:none;border-collapse:collapse"><a href=3D"https://me=
+etings.hubspot.com/crookshanks" target=3D"_blank"><img alt=3D"" src=3D"http=
+s://app.customesignature.com/images/custome/animation/3/letsconnect.gif" wi=
+dth=3D"73" style=3D"display:block"></a></td></tr></tbody></table></td></tr>=
+<tr style=3D"border:none;border-collapse:collapse"><td style=3D"border:none=
+;border-collapse:collapse"><table cellpadding=3D"0" cellspacing=3D"0" borde=
+r=3D"0" style=3D"border:none;border-collapse:collapse"><tbody><tr style=3D"=
+border:none;border-collapse:collapse"></tr></tbody></table></td></tr></tbod=
+y></table></td><td align=3D"left" valign=3D"middle" style=3D"border:none;bo=
+rder-collapse:collapse;padding:0px 0px 0px 15px;display:revert"><div style=
+=3D"max-height:0px;overflow:visible"><img src=3D"https://app.customesignatu=
+re.com/upload/signature/profile/1730648177-10037.jpg" width=3D"140" style=
+=3D"display:block;border-radius:0px"></div><img src=3D"https://app.customes=
+ignature.com//upload/signature/gifs/giphyy-2.gif" name=3D"SignatureSanitize=
+r_profile_annimation_gif" width=3D"140" style=3D"display:block;border-radiu=
+s:0px"></td></tr></tbody></table></td><td width=3D"8" style=3D"border:none;=
+border-collapse:collapse;display:revert">=C2=A0</td><td valign=3D"top" alig=
+n=3D"left" style=3D"border:1px solid rgb(226,226,226);border-collapse:separ=
+ate;border-radius:5px;padding:3px 8px 8px"><table border=3D"0" cellspacing=
+=3D"0" cellpadding=3D"0" style=3D"border:none;border-collapse:collapse"><tb=
+ody><tr style=3D"border:none;border-collapse:collapse"><td style=3D"border:=
+none;border-collapse:collapse;padding:5px 0px 0px"><a href=3D"https://prepa=
+re2rise.com/" target=3D"_blank"><img alt=3D"" src=3D"https://app.customesig=
+nature.com/images/social/animation/4/web-icon.gif" width=3D"22" style=3D"di=
+splay:block"></a></td></tr><tr style=3D"border:none;border-collapse:collaps=
+e"><td style=3D"border:none;border-collapse:collapse;padding:5px 0px 0px"><=
+a href=3D"https://www.instagram.com/prepare2rise/" target=3D"_blank"><img a=
+lt=3D"" src=3D"https://app.customesignature.com/images/social/animation/4/i=
+nsta-icon.gif" width=3D"22" style=3D"display:block"></a></td></tr><tr style=
+=3D"border:none;border-collapse:collapse"><td style=3D"border:none;border-c=
+ollapse:collapse;padding:5px 0px 0px"><a href=3D"https://www.linkedin.com/i=
+n/brandoncrookshanks/" target=3D"_blank"><img alt=3D"" src=3D"https://app.c=
+ustomesignature.com/images/social/animation/4/linkedin-icon.gif" width=3D"2=
+2" style=3D"display:block"></a></td></tr><tr style=3D"border:none;border-co=
+llapse:collapse"><td style=3D"border:none;border-collapse:collapse;padding:=
+5px 0px 0px"><a href=3D"https://www.facebook.com/prepare2risecoaching" targ=
+et=3D"_blank"><img alt=3D"" src=3D"https://app.customesignature.com/images/=
+social/animation/4/facebook-icon.gif" width=3D"22" style=3D"display:block">=
+</a></td></tr><tr style=3D"border:none;border-collapse:collapse"><td style=
+=3D"border:none;border-collapse:collapse;padding:5px 0px 0px"><a href=3D"ht=
+tps://www.youtube.com/@prepare2rise" target=3D"_blank"><img alt=3D"" src=3D=
+"https://app.customesignature.com/images/social/animation/4/youtube-icon.gi=
+f" width=3D"22" style=3D"display:block"></a></td></tr></tbody></table></td>=
+</tr></tbody></table></td></tr><tr style=3D"border:none;border-collapse:col=
+lapse"><td align=3D"left" valign=3D"top" style=3D"border:none;border-collap=
+se:collapse"><table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=
+=3D"border:none;border-collapse:collapse"><tbody><tr style=3D"border:none;b=
+order-collapse:collapse"></tr></tbody></table></td></tr><tr style=3D"border=
+:none;border-collapse:collapse"></tr><tr style=3D"border:none;border-collap=
+se:collapse"><td style=3D"border:none;border-collapse:collapse;padding:10px=
+ 0px 0px"><a></a></td></tr></tbody></table></div></div></div>
+
+--000000000000a90e5a064af744a8--
+

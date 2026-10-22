@@ -1,0 +1,153 @@
+Delivered-To: estrauhal@gmail.com
+Received: by 2002:a05:612c:1584:b0:4d5:aca:cdb4 with SMTP id fo4csp3357810vqb;
+        Mon, 11 Aug 2025 09:58:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=3; AJvYcCWr3B+hEodcjDFSM8ef+SzvDrMeRN55t2PHB5Ns940Gw2NCGQT5xmw94VbdyFHJXuyN87u/6r9kvKU=@gmail.com
+X-Google-Smtp-Source: AGHT+IH7IlHSH4n0ahZiSVjxTMV4COvQeLG1urDE4LkwbCdx+XCUA8HFnDPGg89aRg2Ho8Ucesou
+X-Received: by 2002:ae9:ea10:0:b0:7e7:fff0:70cd with SMTP id af79cd13be357-7e8588afa56mr73776185a.41.1754931483330;
+        Mon, 11 Aug 2025 09:58:03 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1754931483; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=V6jZxyK6Rp9n2XY6UBEgyqug/SPsCixtCljFrzDAuzuGRo309JzX2y/jAjc5z+JWoI
+         Je7P9a9PAohzpKjKXhKOoq3A+PoprFRHnGCmqWR2vREOp1hXspZ3xJVU1sL+O/2CMhJu
+         TWijFhGzQ6f96d3nIpTwJxKH8nFRYnoOlWM+AuqsLRiVWQwLbV2BB9v6i3I7rCet0T5n
+         XT8VibFZ8Fyh9eBRA9JBWffwxdt7w9OTL1Qd3vVZImhAGauufhWsDYtBocJMtQZspax1
+         neesR2R85tTXdDR+LjOREnkQAt3BO5vO04n16xNT28G7NIVVRiT+Itv7rK7Ftx8pAkFi
+         r5sA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=mime-version:feedback-id:message-id:subject:from:to:date
+         :dkim-signature:original-recipient;
+        bh=fdMFWAguHauUWBRWousA0JaQQKFwdhOeFB4ynA6DitI=;
+        fh=f/YmknvgmXBgHwd1ZE7tjrQKcF08ks6nOClAiG2h/ZI=;
+        b=Aleez2ENNHyHYb/0VPxx9sYUMpkTuXH5hk6Vx9L6z9JI2e3z2kIHrQfsDgV3ntVKki
+         5T2sIhRShS6IPAl/VTxP/Lgoe5Jh3GHmDeMx0UioHTs+3C46rquDohIn5or7grYH6Vxh
+         /3bU8qYA9g+c4YhiUWMU7XZZZ7DB2B1s/AIHekW7Ptw/EeyLqowfir5qXtVuLVEtME8v
+         ddWu/ko7bQxM82+Dl2862QmyWW+4ycSpObS/+fZwk23y2QK+wc9HcSRFwtNqRq7fEWaR
+         M5J1KzcYlxvDLlU0BiAzU9fuk5S6wBrDBrYPUGaTPx25cq3k4xTSSJK7B2F+fSYZ/RNf
+         gNcw==;
+        dara=google.com
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@proton.me header.s=protonmail header.b=LzUCyqdI;
+       arc=pass (i=1 spf=pass spfdomain=proton.me dkim=pass dkdomain=proton.me dmarc=pass fromdomain=proton.me);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.88.147 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=proton.me
+Return-Path: <ernest@strauh.al>
+Received: from outbound.ci.icloud.com (p-east1-cluster2-host2-snip4-6.eps.apple.com. [57.103.88.147])
+        by mx.google.com with ESMTPS id af79cd13be357-7e812d5aca4si691365785a.784.2025.08.11.09.58.02
+        for <estrauhal@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 11 Aug 2025 09:58:02 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ernest@strauh.al designates 57.103.88.147 as permitted sender) client-ip=57.103.88.147;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@proton.me header.s=protonmail header.b=LzUCyqdI;
+       arc=pass (i=1 spf=pass spfdomain=proton.me dkim=pass dkdomain=proton.me dmarc=pass fromdomain=proton.me);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.88.147 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=proton.me
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-5 (Postfix) with ESMTPS id 7598518001FA
+	for <estrauhal@gmail.com>; Mon, 11 Aug 2025 16:58:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; cv=none; d=icloud.com; s=arc-0513; b=cVIQF9ztZfSkqE+/w+t/lPpsOOY/VjZRISlWnqo+iQk1CTq40PM0y7Q19wWw1ZTtLWiPdMOYxz0MSKBKfzB/hr8Vmeu84N4fDiQksM8ImZkicRmq9PGHsNGOp5hXQDbotHAwCoZ2gw8hAFGxzcrvAGQP4YlX010ug7aLv+WQHQGj+2RWtwEgnL++x86yjbFZGsIBD3arFSF1T9tUjGi2Mi+o4W+ZWjLoaqWLlKYeuB1EfH2YlMGVZB1rM/S9GiPLMT5tCuFsrPh6iRDa5VgjsGe3agvMLCQeJgmyQ7AS4k4Lw8IlhhomAwdk9wsU8208aGsZMSpOtXAQRpBFjXpDdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=arc-0513; h=from:to:subject:message-id:date:mime-version:content-type:dkim-signature; bh=fdMFWAguHauUWBRWousA0JaQQKFwdhOeFB4ynA6DitI=; b=wBTGN2Ee+ix8nZdjdYgJH42w8ddeH54RXKG4CVPC5sUTEcnd1PTKeTKXe5fYl50yQSixjLQd0tR1qmc3c+lFieprgIsVu7Z0QyreHlcZ96hZR8RtnrXLtuOUAUi46jly7ld7BG3SwcGnzwzrQdAXXA9HQH3dpK83+NqSQc+qmuSBVEtsI/LzkaSVEyfVPgnOmy9lOd0mJx7AJuml47MoZUzCdwfj6X161jIsC40I2zS6CGuJnO7fAQEO9pDQDZQzzZCoCMx4zAR4snIv973kkV+AsTTzV7xX7UHrvemG1bQv7+nXqgOogFNAY0EsdwHfrmXvs1VIYC46RKtifoGrvw==
+ARC-Authentication-Results: i=1; arc.icloud.com; arc=none; dmarc=pass header.from=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=LzUCyqdI; spf=pass (spf.icloud.com: domain of localareaman@proton.me designates 109.224.244.28 as permitted sender) smtp.mailfrom=localareaman@proton.me
+Received: from unknown (ci-asmtpout-k8s.p00.prod.me.com [10.168.160.104])
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-5 (Postfix) with SMTP id A8CB618001EC
+	for <estrauhal@gmail.com>; Mon, 11 Aug 2025 16:57:58 +0000 (UTC)
+Received: from p00-icloudmta-smtpin-us-west-3a-100-percent-8 by p162-mailgateway-smtp-64bdd8cd9-rrv6n (mailgateway 2530B71)
+	with SMTP id 99fc7942-0da8-4806-a517-3c253cb9fcd2 
+	for <ernest@strauh.al>; Mon, 11 Aug 2025 16:57:58 GMT
+X-Apple-Action: FORWARD/estrauhal@gmail.com
+Original-Recipient: rfc822;ernest@strauh.al
+x-apple-request-uuid: 99fc7942-0da8-4806-a517-3c253cb9fcd2
+Received: from mail-24428.protonmail.ch (mail-24428.protonmail.ch [109.224.244.28])
+	by p00-icloudmta-smtpin-us-west-3a-100-percent-8 (Postfix) with ESMTPS id 8F09BC000ED
+	for <ernest@strauh.al>; Mon, 11 Aug 2025 16:57:55 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQEUVUKE0oWX1gHVQoPB0UBBltbS1RDVgICVltLXlcdVAsOGhoHGxlCUwMYGAg3CEJZFhoXSBodEFAGSAkUGAxfWEwYHEYFGw1TEBscFQM4Q0IQFAwOWRlcFgoQFQlKFVFfDlhLUkNKCBgSBxYSGBZdVwsZVwUfWEBCEEgUBx4UHQRWQUteWQhCWRYaFwsWEVwYAR1ZAhNFQEQNARYIWRVVFg8cHVtLLEBUNDwUDQ4aX1UKFAosIxRWDhczDQAZGUFENwIfDgccBgASFC0sRDdCBCE0QBw0OWEbUiwjMTgCYn82Iwg2BxZoTxRHHjETD0lSUDoKKwY0flIRIjdUAwp8BAYdQFAbCmJ1KRQoPy0hAUFfNQkUGAxfWEwYHFg=
+X-ICL-Score: 2.33303322423
+Authentication-Results: bimi.icloud.com; bimi=declined
+X-ARC-Info: policy=fail; arc=none
+Authentication-Results: arc.icloud.com; arc=none
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=proton.me
+X-DMARC-Policy: v=DMARC1; p=quarantine; fo=1; aspf=s; adkim=s;
+X-DMARC-Info: pass=pass; dmarc-policy=quarantine; s=s1; d=s1; pdomain=proton.me
+Authentication-Results: dkim-verifier.icloud.com;
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=LzUCyqdI
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of localareaman@proton.me designates 109.224.244.28 as permitted sender) smtp.mailfrom=localareaman@proton.me
+Received-SPF: pass (spf.icloud.com: domain of localareaman@proton.me designates 109.224.244.28 as permitted sender) receiver=spf.icloud.com; client-ip=109.224.244.28; helo=mail-24428.protonmail.ch; envelope-from=localareaman@proton.me
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1754931473; x=1755190673;
+	bh=fdMFWAguHauUWBRWousA0JaQQKFwdhOeFB4ynA6DitI=;
+	h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=LzUCyqdIeqPiFuZhPlcse1AyHzdGmrm0wNDWHYMmCVR55JNk+aLYB1xh9ktmA7Ft0
+	 AXWnS7Z+6AqoN9WoaR0n6+nv4BzXvFwUWjbAAJRGe/h0kGmZHOMa704WFK6osPDtO1
+	 9SUWwp+V8zE06EcmbAx7rGIArv82bgJq53WV4pzcFppgHM7yQFDJIgJrrpqTSwpuyy
+	 rPYG+iCcFMWPs542snivNfxdzRZAd+C1VLncZqshulpq9XnorpbhsTEMfdT1JGZrRs
+	 ccblhW6fSPgGqRgRsIPg8fG+X6Vk4THUpccXXy40hwW0POpamV1D4/BAkDvyB+ORqb
+	 XVqqUcrFb7KMg==
+Date: Mon, 11 Aug 2025 16:57:47 +0000
+To: "ernest@strauh.al" <ernest@strauh.al>
+From: LOCAL AREA MAN <localareaman@proton.me>
+Subject: saw your ads, clicked the about page
+Message-ID: <TpbVImkybochasJTlf8uFtfnaqrUwfhpd66paTJ3Or2CA9zCAQ-0YZWOzRITVqPpnXyv2gWdwyd2OsMqLNdsWN2trL2dh96lrRCKaQYZY1w=@proton.me>
+Feedback-ID: 151803528:user:proton
+X-Pm-Message-ID: 2cbf3bfa22b78ef17909d45c956fbbc68af8510e
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="b1=_SsnK1ddwp6Zr85pJdju0UN9HPJQFPsBQ6TiqDjwL8OM"
+X-Proofpoint-GUID: dNGMhxSlLs6OYcgb7GzE2QFFnJ0MTYcm
+X-Proofpoint-ORIG-GUID: dNGMhxSlLs6OYcgb7GzE2QFFnJ0MTYcm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODExMDExMCBTYWx0ZWRfX6rZEBnFMTY1Q
+ l1pYHMsZgmX5aycD4e6w1D+Wlzj3X20S2Gp2IggjLhq0ahWIBey1kTBS8EEDohmTCZF1SvOXdZk
+ MxhO1la1LiFRKvAKp+yJMSZQuKXP2eCwUK66f1dgI5kojcAL+wv1Z7DXu96EeuPQf8T+33GkDRd
+ ViHoWSxWEwuEBtIXm4zPn/xVJxAprGXuVE4f1i15M9HkowWe/JIIAmM0CUTNv0cIwiKQWhmkioH
+ x4Btvgo1LvMDMrYL7CY4AoFuIpeCVpaFN+zKqTCqqcxd28Xvk3xA1h/wlZJKwbqUIDMaG4Ylw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-11_03,2025-08-11_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=1 clxscore=1030
+ phishscore=0 mlxlogscore=188 mlxscore=1 spamscore=1 adultscore=0
+ suspectscore=0 bulkscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.22.0-2506270000 definitions=main-2508110110
+
+--b1=_SsnK1ddwp6Zr85pJdju0UN9HPJQFPsBQ6TiqDjwL8OM
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+YW5kIHlvdSBzYWlkIHRvIGVtYWlsIHlvdSBpZiB3ZSB3YW50ZWQsIHNvIGhlcmUgSSBhbSwgZW1h
+aWxpbmcgeW91LiBlbmpveWluZyB5b3VyIHNpdGUgc28gZmFyLiBob3cgbXVjaCBkbyB0aGUgYWRz
+IGNvc3QgeW91IHBlciBtb250aD8gd2h5J2QgeW91IHN0YXJ0IGFkdmVydGlzaW5nIHRoZSBzaXRl
+IHRvIGJlZ2luIHdpdGg/IGFueSByZXNwb25zZXMgc28gZmFyPwoKYWJvdXQgbWU6IFJpZ2h0IG5v
+dyBJIHNlZSBhIGNyb3cgZWF0aW5nIGEgcGl6emEgY3J1c3Qgb24gdG9wIG9mIGEgc3RyZWV0bGln
+aHQuIEkgYW0gdHdpdGNoeSBhbmQgdW5ldmVuIGZyb20gdG9vIG11Y2ggNEYtTVBILiBJIHdhbnQg
+dG8gZXNjYXBlIHdvcmsgYW5kIGZpbmlzaCByZWFkaW5nIHRoZXNlIGVzc2F5cyBvbiBNYWNiZXRo
+IEkgZ290IGZyb20gbGliZ2VuLiBNaWdodCBtYWtlIHJpY2UgYW5kIGNoaWNrcGVhIGZvciBkaW5u
+ZXIuCgpTZW50IHdpdGggW1Byb3RvbiBNYWlsXShodHRwczovL3Byb3Rvbi5tZS9tYWlsL2hvbWUp
+IHNlY3VyZSBlbWFpbC4=
+
+--b1=_SsnK1ddwp6Zr85pJdju0UN9HPJQFPsBQ6TiqDjwL8OM
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0
+cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwg
+MjU1KTsiPmFuZCB5b3Ugc2FpZCB0byBlbWFpbCB5b3UgaWYgd2Ugd2FudGVkLCBzbyBoZXJlIEkg
+YW0sIGVtYWlsaW5nIHlvdS4gZW5qb3lpbmcgeW91ciBzaXRlIHNvIGZhci4gaG93IG11Y2ggZG8g
+dGhlIGFkcyBjb3N0IHlvdSBwZXIgbW9udGg/IHdoeSdkIHlvdSBzdGFydCBhZHZlcnRpc2luZyB0
+aGUgc2l0ZSB0byBiZWdpbiB3aXRoPyBhbnkgcmVzcG9uc2VzIHNvIGZhcj88YnI+PGJyPmFib3V0
+IG1lOiBSaWdodCBub3cgSSBzZWUgYSBjcm93IGVhdGluZyBhIHBpenphIGNydXN0IG9uIHRvcCBv
+ZiBhIHN0cmVldGxpZ2h0LiBJIGFtIHR3aXRjaHkgYW5kIHVuZXZlbiBmcm9tIHRvbyBtdWNoIDRG
+LU1QSC4gSSB3YW50IHRvIGVzY2FwZSB3b3JrIGFuZCBmaW5pc2ggcmVhZGluZyB0aGVzZSBlc3Nh
+eXMgb24gTWFjYmV0aCBJIGdvdCBmcm9tIGxpYmdlbi4gTWlnaHQgbWFrZSByaWNlIGFuZCBjaGlj
+a3BlYSBmb3IgZGlubmVyLiZuYnNwOzwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiBBcmlh
+bCwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxNHB4OyI+PGJyPjwvZGl2Pg0KPGRpdiBzdHlsZT0i
+Zm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7IiBjbGFzcz0i
+cHJvdG9ubWFpbF9zaWduYXR1cmVfYmxvY2siPg0KICAgIDxkaXYgY2xhc3M9InByb3Rvbm1haWxf
+c2lnbmF0dXJlX2Jsb2NrLXVzZXIgcHJvdG9ubWFpbF9zaWduYXR1cmVfYmxvY2stZW1wdHkiPg0K
+ICAgICAgICANCiAgICAgICAgICAgIDwvZGl2Pg0KICAgIA0KICAgICAgICAgICAgPGRpdiBjbGFz
+cz0icHJvdG9ubWFpbF9zaWduYXR1cmVfYmxvY2stcHJvdG9uIj4NCiAgICAgICAgU2VudCB3aXRo
+IDxhIGhyZWY9Imh0dHBzOi8vcHJvdG9uLm1lL21haWwvaG9tZSIgdGFyZ2V0PSJfYmxhbmsiPlBy
+b3RvbiBNYWlsPC9hPiBzZWN1cmUgZW1haWwuDQogICAgPC9kaXY+DQo8L2Rpdj4NCg==
+
+
+--b1=_SsnK1ddwp6Zr85pJdju0UN9HPJQFPsBQ6TiqDjwL8OM--
+
+

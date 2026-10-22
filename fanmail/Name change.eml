@@ -1,0 +1,250 @@
+Delivered-To: estrauhal@gmail.com
+Received: by 2002:a05:612c:4198:b0:569:13d1:eb1f with SMTP id le24csp413561vqb;
+        Fri, 13 Feb 2026 12:20:40 -0800 (PST)
+X-Forwarded-Encrypted: i=4; AJvYcCXg7HY9ZAICMEGlM/qYWEj82st9/4jNGttcMpmCKpE/Whlim4Wi374AoXBa4tIJl3hUMLDxA2IVf9I=@gmail.com
+X-Received: by 2002:a05:620a:164b:b0:8cb:4289:6c16 with SMTP id af79cd13be357-8cb4289706fmr319896885a.87.1771013956108;
+        Fri, 13 Feb 2026 12:19:16 -0800 (PST)
+ARC-Seal: i=3; a=rsa-sha256; t=1771013956; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=a+leMf/OtLCQ6iyWPt23y7i4JckkArxgqGeJken6X+EJhf6fMzvyx8psksh7Urbitf
+         Ka/24CTJUtFIdHlUCusF8AvAFDGtIzvqX0xdvvyMJOImnFi4OkGgcrE1poQlejZ46hTk
+         UnFlO6LA12grYJaYK/BOTS4fpqKf+oDt7UidyhnpzGfUYkgl/gySzwhaccWLkcTa6yNh
+         xkDUcgB50JOTooV9G1h6wSW/QhZYTVJU7PB8hYK0IBGP7CPLEEPSzc4hKXXeUbxKP5zn
+         ZMdfOGp3u8mPAz2W59+hb5xKzJ1t9xg49CNAEbjKKJ1NUfQOZjlBUVwfPSeOR9NbdEmm
+         px0g==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=mime-version:msip_labels:content-language:accept-language
+         :message-id:date:thread-index:thread-topic:subject:to:from
+         :original-recipient;
+        bh=uTqAV792bLAx/SB6So/8Brza25Az280A2wUstPWmYXw=;
+        fh=f/YmknvgmXBgHwd1ZE7tjrQKcF08ks6nOClAiG2h/ZI=;
+        b=k2yxXJ3OrUBV0ps4eb6eDERizG0jAoQAyzdbW56Xo16+LHEM70GvThJjmfck4H69dJ
+         Nsp92g66syQZEgZeM9sgm1BZFLTivcXCQhA3N0sRsTL/KQQGIpRIjYClLD8eYnlP58eO
+         ZGxIm8ehVJcNuPOTQ3OqBBcjzP8hJoYxAYeMyuAIefLWzMk5wFd2v1Ehfa6283Z3Ie0I
+         onTZJGeGho9o9Qkt+TOeKO2v1CRGNzJEc178s0ggyUV+ilO4sIBq4KEAuJkMTYscFdKr
+         pTB+osc0YuGMGMQvxzX/JXstvOYOs1s7epgURxnGF6Aru3rHwGQf6zVXAA/ZTXwzGyH8
+         Az8Q==;
+        dara=google.com
+ARC-Authentication-Results: i=3; mx.google.com;
+       arc=pass (i=2 spf=pass spfdomain=outlook.de);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.88.160 as permitted sender) smtp.mailfrom=ernest@strauh.al
+Return-Path: <ernest@strauh.al>
+Received: from outbound.ci.icloud.com (ci-2002c-snip4-10.eps.apple.com. [57.103.88.160])
+        by mx.google.com with ESMTPS id af79cd13be357-8cb2b25bd16si891826885a.560.2026.02.13.12.19.15
+        for <estrauhal@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Feb 2026 12:19:15 -0800 (PST)
+Received-SPF: pass (google.com: domain of ernest@strauh.al designates 57.103.88.160 as permitted sender) client-ip=57.103.88.160;
+Authentication-Results: mx.google.com;
+       arc=pass (i=2 spf=pass spfdomain=outlook.de);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.88.160 as permitted sender) smtp.mailfrom=ernest@strauh.al
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-60-percent-7 (Postfix) with ESMTPS id 2767D18002E0
+	for <estrauhal@gmail.com>; Fri, 13 Feb 2026 20:19:13 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; cv=pass; d=icloud.com; s=arc-0513; b=AsSB3+guXysP1XrrtdrMb6X54T7JbDkyG/8vku94WKm7qmGz4TB0VVyCMKLmJRfPza2CGSz3ir8Fl4/0j/QO/Fbq3Ovfl4FjNMd4k4jsB1ZeWelFUtCd5jnExsc8D+rn+vy17L0kWu0aKrmTNUhnTTdygARhdQrcENOY/FX4Njbp+Xmaqhr2hb2GoEFrHcBGvVexq4hfJo1l28oBNbpg08cRYoK5DKxrLtQAfZ/Rouky/tnmtRJJx5DkcUuNilpHCvxJyUb39fitXc61ihBtw8S2WadYnKf2SZ1jssKtVCsksH3/8X/6XiNhHRa4It5EHfm2S9nXBKOuHSBtWKdIPg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=arc-0513; h=from:to:subject:message-id:date:mime-version:content-type:dkim-signature; bh=uTqAV792bLAx/SB6So/8Brza25Az280A2wUstPWmYXw=; b=t1oMtbahGXfe6SuOiN3FwE8c342J2ex2OdFBE0+P1xXJJTDpLRPsHG5ptT1nvp3BCpcbR0ws7KTxKwB2h15mtr8YIMdFhIoexO3DO2+XPAtj7jHql0yaRcaWS9TmxYeSMc6GlJ29ULpnoWlrHyo4915pcEMJfuojh2sf8XNN6jkEGOoARr80hNPnIo875F9QXyLjCFDNqONJySuP5oB++mznKuUte8X0tUmzOFprBSeeThvfiXdJFDQ/cpQa7dnLbmOIa3L9xbvCK2neRFYWcBa4W/cRKBCwMFNlVycGYghcJ3SPPPOYyRkh6pY0utPBholrKQukQ5zs7bhEi5+mcw==
+ARC-Authentication-Results: i=2; arc.icloud.com; arc=pass; dmarc=none header.from=outlook.de; dkim=none; spf=pass (spf.icloud.com: domain of haruncelik07@outlook.de designates 52.103.39.26 as permitted sender) smtp.mailfrom=haruncelik07@outlook.de
+Received: from unknown (unknown [10.168.160.104])
+	by p00-icloudmta-asmtp-us-central-1k-60-percent-7 (Postfix) with SMTP id B5596180012F
+	for <estrauhal@gmail.com>; Fri, 13 Feb 2026 20:19:12 +0000 (UTC)
+Received: from p00-icloudmta-smtpin-us-central-1n-20-percent-9 by p162-mailgateway-smtp-6b8d4bb5b9-b2lz6 (mailgateway 2544B77)
+	with SMTP id dc6ab083-f7ab-4d1e-9518-21e0a0aa000d 
+	for <ernest@strauh.al>; Fri, 13 Feb 2026 20:19:12 GMT
+X-Apple-Action: FORWARD/estrauhal@gmail.com
+Original-Recipient: rfc822;ernest@strauh.al
+x-apple-request-uuid: dc6ab083-f7ab-4d1e-9518-21e0a0aa000d
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazolkn19011026.outbound.protection.outlook.com [52.103.39.26])
+	by p00-icloudmta-smtpin-us-central-1n-20-percent-9 (Postfix) with ESMTPS id 87772C000E3
+	for <ernest@strauh.al>; Fri, 13 Feb 2026 20:19:08 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBFBFSlVFSgQFUFUKE0oWX1gHVQoPB0UFBExESVVZSwkYUENZAxNFWFcQABcFEhRZXVJCOQkCDFxZDR5XAhJYVlJfGgwSGxdfXUwRHEYFGw1TEBscFQM4Q0IQFAwOWRlcFgoQFQlKNWJhMidJVTQtAAZTWxYTAxpfQwwRVxYFF0RTAQEQCRlWX0MWGRYJHFZTWQ9VCRIFRV1XCxlUAAUZXlUHBhYTAxBRTA0ZEghGQQAHU0VLUFkXRUIAGgwIE1ZARA0BHAUDEV9YTBoMEhsXX11MFhYLVxxUCxcbEggYD14WDxwdW0s/ZgQyJ0lQOjoBBldCQSNOTwJ3J00/JTQ7BQdURzpQR0ECdFFDSCc3P2YEMidJUDo6AQZXQkFIEg1CRhARSVBZCEJZBlsWEwMUX1kJWxoJGkY=
+X-ICL-Score: 2.32203322432
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=pass; id=mx.microsoft.com 1; r1=-22; r2=1
+Authentication-Results: arc.icloud.com; arc=pass
+Authentication-Results: dmarc.icloud.com; dmarc=none header.from=outlook.de
+X-DMARC-Policy: none
+X-DMARC-Info: pass=none; dmarc-policy=(nopolicy); s=u0; d=u0; pdomain=outlook.de
+Authentication-Results: dkim-verifier.icloud.com; dkim=none
+Received-SPF: pass (spf.icloud.com: domain of haruncelik07@outlook.de designates 52.103.39.26 as permitted sender) receiver=spf.icloud.com; client-ip=52.103.39.26; helo=MRWPR03CU001.outbound.protection.outlook.com; envelope-from=haruncelik07@outlook.de
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of haruncelik07@outlook.de designates 52.103.39.26 as permitted sender) smtp.mailfrom=haruncelik07@outlook.de
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gkWH1Y70hfLKbzyfuj90MCSfkN/Yt7+z6C1P/22qk/wndcRAg5YbFzYfJ1VILqjfBgPSQZGj+0A8PGCdJZoYicxqWhyOFIDIw3QQMOJad1ARVInCC/SKj3BNTbslha+WHRUt7dYedQI5DSiZMLOi57L4qwxX5eVHCYQAff6hTwuLMQ6Io2zniY8He0InX9FrRnBhsCcIN0h9spPIRXOMgYJGgZxHJjhLIY8m0mkYOdmLVVmqj/qCi+hpTLz4sn7UnkTYxx4A2AIqxB2pgGwg+mSfAZFu5QUfCWU695+5lQQDs8esDglzKSJQsZDndM9SQkjuvuVilLebW3mZhE0GZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uTqAV792bLAx/SB6So/8Brza25Az280A2wUstPWmYXw=;
+ b=c6LDsDK1uR3u84k5QWqmU3wNu8PIk+2XmcuGzKmX6xL5sOkubljUyU5ISSdnKlqGhmBgVq7voGoMgCCVxz/H61IGuO4FOt14FirUB1WRHQMmefrWsPBeHdnqn9lnTo0tB8e1NU7/+8+oSYklSofjoglVMpro4LWSYrIdGPFvWFubSQJYd34CZ60UXQdsLltHRa/N6Mf3VvmdRx7dVcvmkZzD1gNVNJmQziEpNyRLCs/0S0UVMfMdcxUaaYs5hnfWib4m29y1mTqY8uAbT/mYJlpbhFc5L5Y+62lZBp3OTgy/WlxTSEPzIYEXBO/ZRIyULQmLJPGcnvY3a1KHZEwOdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+Received: from GV2PR06MB10578.eurprd06.prod.outlook.com
+ (2603:10a6:150:30c::19) by PA1PR06MB9285.eurprd06.prod.outlook.com
+ (2603:10a6:102:455::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.13; Fri, 13 Feb
+ 2026 20:19:05 +0000
+Received: from GV2PR06MB10578.eurprd06.prod.outlook.com
+ ([fe80::a4de:c4c6:ea47:6e72]) by GV2PR06MB10578.eurprd06.prod.outlook.com
+ ([fe80::a4de:c4c6:ea47:6e72%3]) with mapi id 15.20.9611.012; Fri, 13 Feb 2026
+ 20:19:05 +0000
+From: Harun Celik <haruncelik07@outlook.de>
+To: "ernest@strauh.al" <ernest@strauh.al>
+Subject: Name change
+Thread-Topic: Name change
+Thread-Index: AQHcnSX+oNkYoKU8A0OQOptZyeTe1w==
+Date: Fri, 13 Feb 2026 20:19:05 +0000
+Message-ID:
+ <GV2PR06MB10578E972AE8FCCC5162C6092B361A@GV2PR06MB10578.eurprd06.prod.outlook.com>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR06MB10578:EE_|PA1PR06MB9285:EE_
+x-ms-office365-filtering-correlation-id: 09da3055-771c-40a7-465b-08de6b3d22c0
+x-ms-exchange-slblob-mailprops:
+ dXgNGeDBlWfbXo0L3GR0nw9TTVHTrV9Jq5ZYeKdqREXOTjxxzm+hQDU6HPBXCn5HOtdcfyhSuOQnQBTGwNmPUA15MCCSczOQB5/JWuvXVgt81Ajf4LXOBuCMKu8OxAUtlUyM5pzQ0iDmzabhQJ1duItgb9k+O5Qj+VRrNpfbOu8HypCLYmVaGc2VBbuZAk1A9ThN55DNHwvOkNG+2MlRCLtYZiZC3UfL3LdJm8Lx9bRU+qfyUanZkfBhuZ7dir+e+CFqSYh//U2oH9LeBqi4Y9vC5FznBPdbMbJ1bCf15aEWZ06AC9dTXTcpsokt4XdxHPSulSDYRjEJ/aUhehw29sqQ9Ku/KfNwizs6dtk7tUhpw51vCAiyBryroMotlPMfbdD8kxha5ZkYYaGVYc/C6r71iZ6H3xn63eBhCgRQJGdcd1QdLiPf20x8SmTzmVDWnxTVfCBFnenlKjmGL84ti19zrZvMSRX4NEQ1PGlKfB40cTwqOeDhoSN0VKCHGcylJDg5q6mKCmDkiNq0V1rhZ6M5g0+2g04AizEnTlEh7tjuKXJyNGcM9gyKUGthAO4qrHCpv4TQF13c8XuZBt8mqGTkGivEaV8EPg0iBvNwtznzMGIFZtwk/M0TRFYwwI3a
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|461199028|19110799012|7042599007|8060799015|8062599012|15080799012|15030799006|31061999003|51005399006|3412199025|440099028|102099032|40105399003;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?tcLL+qJKz5+Feb/qNM2lTjjuSgNfcWIVjpYR4UMmFj8pB4MJ+RjdeyKB/e?=
+ =?iso-8859-1?Q?J2Dh5ejmUGnpFtYOLDii2Ad31Vstt/rbidJUwAN8X03q8tun/D3NWQplDA?=
+ =?iso-8859-1?Q?JKkyTZVx+widItgEgEMBUEt8GVeCmNMnBTOYHgfzJhhyKjtebjP9aepOmH?=
+ =?iso-8859-1?Q?tMU4QZrtG9KOOg4TydoWwrklrQ9rqoJsvYAdqtCXjf/pliMoFaAZsBfkEY?=
+ =?iso-8859-1?Q?j3LGk9n6Kq0IkUVuOcN4EqIDcAIVF9aznDe9cHWHNav9DIuOE87FtGdiCj?=
+ =?iso-8859-1?Q?M87p/DhKsKBQnse0dgExVrquKwYiY+7K5dj8xoq1CLLV86L4UvwkKe0sTA?=
+ =?iso-8859-1?Q?ghKa3vXAJmNczoE92UvJb62DIVVRcKQcdhTAvdY6DynEsWwLuZ/jl0F9K6?=
+ =?iso-8859-1?Q?KUnlE+HkqPSZM76aqyCedvtNIp6PRymh7z7K6FeLvfRJnTIm0xtQW+ZREA?=
+ =?iso-8859-1?Q?hft4qzCdPdRkJyukOBpjFoyYipeeypwVl/i5iwLEEa2QgKTC0sWQ5JayfV?=
+ =?iso-8859-1?Q?fiwOV9wCrBneewzwz2WyXt2In6FdV5X2BY7JeqaA+Ibo1YztQMHXmLhF0t?=
+ =?iso-8859-1?Q?EELl5Pqf3rF6gwDj/XCPSMIvnpW8YfQn5F26EeqQBKNwFTz40c/+LTBqUJ?=
+ =?iso-8859-1?Q?l7FVc0+w4GqFISuJSqZvV3LfkVA7AUQN+062n7ReCdkM2Uf4eUVyqBOb1Y?=
+ =?iso-8859-1?Q?033lidrx1nLWgjJOC0LJYslykKvxqNE0hjuAEzMGggzeQ/Tvnt7ztFp0L2?=
+ =?iso-8859-1?Q?EIGQzf9IxPJ+1ortamE1to5poSL7waQRKsyUJdzohBYLdUA188mRW1iZzm?=
+ =?iso-8859-1?Q?Z7quhStn5raWkKWTdmRtfdsFMWGIGDe65CbLwOjE+3inJxTe8SgbTYAzOK?=
+ =?iso-8859-1?Q?wZD7kfViJcC9WS0YRFV57c25tyLhHkrNtr+zmjecIezB72dX/KeQT0GkCT?=
+ =?iso-8859-1?Q?O+fINj7jSRqT7EllzSiYyVI4mhEQqohCFwl+45jjtnbO63PLylcZO3RevS?=
+ =?iso-8859-1?Q?z58T84CLf639NwmJZCVFvVDIAYxo1Lcki2abqc9S3TyhZ7AoUMxXnwxoos?=
+ =?iso-8859-1?Q?ZMEOX0fWViKADgrCAxGO8ZPRGComblj2pdUT872tQKwmBygOg6NummQHK6?=
+ =?iso-8859-1?Q?TvhNZvNg8j6pSvDkIWcjYA6KJjZQrTZEEUy4xp8wT9AeRd5fU38FA99oFS?=
+ =?iso-8859-1?Q?bUMrHLS4BpqynOfVK54ZPjn314sI8K3KW7qUEm3Ck+i2qFAGrGY0rzg8lJ?=
+ =?iso-8859-1?Q?z0hzwKbWBAOPz+lMM/PA9csOGg5aQkUlOe5U5GhA4=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?0nXgkddVIqPtnG0nkG6sJtPAgrpfkXSncEPlCks55YOykiMgOIV9A8PpEq?=
+ =?iso-8859-1?Q?sWsfeIzrfuciFBaGWtvNhoZ8FFk99+ywaIJLt0IauF0rOxgZJdTUq8tk9D?=
+ =?iso-8859-1?Q?HmGnnCWkXM7p7BzZfZLDWacPn9LwuF682YvgGZRgMFkMN8VDBsG8yimtU4?=
+ =?iso-8859-1?Q?5Tvhf0s3AXLFIgHYc5foLh77/W2bqMXIrfjb4hrBQSWv7iAu8duExg1pRy?=
+ =?iso-8859-1?Q?IOjqpyZzxo4fC7z/nS/znM1T6t4fBjX6qIOwLG4Yk4cS2L9Lu8aJrlgAlr?=
+ =?iso-8859-1?Q?NRhkJ43An+zEp7qyQQ410dy7BmqBzPyEGPsIFzwn3u3ss2ZXd+CSTvttHC?=
+ =?iso-8859-1?Q?mj651qxq2AuvNS5oe4TePxU8WLNiny25VEWthEcmr03vtWpQxX7ryaP0sz?=
+ =?iso-8859-1?Q?3gbOfG9FZZwMJbOExLyw0hFr+hPhWTiVHAKFdYKSpcvd9bKFMZDvUjosgY?=
+ =?iso-8859-1?Q?dv2nbG2AS+yl35zg4ahBenpD3SBymiMcI/salahyw9oPmBMnP3/w/nKBAN?=
+ =?iso-8859-1?Q?cIx7LnuHlrP8opTTsc+yKLiOJuW+5odd+1kT4L+dpF3C1gsnAXn4nGU64T?=
+ =?iso-8859-1?Q?0kDHcnFzKEGeYk38ZutSxOhpoNLDcKbJhmLszbjVKJne71qaniqajfcaZP?=
+ =?iso-8859-1?Q?yCtw1HPox7ia2c1SEQFUuZqdxuCsnsugbSwhtDT02WEhgEuOCjAcPxp55I?=
+ =?iso-8859-1?Q?g+QgncKQvF8OQcI8UToEIuMIrvXHfL05YEjjzk30rYlMwxGBXHvBWo6rsm?=
+ =?iso-8859-1?Q?Lm5K+CBR3ckulyr//34xfMpsNlEhF2vpjwdrPN/oC4Ka1Y4OAn6kuwr2EL?=
+ =?iso-8859-1?Q?DzboqAovaOCe3OZdwSFnUGhULy1DacbkGDIMkpEKHnbFWgwkdVr/UygFex?=
+ =?iso-8859-1?Q?kgnvzE9LQDAYvGB//bKjyxz0ilDR8mRC1oV8xqynfRgDg4CKv/nsohmWWw?=
+ =?iso-8859-1?Q?RHjJVLsLVspFx6OjlClF/Q1GCU6LCQEfOiHtfWDOj1wak6QrjoHi8USeK4?=
+ =?iso-8859-1?Q?ZWrs8J3+2XSbNe+ajNSkR6Tjac3viVE/s0BljfLmbPxTJKPkiAzITFmt8F?=
+ =?iso-8859-1?Q?O1ecl46pE8lKYV0banoFm0WxnyjooJnoUkKdw3m/+Pjg5lUMN/1GHjHOzS?=
+ =?iso-8859-1?Q?gNG130vFQzCU6mNqfVEXAd4rnOPwoHJW/tFy0bc4EpU49uZiUHFOrTYeXW?=
+ =?iso-8859-1?Q?xTCfMoHvS3tn25/s7wVrwXbIOv5wl7YD8fM4qjTAYdrV9XHQK258nLJh6X?=
+ =?iso-8859-1?Q?Odq5G4SbKL8mtd51ip0f3SdxjLC9Lgt3D95hFyIcSWe7yesfJAN//ac3Vb?=
+ =?iso-8859-1?Q?VQQMg0a7HC6paiSPZRN4kW/ib6Zp3wJISiyuM750lJMQCaZNSTGYz2FM9x?=
+ =?iso-8859-1?Q?5uPL5FlDemRBaZm7TMmXkeGbHV1MgkocrHfdr36HaSKijsTDqj36R7P+YS?=
+ =?iso-8859-1?Q?jgPbPT+5D5v5Y4AkLnDNUChdi/G1LcvfX/T1XpTCMeZG8GNmjJkV+yzptE?=
+ =?iso-8859-1?Q?T8mSZdB4iH5u1a+VRNfY+e?=
+Content-Type: multipart/alternative;
+	boundary="_000_GV2PR06MB10578E972AE8FCCC5162C6092B361AGV2PR06MB10578eu_"
+MIME-Version: 1.0
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-73c48.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR06MB10578.eurprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09da3055-771c-40a7-465b-08de6b3d22c0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Feb 2026 20:19:05.2771
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR06MB9285
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjEzMDE1NSBTYWx0ZWRfX79HfnvtCerQB
+ 2XRJLGDrN+GdL+c0JwxrVAhTwHRgVoz1bRh0zr1vFDmAy18F6C7qk9a3O+fwuzusSBvzf38UhnP
+ EPb8R0X2RaNRaXvAUAeiQNcm8ie3oJc5QxKKUNe/I5mJQCpIFhYWBEFCwcjAFrcQDvC/ZN2b3v8
+ vfv50E4zVuTUXvIBIC2kQ4u/9TrMByvusGZ41t2cnshc/G62O550L/8J9bTAKrDufH4n31QyB05
+ OOE9DIS+EMoURNJ2Pwfav0QY3avGLIwyck2OeiN+e/z+LjGYeyZ+5KXiV23q5xenxcvNq9Kj8kk
+ IgEc3QiqKSrYf/zKBVXQBIRApCm5T0E/qZysBJpYL6hdlVFgdHV2XekFFHsOe4=
+X-Proofpoint-GUID: 4n8-fliaYw1T2II_ByPW0QisfZUrjxaH
+X-Proofpoint-ORIG-GUID: 4n8-fliaYw1T2II_ByPW0QisfZUrjxaH
+X-JNJ: AAAAAAABk2XPO7dB10GsqvZC55Ewa/TyiA/EtSdqSbh0QeubAyTzpGIVCKGu+z2jn1lpcGWeunuP3JNhV2JPsGIop4Vehank0Jts2Z26EjCN0yyDGZJX6eyb1fYbxaS/vLpe9LTchB4vj2SlyKZTkVvEwNfZR4UskODtNDg++VGwOe0y3uR2cxVuAf6GdPCqPNEOXfvGdQnjq0P3cA77qN+gQJO6nWYqSe9WFR0YYYzgzlj5KN8O/XRAKFx2Jyef/PBRRMlzzE+bqvDJ9bIHL5SKQ5l4ybEdRqgoEUGxT1wmQ29+jKDnRSKIe4MeKto00kRrbnTuvGAwnaKh7lJEuA7CTDVuSpuLEL6sYQgIuHpOfy5iv2VS8kd1ds+erjRNHNBmsy5sq0SzYG3RDnZR8AmUwyJEEaKlzSZD18gnG490MeOVpgppuXmjT8FM0lq0Y2yquj4GGItt7ZrY+34zHy/TgZVkEcIP10a6DYZyjG4jm7pO5BgL0Q4+PpDuJyLMMDgDPCEr5OujNmvOqmuTqBpj1gL/UyW7TvM+4OQy+tIncKu1+APMFoe3RNGyjhQnKahJrMP9hrT3x1CqazdSNvuSjJGPGAGvYGdgNwkrCyBkqB8xoFLtKbKDPk7l6hWA4BeBOVWa2bfSNe0D2GUooJ9F1ZURlKZxEiY1fUTDCsTAM0cfRRVtPXe5T338MCimf+zOJAhfVBbTgR6oNtTRU924XJVdjgWrP2iKSclytvDxVRksw/ASNWFnKjMaLNgZ44UAUUyN9hI7fSYPoJxZyWcC28qy7mWE
+X-Authority-Info-Out: v=2.4 cv=GNIF0+NK c=1 sm=1 tr=0 ts=698f8741
+ cx=c_apl:c_apl_out:c_pps a=T0mU/zd77MEem+zjWCBf6Q==:117
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=xqWC_Br6kY4A:10 a=HzLeVaNsDn8A:10
+ a=x7bEGLp0ZPQA:10 a=tGqCz8dwzVIA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Mpw57Om8IfrbqaoTuvik:22 a=GgsMoib0sEa3-_RKJdDe:22 a=w-OrApG7Vl7ZmdKa0xYA:9
+ a=wPNLvfGTeEIA:10 a=JTy8_6YkESqMrEgO:21 a=frz4AuCg-hUA:10 a=_W_S_7VecoQA:10
+ a=Uz9EnhuHEG25YKoRyM-d:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-02-13_04,2026-02-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=probablespam policy=default score=87
+ bulkscore=0 spamscore=87 phishscore=0 malwarescore=0 mlxscore=87
+ lowpriorityscore=0 mlxlogscore=-81 suspectscore=0 adultscore=0 clxscore=1030
+ classifier=spam authscore=0 adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2601150000 definitions=main-2602130155
+X-Suspected-Spam: true
+X-JNJ: AAAAAAAB9d+4J0jkyOHPVv/1ZASA+KHu4CEX/9+1mkmQoWYdw6D4sai7td8s9ga4JtJL5BwJbFaoBJ3ScPTBl4ipEMGWx17JYkv3ppzKth8Wu6xQSvHoUszZMDuQ37oj9c0pyByZzcgQq8frya/MioY7KlFTvTf/CIfodAU+prtIf/g+fAmHkJRpPOPNj7+VMixh9Y6vmM/yKpKHhoC8pd/A8cu3r1ZiHoRV4115aaOlg7iNNURw4YkdaqzwOBE5nJjKNDAZmAwpRg/amUmsmM2/Es3W0sQow7ju2vIFhy3mSJ7u49N9T3WaG0nNT5XE2LIPtYfI0kbXvA1pNYCLMpKo46HEGGMvDNygdf/gGlzLimRn14aQNA1yxYpDD+eyuQohZq1iPY4RRqdCaGrCbbd2uJ0xmhqo8wgngYz3GMul02fdeXrz9+UOot5m/0Q7aZK+71zmhrE0mPLTTNHOZwzHmLws1gbqxRaEQe9rurBfnM17bOoJnNTmBOFc90sIa5RBf1U+ed8gM+RO0uSrcDE5OX1Ff6gvOP9sEWkJIDcURfpudAn2k7fk2mTA5ggd2TsagXpQdFJ/S77aHJVijSGcmbcj7xowVA/WROJRIIm2RLgR92Cn7qzwHnDjkLMqHl7K0gQ4bJOibSeyN0KM9g==
+
+--_000_GV2PR06MB10578E972AE8FCCC5162C6092B361AGV2PR06MB10578eu_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Hi would it be possible to change my pic name from "flower harun celik" to =
+only "flower"?
+
+Thats my real name...
+
+Thank you very much
+
+--_000_GV2PR06MB10578E972AE8FCCC5162C6092B361AGV2PR06MB10578eu_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Hi would it be possible to change my pic name from &quot;flower harun celik=
+&quot; to only &quot;flower&quot;?</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Thats my real name...</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Thank you very much</div>
+</body>
+</html>
+
+--_000_GV2PR06MB10578E972AE8FCCC5162C6092B361AGV2PR06MB10578eu_--
+

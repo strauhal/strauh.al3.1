@@ -1,0 +1,200 @@
+Delivered-To: estrauhal@gmail.com
+Received: by 2002:a05:7110:4bc5:b0:2fe:ef9:d03e with SMTP id dg5csp3010004geb;
+        Tue, 17 Mar 2026 13:10:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=4; AJvYcCWeL35ecvqOezAZPqcmSyhLz478JHg1ye7Em6JdmlpA1l3dNBCP/6TT6kUVL+npDe+oI1O0eC9rt9M=@gmail.com
+X-Received: by 2002:a05:620a:3707:b0:8cd:8b51:8d03 with SMTP id af79cd13be357-8cfad38b04dmr126369485a.49.1773778216769;
+        Tue, 17 Mar 2026 13:10:16 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1773778216; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=ECxCz7jwPiE9vVpslpTAXFg7QXtLn90vyikSprjT30rIerN5ZrK/W3d+TIrJlVN3Fb
+         j11kcKFPbhKlNS9NoIGqAVkHgalH1dV5QYyot/JHFRvjdZYwJmrDTGdJvTZhEjNbL83u
+         vMzSahs4FDR1ATnr9L+CDb+tPsROJCDRFqZZTYMoOkbVEfnOF+mDVaYUCyd5J3wO/oOK
+         tip5B8jQ3/2/2e5MSsv84iO7KGbhlc8kx/4ansM9LX4zGyQooE8q6yqbau9UsU3UWC+1
+         rxQ8x/dakhy+YVqedGR/ipBJk3rwV8elAyTT0g575Tb2p3Q4VQgK57014u+FBznijQ2I
+         Uxzg==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature
+         :original-recipient;
+        bh=FTENCovQTLpKcMVYHoReXNz1gs2eUpP1vQunR6PNYmQ=;
+        fh=7IE/ytSGXT6hWg5MYW09AQztlqLXR7gnnHXGJUZJaFM=;
+        b=ZXZnQTC6crknJW+bob/4OuJrs5NPNqEDejWaBFTVPlA1ZWkX6OAEUZ37FGZEvtu7PQ
+         2wkWMHYyRb0IcOtgqosOSSBoz+jzxhjliSgcX36LKYp1gd3I1v5ZFCWdfOuOQvP6ud1P
+         OfH5w/lRv9p/IJLtgD5RoAOx4qyVzTe9k+kTc7EFhR2tk04KXuKHxIp0A7tJZk+rjU7A
+         +v50rP8q58EXWx0bUrExFLHTwillHk68XyM9LNB68hJiCpdTxY4oqsg0LSpInTTAWi8+
+         LX4ZJSnrmh5oi9qpaVvgYoNirSwYwjezM/1f1Szt3ABWLPo/V5RIvKX7BIJHodjyCfxh
+         VxVA==;
+        dara=google.com
+ARC-Authentication-Results: i=3; mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=IXRi3Q7c;
+       arc=pass (i=2 spf=pass spfdomain=gmail.com dkim=pass dkdomain=gmail.com dmarc=pass fromdomain=gmail.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.88.216 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=neutral header.i=@gmail.com
+Return-Path: <ernest@strauh.al>
+Received: from outbound.ci.icloud.com (ci-2002i-snip4-5.eps.apple.com. [57.103.88.216])
+        by mx.google.com with ESMTPS id af79cd13be357-8cfad2c3643si93492685a.401.2026.03.17.13.10.16
+        for <estrauhal@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Mar 2026 13:10:16 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ernest@strauh.al designates 57.103.88.216 as permitted sender) client-ip=57.103.88.216;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=IXRi3Q7c;
+       arc=pass (i=2 spf=pass spfdomain=gmail.com dkim=pass dkdomain=gmail.com dmarc=pass fromdomain=gmail.com);
+       spf=pass (google.com: domain of ernest@strauh.al designates 57.103.88.216 as permitted sender) smtp.mailfrom=ernest@strauh.al;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=neutral header.i=@gmail.com
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-10-percent-3 (Postfix) with ESMTPS id 611621800F2C
+	for <estrauhal@gmail.com>; Tue, 17 Mar 2026 20:10:13 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; cv=pass; d=icloud.com; s=arc-0513; b=XeF9SSz8WM8PTE126k96OzOFOpw6T4RZxyiQXHRdHYY6xDajDvb8UyNbBhuuszL+UN88s06/8/nrvYM5/is+EmGwewHc3wMqMdIz3rHZFRZf6HasxaNHnpi5WASZATVT8gqLv6unjE6DeDskxIC1I5uMzRh+4FEngqdgOlfdGqNPagFyhl6NV3tDfyxkBdMxCr7kHpFb9ijh2EoZERTnWLcnulAU0fwmCAunXCxcID3vSrbnOuhJqf6J3DsK4YapPtU+JKoJSdAJ4JCxOtdpvGGpS+JJ8cK7aFl/wyDwP3wElklGsPpnDpq5+rcohTZ2F5roSNXTJA42jCbJc4HqOQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=arc-0513; h=from:to:subject:message-id:date:mime-version:content-type:dkim-signature; bh=FTENCovQTLpKcMVYHoReXNz1gs2eUpP1vQunR6PNYmQ=; b=c6PBXU3a+pELByyRmSUNoGQK8eJU5LuXcIzJrNUggTGJVzabVjAZiuCwmbecAdZMepdyWsuXR7uvU16xIYqd7BAvVMoLGciwykDFSDwXA6C/svhNumNUmC6Ire/GgsR2cw+8N8mfFT/ir5Yc0T9idHwAA6lqg1ymtxzsaqbewf8LJfxAd+3ukGxnVG/uBmESAlRky2vFOZ0RLHsOIB6DM9WEILF7bdJCrdnWHy1kqDEyTOQlhX6vCdBp5yeBllTZjlVR3Bc0EWoqCBk5I+q8Vt1OfElFjpMeH33naXEeT3CLvjnXhsCsfgh+YqVaae5h4+gcmTwVCitTvNSlIJ1e3w==
+ARC-Authentication-Results: i=2; arc.icloud.com; arc=pass; dmarc=pass header.from=gmail.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=IXRi3Q7c; spf=pass (spf.icloud.com: domain of krshoemake@gmail.com designates 209.85.221.45 as permitted sender) smtp.mailfrom=krshoemake@gmail.com
+Received: from unknown (unknown [10.168.160.104])
+	by p00-icloudmta-asmtp-us-central-1k-10-percent-3 (Postfix) with SMTP id C1BAD18004FD
+	for <estrauhal@gmail.com>; Tue, 17 Mar 2026 20:10:12 +0000 (UTC)
+Received: from p00-icloudmta-smtpin-us-west-1a-100-percent-10 by p162-mailgateway-smtp-77874766c6-gvg4c (mailgateway 2610B131)
+	with SMTP id 93029111-9259-4bd3-97ae-26e413bd588f 
+	for <ernest@strauh.al>; Tue, 17 Mar 2026 20:10:12 GMT
+X-Apple-Action: FORWARD/estrauhal@gmail.com
+Original-Recipient: rfc822;ernest@strauh.al
+x-apple-request-uuid: 93029111-9259-4bd3-97ae-26e413bd588f
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	by p00-icloudmta-smtpin-us-west-1a-100-percent-10 (Postfix) with ESMTPS id D5CF6C4652B
+	for <ernest@strauh.al>; Tue, 17 Mar 2026 20:10:08 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQFUVUKE0oWX1gHVQoPB0UCBltbQVNZSgIHTEFMRhIcDV0QBhEJEhVRXQc1HgsWEVwYARoURhEcDVEPFBAKWRtfW0IHGlsSCl5TEQE5FQMKUUMKWxgKVxBVWg1IFAceFB1BEERUAENNHlENGh4KElZTWQ9VCRIFRV1XCxlUEQVJHVBWQFcBGBdXWgdbGgkaWFRSXxIUBx4UHlUNGFkLHhwNCiE0PRcFElpCBQchEwEMCGw9JEtbMTJ3YzotS1AkCQEHVBYLNQcPd2YQJRoSQy5kezoEOCYaGVlaTBIUBx4UHlUNGEc=
+X-ICL-Score: 2.33303322433
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=pass; id=mx.google.com; r1=-22; r2=1
+Authentication-Results: arc.icloud.com; arc=pass
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=gmail.com
+X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=IXRi3Q7c
+Received-SPF: pass (spf.icloud.com: domain of krshoemake@gmail.com designates 209.85.221.45 as permitted sender) receiver=spf.icloud.com; client-ip=209.85.221.45; helo=mail-wr1-f45.google.com; envelope-from=krshoemake@gmail.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of krshoemake@gmail.com designates 209.85.221.45 as permitted sender) smtp.mailfrom=krshoemake@gmail.com
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-439b2965d4bso4354581f8f.2
+        for <ernest@strauh.al>; Tue, 17 Mar 2026 13:10:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773778206; cv=none;
+        d=google.com; s=arc-20240605;
+        b=cv+vBofgzSUPHb4QJRPgoxzmbYGDQr4rUpWptZVZTuORi2oEQEnWntutlteel6sKQn
+         zLOtUFwSQstyMKBLn6WVlnKZx5INqkIaHp9Ftu0d6+DgIBqfo4D4xkTBJfietZwUXOF+
+         bmZhCaL7bTOHLxVRx5oA8riGgF0bkgsQRvugh7U13g1ChQWrdWFhijsfaL9FfCPYQH9L
+         SjKM+BNTR9U+xBFdSu5nuX0mrtduSorI/0auCfULVppGU4q8MSBDj/w5cnZ2JRXGAtM1
+         cBoXXvush3blJymBme3/tieEBp2IN6L/Of6JYDmZDyvvz6OU8/U2Z+ZQaFV6yznBY730
+         AgkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=FTENCovQTLpKcMVYHoReXNz1gs2eUpP1vQunR6PNYmQ=;
+        fh=7IE/ytSGXT6hWg5MYW09AQztlqLXR7gnnHXGJUZJaFM=;
+        b=iG6RA+1OckgggF2++oGylUjfxGW/HDVCicGzQpq+Eu9aSDlhAiUdk4DKz2wD1IOoGC
+         EoXTY9ZSniMOED/dITNkDtw7Lx9CUkOo4H8t+iDVTRsmIRK1GWmMa6W2regcT8dR1DGM
+         GieIL3sh3ERfb9RQnopE28eZ1EhZHe9OgxH8WtwVqPhgt+TL0CfdekLFCt83TBLMaHKh
+         FlskHdreiIAL++f2brelAAvlp9lEDZnpt+vEyJgyd4AcMgofNt+wKBeEaBJ/2kO6REWu
+         GbqcIZy9OENvfWt8uG9msDNJmkdylQ+hNsNERfpVsNwsTvEONs65Q9XhmqRTLFs42ewa
+         1b1w==;
+        darn=strauh.al
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1773778206; x=1774383006; darn=strauh.al;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=FTENCovQTLpKcMVYHoReXNz1gs2eUpP1vQunR6PNYmQ=;
+        b=IXRi3Q7cnvb+OTHttXtivI8psIFmmvibkzEBvGVVAw6aKXXtlhHBj3+b+/0WspMgS3
+         tM/G22OfAOOfgwCrp2AUJXxtxN9TW4TamZfz4MOMWhQTt9y09DX4KMdNKN6eeelWPtnX
+         U6y49RF9+GeF21nJdNqy+IssGFoDfOP1q9iIPVOra7RrPYTTDjOKl6vYAA++UgihJwHG
+         l5X5jgP4krJr4yTiHPRhmQu5EyO6XpIEAURxxSB6G32i+v29+iHWcyOloTdDQHg3yVZc
+         +tRkYNHguYrvkMXFBBxViv3G88s6E8kcGaCeWDDAhk5jSjq/Ri92QtWgSHW/nKBP7R4w
+         NfFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1773778206; x=1774383006;
+        h=to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=FTENCovQTLpKcMVYHoReXNz1gs2eUpP1vQunR6PNYmQ=;
+        b=D6fTz7yIeYnXOpryvvAukyStJhrO/K1u18OPr2Xi82teiMGyx9HkhSAt9d+8fs++tQ
+         7oq6FR3oXbLfu1xOwoHbAxlTJ6tou5BDJxm0AaXB/uZhhhElQFBglQZ0zvMYm0jZ8jdr
+         +RBfh9TURRZ5CHj66cEsvJM2Opcfme9oYbPgUinrDM73kROlwRz+E37jZXQWDQ650sk9
+         7tRevJS/Xml7h8ljvFEM3DSkVmkLuWezy1Cxl6BO/OtU1EgB660/jdm5P0FKuL4xUMrt
+         dvgnFttzyhXmd9yoWjeqEJRgI/MbbIbfE5pMyUMa8yNPqG5kBqXDqd4ZJZGvwy7I9TZP
+         9xog==
+X-Gm-Message-State: AOJu0Yzd91eZaad8BnwYD8DK38Y1pHAM3GBpr65athwYN3m9jmWMGCXa
+	PWBwbOyAx2mNXq2z2qSoVvy/g4YuOERt9JTRDpOZgK1yxW8uL0f8O5eGYiGRO7+WHpWxhsbYpCk
+	YkRaSKt7AiFRiSRZGjjUop58aipn/2ySTbQ==
+X-Gm-Gg: ATEYQzwQ9VJmVVTlPut2rK00wxZpSXLnjuuM2lO68QTeabGgIztt380R+iIvXygvjYA
+	fmkOKk/t7c0QjUH3YgaeoqmiCJ9LBouMDQawSV5RfhPEcJB63lNOdQecezS9gwcx/gQtakEJI94
+	rPVF858R+N1OKFCNrcKdJX7u7xCMsKrYGyhXX8shMYjTv3nLCp7WrZJ63v4oa5OuPzrhGTph2I2
+	COSjcDzOUMKHfsFaFQKxpFZDPdlzYWNtDl36uvqq1awih2wRcJJHMZXwleh6XgzTJt/kLjgh54h
+	Yk/+3x+fFyPOYLJgtzlb8GBXMnHz7N6yicoQHA==
+X-Received: by 2002:a05:6000:24c9:b0:439:fbbc:d593 with SMTP id
+ ffacd0b85a97d-43b527c549bmr942662f8f.27.1773778205755; Tue, 17 Mar 2026
+ 13:10:05 -0700 (PDT)
+MIME-Version: 1.0
+From: Kace Shoemake <krshoemake@gmail.com>
+Date: Tue, 17 Mar 2026 15:09:49 -0500
+X-Gm-Features: AaiRm504Vb3Zl3sAVHXREwmzwgg1aXBemnCpQg1RqLNurXmJqohFZi3c_ys5VWY
+Message-ID: <CADqrjjtgrXuvt8Z_Q2=FJGUXX26Sq116crSpwGPrPct4VTMXqA@mail.gmail.com>
+Subject: Broken Link :)
+To: ernest@strauh.al
+Content-Type: multipart/alternative; boundary="000000000000dd4cfc064d3debf3"
+X-Proofpoint-GUID: q1lfNHz-MFfbNc8K2PzyfMMtQ91D6pTW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE3MDE3OCBTYWx0ZWRfX7hS4qmdYFSIO
+ f6BlWGOOsuc5E7Iefkx5JkDLmFP/V0r0R8gl8e5Cn+uKCh5GjffmDpCGNyMe2nDG0poMFiFR4ip
+ nuTAEqhRtc12HRFbc6/sIHdsDXRKfCgV5h3mP9cx7p2m+mLFcTVALZ0kV+BaTWIW55bGQZba4yP
+ mPmn6RLp2idvqxX/tQM3c1lxaqmwLahX7iP/y0WEg+5CJ785T9YOqdNorIPenutTe4IxhekpNsd
+ /QiyWIQq0nd+V82yBq+LIbZSptYM/bMx8NB/oX4INpw4k48c6ntuzRxoesa0tpwuU+wft20yFcc
+ KbJqe6hjW0ukn5/iS7beoBj9bQI7PRC7zZNoiSaYMtKGAmhUynQxeWIYFJTQx4=
+X-Proofpoint-ORIG-GUID: q1lfNHz-MFfbNc8K2PzyfMMtQ91D6pTW
+X-Authority-Info-Out: v=2.4 cv=Dfwaa/tW c=1 sm=1 tr=0 ts=69b9b525
+ cx=c_apl:c_pps:t_out a=T0mU/zd77MEem+zjWCBf6Q==:117 a=Yq5XynenixoA:10
+ a=x7bEGLp0ZPQA:10 a=rgKUDq7ApkYA:10 a=95EFz5htlIgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7vDGY0IZAAAA:8 a=n7JigC-miNzp_YF8E8wA:9
+ a=QEXdDO2ut3YA:10 a=tKduxpFpAAAA:8 a=Kzy_xUlEjZuTbFN-YPEA:9
+ a=N445UDNM1bTPe2Dn:21 a=nSQ5VAfR602qW9vLZnAS:22 a=d4dXUV6eZJzrS-FD2bfw:22
+ a=zGhZ_f1oTUEa81u3ub5m:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-17_04,2026-03-17_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=probablespam policy=default score=59
+ suspectscore=0 malwarescore=0 clxscore=1030 phishscore=0 bulkscore=0
+ mlxlogscore=-15 spamscore=59 adultscore=0 lowpriorityscore=0 mlxscore=59
+ classifier=spam authscore=0 adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2601150000 definitions=main-2603170178
+X-Suspected-Spam: true
+
+--000000000000dd4cfc064d3debf3
+Content-Type: text/plain; charset="UTF-8"
+
+Hil friend! LOVE and so deeply appreciate your strauh.al site more than I
+have words for! It feels so pre dead-internet. I noticed the links for the
+Torah and Vedas are both broken and was wondering if we could get thos
+eback up by any chance, as my partner studies religious texts and this
+would be INCREDIBLY for their studies. Cheers, and thanks so much! What a
+rad project, seriously.
+
+-- 
+Kacey Shoemake | She/They
+Graphic Design + Creative Direction
+
+*(636) 541-8847*
+*www.kcshoemake.com <http://www.kcshoemake.com>*
+
+--000000000000dd4cfc064d3debf3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hil friend! LOVE and so deeply appreciate your <a hre=
+f=3D"http://strauh.al">strauh.al</a> site more than I have words for! It fe=
+els so pre dead-internet. I noticed the links for the Torah and Vedas are b=
+oth broken and was wondering if we could get thos eback up by any chance, a=
+s my partner studies religious texts and this would be INCREDIBLY for their=
+ studies. Cheers, and thanks so much! What a rad project, seriously.</div><=
+div><br></div><span class=3D"gmail_signature_prefix">-- </span><br><div dir=
+=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div =
+dir=3D"ltr"><div><div dir=3D"ltr"><div><span style=3D"font-family:arial nar=
+row,sans-serif">Kacey Shoemake | She/They<br>Graphic Design + Creative Dire=
+ction<br><i><b>(636) 541-8847<br></b></i></span></div><i><span style=3D"fon=
+t-family:arial narrow,sans-serif"><b><a href=3D"http://www.kcshoemake.com" =
+target=3D"_blank">www.kcshoemake.com</a></b></span></i><br></div></div></di=
+v></div></div>
+
+--000000000000dd4cfc064d3debf3--
+

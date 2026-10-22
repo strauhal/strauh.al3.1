@@ -1,0 +1,139 @@
+Return-path: <aschweitzer114@gmail.com>
+Original-recipient: rfc822;ernest@strauh.al
+Received: from p00-icloudmta-smtpin-us-west-2a-60-percent-29 by p162-mailgateway-smtp-c45f594ff-mbmnw (mailgateway 2606B152)
+	with SMTP id 86276ed3-0112-4fb0-81e6-469064e04ebf 
+	for <ernest@strauh.al>; Sat, 7 Mar 2026 02:58:11 GMT
+X-Apple-MoveToFolder: INBOX 
+X-Apple-Action: MOVE_TO_FOLDER/INBOX
+X-Apple-UUID: 86276ed3-0112-4fb0-81e6-469064e04ebf
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	by p00-icloudmta-smtpin-us-west-2a-60-percent-29 (Postfix) with ESMTPS id 24975C000CF
+	for <ernest@strauh.al>; Sat,  7 Mar 2026 02:58:08 +0000 (UTC)
+X-ICL-Info: GAtbRVYDBVFFSlVFSgQFUVUKE0oWX1gHVQoPB0UHAkxES1NZQAIYV0dZAxNFUUUBHQ4DHgxKUxBESFI3H11XCxlXBRgVEFAGSB4LFhFcGAEaFEYFGw1TEBscFQM4Q0IQFAwOWRlcFgoQFQlKFVFfDlgdCkZVVgNQWx4JGB9cU0wWFgtXCEREXxgYDxtVVFpTWB9TRVZXWQ0SFQNZG19bQhEdWxAVUV8OWxoJGlhdXwZIRSU2KElOJwITDSIpAWUlDCEHNRVZQC0kTT8lHANvABQJUBACBAAEHjojLRp+BlIWDjcTD3BbAxwVSBAVUV8OWxoJGkY=
+X-ICL-Score: 2.33303322433
+Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
+X-ARC-Info: policy=fail; arc=pass; id=mx.google.com; r1=-22; r2=1
+Authentication-Results: arc.icloud.com; arc=pass
+Authentication-Results: dmarc.icloud.com; dmarc=pass header.from=gmail.com
+X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com
+X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
+Authentication-Results: dkim-verifier.icloud.com; dkim=pass header.d=gmail.com header.i=@gmail.com header.b=mV1JXpNC
+Received-SPF: pass (spf.icloud.com: domain of aschweitzer114@gmail.com designates 74.125.82.52 as permitted sender) receiver=spf.icloud.com; client-ip=74.125.82.52; helo=mail-dl1-f52.google.com; envelope-from=aschweitzer114@gmail.com
+Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of aschweitzer114@gmail.com designates 74.125.82.52 as permitted sender) smtp.mailfrom=aschweitzer114@gmail.com
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1271257ae53so11995048c88.1
+        for <ernest@strauh.al>; Fri, 06 Mar 2026 18:58:08 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772852287; cv=none;
+        d=google.com; s=arc-20240605;
+        b=LpcWye4Of7vUFa2SpxVHWq/R7plq3mAEYg5kycH5XzOIVJUXDC5RB0qfoMHDcpJSOV
+         wRytRK5+HQb6CUhf3t24wIe3xY/Iw2BVb3iXLa5JkjiyE9T0pSdeTXfvaqyNSenMioiI
+         J23m4AePWYFPsGvOBb1begVQzuCesgUsJ0yhC6UYPMBJKuuHeCvKZR598VgWyYzOddEz
+         LTCfq3cMVl3Vzflx8xZxNc4KpXg5FAJv6X9xXZmjFnxWalIz82xiYAG7An68Cj6ur1hf
+         SsgtZpRTX2r4APssgFm+rAs8nIRZrRb82Dk1vsTmER9EIPNqsCKTxK2fIjqoNnUiDZf/
+         pIuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=2fSmNGQD1SyUsbjq/4VUrOafOKpNOPsDuDgL/zF9ZUU=;
+        fh=7IE/ytSGXT6hWg5MYW09AQztlqLXR7gnnHXGJUZJaFM=;
+        b=R9XKwLGJiQh4LalisOCyvOPiG57Y7/zherI+uW7xW9fBmVD2cpTbG3B5HHAC9PCsMT
+         EGmvRUULrCmrprk2MqjfBAvLw6nL3cxwAxmC7ivyyk7pXfHQm7xYC4pNj39Q0auLUvD6
+         zzrHUfXRQ4c2RpiB2x+C5Zz0iYT3bc/jhxv9meoJLc4OY3ZeKndAQVIYQc1N60BY4jMV
+         BbFlVgPAa3ZKuJagInkF3OCiGXZ/4pX1y+GDf6amtmzALy52COA3mKdfVkB3Idqq+5Yi
+         dVH76UFYWI7flZaNXVzzofhDg+u1Z/PgD/KpLE6g3l4S4ca41QU0gtk8jKMiuNlHOxAR
+         PrBQ==;
+        darn=strauh.al
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1772852287; x=1773457087; darn=strauh.al;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=2fSmNGQD1SyUsbjq/4VUrOafOKpNOPsDuDgL/zF9ZUU=;
+        b=mV1JXpNCORs/VoYMUJ8kUJlYTpWA23vyxBiuLV+As0KOAgOP4nJob62/+00QD5YrNH
+         dlxUxWpibFxwtifADJ0C5muZCyJC1cx56VK3osRswssv9/y5HXATfmmTOn/9apu3vcC8
+         PLteiwUtHOjv6sUmF9/LduLxGx30un3TC783NZRJurpU4UEpJLlh9jeCGlkwbWuPxQci
+         L9QJGnsZ1/G3xhSL3Inj/ws/JfPqhsM5qHfYr9kuxdDL4fMEVf6NdKQkrdXt3WprcUea
+         hyxPxH2UILGXMTKToYhkQiWASXhxmDh2rYWLbiSLnSHfydrjsDQ3U0IqJX6QwYG90MCE
+         prOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772852287; x=1773457087;
+        h=to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=2fSmNGQD1SyUsbjq/4VUrOafOKpNOPsDuDgL/zF9ZUU=;
+        b=okoKQ+kfZn1p1TM/mzEdj0DNbdpyNFYXBPKkCHEHLQEKMzcfHvipvxgEUivQHqBF0q
+         QmoqCJWIc4GbHpl6WbmPjz0dA1q0lIS85yocv0pCEy2WwEhiHn8abeoCMPLnuIjo3HNN
+         7Eo/rI8annFybReBfAO5X4MNreRoSyTMft3qgxtViNtpwjmkbS+oh5/I3uJFnBOw5q2U
+         OaMD1BqNH0krwsXgIhvOXTeJLXSlfLGh9Xegr3R2UJlVSXBeNafjtMrheSKP8BuCMw6y
+         9jCGc/SFWYsu19MLnOpXM3n8p1F1qocZPOPdCnGOL96w9QoDd/kFu1ok1W9AaWLtg1oB
+         cRCQ==
+X-Gm-Message-State: AOJu0YzCHRBdA2q8VlI0fWJ1STwE5n2mmOQ7gnkBjmu0RyPzmNwye44f
+	ufxO45zPTEY4X3ZHMHhcS1pTOpA99dmFc1iZD2FvzhO5klYw3wztXAJOXb+oGhD4GDOhEDdUL30
+	G/VR4SRhxhgNNFdO7ynYGnNHNex6Nqbf5rvS/vOg=
+X-Gm-Gg: ATEYQzzb8NNjCvDvS3PCB4wPgxvGR/FRT5bAH/yrxSX43SY8YqKXlaSyoQMD4SJHoBS
+	HKr4xAejDduNBBtcVxT2Jr/1p9SL+Bo6rvIaJ+fglzj6MvvhZdbC1HpFc2vnOX9p0p+CV2hnPWQ
+	PBv44FSuJXTNwmKecRdgvn7vj5T8VAHvsb1K6qfzy71JWWYYh4tOIg3TvKJPXk/f17VJisoo1Wh
+	sFRGybp8kANnVUZ3FOxVgPnAIh6Y6zniRKQ/xU6A3/5rq9nebvb2cABAmzjtjVYAlljegN/cxbB
+	99SNDM3+Se6wVa9VHgCY3lHcOcmhlAmEaWM7/ZYk0+5JaNsVT1qKigQfJmbySxmNORpyQKw=
+X-Received: by 2002:a05:7022:426:b0:119:e55a:9be7 with SMTP id
+ a92af1059eb24-128c2d9b12emr1517996c88.3.1772852286961; Fri, 06 Mar 2026
+ 18:58:06 -0800 (PST)
+MIME-Version: 1.0
+From: Alexander Schweitzer <aschweitzer114@gmail.com>
+Date: Fri, 6 Mar 2026 21:57:55 -0500
+X-Gm-Features: AaiRm53UvK9Dg7Eksf1sp8mOv_sPghSo9idrs2Y0NMhwmvYpBoFTBGoxjKEzpbw
+Message-ID: <CAPyxEwjkUQ1SGyXaBmivOQ4YRd3Ybap6gz46fkCEZbN00cwQdw@mail.gmail.com>
+Subject: Website Bugs
+To: ernest@strauh.al
+Content-Type: multipart/alternative; boundary="000000000000cdbfc6064c665629"
+X-MANTSH: 1TFkXGBoRCllEF2VmWntQTHMZfmJuEQpZTRdkRURPEQpfWRcbGhMRCl9NF2RFRE8
+ RCllJFxkdcRsGHR53BhscBhoGGgYfHAYacRoQGncGGgYaBhoGGgYaBhpxGhAadwYaEQpZXhdsb
+ HkRCkNOF2FyT3B+SxoYfm1zG3JecERtWXhGSVwbHWtDWxt6QBxoEQpYXBcZBBoEHx4FGxoaBB0
+ aBBsTEgQbGRAbHhofGhEKXlkXTR5+QEkRCk1cFxsbGREKTFoXaGlNa2sRCkxGF01rEQpDWhcdH
+ gQbGB8EEhgEHxgRCkJeFxsRCkJcFxsRCl5OFxsRCkJLF2NTY2t7E1h+Gl9eEQpCSRdjU2NrexN
+ YfhpfXhEKQkUXZXBmbWRfWHpiG0MRCkJOF2NTY2t7E1h+Gl9eEQpCTBdgYH1FTk0YXH9FYREKQ
+ mwXZnhTR04ca29If2MRCkJAF2B/Y0cZYk16bUQTEQpCWBdkfnMcH1pkZl5gRxEKTV4XBxsRClp
+ YFxgRCnBoF2tQXHMTWXNuTxNyEAcZGhEKcGgXYx8af11he39bHVwQBxkaEQpwaBdrRngeQwVCW
+ GdHQBAHGRoRCnBoF2NafRlFBUhnHHJlEAcZGhEKcGgXbnBuRUxHZhtQaWQQBxkaEQpwaBdiY09
+ OGF0cGmsabBAHGRoRCnB/F2JGRlxhRFBBWxh/EAcZGhEKcF8XbR1mZ2d/cxxEZFgQBxkaEQpwf
+ RdtGHhJXUgdUFlachAHGRoRCnBfF2Uaa3BoGlh8U2RtEAcZGhEKcH0XYn5vemRBcmRCZhIQBxk
+ aEQpwXxdhSWtdXhpcXEVzfhAHGRoRCnB9F25ZTHNtfk99EnNvEAcZGhEKcH0XbRh4SV1IHVBZW
+ nIQBxkaEQpwfRdifm96ZEFyZEJmEhAHGRoRCnB9F25ZTHNtfk99EnNvEAcZGhEKcGwXbUhFBV0
+ cbEsfHnMQBxkaEQptfhcHGxEKWE0XSxE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA3MDAyNSBTYWx0ZWRfX3Uy1oBgn6LpB
+ nauxhS2I6k+KAjyKkbbmdnBM7ywTjXpPDzIX9Sr596aZZqzU0Z7VKv01CCULgvfft46fGfR7KGh
+ Ycxw+dbfsGJplpsb7g3ruRsWs54zafVuKFsD40f+wx+tKVdg+GJai+L2XmYshDWgybmXB/Vl6Yr
+ I9FKbz3pWsrc4ijin0a81ScHHLB2H88Uwj5D9YXLlAnMScAPtvL+uanek/N8G/41HectQgBzfnz
+ 48vAG6n3WjuB5H85cKEiUvmod0KLIiIgTZvjeXqQhSTTe5ziV9V3plIId9Nzg3DdMoWLvBHjwxL
+ nVqNe4UASsvKaHQ4Udf
+X-Proofpoint-GUID: KXeZTa02TGY1XtZnGsRlcv17Aiq1Pj6B
+X-Proofpoint-ORIG-GUID: KXeZTa02TGY1XtZnGsRlcv17Aiq1Pj6B
+X-JNJ: AAAAAAABu9g5HatFqEMPacrYN7zzDEBrtnsz0eRM+wKdzZxdkPWSY2VL5cIT27mj4s3PM3mpOJFPpDZPSbp9dczIxGQStybvzVCzu3s0MXBhN6LNbLYS9JnYCBtjDKxQlO7xP3qCApKPkylA3p1qyfzA7O1VmQOwbC8vSvzQPzNWtu2RKva4UCIxBHuhoeXgcUqT6d2CKG8fg8Xafb3LB00Bv9r6wYgZDrnboJuWei9y5fE46KJLIroIvpbFtPsJtsLIq3lHqEzBmc62inKRvZzCHqtd07qZ0ZeBBn2rlg3+1SKyvyjB64FT1mtm4jsn2QMTLXyMUZ67gsoqltJBjYQjJMrZcUkxsUBdfU1Ke146z7ARuDKrGj+w3DeeWKmovyjIDRU6I26XmUtzUsatgqhve86y/xxphwfpJV/2VnHq7qmO+LrgxsxiihHczh5xxfiVoPe968QiALAIUoo6SN0WD0jJdv0ZqS2KWwAWJ+qI4iuJeB5fmr4L/YpHg8fksrCHslGPqRJR23Ac+M8VOTsRNyfb1Cx33yXda1U2fM73ZyJKJUej2Esw/XwO8Jv46AIbcCGaJkXxXRo6UbTiHk7XuIg70iAvCRqI3UBj7DJCbydGl5Ak5H7drHwI5ZVFOmQCulEDpSPAGMmVBXyeYphFZekwovvFUf8WHXsv32Ztq9m8OIDMPPrPZSKeuI0OL1ZEVIegqXQlNEv15ZnELYdpaWxl5EjQkgdYAdLOhAuA++r7NaMG39J08w0zCoQqFNy2VJT/mzQiyJGyu5uWUTbA0CqnrCZd6gssrt0wh3MJIFd3b8E=
+
+--000000000000cdbfc6064c665629
+Content-Type: text/plain; charset="UTF-8"
+
+Love your website! Thought I'd let you know the word charts for the guru,
+torah, and vedas under "/religous_texts" are all pulling 404s.
+
+https://strauh.al/religious_texts/guru
+https://strauh.al/religious_texts/torah
+https://strauh.al/religious_texts/vedas
+
+-- 
+Sincerely,
+Alexander C. Schweitzer
+
+--000000000000cdbfc6064c665629
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Love your website! Thought I&#39;d let you know the w=
+ord charts for the guru, torah, and vedas under &quot;/religous_texts&quot;=
+ are all pulling 404s.</div><div><br></div><div><a href=3D"https://strauh.a=
+l/religious_texts/guru">https://strauh.al/religious_texts/guru</a></div><di=
+v><a href=3D"https://strauh.al/religious_texts/torah">https://strauh.al/rel=
+igious_texts/torah</a></div><div><a href=3D"https://strauh.al/religious_tex=
+ts/vedas">https://strauh.al/religious_texts/vedas</a></div><div><br></div><=
+span class=3D"gmail_signature_prefix">-- </span><br><div dir=3D"ltr" class=
+=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr">Si=
+ncerely,<div>Alexander C. Schweitzer</div><div><br></div></div></div></div>
+
+--000000000000cdbfc6064c665629--
